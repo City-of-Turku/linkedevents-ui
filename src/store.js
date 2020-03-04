@@ -3,6 +3,8 @@ import {applyMiddleware, combineReducers, compose, createStore} from 'redux'
 import reducers from './reducers'
 import {routerMiddleware, routerReducer} from 'react-router-redux'
 import thunk from 'redux-thunk'
+import {loadUser} from 'redux-oidc';
+import userManager from './utils/userManager';
 
 export const history = createHistory()
 
@@ -17,5 +19,6 @@ const allMiddlewares = compose(
 )
 
 const store = createStore(allReducers, allMiddlewares)
+loadUser(store, userManager)
 
 export default store

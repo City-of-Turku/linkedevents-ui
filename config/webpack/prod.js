@@ -48,7 +48,7 @@ const config = {
                 use: [
                     {loader: 'style-loader'},
                     {loader: 'css-loader'},
-                    {loader: 'sass-loader', options: {data: "$ui-mode: " + ui_mode + " !global;"}},
+                    {loader: 'sass-loader', options: {data: '$ui-mode: ' + ui_mode + ' !global;'}},
                 ],
             },
             {test: /\.css$/, use: ['style-loader', 'css-loader']},

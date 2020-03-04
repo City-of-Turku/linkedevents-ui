@@ -41,7 +41,7 @@ export default {
                     {
                         loader: 'sass-loader',
                         options: {
-                            data: "$ui-mode: " + ui_mode + " !global;",
+                            data: '$ui-mode: ' + ui_mode + ' !global;',
                         },
                     },
                 ],
@@ -66,6 +66,13 @@ export default {
             $: 'jquery',
             jQuery: 'jquery',
             'window.jQuery': 'jquery',
+        }),
+        new webpack.DefinePlugin({
+            oidcSettings: {
+                client_id: JSON.stringify(readConfig('client_id')),
+                openid_audience: JSON.stringify(readConfig('openid_audience')),
+                openid_authority: JSON.stringify(readConfig('openid_authority')),
+            },
         }),
     ],
     mode: 'development',

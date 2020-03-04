@@ -46,6 +46,7 @@ class MultiLanguageField extends React.Component {
         ]),
         index: PropTypes.string,
         multiLine: PropTypes.bool,
+        label: PropTypes.string,
     }
     
     onChange(e,value,lang) {

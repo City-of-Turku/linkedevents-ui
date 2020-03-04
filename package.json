@@ -28,6 +28,7 @@
     "babel-preset-stage-2": "^6.1.18",
     "body-parser": "^1.14.1",
     "bootstrap": "^4.3.1",
+    "child_process": "^1.0.2",
     "classnames": "^2.2.6",
     "codecov": "^3.0.0",
     "connect-history-api-fallback": "^1.1.0",
@@ -53,6 +54,7 @@
     "moment-timezone": "^0.5.27",
     "nconf": "^0.9.1",
     "object-assign": "^4.1.1",
+    "oidc-client": "^1.10.1",
     "passport": "^0.3.2",
     "passport-helsinki": "https://github.com/City-of-Helsinki/passport-helsinki.git",
     "progress": "^1.1.8",
@@ -72,6 +74,7 @@
     "react-select": "^3.0.8",
     "redux": "4.0.4",
     "redux-actions": "^0.9.0",
+    "redux-oidc": "^4.0.0-beta1",
     "redux-thunk": "^2.3.0",
     "typeahead.js": "^0.11.1"
   },

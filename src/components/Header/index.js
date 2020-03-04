@@ -28,6 +28,7 @@ import {HelSelectTheme, HelLanguageSelectStyles} from '../../themes/react-select
 import moment from 'moment'
 import * as momentTimezone from 'moment-timezone'
 import helBrandColors from '../../themes/hel/hel-brand-colors'
+import userManager from '../../utils/userManager'
 
 const {USER_TYPE, APPLICATION_SUPPORT_TRANSLATION} = constants
 
@@ -77,6 +78,23 @@ class HeaderBar extends React.Component {
         this.toggleNavbar();
     }
 
+    handleLoginClick = () => {
+        userManager.signinRedirect({
+            data: {
+                redirectUrl: window.location.pathname,
+            },
+            extraQueryParams: {
+            // ui_locales: this.props.currentLanguage,
+            },
+        });
+    }
+
+    handleLogoutClick = () => {
+        // passing id token hint skips logout confirm on tunnistamo's side
+        userManager.signoutRedirect({id_token_hint: this.props.idToken});
+        userManager.removeUser();
+    }
+
     render() {
         const {user, userLocale, routerPush, logout, login, location} = this.props
         const {showModerationLink} = this.state
@@ -117,14 +135,14 @@ class HeaderBar extends React.Component {
                         {user
                             ? <Button
                                 style={{color: HelMaterialTheme.palette.primary.contrastText}}
-                                onClick={() => logout()}
+                                onClick={this.handleLogoutClick}
                             >
                                 {user.displayName}
                             </Button>
                             : <Button
                                 style={{color: HelMaterialTheme.palette.primary.contrastText}}
                                 startIcon={<Person/>}
-                                onClick={() => login()}
+                                onClick={this.handleLoginClick}
                             >
                                 <FormattedMessage id="login"/>
                             </Button>}
@@ -221,6 +239,7 @@ HeaderBar.propTypes = {
     location: PropTypes.object,
     navBarOpen: PropTypes.bool,
     showModerationLink: PropTypes.bool,
+    idToken: PropTypes.string,
 }
 
 const mapStateToProps = (state) => ({
