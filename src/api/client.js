@@ -8,7 +8,7 @@ let authToken
 
 const getToken = () => {
     const state = store.getState()
-    return get(state, 'user.token')
+    return get(state, 'auth.user.idtoken')
 }
 
 store.subscribe(() => {
