@@ -13,7 +13,7 @@ import {Close} from '@material-ui/icons';
 import {injectIntl, FormattedMessage} from 'react-intl'
 
 import {fetchLanguages as fetchLanguagesAction, fetchKeywordSets as fetchKeywordSetsAction} from '../../actions/editor'
-import {retrieveUserFromSession as retrieveUserFromSessionAction} from '../../actions/user'
+//import {retrieveUserFromSession as retrieveUserFromSessionAction} from '../../actions/user'
 
 import {cancelAction, doAction} from 'src/actions/app'
 
@@ -64,8 +64,10 @@ class App extends React.Component {
         this.props.fetchKeywordSets()
 
         // Fetch userdata
-        this.props.retrieveUserFromSession()
+        // this.props.retrieveUserFromSession() // ei haeta täällä
     }
+
+    // käytetään uutta fetchUser funktiota oikeassa reactin lifecycle metodissa.
 
     render() {
 
@@ -179,7 +181,7 @@ App.propTypes = {
     user: PropTypes.object,
     dispatch: PropTypes.func,
     fetchLanguages: PropTypes.func,
-    retrieveUserFromSession: PropTypes.func,
+    //retrieveUserFromSession: PropTypes.func,
 }
 
 const mapStateToProps = (state) => ({
@@ -191,7 +193,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
     fetchKeywordSets: () => dispatch(fetchKeywordSetsAction()),
     fetchLanguages:() => dispatch(fetchLanguagesAction()),
-    retrieveUserFromSession: () => dispatch(retrieveUserFromSessionAction()),
+    //retrieveUserFromSession: () => dispatch(retrieveUserFromSessionAction()),
     do: (data) => dispatch(doAction(data)),
     cancel: () => dispatch(cancelAction()),
 })

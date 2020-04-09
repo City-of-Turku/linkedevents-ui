@@ -1,5 +1,4 @@
 import constants from '../constants.js'
-import fetch from 'isomorphic-fetch'
 import {set, get} from 'lodash'
 import {setEditorAuthFlashMsg} from './editor'
 import client from '../api/client'
@@ -43,7 +42,62 @@ function saveUserToLocalStorage(user) {
     localStorage.setItem('user', JSON.stringify(modifiedUser))
 }
 
-export const retrieveUserFromSession = () => async (dispatch) => {
+/*
+uusi fetchUser funktio retrieveUserFromSession tilalle.
+redux oidc:lla on oma sessiostoragesysteemi, mutta muuten fetchUser
+toimii samalla tavalla kuin retrieveUserFromSession
+*/
+
+export const fetchUser = (id) => async (dispatch) => {
+    try {
+        console.log('user actions id: ' + id)
+        const userResponse = await client.get(`user/${id}`)
+        const userData = userResponse.data
+        console.log(userData)
+        const permissions = []
+        if (get(userData, 'admin_organizations', []).length > 0) {
+            permissions.push(USER_TYPE.ADMIN)
+        }
+        if (get(userData, 'organization_memberships', []).length > 0) {
+            permissions.push(USER_TYPE.REGULAR)
+        }
+        const mergedUser = {
+            id: get(userData, 'uuid', null),
+            displayName: get(userData, 'display_name', null),
+            firstName: get(userData, 'first_name', null),
+            lastName: get(userData, 'last_name', null),
+            username: get(userData, 'username', null),
+            email: get(userData, 'email', null),
+            organization: get(userData, 'organization', null),
+            adminOrganizations: get(userData, 'admin_organizations', null),
+            organizationMemberships: get(userData, 'organization_memberships', null),
+            permissions,
+            userType: getUserType(permissions),
+        }
+        
+        const adminOrganizations = await Promise.all(getAdminOrganizations(mergedUser))
+        const regularOrganizations = await Promise.all(getRegularOrganizations(mergedUser))
+        // store data of all the organizations that the user is admin in
+        mergedUser.adminOrganizationData = adminOrganizations
+            .reduce((acc, organization) => set(acc, `${organization.data.id}`, organization.data), {})
+        // store data of all the organizations where the user is a regular user
+        mergedUser.regularOrganizationData = regularOrganizations
+            .reduce((acc, organization) => set(acc, `${organization.data.id}`, organization.data), {})
+        // get organizations with regular users
+        mergedUser.organizationsWithRegularUsers = adminOrganizations
+            .filter(organization => get(organization, ['data', 'has_regular_users'], false))
+            .map(organization => organization.data.id)
+        // saveUserToLocalStorage(mergedUser) // tarviiko näitä tallentaa? -> hakee uudestaan backendista...
+        
+        dispatch(receiveUserData(mergedUser))
+        dispatch(setEditorAuthFlashMsg())
+    } catch (e) {
+        console.log('catch error: ' + e)
+        throw Error(e)
+    }
+}
+
+/*export const retrieveUserFromSession = () => async (dispatch) => {
     try {
         const meResponse = await axios.get(`/auth/me?${+new Date()}`)
         const user = meResponse.data
@@ -92,9 +146,10 @@ export const retrieveUserFromSession = () => async (dispatch) => {
     } catch (e) {
         throw Error(e)
     }
-}
+}*/
 
-export function login() {
+// redux oidc hoitaa tämän
+/*export function login() {
     return (dispatch) => {
         return new Promise((resolve) => {
             if (typeof window === 'undefined') {  // Not in DOM? Just try to get an user then and see how that goes.
@@ -117,8 +172,10 @@ export function login() {
         });
     };
 }
+*/
 
-export function logout() {
+// redux oidc hoitaa tämän
+/*export function logout() {
     return (dispatch) => {
         fetch('/auth/logout', {method: 'POST', credentials: 'same-origin'}) // Fire-and-forget
         localStorage.removeItem('user')
@@ -126,3 +183,4 @@ export function logout() {
         dispatch(setEditorAuthFlashMsg())
     };
 }
+*/

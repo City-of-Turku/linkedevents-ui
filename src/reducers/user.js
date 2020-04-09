@@ -28,7 +28,8 @@ function tryFetchingUserFromLocalStorage() {
     }
 }
 
-let initialState = tryFetchingUserFromLocalStorage()
+//let initialState = tryFetchingUserFromLocalStorage() // ei käytetä tätä storagea enää
+const initialState = null
 
 function update(state = initialState, action) {
     switch(action.type) {
