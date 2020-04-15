@@ -153,9 +153,9 @@ class HeaderBar extends React.Component {
 
 const NavLinks = (props) => {
     const {showModerationLink, toMainPage, toSearchPage, toHelpPage, toModerationPage} = props;
-    const moderationStyles = showModerationLink
-    ()
-    
+    const moderationStyles = showModerationLink && (theme => ({
+
+    }))()
 
     return (
         <React.Fragment>
