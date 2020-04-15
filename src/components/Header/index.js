@@ -143,6 +143,7 @@ class HeaderBar extends React.Component {
                                 <Button className='btn'
                                     onClick={() => routerPush('/event/create/new')}
                                 >
+                                    <span className="glyphicon glyphicon-plus"></span>
                                     <FormattedMessage id={`create-${appSettings.ui_mode}`}/>
                                 </Button> )}
                         </div>
