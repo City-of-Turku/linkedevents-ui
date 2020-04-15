@@ -97,6 +97,7 @@ class HeaderBar extends React.Component {
                     <Nav className="mx-auto">
                         <div className='bar__login-button'>
                             <div className='bar__language-button'>
+                                <span className="glyphicon glyphicon-globe"></span>
                                 <div className='language-selector'>
                                     <Select
                                         isClearable={false}
@@ -120,6 +121,7 @@ class HeaderBar extends React.Component {
                             ) : (
                                 <Button className='btnlogin'
                                     onClick={() => login()}>
+                                    <span className="glyphicon glyphicon-user"></span>
                                     <FormattedMessage id='login' />
                                 </Button>
                             )}
