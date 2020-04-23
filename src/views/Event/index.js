@@ -151,11 +151,13 @@ class EventPage extends React.Component {
         const isAdmin = userType === USER_TYPE.ADMIN
         const editEventButton = this.getActionButton('edit', this.openEventInEditor, false)
         const publishEventButton = this.getActionButton('publish')
+        const postponeEventButton = this.getActionButton('postpone')
         const cancelEventButton = this.getActionButton('cancel')
         const deleteEventButton = this.getActionButton('delete')
 
         return  <div className="event-actions">
             <div className="cancel-delete-btn">
+                {postponeEventButton}
                 {cancelEventButton}
                 {deleteEventButton}
             </div>
@@ -206,8 +208,8 @@ class EventPage extends React.Component {
                 routerPush('/')
             }
         }
-        // re-fetch event data after cancel or publish action
-        if (action === 'cancel' || action === 'publish') {
+        // re-fetch event data after cancel, postpone or publish action
+        if (action === 'cancel' || action === 'publish' ||  action === 'postpone') {
             this.fetchEventData()
         }
     }
@@ -221,6 +223,7 @@ class EventPage extends React.Component {
         const isRecurringEvent = event.super_event_type === SUPER_EVENT_TYPE_RECURRING
         const isDraft = event.publication_status === PUBLICATION_STATUS.DRAFT
         const isCancelled = event.event_status === EVENT_STATUS.CANCELLED
+        const isPostponed = event.event_status === EVENT_STATUS.POSTPONED
         const publishedText = this.getPublishedText();
 
         return (
@@ -234,6 +237,7 @@ class EventPage extends React.Component {
                     </h1>
                     {!loading &&
                         <h4>
+                            {isPostponed && getBadge('postponed', 'medium')}
                             {isCancelled && getBadge('cancelled', 'medium')}
                             {isDraft && getBadge('draft', 'medium')}
                             {isUmbrellaEvent && getBadge('umbrella', 'medium')}

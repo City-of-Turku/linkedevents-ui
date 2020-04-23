@@ -146,6 +146,11 @@ const HelSelect = ({
         </React.Fragment>
     )
 
+    const filterOptions = (candidate, input) => {
+        // no need to filter data returned by the api, text filter might have matched to non-displayed fields
+        return true
+    }
+
     return (
         <React.Fragment>
             <legend ref={labelRef}>
@@ -160,7 +165,7 @@ const HelSelect = ({
                 placeholder={intl.formatMessage({id: placeholderId})}
                 loadingMessage={() => intl.formatMessage({id: 'loading'})}
                 noOptionsMessage={() => intl.formatMessage({id: 'search-no-results'})}
-                filterOption={createFilter({ignoreAccents: false})}
+                filterOption={filterOptions}
                 formatOptionLabel={formatOption}
                 styles={HelSelectStyles}
                 theme={HelSelectTheme}

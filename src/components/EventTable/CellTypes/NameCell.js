@@ -11,6 +11,7 @@ const NameCell = props => {
     const {event, nestLevel, isSuperEvent, superEventType, hasSubEvents, showSubEvents, toggleSubEvent} = props
     const draft = event.publication_status === constants.PUBLICATION_STATUS.DRAFT
     const cancelled = event.event_status === constants.EVENT_STATUS.CANCELLED
+    const postponed = event.event_status === constants.EVENT_STATUS.POSTPONED
     const name = getEventName(event)
     const indentationStyle = {
         paddingLeft: `${nestLevel * 24}px`,
@@ -28,6 +29,7 @@ const NameCell = props => {
                         {showSubEvents ? <KeyboardArrowDown /> : <KeyboardArrowRight />}
                     </span>
                 }
+                {postponed && getBadge('postponed')}
                 {cancelled && getBadge('cancelled')}
                 {draft && getBadge('draft')}
                 {isSuperEvent && superEventType === constants.SUPER_EVENT_TYPE_UMBRELLA &&

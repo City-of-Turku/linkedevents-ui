@@ -130,7 +130,9 @@ var validations = {
         return validations.matchRegexp(values, value, /(24((:|\.)00)?)|^((2[0-3]|1[0-9]|0[0-9]|[0-9])((:|\.)[0-5][0-9])?)$/i);
     },
     isDate(values, value) {
-        return moment(value, moment.ISO_8601, true).isValid()
+        // Emtpy string needs to match, to allow empty *or* valid date.
+        // Required (non-empty) fields are validated separately.
+        return !value | moment(value, moment.ISO_8601, true).isValid()
     },
     afterStartTime: function afterStartTime(values, value) {
         if (!values.start_time || !value) return true

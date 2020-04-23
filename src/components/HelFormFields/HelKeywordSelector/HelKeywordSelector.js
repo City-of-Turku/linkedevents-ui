@@ -54,12 +54,20 @@ const HelKeywordSelector = ({intl, editor, setDirtyState, setData}) => {
     const {values, keywordSets, validationErrors} = editor
     const keywords = get(values, 'keywords', [])
     const mainCategoryOptions = mapKeywordSetToForm(keywordSets, 'helsinki:topics')
+    // Internet location automatically implies "remote participation"
+    const remoteParticipationKeyword = mainCategoryOptions.find(keyword => keyword['value'].includes('yso:p26626'))
+    if (remoteParticipationKeyword
+        && values['location']
+        && values['location']['id'] == 'helsinki:internet'
+        && !keywords.find(keyword => keyword['value'].includes('yso:p26626'))) {
+        keywords.push(remoteParticipationKeyword)
+    }
 
     return (
         <React.Fragment>
             <HelLabeledCheckboxGroup
                 groupLabel={<FormattedMessage id="main-categories"/>}
-                selectedValues={values['keywords']}
+                selectedValues={keywords}
                 name="keywords"
                 validationErrors={validationErrors['keywords']}
                 itemClassName="col-md-12 col-lg-6"

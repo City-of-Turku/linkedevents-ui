@@ -11,7 +11,7 @@ const {PUBLICATION_STATUS, EVENT_STATUS, USER_TYPE, SUPER_EVENT_TYPE_UMBRELLA} =
 export const userMayEdit = (user, event) => {
     const adminOrganizations = get(user, 'adminOrganizations')
     const userOrganization = get(user, 'organization')
-    const eventOrganization = get(event, 'organization')
+    const eventOrganization = get(event, 'publisher')
     const organizationMemberships = get(user, 'organizationMemberships')
     const publicationStatus = get(event, 'publication_status')
     const userHasOrganizations = !isNull(getOrganizationMembershipIds(user))
@@ -83,13 +83,35 @@ export const userCanDoAction = (user, event, action, editor) => {
     return true
 }
 
+export const eventIsEditable = (event) => {
+    const eventIsCancelled = get(event, 'event_status') === EVENT_STATUS.CANCELLED
+    const eventIsDeleted = get(event, 'deleted')
+    const startTime = get(event, 'start_time', '')
+    const endTime = get(event, 'end_time', null)
+    const eventIsInThePast =
+        (endTime && moment(endTime, moment.defaultFormatUtc).isBefore(moment()))
+        || (!endTime && moment(startTime, moment.defaultFormatUtc).isBefore(moment().startOf('day')))
+    if (eventIsCancelled) {
+        return {editable: false, explanationId: 'event-canceled'};
+    }
+    if (eventIsDeleted) {
+        return {editable: false, explanationId: 'event-deleted'};
+    }
+    if (eventIsInThePast) {
+        return {editable: false, explanationId: 'event-in-the-past'};
+    }
+    return {editable: true, explanationId: ''}
+}
+
 export const checkEventEditability = (user, event, action, editor) => {
+    const eventIsEditable = module.exports.eventIsEditable(event)
+    if (!eventIsEditable['editable']) {
+        return eventIsEditable
+    }
+
     const userMayEdit = module.exports.userMayEdit(user, event)
     const userCanDoAction = module.exports.userCanDoAction(user, event, action, editor)
     const isDraft = get(event, 'publication_status') === PUBLICATION_STATUS.DRAFT
-    const endTime = get(event, 'end_time', '')
-    const eventIsInThePast = moment(endTime, moment.defaultFormatUtc).isBefore(moment());
-    const eventIsCancelled = get(event, 'event_status') === EVENT_STATUS.CANCELLED
     const isSubEvent = !isUndefined(get(event, ['super_event', '@id']))
 
     const getExplanationId = () => {
@@ -102,23 +124,13 @@ export const checkEventEditability = (user, event, action, editor) => {
         if (!userCanDoAction && action === 'publish') {
             return 'event-validation-errors'
         }
-        if (eventIsInThePast && !isDraft) {
-            return 'event-in-the-past'
-        }
-        if (eventIsCancelled) {
-            return 'event-canceled'
-        }
         if (!userMayEdit || !userCanDoAction) {
             return 'user-no-rights-edit'
         }
     }
 
     const explanationId = getExplanationId()
-    const editable =
-        (!eventIsInThePast || (eventIsInThePast && isDraft))
-        && !eventIsCancelled
-        && userMayEdit
-        && userCanDoAction
+    const editable = userMayEdit && userCanDoAction
 
     return {editable, explanationId}
 }

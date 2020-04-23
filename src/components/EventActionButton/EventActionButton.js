@@ -12,7 +12,7 @@ import {confirmAction} from '../../actions/app'
 import {getButtonLabel} from '../../utils/helpers'
 import {Link} from 'react-router-dom'
 
-const {PUBLICATION_STATUS, USER_TYPE} = constants
+const {PUBLICATION_STATUS, EVENT_STATUS, USER_TYPE} = constants
 
 /**
  * Returns whether the button is a save button based on given action
@@ -71,9 +71,10 @@ const EventActionButton = (props) => {
     const isRegularUser = get(user, 'userType') === USER_TYPE.REGULAR
     const formHasSubEvents = get(editor, ['values', 'sub_events'], []).length > 0
     const isDraft = get(event, 'publication_status') === PUBLICATION_STATUS.DRAFT
+    const isPostponed = get(event, 'event_status') === EVENT_STATUS.POSTPONED
     const {editable, explanationId} = checkEventEditability(user, event, action, editor)
     const showTermsCheckbox = isRegularUser && isSaveButton(action) && !isDraft
-    const disabled = !editable || loading || (showTermsCheckbox && !agreedToTerms)
+    let disabled = !editable || loading || (showTermsCheckbox && !agreedToTerms)
 
     let color = 'default'
     const buttonLabel = customButtonLabel || getButtonLabel(action, isRegularUser, isDraft, eventIsPublished, formHasSubEvents)
@@ -83,6 +84,10 @@ const EventActionButton = (props) => {
     }
     if (action === 'cancel' || action === 'delete') {
         color = 'secondary'
+    }
+
+    if (action === 'postpone' && isPostponed) {
+        disabled = true
     }
 
     const button =
