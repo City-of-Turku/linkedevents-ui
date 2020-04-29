@@ -1,4 +1,5 @@
 import './index.scss'
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 import React from 'react'
 import PropTypes from 'prop-types'
@@ -16,23 +17,31 @@ import {FormattedMessage} from 'react-intl'
 // import {Button, Drawer, Hidden, makeStyles, Toolbar} from '@material-ui/core'
 // import {Add, Menu, Language, Person} from '@material-ui/icons'
 import Select from 'react-select'
-import {Navbar, Nav, Button} from 'react-bootstrap';
 import {Link} from 'react-router-dom'
 import constants from '../../constants'
-
+//Updated Nav to Reactstrap based on open design
+import {Collapse, Navbar, NavbarToggler, Nav, NavbarBrand, NavLink, Button} from 'reactstrap';
 import cityOfHelsinkiLogo from '../../assets/images/helsinki-logo.svg'
 import {hasOrganizationWithRegularUsers} from '../../utils/user'
 import {get} from 'lodash'
-import {HelSelectTheme, HelLanguageSelectStyles} from '../../themes/react-select'
+import {HelLanguageSelectStyles} from '../../themes/react-select'
 import moment from 'moment'
 import * as momentTimezone from 'moment-timezone'
 
 const {USER_TYPE, APPLICATION_SUPPORT_TRANSLATION} = constants
 
 class HeaderBar extends React.Component {
-    state = {
-        navBarOpen: false,
-        showModerationLink: false,
+    constructor(props) {
+        super(props);
+        this.toggle = this.toggle.bind(this);
+        this.state = {
+            isOpen: false,
+            showModerationLink: false,
+        };}
+    toggle() {
+        this.setState ({
+            isOpen: !this.state.isOpen,
+        });
     }
 
     componentDidMount() {
@@ -66,15 +75,6 @@ class HeaderBar extends React.Component {
         momentTimezone.locale(selectedOption.value)
     }
 
-    toggleNavbar = () => {
-        this.setState({navBarOpen: !this.state.navBarOpen});
-    }
-
-    getNavigateMobile = (navigate) => () => {
-        navigate();
-        this.toggleNavbar();
-    }
-
     render() {
         const {user, userLocale, routerPush, logout, login, location} = this.props
         const {showModerationLink} = this.state
@@ -94,7 +94,7 @@ class HeaderBar extends React.Component {
                             <img src={cityOfHelsinkiLogo} alt='City Logo' />
                         </Link>
                     </div>
-                    <Nav className="mx-auto">
+                    <Nav className='ml-auto'>
                         <div className='bar__login-button'>
                             <div className='bar__language-button'>
                                 <span className="glyphicon glyphicon-globe"></span>
@@ -110,16 +110,34 @@ class HeaderBar extends React.Component {
                                         onChange={this.changeLanguage}
                                         styles={HelLanguageSelectStyles}
                                     />
+                                    {/*    <NavDropdown
+                                        className="app-TopNavbar__language"
+                                        eventKey="lang"
+                                        id="language-nav-dropdown"
+                                        value={{
+                                            label: userLocale.locale.toUpperCase(),
+                                            value: userLocale.locale,
+                                        }}
+                                        options={this.getLanguageOptions()}
+                                        onChange={this.changeLanguage}
+                                        tabIndex="0"
+                                        title={userLocale.locale.toUpperCase()}
+                                        styles={HelLanguageSelectStyles}
+                                    >
+                                        <MenuItem eventKey="fi">FI</MenuItem>
+                                        <MenuItem eventKey="sv">SV</MenuItem>
+                                    </NavDropdown> */}
                                 </div>
                             </div>
                             {user ? (
-                                <Button className='btnlogin'
-                                   
+                                <Button
+                                    
                                     onClick={() => logout()}>
                                     {user.displayName}
                                 </Button>
                             ) : (
-                                <Button className='btnlogin'
+                                <Button
+                                    
                                     onClick={() => login()}>
                                     <span className="glyphicon glyphicon-user"></span>
                                     <FormattedMessage id='login' />
@@ -129,25 +147,34 @@ class HeaderBar extends React.Component {
                     </Nav>
                 </Navbar>
         
-                <Navbar className="linked-events-bar">
-                    <div className="linked-events-bar__links">
-                        <div className="linked-events-bar__links__list">
-                            <NavLinks
-                                showModerationLink={showModerationLink}
-                                toMainPage={toMainPage}
-                                toSearchPage={toSearchPage}
-                                toHelpPage={toHelpPage}
-                                toModerationPage={toModerationPage}
-                            />
-                            {!isInsideForm && (
-                                <Button className='btn'
-                                    onClick={() => routerPush('/event/create/new')}
-                                >
-                                    <span className="glyphicon glyphicon-plus"></span>
-                                    <FormattedMessage id={`create-${appSettings.ui_mode}`}/>
-                                </Button> )}
+                <Navbar className="linked-events-bar" expand='lg'>
+                    <NavbarBrand className="linked-events-bar__logo" onClick={() => routerPush('/')}><FormattedMessage id={`linked-${appSettings.ui_mode}`} /></NavbarBrand>
+                    <NavbarToggler onClick={this.toggle} />
+                    <Collapse isOpen={this.state.isOpen} navbar>
+                        <div className="linked-events-bar__links">
+                            <div className="linked-events-bar__links__list">
+                                <NavLinks
+                                    showModerationLink={showModerationLink}
+                                    toMainPage={toMainPage}
+                                    toSearchPage={toSearchPage}
+                                    toHelpPage={toHelpPage}
+                                    toModerationPage={toModerationPage}
+                                />
+                            </div>
+                        
+                    
+                            <Nav className="ml-auto" navbar>
+                                {!isInsideForm && (
+                                    <Button
+                                        className="linked-events-bar__links__create-events"
+                                        onClick={() => routerPush('/event/create/new')}
+                                    >
+                                        <span className="glyphicon glyphicon-plus"></span>
+                                        <FormattedMessage id={`create-${appSettings.ui_mode}`}/>
+                                    </Button> )}
+                            </Nav>
                         </div>
-                    </div>
+                    </Collapse>
                 </Navbar>
             </div>
         )
@@ -194,9 +221,11 @@ HeaderBar.propTypes = {
     userLocale: PropTypes.object,
     setLocale: PropTypes.func,
     location: PropTypes.object,
-    navBarOpen: PropTypes.bool,
     showModerationLink: PropTypes.bool,
+    type: PropTypes.string,
+    tag: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
 }
+
 
 const mapStateToProps = (state) => ({
     user: state.user,
