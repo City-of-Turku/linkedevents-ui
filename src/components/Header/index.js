@@ -10,21 +10,16 @@ import {withRouter} from 'react-router'
 
 import {login as loginAction, logout as logoutAction} from 'src/actions/user.js'
 import {setLocale as setLocaleAction} from 'src/actions/userLocale'
-
+import LanguageSelector from './LanguageSelector';
 import {FormattedMessage} from 'react-intl'
 
-// Material-ui Components
-// import {Button, Drawer, Hidden, makeStyles, Toolbar} from '@material-ui/core'
-// import {Add, Menu, Language, Person} from '@material-ui/icons'
-import Select from 'react-select'
 import {Link} from 'react-router-dom'
 import constants from '../../constants'
-//Updated Nav to Reactstrap based on open design
+//Updated Nav from Material UI to Reactstrap based on Open design
 import {Collapse, Navbar, NavbarToggler, Nav, NavbarBrand, NavLink, Button} from 'reactstrap';
 import cityOfHelsinkiLogo from '../../assets/images/helsinki-logo.svg'
 import {hasOrganizationWithRegularUsers} from '../../utils/user'
 import {get} from 'lodash'
-import {HelLanguageSelectStyles} from '../../themes/react-select'
 import moment from 'moment'
 import * as momentTimezone from 'moment-timezone'
 
@@ -99,34 +94,7 @@ class HeaderBar extends React.Component {
                             <div className='bar__language-button'>
                                 <span className="glyphicon glyphicon-globe"></span>
                                 <div className='language-selector'>
-                                    <Select
-                                        isClearable={false}
-                                        isSearchable={false}
-                                        value={{
-                                            label: userLocale.locale.toUpperCase(),
-                                            value: userLocale.locale,
-                                        }}
-                                        options={this.getLanguageOptions()}
-                                        onChange={this.changeLanguage}
-                                        styles={HelLanguageSelectStyles}
-                                    />
-                                    {/*    <NavDropdown
-                                        className="app-TopNavbar__language"
-                                        eventKey="lang"
-                                        id="language-nav-dropdown"
-                                        value={{
-                                            label: userLocale.locale.toUpperCase(),
-                                            value: userLocale.locale,
-                                        }}
-                                        options={this.getLanguageOptions()}
-                                        onChange={this.changeLanguage}
-                                        tabIndex="0"
-                                        title={userLocale.locale.toUpperCase()}
-                                        styles={HelLanguageSelectStyles}
-                                    >
-                                        <MenuItem eventKey="fi">FI</MenuItem>
-                                        <MenuItem eventKey="sv">SV</MenuItem>
-                                    </NavDropdown> */}
+                                    <LanguageSelector languages={this.getLanguageOptions()} userLocale={userLocale} changeLanguage={this.changeLanguage} />
                                 </div>
                             </div>
                             {user ? (

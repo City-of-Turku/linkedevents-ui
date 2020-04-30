@@ -162,6 +162,35 @@ $iconMarginLeft: 24px;
         }
     }
 }
+ul.language {
+    color: black;
+    padding-left: 0;
+    width: 55px;
+    position: absolute;
+    top: 100%;
+
+    z-index: 1;
+    li {
+        display: none;
+        position: relative;
+
+    }
+    &.open {
+        border: 1px solid black;
+        li {
+            background-color: white;
+            display: block;
+            text-align: center;
+            padding-top: 0.375rem;
+            padding-bottom: 0.375rem;
+            z-index: 99999;
+
+            &.active {
+                background-color: white;
+            }
+        }
+    }
+}
 .navbar-toggler-icon {
     background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgb(0,0,0)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E") !important;
 
