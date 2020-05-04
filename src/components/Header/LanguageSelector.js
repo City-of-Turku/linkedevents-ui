@@ -32,7 +32,7 @@ class LanguageSelector extends React.Component {
         const {userLocale} = this.props;
         const activeLocale = userLocale.locale.toUpperCase();
         return (
-            <div style={{display: 'flex', flexDirection: 'column', width: '50px', color: 'white', fontWeight: 'bold', paddingTop: '0.375rem', alignItems: 'center'}}>
+            <div style={{display: 'flex', flexDirection: 'column', width: '50px', color: 'white', fontWeight: 'bold',  padding: '.375rem .75rem', alignItems: 'center'}}>
                 <div className="currentLanguage" style={{paddingTop: '0.375rem', paddingBottom: '0.375rem'}}>
                     <a href="#" onClick={this.toggle}>{activeLocale}</a>
                 </div>
