@@ -12,7 +12,12 @@ $languageMarginRight: 10px;
 $iconMarginLeft: 24px; 
 
 .main-navbar {
-    height: $headerBarHeight !important;
+    height: $headerBarHeight;
+
+    .navbar-brand {
+        padding: 0px 32px 0px 0px;
+        font-size: unset;
+    }
 
     button {
         font-weight: bold;
@@ -36,53 +41,55 @@ $iconMarginLeft: 24px;
     .bar {
         height: $helsinkiBarHeight;
         width: 100%;
-        display: flex;
+    //    display: flex;
         background: $hel-theme;
-        justify-content: space-between;
-        align-items: center;
+   //     justify-content: space-between;
+   //     align-items: center;
         padding-left: 24px;
         padding-right: 24px;
-    
+        padding-top: 0px;
+        padding-bottom: 0px;
 
         &__logo {
             height: $helsinkiLogoHeight;
             white-space: nowrap;
+            
+            a {
+                height: $helsinkiLogoHeight;
+              //  width: 100px;
+            }
 
             img {
                 height: $helsinkiLogoHeight;
+              //  width: 50px;
+              //  padding: 0px;
             }
         }
 
-        &__login-button {  
+        &__login-and-language {  
             display: flex;
             flex-direction: row;
             .btn-secondary {
             &:hover {
                 background-color: rgba(0, 0, 0, 0.08);
-            }}
+            }
+            &:focus {
+                outline: 5px auto -webkit-focus-ring-color;
+                color: #fff;
+                box-shadow: none;
+            }
+        }
             .glyphicon {
                 color: #fff;
                 margin-right: 10px;
-                font-size: 16px;
+                
             }
            
         }
-
-        &__language-button {
-            margin-right: $languageMarginRight;
-            display: flex;
-            align-items: center;
-            
-            .glyphicon {
-                color: #fff;
-                margin-right: 10px;
-                font-size: 20px;
-            }
-            
-
             .language-selector {
                 display: flex;
                 align-items: center;
+                margin-right: $languageMarginRight;
     
                 .language-icon {
                     color: white;
@@ -96,7 +103,7 @@ $iconMarginLeft: 24px;
                         display: none;
                     }
                 }
-            }
+            
         }
     }
 
@@ -106,23 +113,6 @@ $iconMarginLeft: 24px;
         display: flex;
         background: $hel-white;
         align-items: center;
-        .btn {
-            color: black;
-            border: none;
-            &:hover {
-                background-color: rgba(0, 0, 0, 0.08);
-
-            }
-
-            &:focus {
-            color: inherit;
-            outline: 5px auto -webkit-focus-ring-color;
-            box-shadow: none;
-            }
-            .text {
-                padding: 6px 8px;
-            }
-    }
 
         &__logo {
             padding-right: $logoPaddingRight;
@@ -142,26 +132,57 @@ $iconMarginLeft: 24px;
             display: flex;
             flex-grow: 1;
             justify-content: space-between;
-
             &__create-events {
-            color: #0072c6 !important;
-            border: 1px solid rgba(0, 0, 0, 0.23)!important;
-            padding: 5px 15px;
-            border-color: #0072c6!important;
-            border-width: 2px!important;
-            min-width: 64px;
-            .glyphicon {
-                margin-right: 10px;
-            }
-            }
-            
+                color: #0072c6 ;
+                border: 1px solid rgba(0, 0, 0, 0.23);
+                padding: 5px 15px;
+                border-color: #0072c6;
+                border-width: 2px;
+                min-width: 64px;
+                &:hover {
+                    background-color: rgba(0, 0, 0, 0.08);
+                }
+                .glyphicon {
+                    margin-right: 10px;
+                }
+                }
+                &__list {
+                    .btn {
+                        color: black;
+                        border: none;
+                        &:hover {
+                            background-color: rgba(0, 0, 0, 0.08);
+                        }
+                        &:focus {
+                        color: inherit;
+                        outline: 5px auto -webkit-focus-ring-color;
+                        box-shadow: none;
+                        }
+                        .text {
+                            padding: 6px 8px;
+                        }
+                }
+                }
+        
 
-            &__mobile {
-                display: flex;
-            }
         }
     }
-}
+            
+        }
+
+    //LanguageSelector.js
+    .LanguageMain {
+        display: flex;
+        flex-direction: column;
+        color: white;
+        font-weight: bold;
+        padding: .375rem .75rem;
+        align-items: center;
+        .currentLanguage {
+            padding: 0.375rem 0 0.375rem 0
+        }
+    }
+
 ul.language {
     color: black;
     padding-left: 0;
@@ -186,7 +207,7 @@ ul.language {
             z-index: 99999;
 
             &.active {
-                background-color: white;
+                background-color: lightgrey;
             }
         }
     }
@@ -198,30 +219,45 @@ ul.language {
     margin-left: 2px;
     vertical-align: middle;
     border-top: 4px dashed;
+    border-top: 4px solid \9;
     border-right: 4px solid transparent;
     border-left: 4px solid transparent;
 }
+
+//Hamburger for Mobile
 
 .navbar-toggler-icon {
     background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgb(0,0,0)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E") !important;
 
 }
 
-.menu-drawer-mobile {
-    display: flex;
-    flex-direction: column;
-    width: auto;
-}
+//Mobile
 
 @media only screen and (max-width: 991px) {
     .main-navbar {
         height: auto !important;
+        .navbar-brand {
+            padding:0px;
+            font-size: unset;
+        }
         .bar {
             height: auto;
+            flex-wrap: nowrap;
+            .language-selector {
+                white-space: nowrap;
+            }
+        
+        &__login-and-language {
+            .btn {
+                white-space: normal;
+                display: flex;
+                align-items: center;
+                height: auto;
+            }
         }
+    }
         .linked-events-bar { 
             height: auto;
-
             &__links {
                 display: block;
                 text-align: center;
