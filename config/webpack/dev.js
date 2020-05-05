@@ -3,7 +3,7 @@ import common from './common.js';
 import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import {readConfig} from '../appConfig';
-
+import assetPath from '../assetPath';
 const publicUrl = readConfig('publicUrl')
 const ui_mode = readConfig('ui_mode')
 
@@ -23,12 +23,17 @@ export default {
     resolve: {
         modules: [common.paths.ROOT, 'node_modules'],
         extensions: ['.', '.webpack.js', '.web.js', '.jsx', '.js'],
+        alias: {
+            '@city-assets': assetPath.cityAssets,
+            '@city-images': assetPath.cityImages,
+            '@city-i18n': assetPath.cityi18n,
+        },
     },
     module: {
         rules: [
             {
-                test: /\.(js|jsx)?$/, 
-                exclude: /node_modules/, 
+                test: /\.(js|jsx)?$/,
+                exclude: /node_modules/,
                 enforce: 'pre',
                 use: ['babel-loader', 'eslint-loader'],
             },

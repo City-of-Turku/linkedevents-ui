@@ -3,6 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const GitRevisionPlugin = require('git-revision-webpack-plugin');
 const common = require('./common');
 const appConfig = require('../appConfig');
+const assetPath = require('../assetPath');
 
 // There are defined in common.js as well, but that is not available without
 // transpilation, which is not done for webpack configuration file
@@ -33,12 +34,17 @@ const config = {
     resolve: {
         modules: [common.paths.ROOT, 'node_modules'],
         extensions: ['.', '.webpack.js', '.web.js', '.jsx', '.js'],
+        alias: {
+            '@city-assets': assetPath.cityAssets,
+            '@city-images': assetPath.cityImages,
+            '@city-i18n': assetPath.cityi18n,
+        },
     },
     module: {
         rules: [
             {
-                test: /\.(js|jsx)?$/, 
-                exclude: /node_modules/, 
+                test: /\.(js|jsx)?$/,
+                exclude: /node_modules/,
                 enforce: 'pre',
                 use: ['babel-loader', 'eslint-loader'],
             },

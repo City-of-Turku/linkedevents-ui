@@ -8,5 +8,6 @@
     "raven_id": false,
     "publicUrl": "http://localhost:8080",
     "sessionSecret": "dev-secret-do-not-use-in-production",
-    "ui_mode": "events"
+    "ui_mode": "events",
+    "city_theme": false
 }
