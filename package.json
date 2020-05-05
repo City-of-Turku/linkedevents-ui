@@ -124,6 +124,7 @@
   "jest": {
     "setupTestFrameworkScriptFile": "<rootDir>src/setupTests.js",
     "testEnvironment": "jsdom",
+    "testURL": "http://localhost/",
     "moduleFileExtensions": [
       "js",
       "jsx",

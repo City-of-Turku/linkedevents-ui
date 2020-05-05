@@ -48,7 +48,7 @@ momentTimezone.locale('fi')
 store.subscribe(_.bind(Validator, null, store))
 
 // JA: Serializing state for debugging
-// store.subscribe(_.bind(Serializer, null, store)); // funktiossa pitäisi päivitellä että toimii. Ehkä ei tarvita enää?
+store.subscribe(_.bind(Serializer, null, store));
 
 const LayoutContainer = withRouter(connect()(App));
 

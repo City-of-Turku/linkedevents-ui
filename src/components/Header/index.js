@@ -7,7 +7,7 @@ import {connect} from 'react-redux'
 import {push} from 'react-router-redux'
 import {withRouter} from 'react-router'
 
-import {login as loginAction, logout as logoutAction} from 'src/actions/user.js'
+import {clearUserData as clearUserDataAction} from 'src/actions/user.js'
 import {setLocale as setLocaleAction} from 'src/actions/userLocale'
 
 import {FormattedMessage} from 'react-intl'
@@ -84,19 +84,22 @@ class HeaderBar extends React.Component {
                 redirectUrl: window.location.pathname,
             },
             extraQueryParams: {
-            // ui_locales: this.props.currentLanguage,
+                ui_locales: this.props.userLocale.locale, // set auth service language for user
             },
         });
     }
 
     handleLogoutClick = () => {
+        // clear user data in redux store
+        this.props.clearUserData();
+        
         // passing id token hint skips logout confirm on tunnistamo's side
-        userManager.signoutRedirect({id_token_hint: this.props.idToken});
+        userManager.signoutRedirect({id_token_hint: this.props.auth.user.id_token});
         userManager.removeUser();
     }
 
     render() {
-        const {user, userLocale, routerPush, logout, login, location} = this.props
+        const {user, userLocale, routerPush, location} = this.props
         const {showModerationLink} = this.state
 
         const toMainPage = () => routerPush('/');
@@ -231,27 +234,26 @@ NavLinks.propTypes = {
 // Adds dispatch to this.props for calling actions, add user from store to props
 HeaderBar.propTypes = {
     user: PropTypes.object,
-    login: PropTypes.func,
-    logout: PropTypes.func,
     routerPush: PropTypes.func,
     userLocale: PropTypes.object,
     setLocale: PropTypes.func,
     location: PropTypes.object,
     navBarOpen: PropTypes.bool,
     showModerationLink: PropTypes.bool,
-    idToken: PropTypes.string,
+    clearUserData: PropTypes.func,
+    auth: PropTypes.object,
 }
 
 const mapStateToProps = (state) => ({
     user: state.user,
     userLocale: state.userLocale,
+    auth: state.auth,
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    login: () => dispatch(loginAction()),
-    logout: () => dispatch(logoutAction()),
     routerPush: (url) => dispatch(push(url)),
     setLocale: (locale) => dispatch(setLocaleAction(locale)),
+    clearUserData: () => dispatch(clearUserDataAction()),
 })
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(HeaderBar))
