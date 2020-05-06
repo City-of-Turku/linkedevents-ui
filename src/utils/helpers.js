@@ -153,6 +153,10 @@ export const getBadge = (type, size = 'small') => {
                 backgroundColor: helBrandColors.summer.main,
                 color: helBrandColors.gray.black90,
             },
+            '&.postponed': {
+                backgroundColor: helBrandColors.fog.main,
+                color: helBrandColors.gray.black90,
+            },
         },
         sizeSmall: {
             '&.badge-chip': {

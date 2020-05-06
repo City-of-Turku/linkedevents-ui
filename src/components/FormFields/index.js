@@ -368,6 +368,7 @@ class FormFields extends React.Component {
                     <SideField>
                         <div className="tip">
                             <p><FormattedMessage id="editor-tip-location"/></p>
+                            <p><strong><FormattedMessage id="editor-tip-location-internet"/></strong></p>
                             <p><FormattedMessage id="editor-tip-location-extra"/></p>
                             <p><FormattedMessage id="editor-tip-location-not-found"/></p>
                         </div>

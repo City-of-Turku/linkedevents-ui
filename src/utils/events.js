@@ -3,6 +3,7 @@ import moment from 'moment'
 import constants from '../constants'
 import {get, isUndefined, set} from 'lodash'
 import {getFirstMultiLanguageFieldValue} from './helpers'
+import {eventIsEditable} from './checkEventEditability'
 
 const {PUBLICATION_STATUS, EVENT_STATUS} = constants
 
@@ -27,9 +28,6 @@ export class EventQueryParams {
     }
     setSort(sortBy, sortDirection) {
         this.sort = sortDirection === 'desc' ? `-${sortBy}` : sortBy
-    }
-    setText(query) {
-        this.text = encodeURI(query)
     }
     get values() {
         return Object.keys(this)
@@ -104,9 +102,9 @@ export const publishEvents = async (eventData) => {
  * @param eventId  ID of event that should be deleted
  * @returns {Promise}
  */
-export const deleteEvent = async (eventId) => {
+export const deleteEvent = async (eventData) => {
     try {
-        return await client.delete(`event/${eventId}`)
+        return await client.delete(`event/${eventData.id}`)
     } catch (e) {
         throw Error(e)
     }
@@ -117,7 +115,10 @@ export const deleteEvent = async (eventId) => {
  * @param eventIds  List of ID's that should be deleted
  * @returns {Promise}
  */
-export const deleteEvents = async (eventIds) => Promise.all(eventIds.map(deleteEvent))
+export const deleteEvents = async (eventData) => Promise.all(eventData
+    .filter(event => eventIsEditable(event)['editable'])
+    .map(deleteEvent)
+)
 
 /**
  * Cancels given events
@@ -126,9 +127,31 @@ export const deleteEvents = async (eventIds) => Promise.all(eventIds.map(deleteE
  */
 export const cancelEvents = async (eventData) => {
     const updatedEventData = eventData
+        .filter(event => eventIsEditable(event)['editable'])
         .map(event => ({
             ...event,
             event_status: EVENT_STATUS.CANCELLED,
+        }))
+
+    try {
+        return await client.put('event', updatedEventData)
+    } catch (e) {
+        throw Error(e)
+    }
+}
+
+/**
+ * Postpones given events
+ * @param eventData  Data for the events that should be postponed
+ * @returns {Promise}
+ */
+export const postponeEvents = async (eventData) => {
+    const updatedEventData = eventData
+        .filter(event => eventIsEditable(event)['editable'])
+        .map(event => ({
+            ...event,
+            start_time: null,
+            end_time: null,
         }))
 
     try {

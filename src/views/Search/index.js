@@ -27,7 +27,7 @@ class SearchPage extends React.Component {
         queryParams.page_size = 100
         queryParams.sort = 'start_time'
         queryParams.nocache = Date.now()
-        queryParams.setText(searchQuery)
+        queryParams.text = searchQuery
         if (startDate) queryParams.start = startDate.format('YYYY-MM-DD')
         if (endDate) queryParams.end = endDate.format('YYYY-MM-DD')
 

@@ -6,6 +6,7 @@ import PropTypes from 'prop-types'
 import {FormattedMessage} from 'react-intl'
 import get from 'lodash/get'
 import forEach from 'lodash/forEach'
+import {getBadge} from '../../utils/helpers'
 
 import defaultThumbnail from '../../assets/images/helsinki-coat-of-arms-white.png'
 
@@ -68,18 +69,20 @@ const EventItem = (props) => {
         backgroundImage: 'url(' + image + ')',
     }
     const getDay = props.event.start_time
-    const date = getDay.split('T')
-    const convertedDate = date[0].split('-').reverse().join('.')
+    let convertedDate = ''
+    if (getDay) {
+        const date = getDay.split('T')
+        convertedDate = date[0].split('-').reverse().join('.')
+    }
     const isCancelled = props.event.event_status === constants.EVENT_STATUS.CANCELLED
+    const isPostponed = props.event.event_status === constants.EVENT_STATUS.POSTPONED
 
     return (
         <div className="col-xs-12 col-md-6 col-lg-4" key={props.event['id']}>
             <Link to={url}>
                 <div className="event-item">
-                    {
-                        isCancelled &&
-                        <span className="badge badge-danger search-badge"><FormattedMessage id="cancelled"/></span>
-                    }
+                    {isCancelled && getBadge('cancelled')}
+                    {isPostponed && getBadge('postponed')}
                     <div className="thumbnail" style={thumbnailStyle}/>
                     <div className="name">
                         <span className="converted-day">{convertedDate}</span>

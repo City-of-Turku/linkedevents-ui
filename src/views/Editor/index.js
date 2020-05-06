@@ -301,6 +301,7 @@ export class EditorPage extends React.Component {
                     {loading
                         ? <CircularProgress className="loading-spinner" size={50}/>
                         : <div className='buttons-group container'>
+                            {editMode === 'update' && this.getActionButton('postpone')}
                             {editMode === 'update' && this.getActionButton('cancel')}
                             {editMode === 'update' && this.getActionButton('delete')}
                             {isDraft && hasOrganizationWithRegularUsers(user) &&
