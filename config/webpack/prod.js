@@ -75,6 +75,13 @@ const config = {
             inject: true,
             templateContent: indexTemplate,
         }),
+        new webpack.DefinePlugin({
+            oidcSettings: {
+                client_id: JSON.stringify(appConfig.readConfig('client_id')),
+                openid_audience: JSON.stringify(appConfig.readConfig('openid_audience')),
+                openid_authority: JSON.stringify(appConfig.readConfig('openid_authority')),
+            },
+        }),
     ],
 };
 
