@@ -11,26 +11,6 @@ class LanguageSelector extends React.Component {
         };
     }
 
-    componentDidMount() {
-        document.addEventListener('click', this.handleClick, false);
-    }
-
-    componentWillUnmount() {
-        document.removeEventListener('click', this.handleClick, false);
-    }
-
-    handleClick = (event) => {
-        if (!this.node.contains(event.target)) {
-            this.handleOutsideClick();
-        }
-    }
-
-    handleOutsideClick() {
-        if ( this.state.isOpen) {
-            this.setState({isOpen: false});
-        }
-    }
-    
     toggle(e) {
         e.preventDefault();
         this.setState({isOpen: !this.state.isOpen});
@@ -43,13 +23,6 @@ class LanguageSelector extends React.Component {
 
     }
 
-    
-
-    /**
-     * Returns true if language is same as current locale
-     * @param {object} language
-     * @return {boolean}
-     */
     isActiveLanguage(language) {
         const {userLocale} = this.props;
         return language.label === userLocale.locale.toUpperCase();
@@ -59,25 +32,20 @@ class LanguageSelector extends React.Component {
         const {userLocale} = this.props;
         const activeLocale = userLocale.locale.toUpperCase();
         return (
-            <React.Fragment>
-                <span className="glyphicon glyphicon-globe" />
-                <div ref={node => this.node = node} className='LanguageMain'>
-                    <div className="currentLanguage">
-                        <a href="#" onClick={this.toggle}>{activeLocale}
-                            <span className="caret"></span>
-                        </a>
-                    </div>
-                    <ul className={classNames('language', {open: this.state.isOpen})}>
-                        {this.props.languages.map((language, index) => {
-                            return (
-                                <li key={index} className={classNames('language-item',{active: this.isActiveLanguage(language)})}>
-                                    <a onClick={this.handleLanguageChange.bind(this, language)} href="#">{language.label}</a>
-                                </li>
-                            )
-                        })}
-                    </ul>
+            <div style={{display: 'flex', flexDirection: 'column', width: '50px', color: 'white', fontWeight: 'bold',  padding: '.375rem .75rem', alignItems: 'center'}}>
+                <div className="currentLanguage" style={{paddingTop: '0.375rem', paddingBottom: '0.375rem'}}>
+                    <a href="#" onClick={this.toggle}>{activeLocale}</a>
                 </div>
-            </React.Fragment>
+                <ul className={classNames('language', {open: this.state.isOpen})}>
+                    {this.props.languages.map((language, index) => {
+                        return (
+                            <li key={index} className={classNames('language-item',{active: this.isActiveLanguage(language)})}>
+                                <a onClick={this.handleLanguageChange.bind(this, language)} href="#">{language.label}</a>
+                            </li>
+                        )
+                    })}
+                </ul>
+            </div>
         )
     }
 }

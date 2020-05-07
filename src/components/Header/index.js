@@ -1,4 +1,5 @@
 import './index.scss'
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 import React from 'react'
 import PropTypes from 'prop-types'
@@ -11,9 +12,11 @@ import {login as loginAction, logout as logoutAction} from 'src/actions/user.js'
 import {setLocale as setLocaleAction} from 'src/actions/userLocale'
 import LanguageSelector from './LanguageSelector';
 import {FormattedMessage} from 'react-intl'
+
+import {Link} from 'react-router-dom'
 import constants from '../../constants'
 //Updated Nav from Material UI to Reactstrap based on Open design
-import {Collapse, Navbar, NavbarToggler, Nav, NavbarBrand, Button} from 'reactstrap';
+import {Collapse, Navbar, NavbarToggler, Nav, NavbarBrand, NavLink, Button} from 'reactstrap';
 import cityOfHelsinkiLogo from '../../assets/images/helsinki-logo.svg'
 import {hasOrganizationWithRegularUsers} from '../../utils/user'
 import {get} from 'lodash'
@@ -29,9 +32,7 @@ class HeaderBar extends React.Component {
         this.state = {
             isOpen: false,
             showModerationLink: false,
-        };
-    }
-
+        };}
     toggle() {
         this.setState ({
             isOpen: !this.state.isOpen,
@@ -83,21 +84,28 @@ class HeaderBar extends React.Component {
         return (
             <div className='main-navbar'>
                 <Navbar className='bar'>
-                    <NavbarBrand className="bar__logo" src={cityOfHelsinkiLogo}href="/">
-                        <img src={cityOfHelsinkiLogo} />
-                    </NavbarBrand>
+                    <div className="bar__logo">
+                        <Link to='/'>
+                            <img src={cityOfHelsinkiLogo} alt='City Logo' />
+                        </Link>
+                    </div>
                     <Nav className='ml-auto'>
-                        <div className='bar__login-and-language'>
-                            <div className='language-selector'>
-                                <LanguageSelector languages={this.getLanguageOptions()} userLocale={userLocale} changeLanguage={this.changeLanguage} />
+                        <div className='bar__login-button'>
+                            <div className='bar__language-button'>
+                                <span className="glyphicon glyphicon-globe"></span>
+                                <div className='language-selector'>
+                                    <LanguageSelector languages={this.getLanguageOptions()} userLocale={userLocale} changeLanguage={this.changeLanguage} />
+                                </div>
                             </div>
                             {user ? (
                                 <Button
+                                    
                                     onClick={() => logout()}>
                                     {user.displayName}
                                 </Button>
                             ) : (
-                                <Button  
+                                <Button
+                                    
                                     onClick={() => login()}>
                                     <span className="glyphicon glyphicon-user"></span>
                                     <FormattedMessage id='login' />
@@ -121,6 +129,8 @@ class HeaderBar extends React.Component {
                                     toModerationPage={toModerationPage}
                                 />
                             </div>
+                        
+                    
                             <Nav className="ml-auto" navbar>
                                 {!isInsideForm && (
                                     <Button
