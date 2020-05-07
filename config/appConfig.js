@@ -9,7 +9,7 @@ const serverConfigKeys = ['port', 'publicUrl', 'helsinkiAuthId', 'helsinkiAuthSe
 // Config-keys used for pug template
 const templateConfigKeys = ['LE_PRODUCTION_INSTANCE', 'APP_MODE'];
 // React-app config-keys
-const clientConfigKeys = ['api_base', 'local_storage_user_expiry_time', 'nocache', 'raven_id', 'commit_hash', 'ui_mode','city_theme'];
+const clientConfigKeys = ['api_base', 'local_storage_user_expiry_time', 'nocache', 'raven_id', 'commit_hash', 'ui_mode'];
 
 const gitRevisionPlugin = new GitRevisionPlugin();
 nconf.overrides({
