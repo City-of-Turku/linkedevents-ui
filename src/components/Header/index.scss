@@ -138,6 +138,13 @@ $iconMarginLeft: 24px;
 						padding: 6px 8px;
 					}
 				}
+				.moderator {
+					color: #0072c6;
+					&:focus {
+						color: #0072c6;
+					}
+				}
+			
 			}
 		}
 	}
@@ -146,11 +153,14 @@ $iconMarginLeft: 24px;
 //LanguageSelector.js
 .LanguageMain {
 	display: flex;
-	flex-direction: column;
+//	flex-direction: column;
 	color: white;
 	font-weight: bold;
 	padding: .375rem .75rem;
+	cursor: pointer;
+	user-select: none;
 	align-items: center;
+
 	.currentLanguage {
 		padding: 0.375rem 0 0.375rem 0
 	}
@@ -159,7 +169,7 @@ $iconMarginLeft: 24px;
 ul.language {
 	color: black;
 	padding-left: 0;
-	width: 55px;
+	width: 80px;
 	position: absolute;
 	top: 100%;
 	z-index: 1;
@@ -176,6 +186,8 @@ ul.language {
 			padding-top: 0.375rem;
 			padding-bottom: 0.375rem;
 			z-index: 99999;
+			cursor: pointer;
+			user-select: none;
 			&.active {
 				background-color: lightgrey;
 			}

@@ -19,6 +19,7 @@ import {hasOrganizationWithRegularUsers} from '../../utils/user'
 import {get} from 'lodash'
 import moment from 'moment'
 import * as momentTimezone from 'moment-timezone'
+import classNames from 'classnames'
 
 const {USER_TYPE, APPLICATION_SUPPORT_TRANSLATION} = constants
 
@@ -84,7 +85,7 @@ class HeaderBar extends React.Component {
             <div className='main-navbar'>
                 <Navbar className='bar'>
                     <NavbarBrand className="bar__logo" src={cityOfHelsinkiLogo}href="/">
-                        <img src={cityOfHelsinkiLogo} />
+                        <img src={cityOfHelsinkiLogo} alt='city logo' />
                     </NavbarBrand>
                     <Nav className='ml-auto'>
                         <div className='bar__login-and-language'>
@@ -141,9 +142,6 @@ class HeaderBar extends React.Component {
 
 const NavLinks = (props) => {
     const {showModerationLink, toMainPage, toSearchPage, toHelpPage, toModerationPage} = props;
-    const moderationStyles = showModerationLink && (theme => ({
-
-    }))()
 
     return (
         <React.Fragment>
@@ -152,8 +150,8 @@ const NavLinks = (props) => {
             <Button onClick={toHelpPage}> <FormattedMessage id="more-info"/></Button>
             {showModerationLink &&
                 <Button
+                    className={classNames('moderator',{true: showModerationLink})}
                     onClick={toModerationPage}
-                    classes={moderationStyles}
                 >
                     <FormattedMessage id="moderation-page"/>
                 </Button>
