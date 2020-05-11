@@ -256,4 +256,5 @@ const mapDispatchToProps = (dispatch) => ({
     clearUserData: () => dispatch(clearUserDataAction()),
 })
 
+export {HeaderBar as UnconnectedHeaderBar};
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(HeaderBar))

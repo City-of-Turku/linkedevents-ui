@@ -203,4 +203,5 @@ const mapDispatchToProps = (dispatch) => ({
     fetchUser: (id) => dispatch(fetchUserAction(id)),
 })
 
+export {App as UnconnectedApp};
 export default connect(mapStateToProps, mapDispatchToProps)(injectIntl(App))
