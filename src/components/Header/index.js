@@ -14,7 +14,8 @@ import {FormattedMessage} from 'react-intl'
 import constants from '../../constants'
 //Updated Nav from Material UI to Reactstrap based on Open design
 import {Collapse, Navbar, NavbarToggler, Nav, NavbarBrand, Button} from 'reactstrap';
-import cityOfHelsinkiLogo from '../../assets/images/helsinki-logo.svg'
+//Citylogo can now be used from scss
+//import cityOfHelsinkiLogo from '../../assets/images/helsinki-logo.svg'
 import {hasOrganizationWithRegularUsers} from '../../utils/user'
 import {get} from 'lodash'
 import moment from 'moment'
