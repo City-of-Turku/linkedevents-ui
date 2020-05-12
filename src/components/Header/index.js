@@ -137,7 +137,9 @@ class HeaderBar extends React.Component {
         )
     }
 }
-
+/**
+ * Returns the page links, if showModeration is true then the link to the moderation page is rendered aswell.
+ */
 export const NavLinks = (props) => {
     const {showModerationLink, toMainPage, toSearchPage, toHelpPage, toModerationPage} = props;
 
