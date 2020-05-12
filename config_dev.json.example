@@ -8,5 +8,8 @@
     "raven_id": false,
     "publicUrl": "http://localhost:8080",
     "sessionSecret": "dev-secret-do-not-use-in-production",
-    "ui_mode": "events"
+    "ui_mode": "events",
+     "client_id": "CLIENT_ID",
+    "openid_audience": "OPENID_AUDIENCE",
+    "openid_authority": "OPENID_AUTHORITY"
 }
