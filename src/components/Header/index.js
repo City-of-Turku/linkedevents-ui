@@ -84,9 +84,7 @@ class HeaderBar extends React.Component {
         return (
             <div className='main-navbar'>
                 <Navbar className='bar'>
-                    <NavbarBrand className="bar__logo" src={cityOfHelsinkiLogo}href="/">
-                        <img src={cityOfHelsinkiLogo} alt='city logo' />
-                    </NavbarBrand>
+                    <NavbarBrand className="bar__logo" href="/" />
                     <Nav className='ml-auto'>
                         <div className='bar__login-and-language'>
                             <div className='language-selector'>
@@ -140,7 +138,7 @@ class HeaderBar extends React.Component {
     }
 }
 
-const NavLinks = (props) => {
+export const NavLinks = (props) => {
     const {showModerationLink, toMainPage, toSearchPage, toHelpPage, toModerationPage} = props;
 
     return (
@@ -195,4 +193,5 @@ const mapDispatchToProps = (dispatch) => ({
     setLocale: (locale) => dispatch(setLocaleAction(locale)),
 })
 
+export {HeaderBar as UnconnectedHeaderBar}
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(HeaderBar))

@@ -42,13 +42,11 @@ $iconMarginLeft: 24px;
 		padding-bottom: 0px;
 		&__logo {
 			height: $helsinkiLogoHeight;
+			width: 100px;
 			white-space: nowrap;
-			a {
-				height: $helsinkiLogoHeight;
-			}
-			img {
-				height: $helsinkiLogoHeight;
-			}
+			background-image: url('../../assets/images/helsinki-logo.svg');
+			background-size: contain;
+			background-repeat: no-repeat;
 		}
 		&__login-and-language {
 			display: flex;
