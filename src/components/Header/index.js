@@ -33,7 +33,6 @@ class HeaderBar extends React.Component {
             showModerationLink: false,
         };
     }
-
     toggle() {
         this.setState ({
             isOpen: !this.state.isOpen,
@@ -149,6 +148,7 @@ export const NavLinks = (props) => {
             <Button onClick={toHelpPage}> <FormattedMessage id="more-info"/></Button>
             {showModerationLink &&
                 <Button
+                    //Added classNames for moderation-link, now applies className "moderator true" when state true for scss-rule color.
                     className={classNames('moderator',{true: showModerationLink})}
                     onClick={toModerationPage}
                 >
