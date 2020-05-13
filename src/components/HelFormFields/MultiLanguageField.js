@@ -174,7 +174,6 @@ class MultiLanguageField extends React.Component {
             </div>
         )
     }
-
 }
 
 export default MultiLanguageField
