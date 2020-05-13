@@ -7,7 +7,6 @@ import cookieSession from 'cookie-session'
 
 import getSettings from './getSettings'
 import express from 'express'
-import {getPassport, addAuth} from './auth'
 
 import webpack from 'webpack'
 import webpackMiddleware from 'webpack-dev-middleware'
@@ -16,16 +15,10 @@ import config from '../config/webpack/dev.js'
 
 const settings = getSettings()
 const app = express()
-const passport = getPassport(settings)
-
 
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cookieSession({name: 's', secret: settings.sessionSecret, maxAge: 86400 * 1000}));
-
-app.use(passport.initialize());
-app.use(passport.session());
-addAuth(app, passport, settings);
 
 if(process.env.NODE_ENV !== 'development') {
     app.use('/', express.static(path.resolve(__dirname, '..', 'dist')));
