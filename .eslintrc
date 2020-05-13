@@ -8,8 +8,7 @@
     "parser": "babel-eslint",
     "globals": {
       "_": true,
-      "appSettings": true,
-      "oidcSettings": true
+      "appSettings": true
     },
     "rules": {
       "no-console": "off",

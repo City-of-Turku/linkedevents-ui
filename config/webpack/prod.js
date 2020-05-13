@@ -54,7 +54,7 @@ const config = {
                 use: [
                     {loader: 'style-loader'},
                     {loader: 'css-loader'},
-                    {loader: 'sass-loader', options: {data: '$ui-mode: ' + ui_mode + ' !global;'}},
+                    {loader: 'sass-loader', options: {data: "$ui-mode: " + ui_mode + " !global;"}},
                 ],
             },
             {test: /\.css$/, use: ['style-loader', 'css-loader']},
@@ -80,13 +80,6 @@ const config = {
         new HtmlWebpackPlugin({
             inject: true,
             templateContent: indexTemplate,
-        }),
-        new webpack.DefinePlugin({
-            oidcSettings: {
-                client_id: JSON.stringify(appConfig.readConfig('client_id')),
-                openid_audience: JSON.stringify(appConfig.readConfig('openid_audience')),
-                openid_authority: JSON.stringify(appConfig.readConfig('openid_authority')),
-            },
         }),
     ],
 };

@@ -29,12 +29,6 @@ import store, {history} from './store'
 import moment from 'moment'
 import * as momentTimezone from 'moment-timezone'
 
-// oidc
-import userManager from './utils/userManager';
-import {OidcProvider, processSilentRenew} from 'redux-oidc';
-import LoginCallback from './views/Auth/LoginCallback'
-import LogoutCallback from './views/Auth/LogoutCallback'
-
 // Moment locale
 moment.locale('fi')
 momentTimezone.locale('fi')
@@ -48,31 +42,23 @@ store.subscribe(_.bind(Serializer, null, store));
 
 const LayoutContainer = withRouter(connect()(App));
 
-if (window.location.pathname === '/silent-renew') {
-    processSilentRenew();
-} else {
-    ReactDOM.render(
-        <Provider store={store}>
-            <OidcProvider store={store} userManager={userManager}>
-                <IntlProviderWrapper>
-                    <ConnectedRouter history={history}>
-                        <LayoutContainer>
-                            <Route exact path="/" component={EventListingPage}/>
-                            <Route exact path="/event/:eventId" component={Event}/>
-                            <Route exact path="/event/:action/:eventId" component={Editor}/>
-                            <Route exact path="/event/done/:action/:eventId" component={EventCreated}/>
-                            <Route exact path="/search" component={Search}/>
-                            <Route exact path="/help" component={Help}/>
-                            <Route exact path="/terms" component={Terms}/>
-                            <Route exact path="/moderation" component={ModerationPage}/>
-                            <Route path="/" component={DebugHelper}/>
-                            <Route exact path="/callback" component={LoginCallback}/>
-                            <Route exact path="/callback/logout" component={LogoutCallback}/>
-                        </LayoutContainer>
-                    </ConnectedRouter>
-                </IntlProviderWrapper>
-            </OidcProvider>
-        </Provider>,
-        document.getElementById('content')
-    )
-}
+ReactDOM.render(
+    <Provider store={store}>
+        <IntlProviderWrapper>
+            <ConnectedRouter history={history}>
+                <LayoutContainer>
+                    <Route exact path="/" component={EventListingPage}/>
+                    <Route exact path="/event/:eventId" component={Event}/>
+                    <Route exact path="/event/:action/:eventId" component={Editor}/>
+                    <Route exact path="/event/done/:action/:eventId" component={EventCreated}/>
+                    <Route exact path="/search" component={Search}/>
+                    <Route exact path="/help" component={Help}/>
+                    <Route exact path="/terms" component={Terms}/>
+                    <Route exact path="/moderation" component={ModerationPage}/>
+                    <Route path="/" component={DebugHelper}/>
+                </LayoutContainer>
+            </ConnectedRouter>
+        </IntlProviderWrapper>
+    </Provider>,
+    document.getElementById('content')
+)

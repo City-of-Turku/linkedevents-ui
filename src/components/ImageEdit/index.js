@@ -213,7 +213,7 @@ const ImageEdit = (props) => {
                         >
                             <FormattedMessage id={'image-modal-view-terms-paragraph-text'}/>
                             &nbsp;
-                            <a href={'/help#images'} target={'_blank'} rel='noopener noreferrer'>
+                            <a href={'/help#images'} target={'_blank'}>
                                 <FormattedMessage id={'image-modal-view-terms-link-text'}/>
                             </a>
                         </div>

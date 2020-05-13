@@ -3,7 +3,6 @@ import editor from './editor'
 import images from './images'
 import app from './app'
 import userLocale from './userLocale'
-import {reducer as oidcReducer} from 'redux-oidc'
 
 export default {
     user: user,
@@ -11,5 +10,4 @@ export default {
     images: images,
     app: app,
     userLocale: userLocale,
-    auth: oidcReducer,
 }
