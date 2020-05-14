@@ -52,9 +52,9 @@
     "moment": "^2.24.0",
     "moment-timezone": "^0.5.27",
     "nconf": "^0.9.1",
+    "node-sass": "^4.14.1",
     "object-assign": "^4.1.1",
-    "passport": "^0.3.2",
-    "passport-helsinki": "https://github.com/City-of-Helsinki/passport-helsinki.git",
+    "oidc-client": "^1.10.1",
     "progress": "^1.1.8",
     "prop-types": "^15.7.2",
     "raven-js": "^2.3.0",
@@ -74,6 +74,7 @@
     "reactstrap": "^8.4.1",
     "redux": "4.0.4",
     "redux-actions": "^0.9.0",
+    "redux-oidc": "^4.0.0-beta1",
     "redux-thunk": "^2.3.0",
     "typeahead.js": "^0.11.1"
   },
@@ -106,7 +107,6 @@
     "js-yaml": "^3.13.1",
     "json-loader": "^0.5.4",
     "morgan": "^1.6.1",
-    "node-sass": "^4.13.1",
     "pug": "^2.0.3",
     "pug-loader": "^2.4.0",
     "react-transform-hmr": "^1.0.4",
@@ -126,6 +126,7 @@
   "jest": {
     "setupTestFrameworkScriptFile": "<rootDir>src/setupTests.js",
     "testEnvironment": "jsdom",
+    "testURL": "http://localhost/",
     "moduleFileExtensions": [
       "js",
       "jsx",
@@ -136,7 +137,8 @@
       "node_modules"
     ],
     "moduleNameMapper": {
-      "^.+\\.(css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$": "identity-obj-proxy"
+      "^.+\\.(css|styl|less|sass|scss|png|jpg|ttf|svg|woff|woff2)$": "identity-obj-proxy",
+      "src/(.*)": "<rootDir>/src/$1"
     },
     "snapshotSerializers": [
       "enzyme-to-json/serializer"

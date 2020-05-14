@@ -3,8 +3,8 @@ import './index.scss'
 import React, {useState} from 'react';
 import PropTypes from 'prop-types'
 import {injectIntl, FormattedMessage} from 'react-intl'
-import {Button} from 'reactstrap';
 import {
+    Button,
     IconButton,
     Dialog,
     DialogTitle,
@@ -213,7 +213,7 @@ const ImageEdit = (props) => {
                         >
                             <FormattedMessage id={'image-modal-view-terms-paragraph-text'}/>
                             &nbsp;
-                            <a href={'/help#images'} target={'_blank'} rel="noopener noreferrer">
+                            <a href={'/help#images'} target={'_blank'} rel='noopener noreferrer'>
                                 <FormattedMessage id={'image-modal-view-terms-link-text'}/>
                             </a>
                         </div>
@@ -221,11 +221,12 @@ const ImageEdit = (props) => {
                     <img className="col-sm-4 image-edit-dialog--image" src={thumbnailUrl} alt={altText} />
                     <div className="col-sm-12">
                         <Button
-                            size="lg" block
+                            fullWidth
                             type="submit"
                             color="primary"
                             variant="contained"
                             disabled={getIsDisabled(state)}
+                            style={{margin: HelMaterialTheme.spacing(3, 0, 2)}}
                         >
                             Tallenna tiedot
                         </Button>

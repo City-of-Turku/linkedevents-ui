@@ -3,7 +3,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const GitRevisionPlugin = require('git-revision-webpack-plugin');
 const common = require('./common');
 const appConfig = require('../appConfig');
-const assetPath = require('../assetPath');
 
 // There are defined in common.js as well, but that is not available without
 // transpilation, which is not done for webpack configuration file
@@ -34,11 +33,6 @@ const config = {
     resolve: {
         modules: [common.paths.ROOT, 'node_modules'],
         extensions: ['.', '.webpack.js', '.web.js', '.jsx', '.js'],
-        alias: {
-            '@city-assets': assetPath.cityAssets,
-            '@city-images': assetPath.cityImages,
-            '@city-i18n': assetPath.cityi18n,
-        },
     },
     module: {
         rules: [
@@ -54,7 +48,7 @@ const config = {
                 use: [
                     {loader: 'style-loader'},
                     {loader: 'css-loader'},
-                    {loader: 'sass-loader', options: {data: "$ui-mode: " + ui_mode + " !global;"}},
+                    {loader: 'sass-loader', options: {data: '$ui-mode: ' + ui_mode + ' !global;'}},
                 ],
             },
             {test: /\.css$/, use: ['style-loader', 'css-loader']},
@@ -80,6 +74,13 @@ const config = {
         new HtmlWebpackPlugin({
             inject: true,
             templateContent: indexTemplate,
+        }),
+        new webpack.DefinePlugin({
+            oidcSettings: {
+                client_id: JSON.stringify(appConfig.readConfig('client_id')),
+                openid_audience: JSON.stringify(appConfig.readConfig('openid_audience')),
+                openid_authority: JSON.stringify(appConfig.readConfig('openid_authority')),
+            },
         }),
     ],
 };

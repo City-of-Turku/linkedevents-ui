@@ -60,23 +60,27 @@ class LanguageSelector extends React.Component {
         const activeLocale = userLocale.locale.toUpperCase();
         return (
             <React.Fragment>
-                <span className="glyphicon glyphicon-globe" />
-                <div ref={node => this.node = node} className='LanguageMain'>
+                <div onClick={this.toggle} ref={node => this.node = node} className='LanguageMain'>
+                    <span className="glyphicon glyphicon-globe" />
                     <div className="currentLanguage">
-                        <a href="#" onClick={this.toggle}>{activeLocale}
+                        <a href="#">{activeLocale}
                             <span className="caret"></span>
                         </a>
                     </div>
-                    <ul className={classNames('language', {open: this.state.isOpen})}>
-                        {this.props.languages.map((language, index) => {
-                            return (
-                                <li key={index} className={classNames('language-item',{active: this.isActiveLanguage(language)})}>
-                                    <a onClick={this.handleLanguageChange.bind(this, language)} href="#">{language.label}</a>
-                                </li>
-                            )
-                        })}
-                    </ul>
                 </div>
+                <ul className={classNames('language', {open: this.state.isOpen})}>
+                    {this.props.languages.map((language, index) => {
+                        return (
+                            <li
+                                key={index}
+                                className={classNames('language-item',{active: this.isActiveLanguage(language)})}
+                                onClick={this.handleLanguageChange.bind(this, language)}
+                            >
+                                <a href="#">{language.label}</a>
+                            </li>
+                        )
+                    })}
+                </ul>
             </React.Fragment>
         )
     }

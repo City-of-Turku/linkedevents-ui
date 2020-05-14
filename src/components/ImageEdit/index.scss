@@ -1,28 +1,5 @@
 .image-edit-dialog {
-  &--image {
-    object-fit: contain;
-  }
-}
-.file-upload {
-  .btn {
-    padding: 16px 16px;
-    border-radius: 2px;
-    font-size: 15.75px;
-    background-color: #0072c6;
-  }
-  .btn-primary.disabled:hover {
-    background-color: #6c757d;
-  }
-}
-.button-row {
-  .btn {
-    padding: 16px 16px;
-    border-radius: 2px;
-    font-size: 15.75px;
-    background-color: #0072c6;
-  }
-}
-.disabled:disabled {
-  background-color: #6c757d;
-  border: none;
+    &--image {
+        object-fit: contain;
+    }
 }

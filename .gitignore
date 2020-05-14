@@ -8,3 +8,4 @@ server.config
 yarn-error.log
 config_dev.json
 package-lock.json
+/coverage/

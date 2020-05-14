@@ -1,6 +1,6 @@
 import 'src/assets/additional_css/bootstrap.custom.min.css';
 import 'src/assets/main.scss';
-import '@city-assets/main.scss';
+
 
 import PropTypes from 'prop-types';
 
@@ -14,7 +14,7 @@ import {Close} from '@material-ui/icons';
 import {injectIntl, FormattedMessage} from 'react-intl'
 
 import {fetchLanguages as fetchLanguagesAction, fetchKeywordSets as fetchKeywordSetsAction} from '../../actions/editor'
-import {retrieveUserFromSession as retrieveUserFromSessionAction} from '../../actions/user'
+import {fetchUser as fetchUserAction} from '../../actions/user'
 
 import {cancelAction, doAction} from 'src/actions/app'
 
@@ -63,9 +63,13 @@ class App extends React.Component {
 
         // Prefetch editor related hel.fi categories
         this.props.fetchKeywordSets()
+    }
 
-        // Fetch userdata
-        this.props.retrieveUserFromSession()
+    componentDidUpdate(prevProps) {
+        // fetch user if user doesnt exist yet or new user is not same as previous one
+        if(this.props.auth.user && this.props.auth.user !== prevProps.auth.user) {
+            this.props.fetchUser(this.props.auth.user.profile.sub);
+        }
     }
 
     render() {
@@ -181,21 +185,24 @@ App.propTypes = {
     user: PropTypes.object,
     dispatch: PropTypes.func,
     fetchLanguages: PropTypes.func,
-    retrieveUserFromSession: PropTypes.func,
+    auth : PropTypes.object,
+    fetchUser: PropTypes.func,
 }
 
 const mapStateToProps = (state) => ({
     editor: state.editor,
     user: state.user,
     app: state.app,
+    auth: state.auth,
 })
 
 const mapDispatchToProps = (dispatch) => ({
     fetchKeywordSets: () => dispatch(fetchKeywordSetsAction()),
     fetchLanguages:() => dispatch(fetchLanguagesAction()),
-    retrieveUserFromSession: () => dispatch(retrieveUserFromSessionAction()),
     do: (data) => dispatch(doAction(data)),
     cancel: () => dispatch(cancelAction()),
+    fetchUser: (id) => dispatch(fetchUserAction(id)),
 })
 
+export {App as UnconnectedApp};
 export default connect(mapStateToProps, mapDispatchToProps)(injectIntl(App))

@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React,{Fragment, Component} from 'react'
+import React from 'react'
 
 import {setData} from 'src/actions/editor.js'
 import {TextField} from '@material-ui/core'
@@ -7,10 +7,9 @@ import validationRules from 'src/validation/validationRules';
 import ValidationPopover from 'src/components/ValidationPopover'
 import constants from '../../constants'
 
-
 const {VALIDATION_RULES, CHARACTER_LIMIT} = constants
 
-class HelTextField extends Component {
+class HelTextField extends React.Component {
     constructor(props) {
         super(props)
 
@@ -188,7 +187,7 @@ class HelTextField extends Component {
         } = this.props
 
         return (
-            <Fragment>
+            <React.Fragment>
                 <TextField
                     fullWidth
                     name={name}
@@ -209,7 +208,7 @@ class HelTextField extends Component {
                     anchor={this.inputRef}
                     validationErrors={validationErrors}
                 />
-            </Fragment>
+            </React.Fragment>
         )
     }
 }

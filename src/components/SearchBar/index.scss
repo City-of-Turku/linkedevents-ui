@@ -9,7 +9,7 @@
     }
 
     &--icon {
-       
+        margin: 0 16px;
         transform: translateY(8px);
     }
 
@@ -26,29 +26,6 @@
         > button {
             flex: 1 0 auto;
         }
-    }
-}
-.search-bar--input{
-.btn{
-background-color: #0072c6;
-margin-left: 18px;
-height:55px;
-border-radius: 2px;
-
-}
-}
-.form-group{
-    .event-search-bar{
-    border-bottom-width: 1px;
-    border-radius: 0px;
-    border-color:rgb(84,84,84);
-    border-top: 0px;
-    border-left: 0px;
-    border-right: 0px;
-    background: none;
-    width: 100%;
-    overflow: hidden;
-    padding: 6px 0 7px;
     }
 }
 

@@ -55,7 +55,6 @@ $modal-backdrop-opacity: 0.7;
 }
 
 .file-upload {
-
     &--new {
         align-items: center;
         display: flex;
@@ -78,7 +77,6 @@ $modal-backdrop-opacity: 0.7;
 
     button {
         display: inline-block;
-        
     }
 
     p {
@@ -90,9 +88,4 @@ $modal-backdrop-opacity: 0.7;
     .upload-img {
         margin: 0;
     }
-}
-.btn-secondary{
-    background-color: #0072c6;
-    border-radius: 2px;
-    font-size: 15.75px;
 }
