@@ -7,17 +7,21 @@ import {connect} from 'react-redux'
 import {push} from 'react-router-redux'
 import {withRouter} from 'react-router'
 
-import {login as loginAction, logout as logoutAction} from 'src/actions/user.js'
+import {clearUserData as clearUserDataAction} from 'src/actions/user.js'
 import {setLocale as setLocaleAction} from 'src/actions/userLocale'
 import LanguageSelector from './LanguageSelector';
 import {FormattedMessage} from 'react-intl'
 import constants from '../../constants'
 //Updated Nav from Material UI to Reactstrap based on Open design
 import {Collapse, Navbar, NavbarToggler, Nav, NavbarBrand, Button} from 'reactstrap';
+//Citylogo can now be used from scss
+//import cityOfHelsinkiLogo from '../../assets/images/helsinki-logo.svg'
 import {hasOrganizationWithRegularUsers} from '../../utils/user'
 import {get} from 'lodash'
 import moment from 'moment'
 import * as momentTimezone from 'moment-timezone'
+import classNames from 'classnames'
+import userManager from '../../utils/userManager'
 
 const {USER_TYPE, APPLICATION_SUPPORT_TRANSLATION} = constants
 
@@ -30,7 +34,6 @@ class HeaderBar extends React.Component {
             showModerationLink: false,
         };
     }
-
     toggle() {
         this.setState ({
             isOpen: !this.state.isOpen,
@@ -68,8 +71,28 @@ class HeaderBar extends React.Component {
         momentTimezone.locale(selectedOption.value)
     }
 
+    handleLoginClick = () => {
+        userManager.signinRedirect({
+            data: {
+                redirectUrl: window.location.pathname,
+            },
+            extraQueryParams: {
+                ui_locales: this.props.userLocale.locale, // set auth service language for user
+            },
+        });
+    }
+
+    handleLogoutClick = () => {
+        // clear user data in redux store
+        this.props.clearUserData();
+        
+        // passing id token hint skips logout confirm on tunnistamo's side
+        userManager.signoutRedirect({id_token_hint: this.props.auth.user.id_token});
+        userManager.removeUser();
+    }
+
     render() {
-        const {user, userLocale, routerPush, logout, login, location} = this.props
+        const {user, userLocale, routerPush, location} = this.props
         const {showModerationLink} = this.state
 
         const toMainPage = () => routerPush('/');
@@ -90,12 +113,12 @@ class HeaderBar extends React.Component {
                             </div>
                             {user ? (
                                 <Button
-                                    onClick={() => logout()}>
+                                    onClick={this.handleLogoutClick}>
                                     {user.displayName}
                                 </Button>
                             ) : (
                                 <Button  
-                                    onClick={() => login()}>
+                                    onClick={this.handleLoginClick}>
                                     <span className="glyphicon glyphicon-user"></span>
                                     <FormattedMessage id='login' />
                                 </Button>
@@ -136,11 +159,8 @@ class HeaderBar extends React.Component {
     }
 }
 
-const NavLinks = (props) => {
+export const NavLinks = (props) => {
     const {showModerationLink, toMainPage, toSearchPage, toHelpPage, toModerationPage} = props;
-    const moderationStyles = showModerationLink && (theme => ({
-
-    }))()
 
     return (
         <React.Fragment>
@@ -149,8 +169,9 @@ const NavLinks = (props) => {
             <Button onClick={toHelpPage}> <FormattedMessage id="more-info"/></Button>
             {showModerationLink &&
                 <Button
+                    //Added classNames for moderation-link, now applies className "moderator true" when state true for scss-rule color.
+                    className={classNames('moderator',{true: showModerationLink})}
                     onClick={toModerationPage}
-                    classes={moderationStyles}
                 >
                     <FormattedMessage id="moderation-page"/>
                 </Button>
@@ -170,8 +191,6 @@ NavLinks.propTypes = {
 // Adds dispatch to this.props for calling actions, add user from store to props
 HeaderBar.propTypes = {
     user: PropTypes.object,
-    login: PropTypes.func,
-    logout: PropTypes.func,
     routerPush: PropTypes.func,
     userLocale: PropTypes.object,
     setLocale: PropTypes.func,
@@ -179,19 +198,22 @@ HeaderBar.propTypes = {
     showModerationLink: PropTypes.bool,
     type: PropTypes.string,
     tag: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
+    clearUserData: PropTypes.func,
+    auth: PropTypes.object,
 }
 
 
 const mapStateToProps = (state) => ({
     user: state.user,
     userLocale: state.userLocale,
+    auth: state.auth,
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    login: () => dispatch(loginAction()),
-    logout: () => dispatch(logoutAction()),
     routerPush: (url) => dispatch(push(url)),
     setLocale: (locale) => dispatch(setLocaleAction(locale)),
+    clearUserData: () => dispatch(clearUserDataAction()),
 })
 
+export {HeaderBar as UnconnectedHeaderBar};
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(HeaderBar))
