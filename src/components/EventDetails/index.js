@@ -289,7 +289,7 @@ VideoValue.propTypes = {
 const EventDetails = (props) => {
     const {editor, values, intl, rawData, publisher, superEvent} = props
 
-    const mainCategoryValues = mapKeywordSetToForm(editor.keywordSets, 'helsinki:topics')
+    const mainCategoryValues = mapKeywordSetToForm(editor.keywordSets, 'turku:topics')
         .map(item => item.value)
     const mainCategoryKeywords = values.keywords.filter(item => mainCategoryValues.includes(item.value))
     const nonMainCategoryKeywords = values.keywords.filter(item => !mainCategoryValues.includes(item.value))

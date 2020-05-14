@@ -52,12 +52,12 @@ const getKeywordIds = (keywords) => keywords
 const HelKeywordSelector = ({intl, editor, setDirtyState, setData}) => {
     const {values, keywordSets, validationErrors} = editor
     const keywords = get(values, 'keywords', [])
-    const mainCategoryOptions = mapKeywordSetToForm(keywordSets, 'helsinki:topics')
+    const mainCategoryOptions = mapKeywordSetToForm(keywordSets, 'turku:topics')
     // Internet location automatically implies "remote participation"
     const remoteParticipationKeyword = mainCategoryOptions.find(keyword => keyword['value'].includes('yso:p26626'))
     if (remoteParticipationKeyword
         && values['location']
-        && values['location']['id'] == 'helsinki:internet'
+        && values['location']['id'] == 'turku:internet'
         && !keywords.find(keyword => keyword['value'].includes('yso:p26626'))) {
         keywords.push(remoteParticipationKeyword)
     }

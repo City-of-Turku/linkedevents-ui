@@ -138,7 +138,7 @@ class FormFields extends React.Component {
     }
 
     render() {
-        const helTargetOptions = mapKeywordSetToForm(this.props.editor.keywordSets, 'helsinki:audiences')
+        const helTargetOptions = mapKeywordSetToForm(this.props.editor.keywordSets, 'turku:audiences')
         const helEventLangOptions = mapLanguagesSetToForm(this.props.editor.languages)
 
         const {event, superEvent, user, editor} = this.props

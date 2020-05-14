@@ -219,7 +219,7 @@ var validations = {
         if (!value) {
             return false
         }
-        return mapKeywordSetToForm(keywordSets, 'helsinki:topics')
+        return mapKeywordSetToForm(keywordSets, 'turku:topics')
             .map(item => item.value)
             .some(item => value.find(_item => _item.value.includes(item)))
     },
