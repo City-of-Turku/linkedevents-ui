@@ -1,5 +1,11 @@
 .container > div > .row {
     justify-content: space-between;
+    .glyphicon {
+        font-size: 22px;
+        padding-left: 15px;
+        padding-top: 1px;
+        margin-right: 20px;
+    }
 }
 
 .clipboard-copy-button {
@@ -23,13 +29,6 @@
         left: 480px;
         top: 65px;
     }
-}
-
-.glyphicon{
-    font-size: 22px;
-    padding-left: 15px;
-    padding-top: 1px;
-    margin-right: 20px;
 }
 
 .place-id{

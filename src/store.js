@@ -15,7 +15,7 @@ const allReducers = combineReducers(Object.assign({}, reducers, {
 const allMiddlewares = compose(
     applyMiddleware(thunk),
     applyMiddleware(routerMiddleware(history)),
-    typeof window === 'object' && typeof window.devToolsExtension !== 'undefined' ? window.devToolsExtension() : f => f
+    typeof window === 'object' && typeof window.__REDUX_DEVTOOLS_EXTENSION__ !== 'undefined' ? window.__REDUX_DEVTOOLS_EXTENSION__() : f => f
 )
 
 const store = createStore(allReducers, allMiddlewares)
