@@ -4,10 +4,9 @@ import React, {useState} from 'react'
 import PropTypes from 'prop-types'
 import moment from 'moment'
 import {FormattedMessage, injectIntl} from 'react-intl'
-import {Button, TextField} from '@material-ui/core'
-import {Remove} from '@material-ui/icons'
 import HelDatePicker from '../HelFormFields/HelDatePicker'
-import {HelMaterialTheme} from '../../themes/material-ui'
+import {Button, Form, FormGroup} from 'reactstrap';
+
 
 const handleKeyPress = (
     event,
@@ -42,7 +41,7 @@ const SearchBar = ({intl, onFormSubmit}) => {
                     onChange={setStartDate}
                     maxDate={endDate ? endDate : undefined}
                 />
-                <Remove className="search-bar--icon" />
+                <span className="glyphicon glyphicon-minus search-bar--icon" aria-hidden="true"></span>
                 <HelDatePicker
                     name="endDate"
                     placeholder={intl.formatMessage({id: 'search-date-placeholder'})}
@@ -52,17 +51,19 @@ const SearchBar = ({intl, onFormSubmit}) => {
                 />
             </div>
             <div className="search-bar--input">
-                <TextField
-                    autoFocus
-                    fullWidth
-                    label={intl.formatMessage({id: 'event-name-or-place'})}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    onKeyPress={(e) => handleKeyPress(e, startDate, endDate, onFormSubmit, setSearchQuery)}
-                    style={{margin: 0}}
-                />
+                <Form>
+                    <FormGroup>
+                        <label>{intl.formatMessage({id: 'event-name-or-place'})}</label>
+                        <input className='event-search-bar'
+                            type="text" 
+                            autoFocus
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            onKeyPress={(e) => handleKeyPress(e, startDate, endDate, onFormSubmit, setSearchQuery)}
+                        />
+                    </FormGroup>
+                </Form>
                 <Button
                     disabled={searchQuery.length === 0}
-                    style={{marginLeft: HelMaterialTheme.spacing(2)}}
                     variant="contained"
                     color="primary"
                     onClick={() => onFormSubmit(searchQuery, startDate, endDate)}

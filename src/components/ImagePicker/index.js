@@ -4,7 +4,8 @@ import React from 'react';
 import PropTypes from 'prop-types'
 
 import {FormattedMessage, injectIntl} from 'react-intl'
-import {Button, IconButton, CircularProgress, Dialog, DialogTitle, DialogContent, Typography, TextField} from '@material-ui/core'
+import {Button} from 'reactstrap';
+import {IconButton, CircularProgress, Dialog, DialogTitle, DialogContent, Typography, TextField} from '@material-ui/core'
 import {Close, ErrorOutline, Publish} from '@material-ui/icons'
 import {deleteImage} from 'src/actions/userImages.js'
 import {connect} from 'react-redux'
@@ -200,7 +201,6 @@ export class ImagePicker extends React.Component {
                                 <Button
                                     className="upload-img"
                                     variant="contained"
-                                    color="primary"
                                     onClick={() => this.clickHiddenUploadInput()}
                                 >
                                     <FormattedMessage id="upload-image" />

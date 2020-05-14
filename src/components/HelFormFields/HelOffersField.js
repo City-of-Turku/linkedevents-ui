@@ -7,7 +7,7 @@ import HelCheckbox from './HelCheckbox'
 import NewOffer from './NewOffer'
 import './HelOffersField.scss'
 
-import {Button} from '@material-ui/core'
+import {Button} from 'reactstrap';
 
 import {connect} from 'react-redux'
 import {addOffer, setOfferData, setFreeOffers} from 'src/actions/editor.js'
@@ -98,15 +98,13 @@ class HelOffersField extends React.Component {
                     { offerDetails }
                 </div>
                 <Button
-                    fullWidth
+                    size='lg'block
                     variant="contained"
-                    color="primary"
                     disabled={this.state.isFree}
-                    style={{marginTop: HelMaterialTheme.spacing(2)}}
-                    startIcon={<Add/>}
                     onClick={() => this.addNewOffer()}
-                >
+                ><span  className="glyphicon glyphicon-plus"></span>
                     <FormattedMessage id="event-add-price" />
+                    
                 </Button>
             </div>
         )

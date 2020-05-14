@@ -1,5 +1,6 @@
 import 'src/assets/additional_css/bootstrap.custom.min.css';
 import 'src/assets/main.scss';
+import '@city-assets/main.scss';
 
 
 import PropTypes from 'prop-types';
