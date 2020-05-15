@@ -12,5 +12,5 @@
     "client_id": "CLIENT_ID",
     "openid_audience": "OPENID_AUDIENCE",
     "openid_authority": "OPENID_AUTHORITY",
-    "city_theme": "city_theme"
+    "city_theme": false
 }
