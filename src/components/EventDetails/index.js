@@ -14,7 +14,6 @@ import {getStringWithLocale} from '../../utils/locale'
 import {mapKeywordSetToForm} from '../../utils/apiDataMapping'
 import LinksToEvents from '../LinksToEvents/LinksToEvents'
 import {CheckBox, CheckBoxOutlineBlank} from '@material-ui/icons'
-import {HelMaterialTheme} from '../../themes/material-ui'
 import helBrandColors from '../../themes/hel/hel-brand-colors'
 
 const NoValue = (props) => {

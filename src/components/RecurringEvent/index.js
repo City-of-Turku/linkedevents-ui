@@ -5,7 +5,7 @@ import {FormattedMessage} from 'react-intl'
 import moment from 'moment-timezone'
 import {isNil, isEmpty} from 'lodash'
 import DayCheckbox from './DayCheckbox'
-import {Button, IconButton, TextField, Typography, withStyles, Dialog, DialogTitle, DialogContent} from '@material-ui/core'
+import {IconButton, TextField, Typography, withStyles, Dialog, DialogTitle, DialogContent} from '@material-ui/core'
 import {Add, Close} from '@material-ui/icons'
 import {setEventData, sortSubEvents} from 'src/actions/editor'
 import validationRules from 'src/validation/validationRules'
@@ -13,6 +13,7 @@ import ValidationPopover from 'src/components/ValidationPopover'
 import constants from '../../constants'
 import {HelMaterialTheme} from '../../themes/material-ui'
 import HelDatePicker from '../HelFormFields/HelDatePicker'
+import {Button} from 'reactstrap';
 
 const {VALIDATION_RULES} = constants
 

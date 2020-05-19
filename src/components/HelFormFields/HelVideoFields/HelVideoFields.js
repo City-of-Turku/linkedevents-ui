@@ -7,10 +7,11 @@ import {setData as setDataAction} from 'src/actions/editor'
 import {HelTextField} from '../index'
 import {SideField} from '../../FormFields'
 import {connect} from 'react-redux'
-import {Button, IconButton, withStyles} from '@material-ui/core'
+import {IconButton, withStyles} from '@material-ui/core'
 import constants from '../../../constants'
 import {get, set, isEqual, isEmpty} from 'lodash'
 import {Add, Delete} from '@material-ui/icons'
+import {Button} from 'reactstrap';
 
 const {VALIDATION_RULES, CHARACTER_LIMIT} = constants
 

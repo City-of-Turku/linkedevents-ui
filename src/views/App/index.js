@@ -9,7 +9,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 
 import Headerbar from 'src/components/Header'
-import {ThemeProvider, Button, IconButton, Paper, Dialog, DialogTitle, DialogContent, DialogActions} from '@material-ui/core';
+import {ThemeProvider,IconButton, Paper, Dialog, DialogTitle, DialogContent, DialogActions} from '@material-ui/core';
 import {Close} from '@material-ui/icons';
 
 import {injectIntl, FormattedMessage} from 'react-intl'
@@ -24,6 +24,7 @@ import Notifications from '../Notification'
 import {MuiPickersUtilsProvider} from '@material-ui/pickers'
 import MomentUtils from '@date-io/moment';
 import moment from 'moment'
+import {Button} from 'reactstrap';
 
 // localized moment utils
 class LocalizedUtils extends MomentUtils {
