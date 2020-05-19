@@ -342,5 +342,9 @@
     "terms-agree-link": "palvelun käyttöehdot",
     "terms-heading": "Linked Eventsin käyttöehdot",
 
-    "user-events-toggle": "Näytä vain itse luomani tapahtumat"
+    "user-events-toggle": "Näytä vain itse luomani tapahtumat",
+    "navbar.fi": "Finska",
+    "navbar.en": "Engelska",
+    "navbar.sv": "Svenska",
+    "navbar.active": "Det nuvarande språket är svenska"
 }

@@ -63,7 +63,7 @@ class LanguageSelector extends React.Component {
                 <div onClick={this.toggle} ref={node => this.node = node} className='LanguageMain'>
                     <span className="glyphicon glyphicon-globe" />
                     <div className="currentLanguage">
-                        <a href="#">{activeLocale}
+                        <a aria-label={this.context.intl.formatMessage({id: `navbar.active`})} href="#">{activeLocale}
                             <span className="caret"></span>
                         </a>
                     </div>
@@ -76,7 +76,7 @@ class LanguageSelector extends React.Component {
                                 className={classNames('language-item',{active: this.isActiveLanguage(language)})}
                                 onClick={this.handleLanguageChange.bind(this, language)}
                             >
-                                <a href="#">{language.label}</a>
+                                <a aria-label={this.context.intl.formatMessage({id: `navbar.${language.value}`})} href="#">{language.label}</a>
                             </li>
                         )
                     })}
@@ -90,5 +90,9 @@ LanguageSelector.propTypes = {
     languages: PropTypes.array,
     userLocale: PropTypes.object,
     changeLanguage: PropTypes.func,
+}
+
+LanguageSelector.contextTypes = {
+    intl: PropTypes.object,
 }
 export default LanguageSelector;

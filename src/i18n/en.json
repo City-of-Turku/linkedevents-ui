@@ -348,5 +348,10 @@
     "terms-agree-link": "terms of service",
     "terms-heading": "Terms of Service",
 
-    "user-events-toggle": "Only display events created by me"
+    "user-events-toggle": "Only display events created by me",
+
+    "navbar.fi": "Finnish",
+    "navbar.en": "English",
+    "navbar.sv": "Swedish",
+    "navbar.active": "Current language is english"
 }
