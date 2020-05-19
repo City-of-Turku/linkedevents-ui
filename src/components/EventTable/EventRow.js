@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
-import {Checkbox, CircularProgress, TableCell, TableRow} from '@material-ui/core'
+import {Checkbox, TableCell, TableRow} from '@material-ui/core'
 import {get, isEmpty, isUndefined} from 'lodash'
 import constants from '../../constants'
 import NameCell from './CellTypes/NameCell'
@@ -10,6 +10,8 @@ import PublisherCell from './CellTypes/PublisherCell'
 import {getFirstMultiLanguageFieldValue} from '../../utils/helpers'
 import {EventQueryParams, fetchEvents} from '../../utils/events'
 import ValidationCell from './CellTypes/ValidationCell'
+//Replaced Material-ui Spinner for a Bootstrap implementation. - Turku
+import Spinner from 'react-bootstrap/Spinner'
 
 const {USER_TYPE, SUPER_EVENT_TYPE_RECURRING, SUPER_EVENT_TYPE_UMBRELLA} = constants
 
@@ -218,7 +220,9 @@ class EventRow extends React.Component {
                                     }
                                     // add loading spinner
                                     if (tableHasCheckboxColumn && acc.length === 1 || !tableHasCheckboxColumn && acc.length === 0) {
-                                        return [...acc, <TableCell key={`cell-placeholder-${index}`}><CircularProgress /></TableCell>]
+                                        return [...acc, <TableCell key={`cell-placeholder-${index}`}> <Spinner animation="border" role="status">
+                                            <span className="sr-only">Loading...</span>
+                                        </Spinner></TableCell>]
                                     }
                                     // add empty cells to fill the row
                                     if (tableHasCheckboxColumn &&  index + 1 <= columnCount || !tableHasCheckboxColumn &&  index <= columnCount) {

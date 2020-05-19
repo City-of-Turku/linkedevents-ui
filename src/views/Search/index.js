@@ -6,7 +6,8 @@ import PropTypes from 'prop-types'
 import EventGrid from '../../components/EventGrid'
 import SearchBar from '../../components/SearchBar'
 import {EventQueryParams, fetchEvents} from '../../utils/events'
-import {CircularProgress} from '@material-ui/core'
+//Replaced Material-ui Spinner for a Bootstrap implementation. - Turku
+import Spinner from 'react-bootstrap/Spinner'
 
 class SearchPage extends React.Component {
 
@@ -56,7 +57,9 @@ class SearchPage extends React.Component {
                 <p><FormattedMessage id="search-events-description"/></p>
                 <SearchBar onFormSubmit={(query, start, end) => this.searchEvents(query, start, end)}/>
                 {loading
-                    ? <div className="search-loading-spinner"><CircularProgress size={80} /></div>
+                    ? <div className="search-loading-spinner"><Spinner animation="border" role="status">
+                        <span className="sr-only">Loading...</span>
+                    </Spinner> </div>
                     : this.getResults()
                 }
             </div>

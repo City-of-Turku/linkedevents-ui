@@ -5,7 +5,9 @@ import {connect} from 'react-redux'
 import {FormattedMessage, injectIntl, intlShape} from 'react-intl'
 import {get, isNull} from 'lodash'
 import PropTypes from 'prop-types'
-import {Button, CircularProgress} from '@material-ui/core'
+import {Button} from '@material-ui/core'
+//Replaced Material-ui Spinner for a Bootstrap implementation. - Turku
+import Spinner from 'react-bootstrap/Spinner'
 import {Close} from '@material-ui/icons'
 import {
     executeSendRequest as executeSendRequestAction,
@@ -299,7 +301,9 @@ export class EditorPage extends React.Component {
 
                 <div className="editor-action-buttons">
                     {loading
-                        ? <CircularProgress className="loading-spinner" size={50}/>
+                        ? <Spinner animation="border" role="status">
+                            <span className="sr-only">Loading...</span>
+                        </Spinner>
                         : <div className='buttons-group container'>
                             {editMode === 'update' && this.getActionButton('postpone')}
                             {editMode === 'update' && this.getActionButton('cancel')}

@@ -7,7 +7,9 @@ import {checkEventEditability} from '../../utils/checkEventEditability'
 import constants from '../../constants'
 import showConfirmationModal from '../../utils/confirm'
 import {appendEventDataWithSubEvents, getEventsWithSubEvents} from '../../utils/events'
-import {Button, Checkbox, CircularProgress, FormControlLabel, Tooltip} from '@material-ui/core'
+import {Button, Checkbox, FormControlLabel, Tooltip} from '@material-ui/core'
+//Replaced Material-ui Spinner for a Bootstrap implementation. - Turku
+import Spinner from 'react-bootstrap/Spinner'
 import {confirmAction} from '../../actions/app'
 import {getButtonLabel} from '../../utils/helpers'
 import {Link} from 'react-router-dom'
@@ -115,7 +117,10 @@ const EventActionButton = (props) => {
             <Button
                 variant="contained"
                 disabled={disabled}
-                endIcon={loading && isSaveButton(action) && <CircularProgress color="inherit" size={25}/>}
+                endIcon={loading && isSaveButton(action) &&  
+                <Spinner animation="border" role="status">
+                    <span className="sr-only">Loading...</span>
+                </Spinner>}
                 className={`editor-${action}-button`}
                 onClick={() => confirmAction ? confirmEventAction(props) : customAction()}
                 color={color}

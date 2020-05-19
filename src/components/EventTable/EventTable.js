@@ -2,7 +2,6 @@ import './EventTable.scss'
 import React from 'react'
 import PropTypes from 'prop-types'
 import {
-    CircularProgress,
     TableCell,
     TableRow,
     Table,
@@ -15,6 +14,8 @@ import {FormattedMessage, injectIntl} from 'react-intl'
 import EventRow from './EventRow'
 import TableHeaderCell from './CellTypes/TableHeaderCell'
 import constants from '../../constants'
+//Replaced Material-ui Spinner for a Bootstrap implementation. - Turku
+import Spinner from 'react-bootstrap/Spinner'
 
 const {TABLE_COLUMNS} = constants
 
@@ -98,7 +99,9 @@ const EventTable = ({
                 <TableBody>
                     <TableRow>
                         <TableCell>
-                            <CircularProgress style={{margin: '10px 0'}}/>
+                            <Spinner animation="border" role="status">
+                                <span className="sr-only">Loading...</span>
+                            </Spinner>
                         </TableCell>
                     </TableRow>
                 </TableBody>

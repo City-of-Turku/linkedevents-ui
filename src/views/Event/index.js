@@ -4,7 +4,9 @@ import EventDetails from 'src/components/EventDetails'
 import moment from 'moment'
 import PropTypes from 'prop-types'
 import {FormattedMessage, injectIntl, intlShape} from 'react-intl'
-import {Button, CircularProgress} from '@material-ui/core'
+import {Button} from '@material-ui/core'
+//Replaced Material-ui Spinner for a Bootstrap implementation. - Turku
+import Spinner from 'react-bootstrap/Spinner'
 import {push} from 'react-router-redux'
 import {replaceData as replaceDataAction} from 'src/actions/editor.js'
 import {confirmAction} from 'src/actions/app.js'
@@ -231,7 +233,9 @@ class EventPage extends React.Component {
                 <header>
                     <h1>
                         {loading
-                            ? <CircularProgress size={60}/>
+                            ? <Spinner animation="border" role="status">
+                                <span className="sr-only">Loading...</span>
+                            </Spinner>
                             : getStringWithLocale(event, 'name')
                         }
                     </h1>
