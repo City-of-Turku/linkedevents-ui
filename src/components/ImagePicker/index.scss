@@ -2,95 +2,164 @@ $bg-color: #f6f6f6;
 $modal-backdrop-opacity: 0.7;
 
 .image-picker {
-  align-items: center;
-  background-color: $bg-color;
-  border: 1px solid #525a65;
-  color: #525a65;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  height: 346px;
-  justify-content: center;
-  margin: 15px 0;
-  overflow: hidden;
-  position: relative;
-  text-align: center;
-  transition: background 200ms ease-in-out;
-
-  &:hover {
-    background-color: darken($bg-color, 4%);
-  }
-
-  &--preview {
     align-items: center;
-    background-position: 50%;
-    background-repeat: no-repeat;
-    background-size: cover;
+    background-color: $bg-color;
+    border: 1px solid #525a65;
+    color: #525a65;
+    cursor: pointer;
     display: flex;
     flex-direction: column;
-    height: 100%;
+    height: 346px;
     justify-content: center;
-    width: 100%;
+    margin: 15px 0;
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+    transition: background 200ms ease-in-out;
 
-    svg {
-      font-size: 400%;
+    &:hover {
+        background-color: darken($bg-color, 4%);
     }
 
-    label {
-      font-size: 18px;
-      max-width: 200px;
-      padding-top: 20px;
+    &--preview {
+        align-items: center;
+        background-position: 50%;
+        background-repeat: no-repeat;
+        background-size: cover;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        justify-content: center;
+        width: 100%;
+        background-color: #ebedf1;
+        color:#525a65;
+         label {
+            font-size: 18px;
+            max-width: 400px;
+           padding-top: 20px;
+         }
+       
     }
-  }
 
-  &--dialog {
-    &-title {
-      padding: 0 15px;
-    }
+    &--dialog {
+        &-title {
+            padding:  15px;
+           
+        }
 
-    hr {
-      margin: 2rem 15px;
+        hr {
+            margin: 0.5rem 15px;
+        }
     }
+}
+
+.modal-header{
+    margin-left: 50px;
+    border: 0px;
+}
+
+.image-picker--preview{
+  
+  .glyphigon{
+    font-size: 400%; 
+    transform: rotate(180deg);
+    margin-left: 30px;
+    color:#525a65;
+   
+
   }
 }
+
 
 .file-upload {
-  &--new {
-    align-items: center;
-    display: flex;
-    margin: 16px 15px 0;
-  }
 
-  &--external {
-    align-items: center;
-    display: flex;
-    margin: 16px 15px;
-
-    &-input {
-      flex: 1;
+    &--new {
+        align-items: center;
+        display: flex;
+        margin: 6px 5px 10px ;
+       
     }
-  }
+
+    &--external {
+        align-items: center;
+        display: flex;
+        margin: 40px  60px;
+        
+
+        &-input {
+            flex: 1;
+        }
+       
+    }
 }
+.file-upload--external-input{
+    border-bottom-width: 1px;
+    border-radius: 0px;
+    border-color:rgb(84,84,84);
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+    background: none;
+    width: 190%;
+    overflow: hidden;
+    padding: 2px 0 2px;
+   
+    
+}
+.file-upload--external .btn-primary
+{
+  justify-content: flex-end;
+  margin-left: 40%;
+
+}
+
+
 
 .file-upload-wrapper {
-  margin: 1rem 0 2rem 15px;
+    margin: 1rem 0 2rem 15px;
 
-  button {
-    display: inline-block;
-  }
+    button {
+        display: inline-block;
+        
+    }
 
-  p {
-    display: inline;
-    margin-left: 1rem;
-    vertical-align: middle;
-  }
+    p {
+        display: inline;
+        margin-left: 1rem;
+        vertical-align: middle;
+    }
 
-  .upload-img {
-    margin: 0;
-  }
+    .upload-img {
+        margin: 0;
+
+    }
 }
-.btn-secondary {
-  background-color: #0072c6;
-  border-radius: 2px;
-  font-size: 15.75px;
+.file-upload 
+    {
+    .btn-secondary{
+    background-color: #0072c6;
+    border-radius: 2px;
+    font-size: 15.75px;
+    margin-left: 50px;
 }
+    }
+
+    .icon-button{
+        border:none;
+        background:none;
+        color:#000;
+        
+        &:hover {
+            background-color: darken($bg-color, 4%);
+            border-radius: 50%;
+            
+        }
+    }
+    .button-row{
+        margin-left: 10px;
+        margin-right: 20px;
+    }
+    
+
+    
+

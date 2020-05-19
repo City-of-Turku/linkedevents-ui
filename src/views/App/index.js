@@ -150,9 +150,9 @@ class App extends React.Component {
                         >
                             <DialogTitle>
                                 {confirmMsg}
-                                <IconButton onClick={() => this.props.dispatch(cancelAction())}>
+                                <Button onClick={() => this.props.dispatch(cancelAction())}>
                                     <Close />
-                                </IconButton>
+                                </Button>
                             </DialogTitle>
                             <DialogContent>
                                 <p><strong>{additionalMsg}</strong></p>

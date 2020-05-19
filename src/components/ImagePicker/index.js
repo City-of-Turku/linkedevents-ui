@@ -1,19 +1,20 @@
 import './index.scss'
 
-import React from 'react';
+import React,{Fragment, Component} from 'react';
 import PropTypes from 'prop-types'
 
 import {FormattedMessage, injectIntl} from 'react-intl'
-import {Button} from 'reactstrap';
-import {IconButton, CircularProgress, Dialog, DialogTitle, DialogContent, Typography, TextField} from '@material-ui/core'
-import {Close, ErrorOutline, Publish} from '@material-ui/icons'
+import {Button, Modal, ModalHeader, ModalBody, Form, FormGroup} from 'reactstrap';
+import {Dialog, TextField} from '@material-ui/core'
+import {ErrorOutline} from '@material-ui/icons'
 import {deleteImage} from 'src/actions/userImages.js'
 import {connect} from 'react-redux'
 import {get as getIfExists, isEmpty} from 'lodash'
 import ImageEdit from '../ImageEdit'
 import ImageGalleryGrid from '../ImageGalleryGrid'
 import {confirmAction} from 'src/actions/app.js'
-import {HelMaterialTheme} from '../../themes/material-ui'
+import Spinner from 'react-bootstrap/Spinner'
+
 
 // Display either the image thumbnail or the "Add an image to the event" text.
 const PreviewImage = (props) => {
@@ -22,23 +23,25 @@ const PreviewImage = (props) => {
     
     if (backgroundImage) {
         return (
-            <div className="image-picker--preview" style={backgroundStyle} onClick={() => props.openModalMethod()}/>
+            <div role='tab' className="image-picker--preview"   style={backgroundStyle} onClick={() => props.openModalMethod()}/>
         );
     } else {
+        {/* Temporary comments for upcoming changes, glyphicon glyphicon-download-alt */}
         return (
-            <React.Fragment>
-                <div className="image-picker--preview" onClick={() => props.openModalMethod()}>
-                    <Publish />
-                    <label>
-                        <FormattedMessage id="choose-image"/>
-                    </label>
-                </div>
-            </React.Fragment>
+            
+            <Fragment>
+                <Button className="image-picker--preview"  type='submit' tabIndex="0" aria-label='open' onClick={() => props.openModalMethod()}> 
+                    <span className="glyphicon glyphicon-download-alt" aria-hidden="true"></span>
+                   
+                    <FormattedMessage  id="choose-image"/>
+                   
+                </Button>
+            </Fragment>
         );
     }
 };
 
-export class ImagePicker extends React.Component {
+export class ImagePicker extends Component {
 
     constructor(props) {
         super(props);
@@ -166,12 +169,14 @@ export class ImagePicker extends React.Component {
         }
 
         return (
-            <div className="image-picker">
+            <div className="image-picker" role='tab'>
                 { this.props.loading
-                    ? <CircularProgress className="loading-spinner" size={60}/>
+                    ? <Spinner animation="border" role="status">
+                        <span className="sr-only">Loading...</span>
+                    </Spinner>
                     : <PreviewImage backgroundImage={backgroundImage} openModalMethod={this.openGalleryModal} />
                 }
-
+                {/* Temporary comments for upcoming changes, Dialog must be Modal */}
                 <Dialog
                     className="image-picker--dialog"
                     open={this.state.open}
@@ -179,95 +184,106 @@ export class ImagePicker extends React.Component {
                     maxWidth="lg"
                     onClose={() => this.closeGalleryModal()}
                     transitionDuration={0}
+                    role="dialog"
+                    id="dialog1"
+                    aria-modal="true"
+                    
                 >
-                    <DialogTitle>
+                    {/* Temporary comments for upcoming changes, icon-button looks like shit  */}
+                    <ModalHeader>
                         <FormattedMessage id="event-image-title" />
-                        <IconButton onClick={() => this.closeGalleryModal()}>
-                            <Close/>
-                        </IconButton>
-                    </DialogTitle>
-                    <DialogContent>
-                        <Typography className="image-picker--dialog-title" variant="h6">
-                            <FormattedMessage id="new-image" />
-                        </Typography>
-                        <div className="file-upload">
-                            <div className="file-upload--new">
-                                <input
-                                    onChange={(e) => this.handleUpload(e)}
-                                    style={{display: 'none'}}
-                                    type="file"
-                                    ref={this.hiddenFileInput}
-                                />
-                                <Button
-                                    className="upload-img"
-                                    variant="contained"
-                                    onClick={() => this.clickHiddenUploadInput()}
-                                >
-                                    <FormattedMessage id="upload-image" />
-                                </Button>
-                                {this.state.fileSizeError &&
-                                    <React.Fragment>
-                                        <ErrorOutline style={{margin: HelMaterialTheme.spacing(0, 1, 0, 2)}} />
-                                        <FormattedMessage id="uploaded-image-size-error" />
-                                    </React.Fragment>
-                                }
-                            </div>
-                            <div className="file-upload--external">
-                                <TextField
-                                    className="file-upload--external-input"
-                                    label={<FormattedMessage id="upload-image-from-url"/>}
-                                    onChange={this.handleExternalImage}
-                                />
-                                <Button
-                                    className="file-upload--external-button"
-                                    variant="contained"
-                                    color="primary"
-                                    style={{marginLeft: HelMaterialTheme.spacing(2)}}
-                                    disabled={!this.state.thumbnailUrl || this.state.thumbnailUrl.length === 0}
-                                    onClick={() => this.handleExternalImageSave()}
-                                >
-                                    <FormattedMessage id="attach-image-to-event"/>
-                                </Button>
-                            </div>
-                        </div>
-                        <hr/>
-                        <Typography className="image-picker--dialog-title" variant="h6">
-                            <FormattedMessage id="use-existing-image"/>
-                        </Typography>
-
-                        <div className={'button-row'}>
+                        <Button className='icon-button' type='button'aria-label="Close" onClick={() => this.closeGalleryModal()}>
+                            <span className="glyphicon glyphicon-remove"></span>
+                        </Button>
+                    </ModalHeader>
+                    <ModalHeader className="image-picker--dialog-title">
+                        <FormattedMessage id="new-image" />
+                    </ModalHeader>
+                    <div className="file-upload">
+                        <div className="file-upload--new">
+                            <input
+                                onChange={(e) => this.handleUpload(e)}
+                                style={{display: 'none'}}
+                                type="file"
+                                ref={this.hiddenFileInput}
+                            />
                             <Button
-                                className="delete"
-                                color="secondary"
+                                className="upload-img"
                                 variant="contained"
-                                onClick={() => this.handleDelete()}
-                                disabled={isEmpty(this.props.editor.values.image)}
+                                aria-label="upload"
+                                type='button'
+                                onClick={() => this.clickHiddenUploadInput()}
                             >
-                                <FormattedMessage id="delete-from-filesystem"/>
+                                <FormattedMessage id="upload-image" />
                             </Button>
-
-                            <div className={'wrapper-right'}>
-                                <Button
-                                    className="edit"
-                                    variant="contained"
-                                    disabled={isEmpty(this.props.editor.values.image)}
-                                    onClick={() => this.handleEdit()}
-                                >
-                                    <FormattedMessage id="edit-selected-image"/>
-                                </Button>
-                                <Button
-                                    className="attach"
-                                    variant="contained"
-                                    onClick={() => this.closeGalleryModal()}
-                                    color="primary"
-                                >
-                                    <FormattedMessage id="attach-image-to-event"/>
-                                </Button>
-                            </div>
+                            {this.state.fileSizeError &&
+                                    <Fragment>
+                                        {/* <ErrorOutline style={{margin: HelMaterialTheme.spacing(0, 1, 0, 2)}} /> */}
+                                        <FormattedMessage id="uploaded-image-size-error" />
+                                    </Fragment>
+                            }
                         </div>
+                        <div className="file-upload--external">
+                            <Form>
+                                <FormGroup>
+                                    <label className='image-url' >{<FormattedMessage id="upload-image-from-url"/>}</label>
+                                    <input
+                                        className="file-upload--external-input"
+                                        onChange={this.handleExternalImage}
+                                    />
+                                    
+                                </FormGroup>
+                                
+                            </Form>
+                            <Button
+                                className="file-upload--external-button"
+                                variant="contained"
+                                color="primary"
+                                disabled={!this.state.thumbnailUrl || this.state.thumbnailUrl.length === 0}
+                                onClick={() => this.handleExternalImageSave()}
+                            >
+                                <FormattedMessage id="attach-image-to-event"/>
+                            </Button>
+                           
+                        </div>
+                    </div>
+                    <hr/>
+                    <ModalHeader className="image-picker--dialog-title" >
+                        <FormattedMessage id="use-existing-image"/>
+                    </ModalHeader>
 
-                        <ImageGalleryGrid editor={this.props.editor} user={this.props.user} images={this.props.images} />
-                    </DialogContent>
+                    <div className={'button-row'}>
+                        <Button
+                            className="delete"
+                            variant="contained"
+                            onClick={() => this.handleDelete()}
+                            disabled={isEmpty(this.props.editor.values.image)}
+                        >
+                            <FormattedMessage id="delete-from-filesystem"/>
+                        </Button>
+
+                        <div className={'wrapper-right'}>
+                            <Button
+                                className="edit"
+                                variant="contained"
+                                disabled={isEmpty(this.props.editor.values.image)}
+                                onClick={() => this.handleEdit()}
+                            >
+                                <FormattedMessage id="edit-selected-image"/>
+                            </Button>
+                            <Button
+                                className="attach"
+                                variant="contained"
+                                onClick={() => this.closeGalleryModal()}
+                                color="primary"
+                            >
+                                <FormattedMessage id="attach-image-to-event"/>
+                            </Button>
+                        </div>
+                    </div>
+
+                    <ImageGalleryGrid editor={this.props.editor} user={this.props.user} images={this.props.images} />
+                   
                 </Dialog>
                 {editModal}
             </div>
