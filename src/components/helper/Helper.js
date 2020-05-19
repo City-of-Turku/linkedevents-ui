@@ -97,7 +97,7 @@ class DebugHelper extends React.Component {
                 />
                 <div id='debughelper'>
                     <div id='debughelper_container'>
-                        <button className='btn btn-default' onClick={this.showReportForm}>
+                        <button className='btn btn-default' aria-label='Feedback' onClick={this.showReportForm}>
                             <Feedback style={{marginLeft: HelMaterialTheme.spacing(1)}} />
                         </button>
                     </div>
