@@ -14,7 +14,8 @@ class HelTextField extends React.Component {
         super(props)
 
         this.state = {
-            error: null,
+            error: false,
+            errorMessage: '',
             value: this.props.defaultValue || '',
         }
     }
@@ -61,7 +62,8 @@ class HelTextField extends React.Component {
             }
         }
         
-        return this.state.error
+        return this.state.errorMessage;
+        //return this.state.error
     }
 
     getValue() {
@@ -159,12 +161,12 @@ class HelTextField extends React.Component {
                     limit = CHARACTER_LIMIT.LONG_STRING
                     break;
             }
-            
-            return limit ? this.setState({error: this.context.intl.formatMessage({id: `validation-stringLimitReached`}, {limit})}) :
-                this.setState({error: this.context.intl.formatMessage({id: `validation-${errors[0].rule}`})})
+            this.setState({error:true});
+            return limit ? this.setState({errorMessage: this.context.intl.formatMessage({id: `validation-stringLimitReached`}, {limit})}) :
+                this.setState({errorMessage: this.context.intl.formatMessage({id: `validation-${errors[0].rule}`})})
         }
         else {
-            this.setState({error: null})
+            this.setState({error: false})
         }
     }
 
@@ -202,6 +204,7 @@ class HelTextField extends React.Component {
                     inputRef={ref => this.inputRef = ref}
                     helperText={this.helpText()}
                     InputLabelProps={{focused: false, shrink: false, disableAnimation: true}}
+                    error={this.state.error}
                 />
                 <ValidationPopover
                     index={index}
