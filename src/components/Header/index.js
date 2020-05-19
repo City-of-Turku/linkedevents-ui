@@ -107,7 +107,7 @@ class HeaderBar extends React.Component {
         return (
             <div className='main-navbar'>
                 <Navbar className='bar'>
-                    <NavbarBrand className='bar__logo' href='/' aria-label='Logo' />
+                    <NavbarBrand className='bar__logo' onClick={() => routerPush('/')} aria-label='Logo' />
                     <Nav className='ml-auto'>
                         <div className='bar__login-and-language'>
                             <div className='language-selector'>
