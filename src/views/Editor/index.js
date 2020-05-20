@@ -276,6 +276,7 @@ export class EditorPage extends React.Component {
                                 <FormattedMessage id="validate-form"/>
                             </Button>
                         }
+                        {/* Commented out since we decided that we wouldn't need this button - Turku
                         <Button
                             variant="contained"
                             onClick={this.clearEventData}
@@ -283,7 +284,7 @@ export class EditorPage extends React.Component {
                             endIcon={<Close/>}
                         >
                             <FormattedMessage id="clear-form"/>
-                        </Button>
+                        </Button> */}
                     </span>
                 </div>
 
