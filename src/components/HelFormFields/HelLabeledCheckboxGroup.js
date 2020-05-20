@@ -1,7 +1,7 @@
 import './HelLabeledCheckboxGroup.scss'
 
 import PropTypes from 'prop-types';
-import React, {useRef} from 'react'
+import React, {useRef, Fragment} from 'react'
 import {FormControlLabel, Checkbox} from '@material-ui/core'
 import {connect} from 'react-redux'
 import {setData as setDataAction} from '../../actions/editor'
@@ -38,11 +38,13 @@ const HelLabeledCheckboxGroup = (props) => {
     })
 
     return (
-        <React.Fragment>
-            <fieldset className="col-sm-6 hel-checkbox-group">
-                <legend ref={labelRef}>
-                    {groupLabel}
-                </legend>
+        <Fragment>
+            <fieldset className="col-sm-6 checkbox-group">
+                <h2>
+                    <legend ref={labelRef}>
+                        {groupLabel}
+                    </legend>
+                </h2>
                 <div className='row'>
                     {options.map((item, index) => {
                         const checked = checkedOptions.includes(item.value)
@@ -71,7 +73,7 @@ const HelLabeledCheckboxGroup = (props) => {
                 anchor={labelRef.current}
                 validationErrors={validationErrors}
             />
-        </React.Fragment>
+        </Fragment>
     )
 }
 
