@@ -41,7 +41,7 @@ FormHeader.propTypes = {
 }
 
 export const SideField = (props) => (
-    <div className={`side-field col-sm-5 col-sm-push-1 ${ props.className }`}>
+    <div className={`side-field col-sm-5 col-sm-push-1 ${ props.className }`} aria-label='text'tabIndex='0'>
         { props.children }
     </div>
 )
