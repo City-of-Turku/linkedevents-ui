@@ -30,9 +30,6 @@ const PreviewImage = (props) => {
             />
         );
     } else {
-        {
-            /* Temporary comments for upcoming changes, glyphicon glyphicon-download-alt */
-        }
         return (
             <Fragment>
                 <Button
@@ -204,7 +201,6 @@ export class ImagePicker extends Component {
                     role='dialog'
                     id='dialog1'
                     aria-modal='true'>
-                    {/* Temporary comments for upcoming changes, icon-button looks like shit  */}
                     <div className='image-picker-modal'>
                         <ModalHeader>
                             <FormattedMessage id='event-image-title' />
