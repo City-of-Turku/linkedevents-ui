@@ -287,7 +287,7 @@ VideoValue.propTypes = {
 
 const EventDetails = (props) => {
     const {editor, values, intl, rawData, publisher, superEvent} = props
-
+    // Changed keywordSets to be compatible with Turku's backend.
     const mainCategoryValues = mapKeywordSetToForm(editor.keywordSets, 'turku:topics')
         .map(item => item.value)
     const mainCategoryKeywords = values.keywords.filter(item => mainCategoryValues.includes(item.value))

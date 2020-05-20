@@ -1,4 +1,4 @@
-@import "fonts";
+//@import "fonts";  Commented out since we don't use these fonts and therefore don't need them.
 
 // Box shadow shim for bootstrap
 @mixin box-shadow($left:0, $top:2px, $blur:2px, $color:#000, $inset:"") {

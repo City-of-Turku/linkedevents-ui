@@ -138,6 +138,7 @@ class FormFields extends React.Component {
     }
 
     render() {
+        // Changed keywordSets to be compatible with Turku's backend.
         const helTargetOptions = mapKeywordSetToForm(this.props.editor.keywordSets, 'turku:audiences')
         const helEventLangOptions = mapLanguagesSetToForm(this.props.editor.languages)
 

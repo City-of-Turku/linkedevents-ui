@@ -28,6 +28,7 @@
     "babel-preset-stage-2": "^6.1.18",
     "body-parser": "^1.14.1",
     "bootstrap": "^4.3.1",
+    "city_theme": "^0.0.1",
     "classnames": "^2.2.6",
     "codecov": "^3.0.0",
     "connect-history-api-fallback": "^1.1.0",
