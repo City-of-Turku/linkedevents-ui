@@ -184,7 +184,8 @@ class FormFields extends React.Component {
                             multiLine={false}
                             label="event-headline"
                             ref="name" name="name"
-                            validationErrors={validationErrors['name']}
+                            validationErrors={validationErrors['name', 'short_description']}
+                            validations={[VALIDATION_RULES.SHORT_STRING]}
                             defaultValue={values['name']}
                             languages={this.props.editor.contentLanguages}
                             setDirtyState={this.props.setDirtyState}
