@@ -354,6 +354,7 @@
 
     "user-events-toggle": "Näytä vain itse luomani tapahtumat",
 
+    "navbar.brand": "Linked Events logo, linkki etusivulle",
     "navbar.fi": "Suomi",
     "navbar.en": "Englanti",
     "navbar.sv": "Ruotsi",

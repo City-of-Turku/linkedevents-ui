@@ -93,6 +93,13 @@ class HeaderBar extends React.Component {
         userManager.removeUser();
     };
 
+    //Event handler for MainPage routerPush
+    onLinkToMainPage = (e) => {
+        const {routerPush} = this.props;
+        e.preventDefault();
+        routerPush('/');
+    };
+
     render() {
         const {user, userLocale, routerPush, location} = this.props;
         const {showModerationLink} = this.state;
@@ -107,33 +114,32 @@ class HeaderBar extends React.Component {
         return (
             <div className='main-navbar'>
                 <Navbar className='bar'>
-                    <NavbarBrand className='bar__logo' onClick={() => routerPush('/')} aria-label='Logo' />
-                    <Nav className='ml-auto'>
-                        <div className='bar__login-and-language'>
-                            <div className='language-selector'>
-                                <LanguageSelector
-                                    languages={this.getLanguageOptions()}
-                                    userLocale={userLocale}
-                                    changeLanguage={this.changeLanguage}
-                                />
-                            </div>
-                            {user ? (
-                                <Button onClick={this.handleLogoutClick}>{user.displayName}</Button>
-                            ) : (
-                                <Button onClick={this.handleLoginClick}>
-                                    <span className='glyphicon glyphicon-user'></span>
-                                    <FormattedMessage id='login' />
-                                </Button>
-                            )}
+                    <NavbarBrand className='bar__logo' href='#' onClick={this.onLinkToMainPage} aria-label={this.context.intl.formatMessage({id: `navbar.brand`})} />
+                    <div className='bar__login-and-language'>
+                        <div className='language-selector'>
+                            <LanguageSelector
+                                languages={this.getLanguageOptions()}
+                                userLocale={userLocale}
+                                changeLanguage={this.changeLanguage}
+                            />
                         </div>
-                    </Nav>
+                        {user ? (
+                            <Button onClick={this.handleLogoutClick}>{user.displayName}</Button>
+                        ) : (
+                            <Button onClick={this.handleLoginClick}>
+                                <span className='glyphicon glyphicon-user'></span>
+                                <FormattedMessage id='login' />
+                            </Button>
+                        )}
+                    </div>
                 </Navbar>
 
                 <Navbar className='linked-events-bar' expand='lg'>
                     <NavbarBrand
+                        href='#'
                         className='linked-events-bar__logo'
-                        onClick={() => routerPush('/')}
-                        aria-label='Home'>
+                        onClick={this.onLinkToMainPage}
+                        aria-label={this.context.intl.formatMessage({id: `linked-${appSettings.ui_mode}`})}>
                         <FormattedMessage id={`linked-${appSettings.ui_mode}`} />
                     </NavbarBrand>
                     <NavbarToggler onClick={this.toggle} />
@@ -217,6 +223,9 @@ HeaderBar.propTypes = {
     auth: PropTypes.object,
 };
 
+HeaderBar.contextTypes = {
+    intl: PropTypes.object,
+}
 const mapStateToProps = (state) => ({
     user: state.user,
     userLocale: state.userLocale,
