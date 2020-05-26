@@ -9,7 +9,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 
 import Headerbar from 'src/components/Header'
-import SkipLink from 'src/components/skip-link'
+import SkipLink from 'src/components/SkipLink'
 import {ThemeProvider,IconButton, Paper, Dialog, DialogTitle, DialogContent, DialogActions} from '@material-ui/core';
 import {Close} from '@material-ui/icons';
 
