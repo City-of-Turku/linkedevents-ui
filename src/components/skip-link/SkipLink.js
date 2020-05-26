@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {FormattedMessage} from 'react-intl';
 
-
+//Jump to #main-content div in order to skip Navigation
 class SkipLink extends React.Component {
     render() {
         return (
