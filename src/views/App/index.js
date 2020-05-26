@@ -9,6 +9,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 
 import Headerbar from 'src/components/Header'
+import SkipLink from 'src/components/skip-link'
 import {ThemeProvider,IconButton, Paper, Dialog, DialogTitle, DialogContent, DialogActions} from '@material-ui/core';
 import {Close} from '@material-ui/icons';
 
@@ -137,11 +138,14 @@ class App extends React.Component {
             <ThemeProvider theme={HelMaterialTheme}>
                 <MuiPickersUtilsProvider utils={LocalizedUtils}>
                     <div>
-                        <Headerbar />
+                        <SkipLink />
+                        <header>
+                            <Headerbar />
+                        </header>
                         {organization_missing_msg}
-                        <div className="content">
+                        <main id="main-content" className="content">
                             {this.props.children}
-                        </div>
+                        </main>
                         <Notifications flashMsg={this.props.app.flashMsg} />
                         <Dialog
                             open={!!this.props.app.confirmAction}

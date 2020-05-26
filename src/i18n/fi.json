@@ -357,5 +357,7 @@
     "navbar.fi": "Suomi",
     "navbar.en": "Englanti",
     "navbar.sv": "Ruotsi",
-    "navbar.active": "Käytössä oleva kieli on Suomi"
+    "navbar.active": "Käytössä oleva kieli on Suomi",
+
+    "skiplink-shortcut": "Siirry sisältöön"
 }
