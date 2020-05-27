@@ -21,8 +21,7 @@ html(lang="fi")
         <![endif]-->
         if APP_MODE == 'testing'
             #testingmessage
-                | tämä #{instanceName} on testiversio
-                a(href=LE_PRODUCTION_INSTANCE) siirry tuotantoon
+                | Huom! Tämä on #{instanceName} testiversio.
         div
             #content
         if APP_MODE == 'development'
