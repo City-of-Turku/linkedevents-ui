@@ -14,7 +14,7 @@ const {EVENT_STATUS, PUBLICATION_STATUS} = constants
 function _nullifyEmptyStrings(multiLangObject) {
     forOwn(multiLangObject, function(value, language) {
 
-    // do not send empty strings to the backend, as this will set the null language field to non-null
+        // do not send empty strings to the backend, as this will set the null language field to non-null
         if (value === '') {
             multiLangObject[language] = null
         }

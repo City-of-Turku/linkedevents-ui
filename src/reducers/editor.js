@@ -225,7 +225,7 @@ function update(state = initialState, action) {
 
     if (action.type === constants.EDITOR_REPLACEDATA) {
 
-    // Replace new values to existing values
+        // Replace new values to existing values
         let newValues = Object.assign({}, action.values)
 
         // Local storage saving disabled for now
