@@ -42,7 +42,7 @@ class SearchPage extends React.Component {
 
     getResults = () => {
         const {searchExecuted, events} = this.state
-
+        
         return searchExecuted && !events.length > 0
             ? <div className="search-no-results"><FormattedMessage id="search-no-results"/></div>
             : <EventGrid events={events} />
@@ -50,18 +50,21 @@ class SearchPage extends React.Component {
 
     render() {
         const {loading} = this.state
-
+        //Added P role=status for screenreaders and to display overall amount of found results
         return (
             <div className="container">
                 <h1><FormattedMessage id={`search-${appSettings.ui_mode}`}/></h1>
                 <p><FormattedMessage id="search-events-description"/></p>
                 <SearchBar onFormSubmit={(query, start, end) => this.searchEvents(query, start, end)}/>
-                {loading
-                    ? <div className="search-loading-spinner"><Spinner animation="border" role="status">
-                        <span className="sr-only">Loading...</span>
-                    </Spinner> </div>
-                    : this.getResults()
-                }
+                <FormattedMessage id="search-results-count" values={{count: this.state.events.length}}>{txt => <p role="status">{txt}</p>}</FormattedMessage>
+                <section className="container-fluid">
+                    {loading
+                        ? <div className="search-loading-spinner"><Spinner animation="border" role="status">
+                            <span className="sr-only">Loading...</span>
+                        </Spinner> </div>
+                        : this.getResults()
+                    }
+                </section>
             </div>
         )
     }

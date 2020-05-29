@@ -248,6 +248,7 @@
     "confirm-image-delete": "Varmista kuvan poistaminen",
 
     "search-no-results": "Ei tuloksia",
+    "search-results-count": "Hakutulosten määrä on {count}",
     "search-date-placeholder": "pp.kk.vvvv",
     "copy-to-clipboard": "Kopioi leikepöydälle",
     "date-time-field-placeholder": "pp.kk.vvvv hh.mm",
