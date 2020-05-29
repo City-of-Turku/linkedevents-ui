@@ -106,39 +106,6 @@ describe('Search', () => {
                 expect(resultCount.prop('values')).toEqual({'count': count.length});
             });
         });
-        /*
-        test('Correct amount of FormattedMessages', () => {
-            const element =  getWrapper().find(FormattedMessage);
-            expect(element).toHaveLength(3);
-    
-        });
-        test('with !events & searchExecuted', () => {
-            const element = getWrapper();
-            element.setState({searchExecuted: true});
-            const formattedMessages = element.find(FormattedMessage);
-            expect(formattedMessages).toHaveLength(4);
-        });
-    
-        test('with events & searchExecuted', () => {
-            const element = getWrapper()
-            element.setState({searchExecuted: true, events:['Tammi','Koivu']});
-            const grid = element.find(EventGrid)
-            expect(grid).toHaveLength(1);
-            expect(grid.prop('events')).toEqual(element.state('events'));
-        });
-        test('result count when no results', () => {
-            const element = getWrapper();
-            const stuff = element.find(FormattedMessage).at(2);
-            const count = element.state('events');
-            expect(stuff.prop('values')).toEqual({'count': count.length});
-        });
-        test('result count when results', () => {
-            const element = getWrapper();
-            element.setState({events:['Tammi','Koivu']});
-            const resultCount = element.find(FormattedMessage).at(2);
-            const count = element.state('events');
-            expect(resultCount.prop('values')).toEqual({'count': count.length});
-        }); */
     });
 })
 
