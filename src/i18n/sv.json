@@ -241,6 +241,7 @@
     "image-update-error": "Virhe kuvaa päivittäessä.",
     "confirm-image-delete": "Varmista kuvan poistaminen",
 
+    "search-results-count": "{count} resultat",
     "search-no-results": "Ei tuloksia",
     "search-date-placeholder": "pp.kk.vvvv",
     "copy-to-clipboard": "Kopioi leikepöydälle",

@@ -246,6 +246,7 @@
     "image-update-error": "Error while updating image.",
     "confirm-image-delete": "Confirm image deletion",
 
+    "search-results-count": "Found {count} results",
     "search-no-results": "No results",
     "search-date-placeholder": "dd.mm.yyyy",
     "copy-to-clipboard": "Copy to clipboard",
