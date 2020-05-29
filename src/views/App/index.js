@@ -137,48 +137,46 @@ class App extends React.Component {
         return (
             <ThemeProvider theme={HelMaterialTheme}>
                 <MuiPickersUtilsProvider utils={LocalizedUtils}>
-                    <div>
-                        <SkipLink />
-                        <header>
-                            <Headerbar />
-                        </header>
-                        {organization_missing_msg}
-                        <main id="main-content" className="content">
-                            {this.props.children}
-                        </main>
-                        <Notifications flashMsg={this.props.app.flashMsg} />
-                        <Dialog
-                            open={!!this.props.app.confirmAction}
-                            onClose={() => this.props.dispatch(cancelAction())}
-                            transitionDuration={0}
-                        >
-                            <DialogTitle>
-                                {confirmMsg}
-                                <Button onClick={() => this.props.dispatch(cancelAction())}>
-                                    <Close />
-                                </Button>
-                            </DialogTitle>
-                            <DialogContent>
-                                <p><strong>{additionalMsg}</strong></p>
-                                <div dangerouslySetInnerHTML={getMarkup()}/>
-                            </DialogContent>
-                            <DialogActions>
-                                <Button
-                                    variant="contained"
-                                    onClick={() => this.props.cancel()}
-                                >
-                                    <FormattedMessage id="cancel" />
-                                </Button>
-                                <Button
-                                    variant="contained"
-                                    color={useWarningButtonStyle ? 'secondary' : 'primary'}
-                                    onClick={() => this.props.do(this.props.app.confirmAction.data)}
-                                >
-                                    <FormattedMessage id={actionButtonLabel} />
-                                </Button>
-                            </DialogActions>
-                        </Dialog>
-                    </div>
+                    <SkipLink />
+                    <header>
+                        <Headerbar />
+                    </header>
+                    {organization_missing_msg}
+                    <main id="main-content" className="content">
+                        {this.props.children}
+                    </main>
+                    <Notifications flashMsg={this.props.app.flashMsg} />
+                    <Dialog
+                        open={!!this.props.app.confirmAction}
+                        onClose={() => this.props.dispatch(cancelAction())}
+                        transitionDuration={0}
+                    >
+                        <DialogTitle>
+                            {confirmMsg}
+                            <Button onClick={() => this.props.dispatch(cancelAction())}>
+                                <Close />
+                            </Button>
+                        </DialogTitle>
+                        <DialogContent>
+                            <p><strong>{additionalMsg}</strong></p>
+                            <div dangerouslySetInnerHTML={getMarkup()}/>
+                        </DialogContent>
+                        <DialogActions>
+                            <Button
+                                variant="contained"
+                                onClick={() => this.props.cancel()}
+                            >
+                                <FormattedMessage id="cancel" />
+                            </Button>
+                            <Button
+                                variant="contained"
+                                color={useWarningButtonStyle ? 'secondary' : 'primary'}
+                                onClick={() => this.props.do(this.props.app.confirmAction.data)}
+                            >
+                                <FormattedMessage id={actionButtonLabel} />
+                            </Button>
+                        </DialogActions>
+                    </Dialog>
                 </MuiPickersUtilsProvider>
             </ThemeProvider>
         )

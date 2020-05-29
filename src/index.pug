@@ -2,13 +2,13 @@ doctype
 html.no-js
 html(lang="fi")
     head
-        meta(charset='utf-8')
-        meta(http-equiv='X-UA-Compatible', content='IE=edge')
+        meta(charset='UTF-8')
+        meta(http-equiv='X-UA-Compatible' content='IE=edge')
+        meta(name='viewport' content='width=device-width, initial-scale=1.0')
+        meta(name='description' content='Linkedevents')
+        meta(name='keywords' content='Linkedevents, Linkedevents-ui')
         - var instanceName = ui_mode === 'courses' ? 'Linked Courses' : 'Linked Events'
         title #{instanceName} UI
-        meta(name='description', content='')
-        meta(name='viewport', content='width=device-width, initial-scale=1')
-        link(rel="stylesheet", href="https://fonts.googleapis.com/css2?family=Roboto&display=swap", type='text/css')
         script(type='text/javascript').
             window.appSettings = !{configJson};
 
@@ -25,5 +25,5 @@ html(lang="fi")
         div
             #content
         if APP_MODE == 'development'
-            script(src="/scripts/main.js", type="text/javascript")
+            script(src="/scripts/main.js" type="text/javascript")
         
