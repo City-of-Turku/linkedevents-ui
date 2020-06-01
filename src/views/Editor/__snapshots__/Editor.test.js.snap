@@ -15,19 +15,7 @@ exports[`Editor Snapshot should render view correctly when creating new event fr
     </h1>
     <span
       className="controls"
-    >
-      <WithStyles(ForwardRef(Button))
-        color="primary"
-        endIcon={<UNDEFINED />}
-        onClick={[Function]}
-        variant="contained"
-      >
-        <FormattedMessage
-          id="clear-form"
-          values={Object {}}
-        />
-      </WithStyles(ForwardRef(Button))>
-    </span>
+    />
   </div>
   <div
     className="container"
@@ -990,19 +978,7 @@ exports[`Editor Snapshot should render view correctly when editing existing even
     </h1>
     <span
       className="controls"
-    >
-      <WithStyles(ForwardRef(Button))
-        color="primary"
-        endIcon={<UNDEFINED />}
-        onClick={[Function]}
-        variant="contained"
-      >
-        <FormattedMessage
-          id="clear-form"
-          values={Object {}}
-        />
-      </WithStyles(ForwardRef(Button))>
-    </span>
+    />
   </div>
   <div
     className="container"
@@ -1933,10 +1909,16 @@ exports[`Editor Snapshot should render view correctly when editing existing even
   <div
     className="editor-action-buttons"
   >
-    <WithStyles(ForwardRef(CircularProgress))
-      className="loading-spinner"
-      size={50}
-    />
+    <Spinner
+      animation="border"
+      role="status"
+    >
+      <span
+        className="sr-only"
+      >
+        Loading...
+      </span>
+    </Spinner>
   </div>
 </div>
 `;
@@ -1956,19 +1938,7 @@ exports[`Editor Snapshot should render view correctly when new event 1`] = `
     </h1>
     <span
       className="controls"
-    >
-      <WithStyles(ForwardRef(Button))
-        color="primary"
-        endIcon={<UNDEFINED />}
-        onClick={[Function]}
-        variant="contained"
-      >
-        <FormattedMessage
-          id="clear-form"
-          values={Object {}}
-        />
-      </WithStyles(ForwardRef(Button))>
-    </span>
+    />
   </div>
   <div
     className="container"

@@ -6,6 +6,9 @@ import {mockUser} from '__mocks__/mockData';
 import {UnconnectedHeaderBar, NavLinks} from './index';
 import LanguageSelector from './LanguageSelector';
 import constants from '../../constants';
+import {IntlProvider} from 'react-intl';
+import fiMessages from 'src/i18n/fi.json';
+import mapValues from 'lodash/mapValues';
 const {APPLICATION_SUPPORT_TRANSLATION} = constants;
 const LanguageOptions = APPLICATION_SUPPORT_TRANSLATION.map(item => ({
     label: item.toUpperCase(),
@@ -13,7 +16,9 @@ const LanguageOptions = APPLICATION_SUPPORT_TRANSLATION.map(item => ({
 }));
 import userManager from '../../utils/userManager'
 userManager.settings.authority = 'test authority'
-
+const testMessages = mapValues(fiMessages, (value, key) => value);
+const intlProvider = new IntlProvider({locale: 'fi', messages: testMessages}, {});
+const {intl} = intlProvider.getChildContext();
 
 describe('components/Header/index', () => {
 
@@ -35,7 +40,7 @@ describe('components/Header/index', () => {
     }
     describe('HeaderBar', () => {
         function getWrapper(props) {
-            return shallow(<UnconnectedHeaderBar {...defaultProps} {...props}/>)
+            return shallow(<UnconnectedHeaderBar {...defaultProps} {...props}/>, {context: {intl}});
         }
 
         describe('handleLoginClick', () => {

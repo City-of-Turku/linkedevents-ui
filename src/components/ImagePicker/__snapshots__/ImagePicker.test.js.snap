@@ -219,6 +219,11 @@ exports[`Image add form ImagePicker component should render correctly with data 
       "moderation-page-published-heading": "Julkaistut tapahtumat",
       "monday": "maanantai",
       "more-info": "Lisätietoja",
+      "navbar.active": "Käytössä oleva kieli on Suomi",
+      "navbar.brand": "Linked Events logo, linkki etusivulle",
+      "navbar.en": "Englanti",
+      "navbar.fi": "Suomi",
+      "navbar.sv": "Ruotsi",
       "new-image": "Lisää uusi kuva",
       "no-connection": "Ei yhteyttä palvelimelle!",
       "no-events": "Ei tapahtumia mitä näyttää.",
@@ -256,6 +261,7 @@ exports[`Image add form ImagePicker component should render correctly with data 
       "select": "Valitse...",
       "series": "Sarja",
       "server-error": "Virhe palvelimella.",
+      "skiplink-shortcut": "Siirry sisältöön",
       "sub-event-of-series": "Tämä tapahtuma kuuluu sarjaan: ",
       "sub-event-of-umbrella": "Tällä tapahtumalla on kattotapahtuma: ",
       "sub-events-for-series": "Sarjan alatapahtumat:",
@@ -328,40 +334,65 @@ exports[`Image add form ImagePicker component should render correctly with data 
 exports[`Image add form ImagePicker component should render view by default 1`] = `
 <div
   className="image-picker"
+  role="tab"
 >
-  <WithStyles(ForwardRef(CircularProgress))
-    className="loading-spinner"
-    size={60}
-  />
+  <Spinner
+    animation="border"
+    role="status"
+  >
+    <span
+      className="sr-only"
+    >
+      Loading...
+    </span>
+  </Spinner>
   <WithStyles(ForwardRef(Dialog))
+    aria-modal="true"
     className="image-picker--dialog"
     fullWidth={true}
+    id="dialog1"
     maxWidth="lg"
     onClose={[Function]}
     open={false}
+    role="dialog"
     transitionDuration={0}
   >
-    <WithStyles(ForwardRef(DialogTitle))>
-      <FormattedMessage
-        id="event-image-title"
-        values={Object {}}
-      />
-      <WithStyles(ForwardRef(IconButton))
-        onClick={[Function]}
+    <div
+      className="image-picker-modal"
+    >
+      <ModalHeader
+        charCode={215}
+        closeAriaLabel="Close"
+        tag="h5"
+        wrapTag="div"
       >
-        <CloseIcon />
-      </WithStyles(ForwardRef(IconButton))>
-    </WithStyles(ForwardRef(DialogTitle))>
-    <WithStyles(ForwardRef(DialogContent))>
-      <WithStyles(ForwardRef(Typography))
+        <FormattedMessage
+          id="event-image-title"
+          values={Object {}}
+        />
+        <button
+          aria-label="Close"
+          className="icon-button"
+          onClick={[Function]}
+          type="button"
+        >
+          <span
+            className="glyphicon glyphicon-remove"
+          />
+        </button>
+      </ModalHeader>
+      <ModalHeader
+        charCode={215}
         className="image-picker--dialog-title"
-        variant="h6"
+        closeAriaLabel="Close"
+        tag="h5"
+        wrapTag="div"
       >
         <FormattedMessage
           id="new-image"
           values={Object {}}
         />
-      </WithStyles(ForwardRef(Typography))>
+      </ModalHeader>
       <div
         className="file-upload"
       >
@@ -377,100 +408,116 @@ exports[`Image add form ImagePicker component should render view by default 1`] 
             }
             type="file"
           />
-          <WithStyles(ForwardRef(Button))
+          <Button
+            aria-label="upload"
             className="upload-img"
-            color="primary"
+            color="secondary"
             onClick={[Function]}
+            tag="button"
+            type="button"
             variant="contained"
           >
             <FormattedMessage
               id="upload-image"
               values={Object {}}
             />
-          </WithStyles(ForwardRef(Button))>
+          </Button>
         </div>
         <div
           className="file-upload--external"
         >
-          <WithStyles(ForwardRef(TextField))
-            className="file-upload--external-input"
-            label={
-              <FormattedMessage
-                id="upload-image-from-url"
-                values={Object {}}
+          <Form
+            tag="form"
+          >
+            <FormGroup
+              tag="div"
+            >
+              <label
+                className="image-url"
+              >
+                <FormattedMessage
+                  id="upload-image-from-url"
+                  values={Object {}}
+                />
+              </label>
+              <input
+                className="file-upload--external-input"
+                onChange={[Function]}
               />
-            }
-            onChange={[Function]}
-          />
-          <WithStyles(ForwardRef(Button))
+            </FormGroup>
+          </Form>
+          <Button
             className="file-upload--external-button"
             color="primary"
             disabled={true}
             onClick={[Function]}
-            style={
-              Object {
-                "marginLeft": 16,
-              }
-            }
+            tag="button"
             variant="contained"
           >
             <FormattedMessage
               id="attach-image-to-event"
               values={Object {}}
             />
-          </WithStyles(ForwardRef(Button))>
+          </Button>
         </div>
       </div>
       <hr />
-      <WithStyles(ForwardRef(Typography))
+      <ModalHeader
+        charCode={215}
         className="image-picker--dialog-title"
-        variant="h6"
+        closeAriaLabel="Close"
+        tag="h5"
+        wrapTag="div"
       >
         <FormattedMessage
           id="use-existing-image"
           values={Object {}}
         />
-      </WithStyles(ForwardRef(Typography))>
+      </ModalHeader>
       <div
         className="button-row"
       >
-        <WithStyles(ForwardRef(Button))
+        <Button
           className="delete"
           color="secondary"
           disabled={true}
           onClick={[Function]}
+          tag="button"
           variant="contained"
         >
           <FormattedMessage
             id="delete-from-filesystem"
             values={Object {}}
           />
-        </WithStyles(ForwardRef(Button))>
+        </Button>
         <div
           className="wrapper-right"
         >
-          <WithStyles(ForwardRef(Button))
+          <Button
             className="edit"
+            color="secondary"
             disabled={true}
             onClick={[Function]}
+            tag="button"
             variant="contained"
           >
             <FormattedMessage
               id="edit-selected-image"
               values={Object {}}
             />
-          </WithStyles(ForwardRef(Button))>
-          <WithStyles(ForwardRef(Button))
+          </Button>
+          <Button
             className="attach"
             color="primary"
             onClick={[Function]}
+            tag="button"
             variant="contained"
           >
             <FormattedMessage
               id="attach-image-to-event"
               values={Object {}}
             />
-          </WithStyles(ForwardRef(Button))>
+          </Button>
         </div>
       </div>
       <Connect(ImageGalleryGrid)
@@ -482,7 +529,7 @@ exports[`Image add form ImagePicker component should render view by default 1`] 
         images={Object {}}
         user={Object {}}
       />
-    </WithStyles(ForwardRef(DialogContent))>
+    </div>
   </WithStyles(ForwardRef(Dialog))>
 </div>
 `;
