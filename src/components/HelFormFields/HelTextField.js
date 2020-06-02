@@ -193,7 +193,6 @@ class HelTextField extends Component {
             <Fragment>
                 <Form>
                     <FormGroup>
-                        
                         <h2 title='title' >{label}</h2>
                         <Input 
                             id='title'
@@ -201,14 +200,12 @@ class HelTextField extends Component {
                             placeholder={placeholder}
                             type="text" 
                             name={name}
-                            defaulvalue={value} 
+                            defaulValue={value} 
                             required={required}
                             onChange={this.handleChange}
                             onBlur={this.handleBlur}
                             innerRef={ref => this.inputRef = ref}
                             disabled={disabled}/>
-                       
-                                
                         <FormText color="muted">
                             {this.helpText()}
                         </FormText>
