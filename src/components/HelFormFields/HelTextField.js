@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
-import React,{Fragment, Component} from 'react'
-
+import React,{Fragment, Component, useEffect, useState} from 'react'
+import {FormattedMessage} from 'react-intl'
 import {setData} from 'src/actions/editor.js'
-import {TextField} from '@material-ui/core'
 import validationRules from 'src/validation/validationRules';
 import ValidationPopover from 'src/components/ValidationPopover'
 import constants from '../../constants'
+import {Form, FormGroup, Label, Input, FormText} from 'reactstrap';
 
 
 const {VALIDATION_RULES, CHARACTER_LIMIT} = constants
@@ -186,32 +186,40 @@ class HelTextField extends Component {
             validationErrors,
             index,
             name,
-            multiLine,
+
         } = this.props
 
         return (
             <Fragment>
-                <TextField
-                    fullWidth
-                    name={name}
-                    label={label}
-                    value={value}
-                    required={required}
-                    placeholder={placeholder}
-                    disabled={disabled}
-                    onChange={this.handleChange}
-                    onBlur={this.handleBlur}
-                    multiline={multiLine}
-                    inputRef={ref => this.inputRef = ref}
-                    helperText={this.helpText()}
-                    InputLabelProps={{focused: false, shrink: false, disableAnimation: true}}
-                    error={this.state.error}
-                />
-                <ValidationPopover
-                    index={index}
-                    anchor={this.inputRef}
-                    validationErrors={validationErrors}
-                />
+                <Form>
+                    <FormGroup>
+                        
+                        <h2 title='title' >{label}</h2>
+                        <Input 
+                            id='title'
+                            aria-labelledby='title'
+                            placeholder={placeholder}
+                            type="text" 
+                            name={name}
+                            defaulvalue={value} 
+                            required={required}
+                            onChange={this.handleChange}
+                            onBlur={this.handleBlur}
+                            innerRef={ref => this.inputRef = ref}
+                            disabled={disabled}/>
+                       
+                                
+                        <FormText color="muted">
+                            {this.helpText()}
+                        </FormText>
+                        <ValidationPopover
+                            index={index}
+                            anchor={this.inputRef}
+                            validationErrors={validationErrors}
+                        />
+                    </FormGroup>
+                </Form> 
+                
             </Fragment>
         )
     }
