@@ -1,12 +1,10 @@
 import PropTypes from 'prop-types';
-import React,{Fragment, Component, useEffect, useState} from 'react'
-import {FormattedMessage} from 'react-intl'
+import React,{Fragment, Component} from 'react'
 import {setData} from 'src/actions/editor.js'
 import validationRules from 'src/validation/validationRules';
 import ValidationPopover from 'src/components/ValidationPopover'
 import constants from '../../constants'
-import {Form, FormGroup, Label, Input, FormText} from 'reactstrap';
-
+import {Form, FormGroup, Input, FormText} from 'reactstrap';
 
 const {VALIDATION_RULES, CHARACTER_LIMIT} = constants
 
@@ -141,7 +139,6 @@ class HelTextField extends Component {
                 return validations;
             }
         }
-
         return []
     }
     
@@ -197,16 +194,16 @@ class HelTextField extends Component {
                         <Input 
                             id='title'
                             aria-labelledby='title'
-                            placeholder={placeholder}
-                            type="text" 
+                            placeholder={label}
+                            type='text'
                             name={name}
-                            defaulValue={value} 
+                            defaulvalue={value}
                             required={required}
                             onChange={this.handleChange}
                             onBlur={this.handleBlur}
                             innerRef={ref => this.inputRef = ref}
                             disabled={disabled}/>
-                        <FormText color="muted">
+                        <FormText color='muted'>
                             {this.helpText()}
                         </FormText>
                         <ValidationPopover
@@ -215,8 +212,7 @@ class HelTextField extends Component {
                             validationErrors={validationErrors}
                         />
                     </FormGroup>
-                </Form> 
-                
+                </Form>
             </Fragment>
         )
     }
