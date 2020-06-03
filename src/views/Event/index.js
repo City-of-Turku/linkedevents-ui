@@ -240,13 +240,13 @@ class EventPage extends React.Component {
                         }
                     </h1>
                     {!loading &&
-                        <h4>
+                        <h2>
                             {isPostponed && getBadge('postponed', 'medium')}
                             {isCancelled && getBadge('cancelled', 'medium')}
                             {isDraft && getBadge('draft', 'medium')}
                             {isUmbrellaEvent && getBadge('umbrella', 'medium')}
                             {isRecurringEvent && getBadge('series', 'medium')}
-                        </h4>
+                        </h2>
                     }
                 </header>
                 {this.getEventActions()}

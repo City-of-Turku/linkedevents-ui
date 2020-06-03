@@ -94,7 +94,8 @@ export const HelMaterialTheme = createMuiTheme({
         MuiChip: {
             root: {
                 marginRight: `${SPACING}px`,
-                fontWeight: 500,
+                fontWeight: 700,
+                fontSize: 18,
             },
             label: {
                 '&:first-letter': {

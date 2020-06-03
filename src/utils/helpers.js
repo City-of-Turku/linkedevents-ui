@@ -133,7 +133,7 @@ export const getBadge = (type, size = 'small') => {
     const BadgeChip = withStyles({
         root: {
             '&.badge-chip': {
-                fontSize: '0.6em',
+                
                 fontWeight: 'bold',
                 textTransform: 'uppercase',
             },

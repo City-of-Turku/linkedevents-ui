@@ -73,7 +73,7 @@ const helBrandColors = {
         contrastText: '#000',
     },
     tram: {
-        main: '#009246',
+        main: '#0f8347',
         lighter: '#cce9da',
         light: '#80c8a2',
         dark: '#007438',

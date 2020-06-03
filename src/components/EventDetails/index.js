@@ -19,7 +19,7 @@ import helBrandColors from '../../themes/hel/hel-brand-colors'
 const NoValue = (props) => {
     let header = props.labelKey ? (<span><FormattedMessage id={`${props.labelKey}`}/>&nbsp;</span>) : null
     return (
-        <div className="no-value">
+        <div className="no-value" tabIndex='0'>
             {header}
             <FormattedMessage id="no-value"/>
         </div>
@@ -36,12 +36,13 @@ const CheckedValue = ({checked, labelKey, label}) => (
             ? <CheckBox htmlColor={helBrandColors.tram.main} />
             : <CheckBoxOutlineBlank />
         }
-        <label>
+        <label htmlFor='checkedvalue'>
             {labelKey
                 ? <FormattedMessage id={labelKey}/>
                 : label
             }
         </label>
+        <input type="hidden" id='checkedvalue'/>
     </div>
 )
 
@@ -77,7 +78,8 @@ const MultiLanguageValue = (props) => {
         if (val) {
             elements.push(<div className={colClass} key={key}>
                 <div className={`in-${key} indented`}>
-                    <label className="language"><FormattedMessage id={`in-${key}`}/></label>
+                    <label tabIndex='0' aria-label='title' htmlFor= 'language' className="language"><FormattedMessage id={`in-${key}`}/></label>
+                    <input type="hidden" id="language" name="language" />
                     <div dangerouslySetInnerHTML={createHTML()}/>
                 </div>
             </div>)
@@ -87,8 +89,10 @@ const MultiLanguageValue = (props) => {
     if (elements.length > 0) {
         return (
             <div className="multi-value-field">
-                <label><FormattedMessage id={`${props.labelKey}`}/></label>
-                <div className="row">
+                <label tabIndex='0' htmlFor= 'field'><FormattedMessage id={`${props.labelKey}`}/></label>
+                <input type='hidden' id='field' name='title'/>
+
+                <div tabIndex='0' className="row">
                     {elements}
                 </div>
             </div>
@@ -96,7 +100,8 @@ const MultiLanguageValue = (props) => {
     } else {
         return (
             <div className="multi-value-field">
-                <label><FormattedMessage id={`${props.labelKey}`}/></label>
+                <label htmlFor= 'field1' tabIndex='0'><FormattedMessage id={`${props.labelKey}`}/></label>
+                <input type="hidden" id='field1' name="field1"/>
                 <div>
                     <NoValue labelKey={props.labelKey}/>
                 </div>
@@ -110,14 +115,21 @@ const TextValue = (props) => {
     if (_.isInteger(props.value) || (props.value && props.value.length !== undefined && props.value.length > 0)) {
         return (
             <div className="single-value-field">
-                <div><label><FormattedMessage id={`${props.labelKey}`}/></label></div>
-                <span className="value">{props.value}</span>
+                <div>
+                    <label tabIndex='0'htmlFor='events-creator'><FormattedMessage id={`${props.labelKey}`}/></label>
+                    <input type="hidden" id="events-creator" />
+                </div>
+               
+                <span tabIndex='0' className="value">{props.value}</span>
             </div>
         )
     } else {
         return (
             <div className="single-value-field">
-                <div><label><FormattedMessage id={`${props.labelKey}`}/></label></div>
+                <div>
+                    <label tabIndex='0'htmlFor='sosialmedia'><FormattedMessage id={`${props.labelKey}`}/></label>
+                    <input type="hidden" id='sosialmedia' />
+                </div>
                 <NoValue labelKey={props.labelKey}/>
             </div>
         )
@@ -126,7 +138,7 @@ const TextValue = (props) => {
 
 const ImageValue = (props) => {
     if (props.value !== undefined && props.value instanceof Object) {
-        return <legend><img src={props.value.url} className="event-image"/></legend>
+        return <legend tabIndex='true'><img src={props.value.url} alt=''className="event-image"/></legend>
     }
 
     return (
@@ -153,8 +165,11 @@ const OptionGroup = (props) => {
     }
 
     return (
-        <div className="option-group">
-            <div><label><FormattedMessage id={`${props.labelKey}`}/></label></div>
+        <div className="option-group" tabIndex='0'>
+            <div>
+                <label tabIndex='0'htmlFor='category'><FormattedMessage id={`${props.labelKey}`}/></label>
+                <input type="hidden" id='category' />
+            </div>
             {elements}
         </div>
     )
@@ -188,8 +203,9 @@ const DateTime = (props) => {
         }
         return (
             <div className="single-value-field">
-                <label><FormattedMessage id={`${props.labelKey}`}/></label>
-                <span className="value">
+                <label tabIndex='0' htmlFor='single-value-field'><FormattedMessage id={`${props.labelKey}`}/></label>
+                <input type="hidden" id="single-value-field" />
+                <span className="value" id="single-value-field">
                     {value}
                 </span>
             </div>
@@ -197,9 +213,10 @@ const DateTime = (props) => {
     } else {
         return (
             <div className="single-value-field">
-                <label><FormattedMessage id={`${props.labelKey}`}/></label>
+                <label tabIndex='0' htmlFor='value'><FormattedMessage id={`${props.labelKey}`}/></label>
+                <input type="hidden" id="value" />
                 <span className="value">
-                    <NoValue labelKey={props.labelKey}/>
+                    <NoValue id='value' labelKey={props.labelKey}/>
                 </span>
             </div>
         )
@@ -224,22 +241,25 @@ const OffersValue = (props) => {
 
     return (
         <div>
-            <CheckedValue checked={offers[0].is_free} labelKey="is-free"/>
+            <CheckedValue tabIndex='0' checked={offers[0].is_free} labelKey="is-free"/>
             {props.values.offers.map((offer, key) => (
                 <div key={`offer-value-${key}`} className="offer-values">
                     <MultiLanguageValue
                         labelKey="event-purchase-link"
                         value={offer.info_url}
+                        tabIndex='0'
                     />
                     <MultiLanguageValue
                         labelKey="event-price"
                         hidden={offer.is_free}
                         value={offer.price}
+                        tabIndex='0'
                     />
                     <MultiLanguageValue
                         labelKey="event-price-info"
                         hidden={offer.is_free}
                         value={offer.description}
+                        tabIndex='0'
                     />
                 </div>
             ))}
