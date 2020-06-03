@@ -28,7 +28,7 @@ import OrganizationSelector from '../HelFormFields/OrganizationSelector';
 import UmbrellaSelector from '../HelFormFields/UmbrellaSelector/UmbrellaSelector'
 import moment from 'moment'
 import HelVideoFields from '../HelFormFields/HelVideoFields/HelVideoFields'
-
+//Added isOpen for RecurringEvents modal
 
 let FormHeader = (props) => (
     <div className="row">
@@ -292,6 +292,7 @@ class FormFields extends React.Component {
                         {this.state.showRecurringEvent &&
                             <RecurringEvent
                                 toggle={() => this.showRecurringEventDialog()}
+                                isOpen={this.state.showRecurringEvent}
                                 validationErrors={validationErrors}
                                 values={values}
                                 formType={formType}
