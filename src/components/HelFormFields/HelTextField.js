@@ -194,10 +194,10 @@ class HelTextField extends Component {
                         <Input 
                             id='title'
                             aria-labelledby='title'
-                            placeholder={label}
+                            placeholder={placeholder}
                             type='text'
                             name={name}
-                            defaulvalue={value}
+                            defaultValue={value}
                             required={required}
                             onChange={this.handleChange}
                             onBlur={this.handleBlur}
