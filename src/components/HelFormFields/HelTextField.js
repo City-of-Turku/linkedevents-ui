@@ -190,14 +190,14 @@ class HelTextField extends Component {
             <Fragment>
                 <Form>
                     <FormGroup>
-                        <h2 title='title' >{label}</h2>
+                        <h2 tabIndex='0' >{label}</h2>
                         <Input 
                             id='title'
-                            aria-labelledby='title'
+                            aria-labelledby='title'                          
                             placeholder={placeholder}
                             type='text'
                             name={name}
-                            defaultValue={value}
+                            defaulvalue={value}
                             required={required}
                             onChange={this.handleChange}
                             onBlur={this.handleBlur}
