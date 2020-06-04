@@ -17,7 +17,7 @@ import {CheckBox, CheckBoxOutlineBlank} from '@material-ui/icons'
 import helBrandColors from '../../themes/hel/hel-brand-colors'
 
 const NoValue = (props) => {
-    let header = props.labelKey ? (<span><FormattedMessage id={`${props.labelKey}`}/>&nbsp;</span>) : null
+    let header = props.labelKey ? (<span ><FormattedMessage id={`${props.labelKey}`}/>&nbsp;</span>) : null
     return (
         <div className="no-value" tabIndex='0'>
             {header}
@@ -78,7 +78,7 @@ const MultiLanguageValue = (props) => {
         if (val) {
             elements.push(<div className={colClass} key={key}>
                 <div className={`in-${key} indented`}>
-                    <label tabIndex='0' aria-label='title' htmlFor= 'language' className="language"><FormattedMessage id={`in-${key}`}/></label>
+                    <label  htmlFor= 'language' className="language"><FormattedMessage id={`in-${key}`}/></label>
                     <input type="hidden" id="language" name="language" />
                     <div dangerouslySetInnerHTML={createHTML()}/>
                 </div>
@@ -89,8 +89,8 @@ const MultiLanguageValue = (props) => {
     if (elements.length > 0) {
         return (
             <div className="multi-value-field">
-                <label tabIndex='0' htmlFor= 'field'><FormattedMessage id={`${props.labelKey}`}/></label>
-                <input type='hidden' id='field' name='title'/>
+                <label htmlFor= 'field'><FormattedMessage id={`${props.labelKey}`}/></label>
+                <input type='hidden' id='field' />
 
                 <div tabIndex='0' className="row">
                     {elements}
@@ -99,8 +99,8 @@ const MultiLanguageValue = (props) => {
         )
     } else {
         return (
-            <div className="multi-value-field">
-                <label htmlFor= 'field1' tabIndex='0'><FormattedMessage id={`${props.labelKey}`}/></label>
+            <div className="multi-value-field" tabIndex='0'>
+                <label htmlFor= 'field1' ><FormattedMessage id={`${props.labelKey}`}/></label>
                 <input type="hidden" id='field1' name="field1"/>
                 <div>
                     <NoValue labelKey={props.labelKey}/>
@@ -114,21 +114,21 @@ const MultiLanguageValue = (props) => {
 const TextValue = (props) => {
     if (_.isInteger(props.value) || (props.value && props.value.length !== undefined && props.value.length > 0)) {
         return (
-            <div className="single-value-field">
+            <div className="single-value-field" tabIndex='0'>
                 <div>
-                    <label tabIndex='0'htmlFor='events-creator'><FormattedMessage id={`${props.labelKey}`}/></label>
+                    <label htmlFor='events-creator'><FormattedMessage id={`${props.labelKey}`}/></label>
                     <input type="hidden" id="events-creator" />
                 </div>
                
-                <span tabIndex='0' className="value">{props.value}</span>
+                <span role='address' aria-labelledby="events-address" className="value">{props.value}</span>
             </div>
         )
     } else {
         return (
             <div className="single-value-field">
                 <div>
-                    <label tabIndex='0'htmlFor='sosialmedia'><FormattedMessage id={`${props.labelKey}`}/></label>
-                    <input type="hidden" id='sosialmedia' />
+                    <label tabIndex='0'htmlFor='socialmedia'aria-label="socialmedia"><FormattedMessage id={`${props.labelKey}`}/></label>
+                    <input type="hidden" id='socialmedia' />
                 </div>
                 <NoValue labelKey={props.labelKey}/>
             </div>
@@ -167,7 +167,7 @@ const OptionGroup = (props) => {
     return (
         <div className="option-group" tabIndex='0'>
             <div>
-                <label tabIndex='0'htmlFor='category'><FormattedMessage id={`${props.labelKey}`}/></label>
+                <label htmlFor='category'><FormattedMessage id={`${props.labelKey}`}/></label>
                 <input type="hidden" id='category' />
             </div>
             {elements}
@@ -223,7 +223,7 @@ const DateTime = (props) => {
     }
 }
 
-const FormHeader = props => <legend>{props.children}</legend>
+const FormHeader = props => <h1 tabIndex='0'>{props.children}</h1>
 
 FormHeader.propTypes = {
     children: PropTypes.oneOfType([
@@ -236,12 +236,12 @@ const OffersValue = (props) => {
     const {offers} = props.values
 
     if (!offers || !offers.length || offers[0] && typeof offers[0] !== 'object') {
-        return (<NoValue labelKey={props.labelKey}/>)
+        return (<NoValue  labelKey={props.labelKey}/>)
     }
 
     return (
         <div>
-            <CheckedValue tabIndex='0' checked={offers[0].is_free} labelKey="is-free"/>
+            <CheckedValue  checked={offers[0].is_free} labelKey="is-free"/>
             {props.values.offers.map((offer, key) => (
                 <div key={`offer-value-${key}`} className="offer-values">
                     <MultiLanguageValue
@@ -398,6 +398,7 @@ const EventDetails = (props) => {
             <LinksToEvents
                 event={rawData}
                 superEvent={superEvent}
+                tabIndex='0'
             />
         </div>
     )

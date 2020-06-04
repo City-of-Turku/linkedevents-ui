@@ -53,7 +53,7 @@ const getSuperEventLinks = (event, type) => (
 )
 
 const getSubEventLinks = (type, superEventId, superEventName) => (
-    <p className="links-to-events--text">
+    <span className="links-to-events--text" tabIndex='0'aria-label='events-text'>
         <FormattedMessage id={`sub-event-of-${type}`} />
         <Link
             to={`/event/${superEventId}`}
@@ -61,7 +61,7 @@ const getSubEventLinks = (type, superEventId, superEventName) => (
         >
             <span>{superEventName}</span>
         </Link>
-    </p>
+    </span>
 )
 
 const LinksToEvents = ({event, superEvent}) => {
@@ -73,15 +73,15 @@ const LinksToEvents = ({event, superEvent}) => {
     const superEventName = getFirstMultiLanguageFieldValue(get(superEvent, 'name'))
 
     return (
-        <div className="links-to-events">
+        <div className="links-to-events" tabIndex='0'aria-label='links'>
             {superEventIsUmbrellaEvent && superEventId && getSubEventLinks('umbrella', superEventId, superEventName)}
             {superEventIsRecurringEvent && superEventId && getSubEventLinks('series', superEventId, superEventName)}
             {isUmbrellaEvent && getSuperEventLinks(event, 'umbrella')}
             {isRecurringEvent && getSuperEventLinks(event, 'series')}
             {!isUmbrellaEvent && !isRecurringEvent && !superEventIsUmbrellaEvent && !superEventIsRecurringEvent &&
-                <p className="links-to-events--text">
+                <span  className="links-to-events--text" tabIndex='0'aria-label='links'>
                     <FormattedMessage id="no-links-to-events" />
-                </p>
+                </span>
             }
         </div>
     )

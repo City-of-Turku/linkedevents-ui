@@ -231,7 +231,7 @@ class EventPage extends React.Component {
         return (
             <div className="event-page container">
                 <header>
-                    <h1>
+                    <h1 tabIndex='0'>
                         {loading
                             ? <Spinner animation="border" role="status">
                                 <span className="sr-only">Loading...</span>
@@ -240,7 +240,7 @@ class EventPage extends React.Component {
                         }
                     </h1>
                     {!loading &&
-                        <h2>
+                        <h2 aria-labelledby="umbrella" tabIndex='0'>
                             {isPostponed && getBadge('postponed', 'medium')}
                             {isCancelled && getBadge('cancelled', 'medium')}
                             {isDraft && getBadge('draft', 'medium')}
