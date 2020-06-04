@@ -99,7 +99,7 @@ const MultiLanguageValue = (props) => {
         )
     } else {
         return (
-            <div className="multi-value-field" >
+            <div className="multi-value-field" tabIndex='0'>
                 <label htmlFor= 'field1' ><FormattedMessage id={`${props.labelKey}`}/></label>
                 <input type="hidden" id='field1' name="field1"/>
                 <div>
@@ -127,7 +127,7 @@ const TextValue = (props) => {
         return (
             <div className="single-value-field">
                 <div>
-                    <label tabIndex='0'htmlFor='socialmedia'aria-label="socialmedia"><FormattedMessage id={`${props.labelKey}`}/></label>
+                    <label htmlFor='socialmedia'aria-label="socialmedia"><FormattedMessage id={`${props.labelKey}`}/></label>
                     <input type="hidden" id='socialmedia' />
                 </div>
                 <NoValue labelKey={props.labelKey}/>
