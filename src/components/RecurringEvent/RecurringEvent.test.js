@@ -1,5 +1,5 @@
 import React from 'react';
-import {shallow, mount} from 'enzyme';
+import {shallow} from 'enzyme';
 import RecurringEvent from './index';
 import {IntlProvider, FormattedMessage} from 'react-intl';
 import fiMessages from 'src/i18n/fi.json';
