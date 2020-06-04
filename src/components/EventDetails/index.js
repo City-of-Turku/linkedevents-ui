@@ -106,7 +106,6 @@ const MultiLanguageValue = (props) => {
                     <NoValue labelKey={props.labelKey}/>
                 </div>
             </div>
-
         )
     }
 }
@@ -119,7 +118,6 @@ const TextValue = (props) => {
                     <label htmlFor='events-creator'><FormattedMessage id={`${props.labelKey}`}/></label>
                     <input type="hidden" id="events-creator" />
                 </div>
-               
                 <span role='address' className="value">{props.value}</span>
             </div>
         )
@@ -140,7 +138,6 @@ const ImageValue = (props) => {
     if (props.value !== undefined && props.value instanceof Object) {
         return <legend tabIndex='true'><img src={props.value.url} alt=''className="event-image"/></legend>
     }
-
     return (
         <FormHeader>
             <FormattedMessage id="no-image"/>
@@ -247,19 +244,16 @@ const OffersValue = (props) => {
                     <MultiLanguageValue
                         labelKey="event-purchase-link"
                         value={offer.info_url}
-                        
                     />
                     <MultiLanguageValue
                         labelKey="event-price"
                         hidden={offer.is_free}
-                        value={offer.price}
-                       
+                        value={offer.price}                   
                     />
                     <MultiLanguageValue
                         labelKey="event-price-info"
                         hidden={offer.is_free}
-                        value={offer.description}
-                        
+                        value={offer.description}                      
                     />
                 </div>
             ))}
@@ -298,7 +292,6 @@ const VideoValue = ({values}) => {
             ))}
         </div>
     )
-
 }
 
 VideoValue.propTypes = {
