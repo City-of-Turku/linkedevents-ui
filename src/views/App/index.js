@@ -12,6 +12,7 @@ import Headerbar from 'src/components/Header'
 import SkipLink from 'src/components/SkipLink'
 import {ThemeProvider,IconButton, Paper, Dialog, DialogTitle, DialogContent, DialogActions} from '@material-ui/core';
 import {Close} from '@material-ui/icons';
+import {Helmet} from 'react-helmet';
 
 import {injectIntl, FormattedMessage} from 'react-intl'
 
@@ -138,6 +139,9 @@ class App extends React.Component {
             <ThemeProvider theme={HelMaterialTheme}>
                 <MuiPickersUtilsProvider utils={LocalizedUtils}>
                     <div>
+                        <Helmet>
+                            <html lang={this.props.intl.locale} />
+                        </Helmet>
                         <SkipLink />
                         <header>
                             <Headerbar />

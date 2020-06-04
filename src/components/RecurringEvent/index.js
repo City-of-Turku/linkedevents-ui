@@ -5,15 +5,17 @@ import {FormattedMessage} from 'react-intl'
 import moment from 'moment-timezone'
 import {isNil, isEmpty} from 'lodash'
 import DayCheckbox from './DayCheckbox'
-import {IconButton, TextField, Typography, withStyles, Dialog, DialogTitle, DialogContent} from '@material-ui/core'
-import {Add, Close} from '@material-ui/icons'
+import {TextField, withStyles} from '@material-ui/core';
+import {Button, Modal, ModalHeader, ModalBody} from 'reactstrap';
 import {setEventData, sortSubEvents} from 'src/actions/editor'
 import validationRules from 'src/validation/validationRules'
 import ValidationPopover from 'src/components/ValidationPopover'
 import constants from '../../constants'
-import {HelMaterialTheme} from '../../themes/material-ui'
 import HelDatePicker from '../HelFormFields/HelDatePicker'
-import {Button} from 'reactstrap';
+
+//Changed Material UI Dialog & Button to Reactstrap Modal & Button
+//Added isOpen prop for Modal & const closebtn for ModalHeaders close-attribute
+//Added row-color className to {days} row for city_theme
 
 const {VALIDATION_RULES} = constants
 
@@ -43,6 +45,7 @@ class RecurringEvent extends React.Component {
             PropTypes.object,
         ]),
         formType: PropTypes.string,
+        isOpen: PropTypes.bool,
     }
 
     constructor (props) {
@@ -293,26 +296,22 @@ class RecurringEvent extends React.Component {
     render() {
         const {recurringStartDate, recurringEndDate, errors} = this.state
         const days = this.generateCheckboxes(this.state.daysSelected)
+        const closebtn = <Button onClick={this.props.toggle} aria-label={this.context.intl.formatMessage({id: `close`})}><span className="glyphicon glyphicon-remove"></span></Button>
 
         return (
-            <Dialog
-                open
-                fullWidth
-                maxWidth="lg"
-                onClose={this.props.toggle}
+            <Modal
+                className='recurringEvent'
+                size='xl'
+                isOpen={this.props.isOpen}
+                toggle={this.props.toggle}
             >
-                <DialogTitle>
+                <ModalHeader tag='h1' close={closebtn}>
                     <FormattedMessage id="event-add-recurring"/>
-                    <IconButton onClick={this.props.toggle}>
-                        <Close />
-                    </IconButton>
-                </DialogTitle>
-                <DialogContent>
+                </ModalHeader>
+                <ModalBody>
                     <div className="row">
                         <div className="col-xs-12 col-sm-12">
-                            <Typography variant="h6">
-                                <FormattedMessage id="repetition-interval-label" />
-                            </Typography>
+                            <FormattedMessage id="repetition-interval-label">{txt => <h2>{txt}</h2>}</FormattedMessage>
 
                             <div className="repetition-count" ref={this.repetitionRef}>
                                 <FormattedMessage id="repeated" />
@@ -335,16 +334,16 @@ class RecurringEvent extends React.Component {
 
                     <div className="row">
                         <div className="col-xs-12 col-sm-12">
-                            <Typography
+                            <div
                                 ref={this.playDateRef}
                                 style={{
                                     display: 'inline-block',
-                                    marginTop: HelMaterialTheme.spacing(2),
+                                    marginTop: '16px',
                                 }}
-                                variant="h6"
+                                
                             >
-                                <FormattedMessage id="play-date-label" />
-                            </Typography>
+                                <FormattedMessage id="play-date-label">{txt => <h3>{txt}</h3>}</FormattedMessage>
+                            </div>
                             <ValidationPopover
                                 inModal
                                 placement={'right-end'}
@@ -353,7 +352,7 @@ class RecurringEvent extends React.Component {
                             />
                         </div>
                     </div>
-                    <div className="row">
+                    <div className="row row-color">
                         { days }
                     </div>
 
@@ -433,19 +432,18 @@ class RecurringEvent extends React.Component {
                     <div className="row">
                         <div className="col-xs-12 col-sm-12">
                             <Button
-                                fullWidth
                                 variant="contained"
                                 color="primary"
                                 onClick={() => this.generateEvents()}
-                                style={{margin: `${HelMaterialTheme.spacing(2)}px 0`}}
-                                startIcon={<Add/>}
+                                style={{margin: '16px 0px 16px 0px'}}
                             >
+                                <span className="glyphicon glyphicon-plus"></span>
                                 <FormattedMessage id="add-more"/>
                             </Button>
                         </div>
                     </div>
-                </DialogContent>
-            </Dialog>
+                </ModalBody>
+            </Modal>
 
         )
     }

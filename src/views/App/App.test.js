@@ -8,7 +8,7 @@ describe('views/App/index', () => {
 
     function getWrapper(props) {
         const defaultProps = {
-            //intl: {}
+            intl: {locale: 'fi'},
             app: {confirmAction: {msg: 'test-confirm-msg'}},
             user: mockUser,
             //dispatch: () => {},
@@ -17,7 +17,7 @@ describe('views/App/index', () => {
             fetchUser: () => {},
             location: window.location,
             authUser: {profile: {sub: 'test-sub'}},
-        }        
+        }
         return shallow(<UnconnectedApp {...defaultProps} {...props}/>)
     }
 
@@ -31,7 +31,7 @@ describe('views/App/index', () => {
                 wrapper.setProps({auth});
                 expect(fetchUser).toHaveBeenCalled();
                 expect(fetchUser.mock.calls[0][0]).toEqual(auth.user.profile.sub)
-            });          
+            });
         });
 
         describe('doesnt call fetchUser', () => {
