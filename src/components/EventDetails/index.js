@@ -99,7 +99,7 @@ const MultiLanguageValue = (props) => {
         )
     } else {
         return (
-            <div className="multi-value-field" tabIndex='0'>
+            <div className="multi-value-field" >
                 <label htmlFor= 'field1' ><FormattedMessage id={`${props.labelKey}`}/></label>
                 <input type="hidden" id='field1' name="field1"/>
                 <div>
