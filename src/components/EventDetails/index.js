@@ -19,7 +19,7 @@ import helBrandColors from '../../themes/hel/hel-brand-colors'
 const NoValue = (props) => {
     let header = props.labelKey ? (<span ><FormattedMessage id={`${props.labelKey}`}/>&nbsp;</span>) : null
     return (
-        <div className="no-value" tabIndex='0'>
+        <div className="no-value" >
             {header}
             <FormattedMessage id="no-value"/>
         </div>
@@ -88,18 +88,18 @@ const MultiLanguageValue = (props) => {
 
     if (elements.length > 0) {
         return (
-            <div className="multi-value-field">
+            <div className="multi-value-field" tabIndex='0'>
                 <label htmlFor= 'field'><FormattedMessage id={`${props.labelKey}`}/></label>
                 <input type='hidden' id='field' />
 
-                <div tabIndex='0' className="row">
+                <div className="row">
                     {elements}
                 </div>
             </div>
         )
     } else {
         return (
-            <div className="multi-value-field" tabIndex='0'>
+            <div className="multi-value-field" >
                 <label htmlFor= 'field1' ><FormattedMessage id={`${props.labelKey}`}/></label>
                 <input type="hidden" id='field1' name="field1"/>
                 <div>
@@ -120,7 +120,7 @@ const TextValue = (props) => {
                     <input type="hidden" id="events-creator" />
                 </div>
                
-                <span role='address' aria-labelledby="events-address" className="value">{props.value}</span>
+                <span role='address' className="value">{props.value}</span>
             </div>
         )
     } else {
@@ -202,8 +202,8 @@ const DateTime = (props) => {
             </div>
         }
         return (
-            <div className="single-value-field">
-                <label tabIndex='0' htmlFor='single-value-field'><FormattedMessage id={`${props.labelKey}`}/></label>
+            <div className="single-value-field" tabIndex='0'>
+                <label  htmlFor='single-value-field'><FormattedMessage id={`${props.labelKey}`}/></label>
                 <input type="hidden" id="single-value-field" />
                 <span className="value" id="single-value-field">
                     {value}
@@ -212,8 +212,8 @@ const DateTime = (props) => {
         )
     } else {
         return (
-            <div className="single-value-field">
-                <label tabIndex='0' htmlFor='value'><FormattedMessage id={`${props.labelKey}`}/></label>
+            <div className="single-value-field" tabIndex='0'>
+                <label  htmlFor='value'><FormattedMessage id={`${props.labelKey}`}/></label>
                 <input type="hidden" id="value" />
                 <span className="value">
                     <NoValue id='value' labelKey={props.labelKey}/>
@@ -240,26 +240,26 @@ const OffersValue = (props) => {
     }
 
     return (
-        <div>
+        <div tabIndex='0'>
             <CheckedValue  checked={offers[0].is_free} labelKey="is-free"/>
             {props.values.offers.map((offer, key) => (
                 <div key={`offer-value-${key}`} className="offer-values">
                     <MultiLanguageValue
                         labelKey="event-purchase-link"
                         value={offer.info_url}
-                        tabIndex='0'
+                        
                     />
                     <MultiLanguageValue
                         labelKey="event-price"
                         hidden={offer.is_free}
                         value={offer.price}
-                        tabIndex='0'
+                       
                     />
                     <MultiLanguageValue
                         labelKey="event-price-info"
                         hidden={offer.is_free}
                         value={offer.description}
-                        tabIndex='0'
+                        
                     />
                 </div>
             ))}

@@ -240,7 +240,7 @@ class EventPage extends React.Component {
                         }
                     </h1>
                     {!loading &&
-                        <h2 aria-labelledby="umbrella" tabIndex='0'>
+                        <h2 tabIndex='0'>
                             {isPostponed && getBadge('postponed', 'medium')}
                             {isCancelled && getBadge('cancelled', 'medium')}
                             {isDraft && getBadge('draft', 'medium')}
