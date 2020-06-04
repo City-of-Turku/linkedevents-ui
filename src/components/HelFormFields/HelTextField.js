@@ -5,6 +5,7 @@ import validationRules from 'src/validation/validationRules';
 import ValidationPopover from 'src/components/ValidationPopover'
 import constants from '../../constants'
 import {Form, FormGroup, Input, FormText} from 'reactstrap';
+// Removed material-ui/core since it's no longer in use
 
 const {VALIDATION_RULES, CHARACTER_LIMIT} = constants
 
@@ -175,6 +176,7 @@ class HelTextField extends Component {
 
     render () {
         const {value} = this.state
+        // Removed multiLine since it was no longer used
         const {
             required,
             disabled,
@@ -183,9 +185,9 @@ class HelTextField extends Component {
             validationErrors,
             index,
             name,
-
         } = this.props
 
+        // Replaced TextField component with Form/FormGroup + Input, to make inputs actually accessible and customizable.
         return (
             <Fragment>
                 <Form>

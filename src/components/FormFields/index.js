@@ -27,6 +27,8 @@ import OrganizationSelector from '../HelFormFields/OrganizationSelector';
 import UmbrellaSelector from '../HelFormFields/UmbrellaSelector/UmbrellaSelector'
 import moment from 'moment'
 import HelVideoFields from '../HelFormFields/HelVideoFields/HelVideoFields'
+// Removed material-ui/icons because it was no longer used.
+
 
 let FormHeader = (props) => (
     <div className="row">
@@ -403,6 +405,7 @@ class FormFields extends React.Component {
                 </FormHeader>
                 <div className="row">
                     <div className="col-sm-6">
+                        {/* Removed formatted message from label since it was causing accessibility issues */}
                         <HelTextField
                             validations={[VALIDATION_RULES.IS_URL]}
                             ref="extlink_facebook"

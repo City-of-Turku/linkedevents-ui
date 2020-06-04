@@ -31,6 +31,7 @@
     }
 }
 
+// Styling for new Form Inputs
 .form-group {
     h2 {
         font-size: 20px !important;
@@ -50,6 +51,7 @@
     }
 }
 
+// Border: none to make sure there won't be any wierdness going on with .place-id, input field
 .place-id {
     margin-top: 10px;
     border-bottom-style:dashed;
