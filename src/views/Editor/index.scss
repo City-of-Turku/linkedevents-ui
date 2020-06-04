@@ -4,79 +4,62 @@ $actionBtnHeight: 60px;
 .editor-page {
     font-weight: 300;
     background-color: #ffffff;
-
     .header {
         align-items: baseline;
         display: flex;
         position: relative;
-
         .controls {
             margin-left: auto;
-
             button:not(:first-of-type) {
                 margin-left: 15px;
             }
         }
     }
-
     h2,h3,legend,.legend {
         font-family: "HelsinkiGrotesk", "Roboto", "Helvetica Neue", "Segoe UI", Calibri, sans-serif;
     }
-
     h2,h3 {
         margin-top: 55px;
     }
-
     .highlighted-block {
         display: block;
         background-color: #f6f6f6;
         padding: 20px;
-
         //line-height: 72px;
         line-height: 1.5;
-
         color: #5a5959;
-
         label {
             font-size: 24px;
             margin-bottom: 0;
             line-height: 1.5;
         }
-
         .language-selection {
             height: 100%;
             width: 100%;
             display: flex;
             justify-content: space-around;
             flex-wrap: wrap;
-
             & > * {
                 flex: 0 1 33%;
                 margin: 0;
             }
         }
     }
-
     .side-field {
         padding-top: 36px;
-
         p {
             font-size: 18px;
             font-weight: 300;
             color: #373a3c;
         }
-
         strong {
             font-weight: bold;
         }
-
         &.padded {
             padding-top: 66px;
         }
-
         &-umbrella {
             padding-top: 0;
-
             .tip {
                 margin-top: 0;
             }
@@ -86,7 +69,6 @@ $actionBtnHeight: 60px;
     .hel-select {
         display: block;
         clear: both;
-
         legend,
         .legend {
             font-size: 24px;
@@ -103,25 +85,20 @@ $actionBtnHeight: 60px;
         margin-top: 3rem;
         padding-top: 2rem;
         position: relative;
-
         .loading-spinner {
             position: absolute;
         }
-
         .buttons-group {
             display: flex;
             flex-wrap: wrap;
             justify-content: flex-end;
-
             button {
                 height: $actionBtnHeight;
             }
-
             > * {
                 &:not(:first-child) {
                     margin-left: 15px;
                 }
-
                 &.editor-delete-button {
                     margin-right: auto;
                 }

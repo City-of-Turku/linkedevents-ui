@@ -31,13 +31,35 @@
     }
 }
 
-.place-id{
+.form-group {
+    h2 {
+        font-size: 20px !important;
+        margin-bottom: 1vh;
+    }
+    input {
+        border: none;
+        border-bottom: solid 2px;
+        border-radius: 0;
+        &:hover,
+        &:focus,
+        &:active {
+            box-shadow: none;
+            border-bottom: solid 3px;
+            border-color: #0072c6;
+        }
+    }
+}
+
+.place-id {
     margin-top: 10px;
     border-bottom-style:dashed;
     border-bottom-width: 2px;
     border-radius: 0px;
     border-color:rgb(84,84,84);
     font-size: 16px;
+    input {
+        border: none !important;
+    }
     .form-control:disabled, .form-control[readonly]{
         background-color: #fff;
         font-size: 16px;
