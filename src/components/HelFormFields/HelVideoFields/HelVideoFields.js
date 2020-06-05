@@ -124,6 +124,7 @@ const HelVideoFields = ({
 
                                     return (
                                         <HelTextField
+                                            id={`event-video-${key}`}
                                             key={`${key}-video-field`}
                                             required={required}
                                             defaultValue={value}

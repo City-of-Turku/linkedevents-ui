@@ -47,8 +47,9 @@ class MultiLanguageField extends React.Component {
         index: PropTypes.string,
         multiLine: PropTypes.bool,
         label: PropTypes.string,
+        id: PropTypes.string,
     }
-    
+
     onChange(e,value,lang) {
         this.setState({value: this.getValue()})
 
@@ -126,6 +127,7 @@ class MultiLanguageField extends React.Component {
             return (
                 <div style={{position:'relative'}} key={`${props.name}_${langs[0]}`}>
                     <HelTextField required={this.props.required}
+                        id={this.props.id + '1'}
                         defaultValue={this.state.value[langs[0]]}
                         label={label}
                         ref={langs[0]}
@@ -143,14 +145,15 @@ class MultiLanguageField extends React.Component {
                 let value = this.state.value[lang]
                 return (
                     <div key={`${props.name}_${lang}`}>
-                        <HelTextField 
-                            multiLine={this.props.multiLine} 
-                            required={this.props.required} 
-                            defaultValue={value} ref={lang} 
-                            label={this.context.intl.formatMessage({id: `in-${lang}`})} 
-                            onChange={(e,v) => this.onChange(e,v,lang)} 
-                            onBlur={(e,v) => this.onBlur(e,v)} 
-                            disabled={this.props.disabled} 
+                        <HelTextField
+                            id={this.props.id + index}
+                            multiLine={this.props.multiLine}
+                            required={this.props.required}
+                            defaultValue={value} ref={lang}
+                            label={this.context.intl.formatMessage({id: `in-${lang}`})}
+                            onChange={(e,v) => this.onChange(e,v,lang)}
+                            onBlur={(e,v) => this.onBlur(e,v)}
+                            disabled={this.props.disabled}
                             validations={this.props.validations}
                         />
                     </div>

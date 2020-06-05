@@ -42,7 +42,7 @@ class HelTextField extends Component {
         let isShortString = _.find(this.props.validations, i => i === VALIDATION_RULES.SHORT_STRING)
         let isMediumString = _.find(this.props.validations, i => i === VALIDATION_RULES.MEDIUM_STRING)
         let isLongString = _.find(this.props.validations, i => i === VALIDATION_RULES.LONG_STRING)
-        
+
         let limit
         if (!this.state.error && (isShortString || isMediumString || isLongString)) {
             if(isShortString) {
@@ -54,14 +54,14 @@ class HelTextField extends Component {
             else if(isLongString) {
                 limit = CHARACTER_LIMIT.LONG_STRING
             }
-            
+
             const diff =  limit - this.state.value.length.toString()
-            
+
             if(diff >= 0) {
                 return this.context.intl.formatMessage({id: 'validation-stringLengthCounter'}, {counter: diff})
             }
         }
-        
+
         return this.state.errorMessage;
         //return this.state.error
     }
@@ -142,10 +142,10 @@ class HelTextField extends Component {
         }
         return []
     }
-    
+
     setValidationErrorsToState() {
         let errors = this.getValidationErrors()
-        
+
         if(errors.length > 0) {
             let limit
 
@@ -174,6 +174,14 @@ class HelTextField extends Component {
         return (errors.length === 0)
     }
 
+    getUniqueId() {
+        const {label} = this.props;
+
+        const randomNumber = Math.floor(Math.random() * (1000 - 100 + 1) + 100);
+        const str = (typeof label === 'string' && label.length > 1) ? label.slice(0,2) : 'id';
+        return str + randomNumber.toString();
+    }
+
     render () {
         const {value} = this.state
         // Removed multiLine since it was no longer used
@@ -186,35 +194,33 @@ class HelTextField extends Component {
             index,
             name,
         } = this.props
+        const fieldID = this.props.id;
 
         // Replaced TextField component with Form/FormGroup + Input, to make inputs actually accessible and customizable.
         return (
             <Fragment>
-                <Form>
-                    <FormGroup>
-                        <h2 tabIndex='0' >{label}</h2>
-                        <Input 
-                            id='title'
-                            aria-labelledby='title'                          
-                            placeholder={placeholder}
-                            type='text'
-                            name={name}
-                            defaulvalue={value}
-                            required={required}
-                            onChange={this.handleChange}
-                            onBlur={this.handleBlur}
-                            innerRef={ref => this.inputRef = ref}
-                            disabled={disabled}/>
-                        <FormText color='muted'>
-                            {this.helpText()}
-                        </FormText>
-                        <ValidationPopover
-                            index={index}
-                            anchor={this.inputRef}
-                            validationErrors={validationErrors}
-                        />
-                    </FormGroup>
-                </Form>
+                <div>
+                    <label htmlFor={fieldID}>{label}</label>
+                    <Input
+                        id={fieldID}
+                        placeholder={placeholder}
+                        type='text'
+                        name={name}
+                        defaulvalue={value}
+                        required={required}
+                        onChange={this.handleChange}
+                        onBlur={this.handleBlur}
+                        innerRef={ref => this.inputRef = ref}
+                        disabled={disabled}/>
+                    <FormText color='muted'>
+                        {this.helpText()}
+                    </FormText>
+                    <ValidationPopover
+                        index={index}
+                        anchor={this.inputRef}
+                        validationErrors={validationErrors}
+                    />
+                </div>
             </Fragment>
         )
     }
@@ -246,6 +252,7 @@ HelTextField.propTypes = {
     disabled: PropTypes.bool,
     type: PropTypes.string,
     maxLength: PropTypes.number,
+    id: PropTypes.string,
 }
 
 export default HelTextField

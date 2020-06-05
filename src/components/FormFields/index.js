@@ -92,7 +92,7 @@ class FormFields extends React.Component {
         if (isNull(user)) {
             return
         }
-        
+
         const userType = get(user, 'userType')
         const defaultOrganizationData = get(user, [`${userType}OrganizationData`, `${user.organization}`], {})
 
@@ -181,6 +181,7 @@ class FormFields extends React.Component {
                 <div className="row">
                     <div className="col-sm-6">
                         <MultiLanguageField
+                            id='event-headline'
                             required={true}
                             multiLine={false}
                             label="event-headline"
@@ -192,8 +193,9 @@ class FormFields extends React.Component {
                             languages={this.props.editor.contentLanguages}
                             setDirtyState={this.props.setDirtyState}
                         />
-                        
+
                         <MultiLanguageField
+                            id='event-short-description'
                             required={true} multiLine={true}
                             label="event-short-description"
                             ref="short_description"
@@ -207,6 +209,7 @@ class FormFields extends React.Component {
                         />
 
                         <MultiLanguageField
+                            id='event-description'
                             required={true}
                             multiLine={true}
                             label="event-description"
@@ -219,6 +222,7 @@ class FormFields extends React.Component {
                             setDirtyState={this.props.setDirtyState}
                         />
                         <MultiLanguageField
+                            id='event-info-url'
                             required={false}
                             multiLine={false}
                             label="event-info-url"
@@ -232,6 +236,7 @@ class FormFields extends React.Component {
                             forceApplyToStore
                         />
                         <MultiLanguageField
+                            id='event-provider-input'
                             required={false}
                             multiLine={false}
                             label="event-provider-input"
@@ -303,7 +308,7 @@ class FormFields extends React.Component {
                             size='lg'block
                             variant="contained"
                             disabled={formType === 'update'}
-                            onClick={() => this.addNewEventDialog()}   
+                            onClick={() => this.addNewEventDialog()}
                         ><span  className="glyphicon glyphicon-plus"></span>
                             <FormattedMessage id="event-add-new-occasion" />
                         </Button>
@@ -312,7 +317,7 @@ class FormFields extends React.Component {
                             variant="contained"
                             disabled={formType === 'update'}
                             onClick={() => this.showRecurringEventDialog()}
-                            
+
                         ><span  className="glyphicon glyphicon-refresh"></span>
                             <FormattedMessage id="event-add-recurring" />
                         </Button>
@@ -332,7 +337,7 @@ class FormFields extends React.Component {
                 </FormHeader>
                 <div className="row location-row">
                     <div className="col-sm-6 hel-select">
-                       
+
                         <HelSelect
                             legend={this.context.intl.formatMessage({id: 'event-location'})}
                             selectedValue={values['location']}
@@ -348,16 +353,17 @@ class FormFields extends React.Component {
                                 <label>{this.context.intl.formatMessage({id: 'event-location-id'})}</label>
                                 <input type="text" className="form-control"value={values['location'] && values['location'].id ? values['location'].id : ''} readOnly/>
                             </FormGroup>
-                           
+
                         </Form>
-                        
-      
+
+
                         <CopyToClipboard text={values['location'] ? values['location'].id : ''}>
                             <button type='button' className="clipboard-copy-button btn btn-default" title={this.context.intl.formatMessage({id: 'copy-to-clipboard'})}>
                                 <span className="glyphicon glyphicon-duplicate" aria-hidden="true"></span>
                             </button>
                         </CopyToClipboard>
                         <MultiLanguageField
+                            id='event-location-additional-info'
                             multiLine={true}
                             label="event-location-additional-info"
                             ref="location_extra_info"
@@ -409,6 +415,7 @@ class FormFields extends React.Component {
                         {/* Removed formatted message from label since it was causing accessibility issues */}
                         <HelTextField
                             validations={[VALIDATION_RULES.IS_URL]}
+                            id='extlink_facebook'
                             ref="extlink_facebook"
                             name="extlink_facebook"
                             label='Facebook'
@@ -419,6 +426,7 @@ class FormFields extends React.Component {
                         />
                         <HelTextField
                             validations={[VALIDATION_RULES.IS_URL]}
+                            id='extlink_twitter'
                             ref="extlink_twitter"
                             name="extlink_twitter"
                             label='Twitter'
@@ -429,6 +437,7 @@ class FormFields extends React.Component {
                         />
                         <HelTextField
                             validations={[VALIDATION_RULES.IS_URL]}
+                            id='extlink_instagram'
                             ref="extlink_instagram"
                             name="extlink_instagram"
                             label='Instagram'
