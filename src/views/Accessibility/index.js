@@ -1,10 +1,10 @@
 import './index.scss';
 
-import {connect} from 'react-redux';
 import React from 'react';
-import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 
+
+// Accessibility texts fetched from .md files.
 function getContent(language) {
     if (language === 'fi') {
         return require('./content.fi.md');
