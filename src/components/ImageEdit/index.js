@@ -3,7 +3,6 @@ import './index.scss'
 import React, {useState} from 'react';
 import PropTypes from 'prop-types'
 import {injectIntl, FormattedMessage} from 'react-intl'
-import {Button} from 'reactstrap';
 import {
     IconButton,
     Dialog,
@@ -22,6 +21,8 @@ import HelTextField from '../HelFormFields/HelTextField'
 import {postImage as postImageAction} from 'src/actions/userImages'
 import {HelMaterialTheme} from '../../themes/material-ui'
 import constants from '../../constants'
+import {Button, Modal, ModalHeader, ModalBody, Form, FormGroup} from 'reactstrap';
+
 
 const {CHARACTER_LIMIT, VALIDATION_RULES} = constants
 
@@ -128,22 +129,23 @@ const ImageEdit = (props) => {
     } = state
 
     return (
-        <Dialog
+        <Modal
             className="image-edit-dialog"
-            disableBackdropClick
-            fullWidth
-            maxWidth="lg"
-            open={true}
-            transitionDuration={0}
+            size='xl'
+            isOpen={true}
         >
-            <DialogTitle>
+            <ModalHeader>
                 <FormattedMessage id={'image-modal-image-info'}/>
-                <IconButton onClick={() => close()}>
-                    <Close />
-                </IconButton>
-            </DialogTitle>
-            <DialogContent>
-                <form onSubmit={() => handleImagePost(state, props)} className="row">
+                <Button
+                    className='icon-button'
+                    type='button'
+                    aria-label='Close'
+                    onClick={() => close()}>
+                    <span className='glyphicon glyphicon-remove'></span>
+                </Button>
+            </ModalHeader>
+            <ModalBody>
+                <Form onSubmit={() => handleImagePost(state, props)} className="row">
                     <div className="col-sm-8 image-edit-dialog--form">
                         <HelTextField
                             multiLine
@@ -230,9 +232,9 @@ const ImageEdit = (props) => {
                             Tallenna tiedot
                         </Button>
                     </div>
-                </form>
-            </DialogContent>
-        </Dialog>
+                </Form>
+            </ModalBody>
+        </Modal>
     )
 }
 

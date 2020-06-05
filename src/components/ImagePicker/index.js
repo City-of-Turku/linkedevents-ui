@@ -58,6 +58,7 @@ export class ImagePicker extends Component {
             imageFile: null,
             thumbnailUrl: null,
             fileSizeError: false,
+            isOpen: false,
         };
     }
 
@@ -150,7 +151,7 @@ export class ImagePicker extends Component {
 
     render() {
         const backgroundImage = getIfExists(this.props.editor.values, 'image.url', '');
-
+        const closebtn = <Button onClick={() => this.closeGalleryModal()} aria-label={this.context.intl.formatMessage({id: `close`})}><span className="glyphicon glyphicon-remove"></span></Button>;
         let editModal = null;
 
         if (this.state.edit && this.state.thumbnailUrl) {
@@ -191,30 +192,22 @@ export class ImagePicker extends Component {
                     />
                 )}
                 {/* Temporary comments for upcoming changes, Dialog must be Modal */}
-                <Dialog
+                <Modal
                     className='image-picker--dialog'
-                    open={this.state.open}
-                    fullWidth
-                    maxWidth='lg'
-                    onClose={() => this.closeGalleryModal()}
-                    transitionDuration={0}
+                    isOpen={this.state.open}
+                    size='xl'
+
                     role='dialog'
                     id='dialog1'
                     aria-modal='true'>
-                    <div className='image-picker-modal'>
-                        <ModalHeader>
-                            <FormattedMessage id='event-image-title' />
-                            <button
-                                className='icon-button'
-                                type='button'
-                                aria-label='Close'
-                                onClick={() => this.closeGalleryModal()}>
-                                <span className='glyphicon glyphicon-remove'></span>
-                            </button>
-                        </ModalHeader>
-                        <ModalHeader className='image-picker--dialog-title'>
-                            <FormattedMessage id='new-image' />
-                        </ModalHeader>
+
+                    <ModalHeader tag='h1' close={closebtn}>
+                        <FormattedMessage id='event-image-title' />
+                    </ModalHeader>
+                    <ModalHeader tag='h2' className='image-picker--dialog-title'>
+                        <FormattedMessage id='new-image' />
+                    </ModalHeader>
+                    <ModalBody>
                         <div className='file-upload'>
                             <div className='file-upload--new'>
                                 <input
@@ -264,7 +257,7 @@ export class ImagePicker extends Component {
                             </div>
                         </div>
                         <hr />
-                        <ModalHeader className='image-picker--dialog-title'>
+                        <ModalHeader tag='h3' className='image-picker--dialog-title'>
                             <FormattedMessage id='use-existing-image' />
                         </ModalHeader>
 
@@ -300,8 +293,8 @@ export class ImagePicker extends Component {
                             user={this.props.user}
                             images={this.props.images}
                         />
-                    </div>
-                </Dialog>
+                    </ModalBody>
+                </Modal>
                 {editModal}
             </div>
         );
@@ -325,6 +318,10 @@ ImagePicker.propTypes = {
     dispatch: PropTypes.func,
     loading: PropTypes.bool,
 };
+
+ImagePicker.contextTypes = {
+    intl: PropTypes.object,
+}
 
 PreviewImage.propTypes = {
     backgroundImage: PropTypes.string,
