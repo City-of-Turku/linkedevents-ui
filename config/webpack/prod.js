@@ -58,6 +58,7 @@ const config = {
                 ],
             },
             {test: /\.css$/, use: ['style-loader', 'css-loader']},
+            {test: /\.md$/, loader: 'html-loader!markdown-loader'},
             {test: /\.(jade|pug)?$/, loader: 'pug-loader'},
             {test: /\.woff(\?v=\d+\.\d+\.\d+)?$/, loader: 'url-loader?limit=10000&mimetype=application/font-woff'},
             {test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/, loader: 'url-loader?limit=10000&mimetype=application/font-woff'},
