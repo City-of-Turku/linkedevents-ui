@@ -199,7 +199,7 @@ class HelTextField extends Component {
         // Replaced TextField component with Form/FormGroup + Input, to make inputs actually accessible and customizable.
         return (
             <Fragment>
-                <div>
+                <div className='event-input'>
                     <label htmlFor={fieldID}>{label}</label>
                     <Input
                         id={fieldID}

@@ -45,7 +45,7 @@ const SearchBar = ({intl, onFormSubmit}) => {
                     minDate={startDate ? startDate : undefined}
                 />
             </div>
-            <div className='search-bar--input'>
+            <div className='search-bar--input event-input'>
                 <Form>
                     <input
                         aria-hidden='true'
