@@ -38,9 +38,9 @@ textarea {
 
 // Styling for new Form Inputs
 .event-input {
-    h2 {
-        font-size: 20px !important;
-        margin-bottom: 1vh;
+    label {
+        font-size: 20px;
+        padding-top: 2vh;
     }
     input {
         border: none;
@@ -51,6 +51,16 @@ textarea {
         &:active {
             box-shadow: none;
             border-bottom: solid 3px;
+            border-color: #0072c6;
+        }
+    }
+    textarea {
+        border: solid 2px;
+        &:hover,
+        &:focus,
+        &:active {
+            box-shadow: none;
+            border: solid 3px;
             border-color: #0072c6;
         }
     }
