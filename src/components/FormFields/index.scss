@@ -8,6 +8,11 @@
     }
 }
 
+// disables horizontal resizing for the description textareas
+textarea {
+    resize: vertical;
+}
+
 .clipboard-copy-button {
     padding: 3px;
     position: absolute;

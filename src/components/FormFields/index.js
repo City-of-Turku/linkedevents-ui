@@ -206,6 +206,7 @@ class FormFields extends React.Component {
                             validations={[VALIDATION_RULES.SHORT_STRING]}
                             setDirtyState={this.props.setDirtyState}
                             forceApplyToStore
+                            type='textarea'
                         />
 
                         <MultiLanguageField
@@ -220,6 +221,7 @@ class FormFields extends React.Component {
                             languages={this.props.editor.contentLanguages}
                             validations={[VALIDATION_RULES.LONG_STRING]}
                             setDirtyState={this.props.setDirtyState}
+                            type='textarea'
                         />
                         <MultiLanguageField
                             id='event-info-url'
@@ -234,6 +236,7 @@ class FormFields extends React.Component {
                             validations={[VALIDATION_RULES.IS_URL]}
                             setDirtyState={this.props.setDirtyState}
                             forceApplyToStore
+                            type='text'
                         />
                         <MultiLanguageField
                             id='event-provider-input'
@@ -246,6 +249,7 @@ class FormFields extends React.Component {
                             defaultValue={values['provider']}
                             languages={this.props.editor.contentLanguages}
                             setDirtyState={this.props.setDirtyState}
+                            type='text'
                         />
                         <OrganizationSelector
                             formType={formType}
@@ -373,6 +377,7 @@ class FormFields extends React.Component {
                             defaultValue={values['location_extra_info']}
                             languages={this.props.editor.contentLanguages}
                             setDirtyState={this.props.setDirtyState}
+                            type='text'
                         />
                     </div>
                     <SideField>
@@ -423,6 +428,7 @@ class FormFields extends React.Component {
                             defaultValue={values['extlink_facebook']}
                             setDirtyState={this.props.setDirtyState}
                             forceApplyToStore
+                            type='text'
                         />
                         <HelTextField
                             validations={[VALIDATION_RULES.IS_URL]}
@@ -434,6 +440,7 @@ class FormFields extends React.Component {
                             defaultValue={values['extlink_twitter']}
                             setDirtyState={this.props.setDirtyState}
                             forceApplyToStore
+                            type='text'
                         />
                         <HelTextField
                             validations={[VALIDATION_RULES.IS_URL]}
@@ -445,6 +452,7 @@ class FormFields extends React.Component {
                             defaultValue={values['extlink_instagram']}
                             setDirtyState={this.props.setDirtyState}
                             forceApplyToStore
+                            type='text'
                         />
                     </div>
                     <SideField><p className="tip"><FormattedMessage id="editor-tip-social-media"/></p></SideField>
@@ -508,6 +516,7 @@ class FormFields extends React.Component {
                                     validationErrors={validationErrors['audience_min_age']}
                                     defaultValue={values['audience_min_age']}
                                     setDirtyState={this.props.setDirtyState}
+                                    type='text'
                                 />
 
                                 <HelTextField
@@ -517,6 +526,7 @@ class FormFields extends React.Component {
                                     validationErrors={validationErrors['audience_max_age']}
                                     defaultValue={values['audience_max_age']}
                                     setDirtyState={this.props.setDirtyState}
+                                    type='text'
                                 />
                             </div>
                         </div>
@@ -555,6 +565,7 @@ class FormFields extends React.Component {
                                     validationErrors={validationErrors['minimum_attendee_capacity']}
                                     defaultValue={values['minimum_attendee_capacity']}
                                     setDirtyState={this.props.setDirtyState}
+                                    type='text'
                                 />
 
                                 <HelTextField
@@ -564,6 +575,7 @@ class FormFields extends React.Component {
                                     validationErrors={validationErrors['maximum_attendee_capacity']}
                                     defaultValue={values['maximum_attendee_capacity']}
                                     setDirtyState={this.props.setDirtyState}
+                                    type='text'
                                 />
                             </div>
                         </div>

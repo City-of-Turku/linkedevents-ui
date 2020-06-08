@@ -174,14 +174,6 @@ class HelTextField extends Component {
         return (errors.length === 0)
     }
 
-    getUniqueId() {
-        const {label} = this.props;
-
-        const randomNumber = Math.floor(Math.random() * (1000 - 100 + 1) + 100);
-        const str = (typeof label === 'string' && label.length > 1) ? label.slice(0,2) : 'id';
-        return str + randomNumber.toString();
-    }
-
     render () {
         const {value} = this.state
         // Removed multiLine since it was no longer used
@@ -195,6 +187,7 @@ class HelTextField extends Component {
             name,
         } = this.props
         const fieldID = this.props.id;
+        const type = this.props.type;
 
         // Replaced TextField component with Form/FormGroup + Input, to make inputs actually accessible and customizable.
         return (
@@ -204,9 +197,9 @@ class HelTextField extends Component {
                     <Input
                         id={fieldID}
                         placeholder={placeholder}
-                        type='text'
+                        type={type}
                         name={name}
-                        defaulvalue={value}
+                        value={value}
                         required={required}
                         onChange={this.handleChange}
                         onBlur={this.handleBlur}
@@ -254,5 +247,9 @@ HelTextField.propTypes = {
     maxLength: PropTypes.number,
     id: PropTypes.string,
 }
+
+HelTextField.defaultProps = {
+    type: 'text',
+};
 
 export default HelTextField
