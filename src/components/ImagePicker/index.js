@@ -196,18 +196,17 @@ export class ImagePicker extends Component {
                     className='image-picker--dialog'
                     isOpen={this.state.open}
                     size='xl'
-
                     role='dialog'
                     id='dialog1'
                     aria-modal='true'>
 
-                    <ModalHeader tag='h1' close={closebtn}>
+                    <ModalHeader className='modalH1' tag='h1' close={closebtn}>
                         <FormattedMessage id='event-image-title' />
                     </ModalHeader>
-                    <ModalHeader tag='h2' className='image-picker--dialog-title'>
-                        <FormattedMessage id='new-image' />
-                    </ModalHeader>
                     <ModalBody>
+                        <ModalHeader tag='h2' className='image-picker--dialog-title'>
+                            <FormattedMessage id='new-image' />
+                        </ModalHeader>
                         <div className='file-upload'>
                             <div className='file-upload--new'>
                                 <input

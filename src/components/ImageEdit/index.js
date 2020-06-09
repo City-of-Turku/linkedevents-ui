@@ -134,7 +134,7 @@ const ImageEdit = (props) => {
             size='xl'
             isOpen={true}
         >
-            <ModalHeader>
+            <ModalHeader tag='h1'>
                 <FormattedMessage id={'image-modal-image-info'}/>
                 <Button
                     className='icon-button'

@@ -32,6 +32,7 @@ $modal-backdrop-opacity: 0.7;
         width: 100%;
         background-color: #ebedf1;
         color:#525a65;
+        white-space: normal;
         label {
             font-size: 18px;
             max-width: 400px;
@@ -40,13 +41,30 @@ $modal-backdrop-opacity: 0.7;
     }
 }
 .image-picker--dialog {
+    .modalH1 {
+        padding: 16px 24px !important;
+     }
 .modal-header {
     border: none;
-    padding: 12px 12px;
+    padding: 0px 0px;
     .modal-title {
-        padding:  0px;
+        padding: 0px;
         margin-top: 0px !important;
     }
+        h1 {
+            font-weight: 500;
+            font-size: 1.25rem;
+        }
+        h2 {
+            padding: 0 15px !important;
+            font-weight: 500;
+            font-size: 1.25rem;
+        }
+        h3 {
+            padding: 0 15px !important;
+            font-weight: 500;
+            font-size: 1.25rem;
+        }
     button {
         color: black;
         background-color: transparent;
@@ -64,6 +82,7 @@ $modal-backdrop-opacity: 0.7;
 }
 }
 .modal-body {
+    padding: 8px 24px;
     .file-upload {
         .btn-secondary {
             background-color: #0072c6;
@@ -74,16 +93,11 @@ $modal-backdrop-opacity: 0.7;
             align-items: center;
             display: flex;
             margin: 16px 15px 0px;
-            .input {
-
             }
-            .upload-img {
-  
-        }}
         .file-upload--external {
             align-items: center;
             display: flex;
-            margin: 1vh;
+            margin: 16px 15px;
             .image-url {
                 flex: 1;
             }
@@ -106,9 +120,40 @@ $modal-backdrop-opacity: 0.7;
         }
     }
     .button-row {
-        margin-left: 10px;
-        margin-right: 20px;
-
+        margin: 1rem 0;
     }
 }
+}
+
+//Mobile
+@media only screen and (max-width: 991px) {
+    .image-picker--dialog {
+        .modal-body {
+            text-align: center !important;
+        }
+        .file-upload--new {
+            display: block !important;
+        }
+        .file-upload--external {
+            display: block !important;
+            &-input {
+                width: 100% !important;
+            }
+            &-button {
+                margin-left: 0px !important;
+            }
+        }
+        .button-row {
+            margin: 1rem 0;
+            display: block !important;
+            .btn {
+                margin: 10px 0px !important;
+                width: 100%;
+
+            }
+            .wrapper-right {
+                    display: block !important;
+        }
+    }
+    }
 }
