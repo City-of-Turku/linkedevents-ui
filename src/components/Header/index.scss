@@ -251,3 +251,12 @@ ul.language {
 		}
 	}
 }
+@media only screen and (max-width: 472px) {
+	.linked-events-bar {
+		&__links {
+			&__list {
+				display: inline-grid;
+			}
+		}
+	}
+}
