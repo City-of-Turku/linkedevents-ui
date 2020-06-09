@@ -1,6 +1,6 @@
 .container > div > .row {
     justify-content: space-between;
-    .glyphicon {
+    .glyphicon:not(.custom-date-input__button) {
         font-size: 22px;
         padding-left: 15px;
         padding-top: 1px;

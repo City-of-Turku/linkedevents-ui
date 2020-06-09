@@ -10,7 +10,6 @@ import {
     HelTextField,
     HelLabeledCheckboxGroup,
     HelLanguageSelect,
-    HelDateTimeField,
     HelSelect,
     HelOffersField,
     NewEvent,
@@ -27,6 +26,8 @@ import OrganizationSelector from '../HelFormFields/OrganizationSelector';
 import UmbrellaSelector from '../HelFormFields/UmbrellaSelector/UmbrellaSelector'
 import moment from 'moment'
 import HelVideoFields from '../HelFormFields/HelVideoFields/HelVideoFields'
+import CustomDateTimeField from '../CustomFormFields/CustomDateTimeField';
+
 // Removed material-ui/icons because it was no longer used.
 //Added isOpen for RecurringEvents modal
 
@@ -271,26 +272,26 @@ class FormFields extends React.Component {
                     <div className="col-sm-6">
                         <div className="row">
                             <div className="col-xs-12 col-sm-12">
-                                <HelDateTimeField
+                                <CustomDateTimeField
+                                    id="start_time"
                                     disabled={formType === 'update' && isSuperEvent}
                                     validationErrors={validationErrors['start_time']}
                                     defaultValue={values['start_time']}
                                     name="start_time"
                                     label="event-starting-datetime"
-                                    placeholder={this.context.intl.formatMessage({id: 'date-time-field-placeholder'})}
                                     setDirtyState={this.props.setDirtyState}
                                     maxDate={values['end_time'] ? moment(values['end_time']) : undefined}
                                 />
                             </div>
                             <div className="col-xs-12 col-sm-12">
-                                <HelDateTimeField
+                                <CustomDateTimeField
+                                    id="end_time"
                                     disablePast
                                     disabled={formType === 'update' && isSuperEvent}
                                     validationErrors={validationErrors['end_time']}
                                     defaultValue={values['end_time']}
                                     name="end_time"
                                     label="event-ending-datetime"
-                                    placeholder={this.context.intl.formatMessage({id: 'date-time-field-placeholder'})}
                                     setDirtyState={this.props.setDirtyState}
                                     minDate={values['start_time'] ? moment(values['start_time']) : undefined}
                                 />
@@ -536,20 +537,22 @@ class FormFields extends React.Component {
                         </FormHeader>
                         <div className="row">
                             <div className="col-xs-12 col-sm-6">
-                                <HelDateTimeField
+                                <CustomDateTimeField
                                     validationErrors={validationErrors['enrolment_start_time']}
                                     defaultValue={values['enrolment_start_time']}
                                     name="enrolment_start_time"
+                                    id="enrolment_start_time"
                                     label="enrolment-start-time"
                                     setDirtyState={this.props.setDirtyState}
                                 />
-                                <HelDateTimeField
+                                <CustomDateTimeField
                                     validationErrors={validationErrors['enrolment_end_time']}
                                     defaultValue={values['enrolment_end_time']}
                                     name="enrolment_end_time"
+                                    id="enrolment_end_time"
                                     label="enrolment-end-time"
                                     setDirtyState={this.props.setDirtyState}
-                                />
+                                />                                
                             </div>
                         </div>
 

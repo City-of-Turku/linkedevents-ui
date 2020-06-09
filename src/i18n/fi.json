@@ -114,8 +114,8 @@
     "no-image": "Tapahtumalla ei ole kuvaa",
 
     "event-datetime-fields-header": "Tapahtuman ajankohdat",
-    "event-starting-datetime": "Tapahtuma alkaa",
-    "event-ending-datetime": "Tapahtuma päättyy",
+    "event-starting-datetime": "Tapahtuma alkaa (pp.kk.vvvv tt.mm)",
+    "event-ending-datetime": "Tapahtuma päättyy (pp.kk.vvvv tt.mm)",
     "event-add-new-occasion": "Lisää uusi ajankohta",
     "event-add-recurring": "Toistuva tapahtuma",
     "event-add-price": "Lisää uusi hintatieto",
@@ -129,13 +129,13 @@
     "saturday": "lauantai",
     "sunday": "sunnuntai",
 
-    "repetition-begin": "Toistuminen alkaa",
-    "repetition-end": "Toistuminen päättyy",
+    "repetition-begin": "Toistuminen alkaa (pp.kk.vvvv)",
+    "repetition-end": "Toistuminen päättyy (pp.kk.vvvv)",
     "repetition-interval-label": "Toistoväli",
     "repeated": "Toistetaan ",
     "repetition-interval": " viikon välein.",
-    "repetition-start-time": "Tapahtumien alkuaika",
-    "repetition-end-time": "Tapahtumien loppuaika",
+    "repetition-start-time": "Tapahtumien alkuaika (tt.mm)",
+    "repetition-end-time": "Tapahtumien loppuaika (tt.mm)",
 
     "event-location-fields-header": "Tapahtumapaikka",
     "event-location": "Paikka",
@@ -177,16 +177,16 @@
     "audience-max-age": "Yläikäraja",
 
     "enrolment-time": "Ilmoittautumisaika",
-    "enrolment-start-time": "Ilmoittautuminen alkaa",
-    "enrolment-end-time": "Ilmoittautuminen päättyy",
+    "enrolment-start-time": "Ilmoittautuminen alkaa (pp.kk.vvvv tt.mm)",
+    "enrolment-end-time": "Ilmoittautuminen päättyy (pp.kk.vvvv tt.mm)",
 
     "attendee-capacity": "Osallistujamäärä",
     "minimum-attendee-capacity": "Vähimmäisosallistujamäärä",
     "maximum-attendee-capacity": "Enimmäisosallistujamäärä",
 
     "validation-isUrl": "Kirjoita URL osoite kokonaisena ja oikeassa muodossa (http://...)",
-    "validation-isTime": "Kirjoita aika oikeassa muodossa HH.mm tai HH",
-    "validation-isDate": "Kirjoita päivämäärä muodossa pp.kk.vvvv hh.mm",
+    "validation-isTime": "Kirjoita aika oikeassa muodossa tt.mm",
+    "validation-isDate": "Kirjoita päivämäärä muodossa pp.kk.vvvv tt.mm",
     "validation-isInt": "Tulon on oltava numero",
     "validation-atLeastOne": "Valitse vähintään yksi",
     "validation-atLeastOneMainCategory": "Valitse vähintään yksi pääkategoria",
@@ -249,9 +249,10 @@
 
     "search-no-results": "Ei tuloksia",
     "search-results-count": "Hakutulosten määrä on {count}",
-    "search-date-placeholder": "pp.kk.vvvv",
+	"search-date-label-start": "Alkaen (pp.kk.vvvv)",
+	"search-date-label-end": "Päättyen (pp.kk.vvvv)",
+	"date-picker-button-label": "Päivämäärävalitsin",
     "copy-to-clipboard": "Kopioi leikepöydälle",
-    "date-time-field-placeholder": "pp.kk.vvvv hh.mm",
 
     "hel-target-groups": "Kohderyhmät",
     "additional-keywords": "Muut avainsanat",

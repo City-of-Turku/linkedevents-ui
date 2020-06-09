@@ -113,8 +113,8 @@
     "no-image": "NO IMAGE",
 
     "event-datetime-fields-header": "Event times",
-    "event-starting-datetime": "Event starts",
-    "event-ending-datetime": "Event ends",
+    "event-starting-datetime": "Event starts (dd.mm.yyyy hh.mm)",
+    "event-ending-datetime": "Event ends (dd.mm.yyyy hh.mm)",
     "event-add-new-occasion": "Add new occasion",
     "event-add-recurring": "Recurring event",
     "event-add-price": "Add new price",
@@ -128,13 +128,13 @@
     "saturday": "Saturday",
     "sunday": "Sunday",
 
-    "repetition-begin": "Repetition begins",
-    "repetition-end": "Repetition ends",
+    "repetition-begin": "Repetition begins (dd.mm.yyyy)",
+    "repetition-end": "Repetition ends (dd.mm.yyyy)",
     "repetition-interval-label": "Repeat interval",
     "repeated": "Repeated in",
     "repetition-interval": " week intervals.",
-    "repetition-start-time": "Start time",
-    "repetition-end-time": "End time",
+    "repetition-start-time": "Start time (hh.mm)",
+    "repetition-end-time": "End time (hh.mm)",
 
     "event-location-fields-header": "Venue",
     "event-location": "Location",
@@ -176,15 +176,15 @@
     "audience-max-age": "Maximum age",
 
     "enrolment-time": "Enrolment time",
-    "enrolment-start-time": "Enrolment starts",
-    "enrolment-end-time": "Enrolment ends",
+    "enrolment-start-time": "Enrolment starts (dd.mm.yyyy hh.mm)",
+    "enrolment-end-time": "Enrolment ends (dd.mm.yyyy hh.mm)",
 
     "attendee-capacity": "Attendee capacity",
     "minimum-attendee-capacity": "Minimum attendees",
     "maximum-attendee-capacity": "Maximum attendees",
 
     "validation-isUrl": "Enter the URL in correct format (http://...)",
-    "validation-isTime": "Enter the time in the correct format HH.mm or HH",
+    "validation-isTime": "Enter the time in the correct format hh.mm",
     "validation-isDate": "Enter the date in the correct format dd.mm.yyyy hh.mm",
     "validation-isInt": "The input need to be number",
     "validation-atLeastOne": "At least one item must be selected",
@@ -248,9 +248,10 @@
 
     "search-results-count": "Found {count} results",
     "search-no-results": "No results",
-    "search-date-placeholder": "dd.mm.yyyy",
+	"search-date-label-start": "From (dd.mm.yyyy)",
+	"search-date-label-end": "To (dd.mm.yyyy)",
+	"date-picker-button-label": "Date picker",
     "copy-to-clipboard": "Copy to clipboard",
-    "date-time-field-placeholder": "dd.mm.yyyy hh.mm",
 
     "hel-target-groups": "Target groups",
     "additional-keywords": "Other keywords",

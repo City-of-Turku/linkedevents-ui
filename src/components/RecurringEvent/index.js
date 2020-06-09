@@ -11,7 +11,7 @@ import {setEventData, sortSubEvents} from 'src/actions/editor'
 import validationRules from 'src/validation/validationRules'
 import ValidationPopover from 'src/components/ValidationPopover'
 import constants from '../../constants'
-import HelDatePicker from '../HelFormFields/HelDatePicker'
+import CustomDatePicker from '../CustomFormFields/CustomDatePicker'
 
 //Changed Material UI Dialog & Button to Reactstrap Modal & Button
 //Added isOpen prop for Modal & const closebtn for ModalHeaders close-attribute
@@ -358,7 +358,8 @@ class RecurringEvent extends React.Component {
 
                     <div className="row">
                         <div className="col-xs-12 col-sm-6">
-                            <HelDatePicker
+                            <CustomDatePicker
+                                id="recurringStartDate"
                                 name="recurringStartDate"
                                 label={
                                     <span ref={this.startDateRef}>
@@ -377,7 +378,8 @@ class RecurringEvent extends React.Component {
                             />
                         </div>
                         <div className="col-xs-12 col-sm-6">
-                            <HelDatePicker
+                            <CustomDatePicker
+                                id="recurringEndDate"
                                 name="recurringEndDate"
                                 label={
                                     <span ref={this.endDateRef}>
@@ -400,8 +402,9 @@ class RecurringEvent extends React.Component {
 
                     <div className="row">
                         <div className="col-xs-12 col-sm-6">
-                            <HelDatePicker
+                            <CustomDatePicker
                                 type={'time'}
+                                id="recurringStartTime"
                                 name="recurringStartTime"
                                 label={
                                     <span ref={this.startTimeRef}>
@@ -419,8 +422,9 @@ class RecurringEvent extends React.Component {
                         </div>
 
                         <div className="col-xs-6 col-sm-6">
-                            <HelDatePicker
+                            <CustomDatePicker
                                 type={'time'}
+                                id="recurringEndTime"
                                 name="recurringEndTime"
                                 label={<FormattedMessage  id="repetition-end-time" />}
                                 defaultValue={this.state.recurringEndTime}

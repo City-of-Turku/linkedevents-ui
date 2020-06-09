@@ -2,10 +2,15 @@
     &--dates {
         align-items: baseline;
         display: inline-flex;
+
+        .custom-date-input {
+            margin-right: 8px;
+        }
     }
 
     &--label {
         margin-right: 2rem;
+        align-self: center;
     }
 
     &--icon {
@@ -55,6 +60,9 @@ border-radius: 2px;
 @media (max-width: 600px) {
     .search-bar--dates {
         flex-direction: column;
+    }
+    .search-bar--label {
+        align-self: start;
     }
 }
 

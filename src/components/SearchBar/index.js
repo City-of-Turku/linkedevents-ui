@@ -4,7 +4,7 @@ import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import {FormattedMessage, injectIntl} from 'react-intl';
-import HelDatePicker from '../HelFormFields/HelDatePicker';
+import CustomDatePicker from '../CustomFormFields/CustomDatePicker'
 import {Button, Form, FormGroup} from 'reactstrap';
 
 const handleKeyPress = (event, startDate, endDate, onFormSubmit, setSearchQuery) => {
@@ -24,25 +24,26 @@ const SearchBar = ({intl, onFormSubmit}) => {
     return (
         <div className='search-bar'>
             <div className='search-bar--dates'>
-                <label className='search-bar--label'>
+                <p className='search-bar--label'>
                     <FormattedMessage id='pick-time-range' />
-                </label>
-                <HelDatePicker
-                    name='startDate'
-                    placeholder={intl.formatMessage({id: 'search-date-placeholder'})}
+                </p>
+                <CustomDatePicker
+                    id="startTime"
+                    name="startTime"
+                    label="search-date-label-start"
                     defaultValue={startDate}
                     onChange={setStartDate}
                     maxDate={endDate ? endDate : undefined}
+                    type="date"
                 />
-                <span
-                    className='glyphicon glyphicon-minus search-bar--icon'
-                    aria-hidden='true'></span>
-                <HelDatePicker
-                    name='endDate'
-                    placeholder={intl.formatMessage({id: 'search-date-placeholder'})}
+                <CustomDatePicker 
+                    id="endTime"
+                    name="endTime"
+                    label="search-date-label-end"
                     defaultValue={endDate}
                     onChange={setEndDate}
                     minDate={startDate ? startDate : undefined}
+                    type="date"
                 />
             </div>
             <div className='search-bar--input event-input'>

@@ -1,7 +1,7 @@
 import './NewEvent.scss'
 import PropTypes from 'prop-types';
 import React from 'react'
-import HelDateTimeField from '../HelFormFields/HelDateTimeField'
+import CustomDateTimeField from '../CustomFormFields/CustomDateTimeField';
 import {connect} from 'react-redux'
 import {deleteSubEvent as deleteSubEventAction} from 'src/actions/editor'
 import {IconButton, withStyles} from '@material-ui/core'
@@ -23,15 +23,17 @@ const DeleteButton = withStyles(theme => ({
 const NewEvent = ({event, eventKey, errors, deleteSubEvent}) => (
     <div className="new-sub-event">
         <div className="new-sub-event--inputs">
-            <HelDateTimeField
+            <CustomDateTimeField
+                id={'start_time' + eventKey}
                 name="start_time"
                 label="event-starting-datetime"
                 defaultValue={event.start_time}
                 eventKey={eventKey}
                 validationErrors={errors['start_time']}
             />
-            <HelDateTimeField
+            <CustomDateTimeField
                 disablePast
+                id={'end_time' + eventKey}
                 name="end_time"
                 label="event-ending-datetime"
                 defaultValue={event.end_time}
