@@ -4,10 +4,6 @@ import React, {useState} from 'react';
 import PropTypes from 'prop-types'
 import {injectIntl, FormattedMessage} from 'react-intl'
 import {
-    IconButton,
-    Dialog,
-    DialogTitle,
-    DialogContent,
     TextField,
     Radio,
     RadioGroup,
@@ -15,7 +11,6 @@ import {
     Typography,
     withStyles,
 } from '@material-ui/core'
-import {Close} from '@material-ui/icons'
 import {connect} from 'react-redux'
 import HelTextField from '../HelFormFields/HelTextField'
 import {postImage as postImageAction} from 'src/actions/userImages'
@@ -128,6 +123,18 @@ const ImageEdit = (props) => {
         altTextMaxLength,
     } = state
 
+    const getCloseButton = () => {
+        return (
+            <Button
+                className='icon-button'
+                type='button'
+                aria-label='Close'
+                onClick={() => close()}>
+                <span className='glyphicon glyphicon-remove'></span>
+            </Button>
+        )
+    }
+
     return (
         <Modal
             className="image-edit-dialog"
@@ -135,15 +142,8 @@ const ImageEdit = (props) => {
             isOpen={true}
             toggle={close}
         >
-            <ModalHeader tag='h1'>
+            <ModalHeader tag='h1' close={getCloseButton()}>
                 <FormattedMessage id={'image-modal-image-info'}/>
-                <Button
-                    className='icon-button'
-                    type='button'
-                    aria-label='Close'
-                    onClick={() => close()}>
-                    <span className='glyphicon glyphicon-remove'></span>
-                </Button>
             </ModalHeader>
             <ModalBody>
                 <Form onSubmit={() => handleImagePost(state, props)} className="row">
@@ -187,12 +187,11 @@ const ImageEdit = (props) => {
                             value={photographerName}
                             onChange={handleStateChange}
                         />
-                        <Typography
-                            style={{marginTop: HelMaterialTheme.spacing(2)}}
-                            variant="h6"
+                        <div
+                            style={{marginTop: '16px'}}
                         >
-                            <FormattedMessage id={'image-modal-image-license'}/>
-                        </Typography>
+                            <FormattedMessage id='image-modal-image-license'>{txt => <h2>{txt}</h2>}</FormattedMessage>
+                        </div>
                         <InlineRadioGroup
                             aria-label="License"
                             name="license"

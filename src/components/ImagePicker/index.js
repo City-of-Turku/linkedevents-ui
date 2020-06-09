@@ -214,6 +214,9 @@ export class ImagePicker extends Component {
                         <ModalHeader tag='h2' className='image-picker--dialog-title'>
                             <FormattedMessage id='new-image' />
                         </ModalHeader>
+                        <ModalHeader tag='p'>
+                            <FormattedMessage id='uploaded-image-size-tip'/>
+                        </ModalHeader>
                         <div className='file-upload'>
                             <div className='file-upload--new'>
                                 <input
