@@ -61,7 +61,7 @@ const constants = {
 
     DEFAULT_LOCALE: 'fi',
 
-    APPLICATION_SUPPORT_TRANSLATION: ['fi', 'en', 'sv'],
+    APPLICATION_SUPPORT_TRANSLATION: ['fi', 'sv', 'en'],
     // currently there is only finnish translation in i18n
 
     // Locale actions
