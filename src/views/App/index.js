@@ -127,11 +127,10 @@ class App extends React.Component {
                     >
                         <h4>Tervetuloa käyttämään Linked Eventsiä, {this.props.user.displayName}!</h4>
                         <p>Sinulla ei ole vielä oikeutta hallinnoida yhdenkään yksikön tapahtumia.
-                        Ota yhteyttä <a href="mailto:paavo.jantunen@hel.fi">Paavo Jantuseen</a> saadaksesi oikeudet
+                        Ota yhteyttä <a href="mailto:matias.peltonen@turku.fi">Matias Peltoseen</a> saadaksesi oikeudet
                         muokata yksikkösi tapahtumia.</p>
                         <p>Jos olet jo saanut käyttöoikeudet, kirjautumisesi saattaa olla vanhentunut. Kokeile sivun
                         päivittämistä (F5) ja kirjautumista uudestaan.</p>
-                        <p>Helsinki Marketingin yhteistyökumppanit: <a href="mailto:toni.uuttu@hel.fi">Toni Uuttu</a></p>
                     </Paper>
             }
         }
