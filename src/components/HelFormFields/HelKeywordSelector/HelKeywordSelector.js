@@ -59,7 +59,7 @@ const HelKeywordSelector = ({intl, editor, setDirtyState, setData}) => {
     if (remoteParticipationKeyword
         && values['location']
         // Changed keywordSets to be compatible with Turku's backend.
-        && values['location']['id'] == 'turku:internet'
+        && values['location']['id'] == 'virtual:public'
         && !keywords.find(keyword => keyword['value'].includes('yso:p26626'))) {
         keywords.push(remoteParticipationKeyword)
     }
