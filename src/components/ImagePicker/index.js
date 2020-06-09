@@ -149,9 +149,15 @@ export class ImagePicker extends Component {
         this.setState({open: true});
     };
 
+    getModalCloseButton() {
+        return (
+            <Button onClick={() => this.closeGalleryModal()} aria-label={this.context.intl.formatMessage({id: `close`})}><span className="glyphicon glyphicon-remove"></span></Button>
+        );
+    }
+
     render() {
         const backgroundImage = getIfExists(this.props.editor.values, 'image.url', '');
-        const closebtn = <Button onClick={() => this.closeGalleryModal()} aria-label={this.context.intl.formatMessage({id: `close`})}><span className="glyphicon glyphicon-remove"></span></Button>;
+        const closebtn = this.getModalCloseButton();
         let editModal = null;
 
         if (this.state.edit && this.state.thumbnailUrl) {
@@ -195,6 +201,7 @@ export class ImagePicker extends Component {
                 <Modal
                     className='image-picker--dialog'
                     isOpen={this.state.open}
+                    toggle={this.openGalleryModal}
                     size='xl'
                     role='dialog'
                     id='dialog1'

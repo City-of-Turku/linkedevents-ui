@@ -133,6 +133,7 @@ const ImageEdit = (props) => {
             className="image-edit-dialog"
             size='xl'
             isOpen={true}
+            toggle={close}
         >
             <ModalHeader tag='h1'>
                 <FormattedMessage id={'image-modal-image-info'}/>
