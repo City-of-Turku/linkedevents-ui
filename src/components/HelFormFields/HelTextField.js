@@ -188,12 +188,12 @@ class HelTextField extends Component {
         } = this.props
         const fieldID = this.props.id;
         const type = this.props.type;
-
+        const alert = this.state.error ? {role: 'alert', className: 'red-alert'} : '';
         // Replaced TextField component with Form/FormGroup + Input, to make inputs actually accessible and customizable.
         return (
             <Fragment>
                 <div className='event-input'>
-                    <label htmlFor={fieldID}>{label}</label>
+                    <label htmlFor={fieldID}>{label}{required ? '*' : ''}</label>
                     <Input
                         id={fieldID}
                         placeholder={placeholder}
@@ -205,7 +205,7 @@ class HelTextField extends Component {
                         onBlur={this.handleBlur}
                         innerRef={ref => this.inputRef = ref}
                         disabled={disabled}/>
-                    <FormText color='muted'>
+                    <FormText {...alert}>
                         {this.helpText()}
                     </FormText>
                     <ValidationPopover
