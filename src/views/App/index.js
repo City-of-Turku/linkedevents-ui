@@ -27,6 +27,7 @@ import {MuiPickersUtilsProvider} from '@material-ui/pickers'
 import MomentUtils from '@date-io/moment';
 import moment from 'moment'
 import {Button} from 'reactstrap';
+import CookieBar from '../../components/CookieBar/CookieBar';
 
 // localized moment utils
 class LocalizedUtils extends MomentUtils {
@@ -181,6 +182,7 @@ class App extends React.Component {
                                 </Button>
                             </DialogActions>
                         </Dialog>
+                        {appSettings.show_cookie_bar && <CookieBar />}
                     </div>
                 </MuiPickersUtilsProvider>
             </ThemeProvider>

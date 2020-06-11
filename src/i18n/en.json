@@ -355,5 +355,12 @@
     "navbar.fi": "Finnish",
     "navbar.en": "English",
     "navbar.sv": "Swedish",
-    "navbar.active": "Current language is english"
+    "navbar.active": "Current language is english",
+	
+	"cookieBar.accept": "Accept",
+	"cookieBar.decline.text": "Decline",
+	"cookieBar.decline.url": "https://www.google.com/",
+	"cookieBar.description": "We use cookies to improve your browsing experience. By continuing to use Linked Events, you accept the use of cookies.",
+	"cookieBar.link.text": "Link to cookie policy",
+	"cookieBar.link.url": "https://www.google.com/"
 }

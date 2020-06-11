@@ -5,7 +5,8 @@ const readConfig = require('../config/appConfig').readConfig;
 
 const compiledTemplate = pug.compileFile(path.join(common.paths.SRC, 'index.pug'), {pretty: true})
 
-const clientConfigKeys = ['api_base', 'local_storage_user_expiry_time', 'nocache', 'raven_id', 'commit_hash', 'ui_mode'];
+const clientConfigKeys = ['api_base', 'local_storage_user_expiry_time', 'nocache',
+    'raven_id', 'commit_hash', 'ui_mode', 'show_cookie_bar'];
 const clientConfig = readConfig(clientConfigKeys);
 const appMode = readConfig('APP_MODE');
 const leProductionInstance = readConfig('LE_PRODUCTION_INSTANCE');
