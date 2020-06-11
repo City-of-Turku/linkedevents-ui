@@ -2415,7 +2415,7 @@ cipher-base@^1.0.0, cipher-base@^1.0.1, cipher-base@^1.0.3:
     inherits "^2.0.1"
     safe-buffer "^5.0.1"
 
-city_theme@^0.4.2:
+city_theme@^0.4.4:
   version "0.4.4"
   resolved "https://registry.yarnpkg.com/city_theme/-/city_theme-0.4.4.tgz#127673907b0979160bac869f0c652f71e590fdc3"
   integrity sha512-CeCt3IS4zlnayVXB96pwPSD555iRnwloXYKwhEGKnnrR2AxFIQ377IQLxYpE59zIF7EqbaFVm1K8XDGFDLNaYA==
