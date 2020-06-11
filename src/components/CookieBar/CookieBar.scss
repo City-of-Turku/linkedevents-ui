@@ -1,21 +1,19 @@
 .CookieConsent {
-    align-items: baseline;
     background: white;
     color: black;
     display: flex;
     flex-wrap: wrap;
-    left: 0px;
+    left: 0;
     position: fixed;
     width: 100%;
-    z-index: 1100;
-    bottom: 0px;
+    z-index: 1400;
     box-shadow: 0 -1px 3px #eaf0f6;
     border-top: 1px solid lightgray;
     justify-content: flex-end;
   
     .cookie-content {
-      margin: 15px;
-      width: 100%;
+      margin: 1rem;
+      margin-inline-end: auto;
       display: flex;
       flex-direction: column;
   
@@ -34,7 +32,7 @@
       cursor: pointer;
       flex: 0 0 auto;
       padding: 5px 10px;
-      margin: 0 15px 15px 15px;
+      margin: 1rem;
     }
   
     #cookie-decline-button {
@@ -46,6 +44,6 @@
       cursor: pointer;
       flex: 0 0 auto;
       padding: 5px 10px;
-      margin: 0 15px 15px 15px;
+      margin: 1rem;
     }
 }
