@@ -40,6 +40,8 @@ $modal-backdrop-opacity: 0.7;
         }
         .glyphicon {
             transform: rotate(180deg);
+            padding-right: 17px;
+            padding-left: 0px !important;
         }
     }
 }
