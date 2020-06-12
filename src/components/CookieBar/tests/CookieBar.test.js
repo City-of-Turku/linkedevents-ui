@@ -28,6 +28,7 @@ describe('src/components/cookieBar/CookieBar', () => {
         expect(wrapper.prop('onDecline')).toBeDefined();
         expect(wrapper.prop('expires')).toBe(90);
         expect(wrapper.prop('setDeclineCookie')).toBe(false);
+        expect(wrapper.prop('flipButtons')).toBe(true);
         expect(wrapper.contains(intl.formatMessage({id: 'cookieBar.description'}))).toBe(true);
     });
 

@@ -18,6 +18,7 @@ function CookieBar(props) {
             expires={90}
             onDecline={() => { window.location.replace(intl.formatMessage({id: 'cookieBar.decline.url'}))}}
             setDeclineCookie={false}
+            flipButtons
         >
             {intl.formatMessage({id: 'cookieBar.description'})}
             <div>

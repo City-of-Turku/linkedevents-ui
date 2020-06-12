@@ -24,11 +24,11 @@
     }
   
     #cookie-accept-button {
-      background: white;
-      border: 1px solid black;
+      background: black;
+      border: 1px solid;
       border-radius: 0px;
       box-shadow: none;
-      color: black;
+      color: white;
       cursor: pointer;
       flex: 0 0 auto;
       padding: 5px 10px;
@@ -36,11 +36,11 @@
     }
   
     #cookie-decline-button {
-      background: black;
-      border: 1px solid;
+      background: white;
+      border: 1px solid black;
       border-radius: 0px;
       box-shadow: none;
-      color: white;
+      color: black;
       cursor: pointer;
       flex: 0 0 auto;
       padding: 5px 10px;
