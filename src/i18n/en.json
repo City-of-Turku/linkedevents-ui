@@ -336,7 +336,7 @@
     "uploaded-image-size-error": "The allowed maximum size for uploaded images is 2 megabytes (MB).",
     "image-modal-image-info": "Image information",
     "alt-text": "Alt-text: verbal description of image content (the min length is {minLength} and max length is {maxLength} characters)",
-    "photographer": "Photographer",
+    "photographer": "Photographer (the max length {maxLength} characters)",
     "image-modal-license-restricted-to-event": "Image may be used only for this event",
     "image-modal-image-license": "Image license",
     "image-modal-view-terms-paragraph-text": "Prior to uploading a new image, get to know the",

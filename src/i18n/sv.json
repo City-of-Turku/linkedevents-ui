@@ -330,7 +330,7 @@
     "uploaded-image-size-error": "Kuva on liian suuri. Kuvan koon on oltava alle 2 Mt.",
     "image-modal-image-info": "Kuvan tiedot",
     "alt-text": "Alt-teksti eli kuvan sisällön sanallinen kuvaus (pituus vähintään {minLength} ja korkeintaan {maxLength} merkkiä)",
-    "photographer": "Kuvaaja",
+    "photographer": "Kuvaaja (pituus korkeintaan {maxLength} merkkiä)",
     "image-modal-license-restricted-to-event": "Käyttö rajattu tapahtuman yhteyteen",
     "image-modal-image-license": "Lisenssi",
     "image-modal-view-terms-paragraph-text": "Ennen kuin lisäät uuden kuvan, tutustu",

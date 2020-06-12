@@ -248,6 +248,7 @@ class FormFields extends React.Component {
                             name="provider"
                             validationErrors={validationErrors['provider']}
                             defaultValue={values['provider']}
+                            validations={[VALIDATION_RULES.SHORT_STRING]}
                             languages={this.props.editor.contentLanguages}
                             setDirtyState={this.props.setDirtyState}
                             type='text'

@@ -341,7 +341,7 @@
     "uploaded-image-size-tip": " Kuvan sallittu koko on maksimissaan 2 Mt.",
     "image-modal-image-info": "Kuvan tiedot",
     "alt-text": "Alt-teksti eli kuvan sisällön sanallinen kuvaus (pituus vähintään {minLength} merkkiä)",
-    "photographer": "Kuvaaja",
+    "photographer": "Kuvaaja (pituus korkeintaan {maxLength} merkkiä)",
     "image-modal-license-restricted-to-event": "Käyttö rajattu tapahtuman yhteyteen",
     "image-modal-image-license": "Lisenssi",
     "image-modal-view-terms-paragraph-text": "Ennen kuin lisäät uuden kuvan, tutustu",

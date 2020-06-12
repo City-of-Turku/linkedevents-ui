@@ -101,6 +101,7 @@ const ImageEdit = (props) => {
         altText: props.altText || '',
         altTextMinLength: 6,
         nameMaxLength: CHARACTER_LIMIT.SHORT_STRING,
+        photographerLength: CHARACTER_LIMIT.SHORT_STRING,
         altTextMaxLength: CHARACTER_LIMIT.MEDIUM_STRING,
     })
 
@@ -121,6 +122,7 @@ const ImageEdit = (props) => {
         altTextMinLength,
         nameMaxLength,
         altTextMaxLength,
+        photographerLength,
     } = state
 
     const getCloseButton = () => {
@@ -180,12 +182,16 @@ const ImageEdit = (props) => {
                                 />
                             }
                         />
-                        <TextField
+                        <HelTextField
                             fullWidth
                             name="photographerName"
-                            label={<FormattedMessage id={'photographer'}/>}
+                            label={<FormattedMessage id={'photographer'}
+                                values={{maxLength: photographerLength}}
+                            />}
                             value={photographerName}
                             onChange={handleStateChange}
+                            validations={[VALIDATION_RULES.SHORT_STRING]}
+                            maxLength={photographerLength}
                         />
                         <div
                             style={{marginTop: '16px'}}
