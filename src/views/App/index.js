@@ -9,6 +9,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 
 import Headerbar from 'src/components/Header'
+import Footer from 'src/components/Footer/Footer';
 import SkipLink from 'src/components/SkipLink'
 import {ThemeProvider,IconButton, Paper, Dialog, DialogTitle, DialogContent, DialogActions} from '@material-ui/core';
 import {Close} from '@material-ui/icons';
@@ -138,7 +139,7 @@ class App extends React.Component {
         return (
             <ThemeProvider theme={HelMaterialTheme}>
                 <MuiPickersUtilsProvider utils={LocalizedUtils}>
-                    <div>
+                    <div className='main-wrapper'>
                         <Helmet>
                             <html lang={this.props.intl.locale} />
                         </Helmet>
@@ -183,6 +184,7 @@ class App extends React.Component {
                             </DialogActions>
                         </Dialog>
                         {appSettings.show_cookie_bar && <CookieBar />}
+                        <Footer />
                     </div>
                 </MuiPickersUtilsProvider>
             </ThemeProvider>

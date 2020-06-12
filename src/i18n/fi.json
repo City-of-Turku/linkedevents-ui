@@ -370,5 +370,11 @@
 	"cookieBar.decline.url": "https://www.google.fi/",
 	"cookieBar.description": "Käytämme evästeitä parantaaksemme käyttökokemustasi. Jatkamalla Linked Events käyttöä hyväksyt evästeiden käytön.",
 	"cookieBar.link.text": "Linkki evästekäytäntöön",
-	"cookieBar.link.url": "https://www.google.fi/"
+    "cookieBar.link.url": "https://www.google.fi/",
+    
+    "footer-accessibility": "Saavutettavuusseloste",
+    "footer-city": "© Helsingin kaupunki",
+    "footer-city1": "PL 1  (Pohjoisesplanadi 11-13) 00099 ",
+    "footer-city2": "HELSINGIN KAUPUNKI",
+    "footer-city3": "www.hel.fi"
 }

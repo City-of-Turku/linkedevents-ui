@@ -30,7 +30,7 @@ class IntlProviderWrapper extends Component {
         const mergedMessages = Object.assign({}, translations[CONSTANTS.DEFAULT_LOCALE], translations[locale])
 
         return (
-            <div>
+            <div style={{height: '100%'}}>
                 <IntlProvider locale={locale} messages={mergedMessages}>
                     {this.props.children}
                 </IntlProvider>

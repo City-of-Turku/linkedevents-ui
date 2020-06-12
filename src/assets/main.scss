@@ -16,6 +16,7 @@
 // @import "my-custom-overrides.scss";
 
 html, body {
+    height: 100%;
     width: 100%;
     padding: 0;
     margin: 0;
@@ -25,9 +26,20 @@ html, body {
     font-display: swap;
 }
 
+#content {
+    height: 100%;
+}
+
 .content {
     padding-bottom: 2em;
+    flex: 70%;
 }
+
+.main-wrapper {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}	
 
 h1,h2,h3 {
     font-family: "HelsinkiGrotesk", "Roboto", "Helvetica Neue", "Segoe UI", Calibri, sans-serif;

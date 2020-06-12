@@ -21,7 +21,7 @@ html.no-js
         if APP_MODE == 'testing'
             #testingmessage
                 | Huom! Tämä on testiversio.
-        div
+        div(style={height: '100%'})
             #content
         if APP_MODE == 'development'
             script(src="/scripts/main.js" type="text/javascript")

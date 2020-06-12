@@ -1,0 +1,26 @@
+.main-footer {
+    background-color: #0072c6;
+    color: #ffffff;
+    text-align: center;
+    width: 100%;
+    padding: 2vh;
+    a {
+        display: inline-block;
+        font-weight: bold;
+        color: #ffffff;
+        padding: 1vh;
+    }
+    .footer-list {
+        margin: auto;
+    }
+    .footer-logo {
+        background-image: url('../../../src/assets/images/helsinki-logo.svg');
+        background-size: contain;
+        margin-top: 1vh;
+        margin-bottom: 1vh;
+        height: 90px;
+        width: 150px;
+        background-repeat: no-repeat;
+        display: inline-block;
+    }
+}
