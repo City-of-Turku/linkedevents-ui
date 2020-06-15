@@ -10,6 +10,7 @@ import {withRouter} from 'react-router';
 import {clearUserData as clearUserDataAction} from 'src/actions/user.js';
 import {setLocale as setLocaleAction} from 'src/actions/userLocale';
 import LanguageSelector from './LanguageSelector';
+import LogoutDropdown from './LogoutDropdown';
 import {FormattedMessage} from 'react-intl';
 import constants from '../../constants';
 //Updated Nav from Material UI to Reactstrap based on Open design
@@ -124,7 +125,9 @@ class HeaderBar extends React.Component {
                             />
                         </div>
                         {user ? (
-                            <Button onClick={this.handleLogoutClick}>{user.displayName}</Button>
+                            <div className='logoutdropdown-selector'>
+                                <LogoutDropdown user={user} logout={this.handleLogoutClick} />
+                            </div>
                         ) : (
                             <Button onClick={this.handleLoginClick}>
                                 <span className='glyphicon glyphicon-user'></span>
