@@ -17,7 +17,7 @@ const handleKeyPress = (event, startDate, endDate, onFormSubmit, setSearchQuery)
 };
 
 const SearchBar = ({intl, onFormSubmit}) => {
-    const [startDate, setStartDate] = useState(moment());
+    const [startDate, setStartDate] = useState(moment().startOf('day'));
     const [endDate, setEndDate] = useState(null);
     const [searchQuery, setSearchQuery] = useState('');
 

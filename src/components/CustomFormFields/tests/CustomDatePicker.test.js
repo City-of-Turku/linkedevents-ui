@@ -90,7 +90,7 @@ describe('CustomDatePicker', () => {
                 const datePicker = wrapper.find(DatePicker)
                 expect(datePicker).toHaveLength(1);
                 expect(datePicker.prop('disabled')).toBe(defaultProps.disabled)
-                expect(datePicker.prop('selected')).toBeDefined()
+                expect(datePicker.prop('openToDate')).toBeDefined()
                 expect(datePicker.prop('onChange')).toBe(instance.handleDatePickerChange)
                 expect(datePicker.prop('customInput')).toEqual(<DatePickerButton disabled={defaultProps.disabled}/>)
                 expect(datePicker.prop('minDate')).toBe(instance.getCorrectMinDate(defaultProps.minDate))
@@ -110,12 +110,6 @@ describe('CustomDatePicker', () => {
                         boundariesElement: 'viewport',
                     },
                 })
-            })
-
-            test('prop selected is correct Date when props.defaultValue is defined', () => {
-                const defaultValue = moment().startOf('minute')
-                const datePicker = getWrapper({defaultValue}).find(DatePicker)
-                expect(datePicker.prop('selected')).toEqual(defaultValue.toDate())
             })
 
             test('prop maxDate is correct Date when props.maxDate is defined', () => {
@@ -325,6 +319,30 @@ describe('CustomDatePicker', () => {
                 const minDate = moment().subtract(1, 'day')
                 const returnValue = instance.getCorrectMinDate(minDate, true)
                 expect(moment(returnValue).startOf('hour').toString()).toEqual(moment().startOf('hour').toString())
+            })
+        })
+
+        describe('getDatePickerOpenDate', () => {
+            const instance = getWrapper().instance()
+
+            test('returns defaultValue if it is defined', () => {
+                const defaultValue = moment()
+                const minDate = defaultValue.subtract(1, 'days');
+                expect(instance.getDatePickerOpenDate(defaultValue, minDate)).toEqual(new Date(defaultValue))
+            })
+
+            test('returns minDate if it is defined and defaultValue is not defined', () => {
+                const defaultValue = undefined
+                const minDate = moment()
+                expect(instance.getDatePickerOpenDate(defaultValue, minDate)).toEqual(new Date(minDate))
+            })
+
+            test('returns new date if defaultValue and minDate are not defined', () => {
+                const defaultValue = undefined
+                const minDate = undefined
+                expect(instance.getDatePickerOpenDate(defaultValue, minDate)).toEqual(
+                    new Date(instance.roundDateToCorrectUnit(moment()))
+                )
             })
         })
 

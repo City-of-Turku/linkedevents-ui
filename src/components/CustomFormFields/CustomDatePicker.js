@@ -33,6 +33,7 @@ class CustomDatePicker extends React.Component {
         this.getCorrectInputLabel = this.getCorrectInputLabel.bind(this)
         this.getCorrectMinDate = this.getCorrectMinDate.bind(this)
         this.roundDateToCorrectUnit = this.roundDateToCorrectUnit.bind(this)
+        this.getDatePickerOpenDate = this.getDatePickerOpenDate.bind(this)
     }
 
     static contextTypes = {
@@ -153,6 +154,16 @@ class CustomDatePicker extends React.Component {
             return new Date()
     }
 
+    // returns the date DatePicker will show as selected when calendar is opened
+    getDatePickerOpenDate(defaultValue, minDate){
+        if(defaultValue)
+            return new Date(defaultValue)
+        else if(minDate)
+            return new Date(minDate)
+        else
+            return new Date(this.roundDateToCorrectUnit(moment()))
+    }
+
     componentDidUpdate(prevProps) {
         // Update validation if min or max date changes and state.inputValue is not empty
         const {minDate, maxDate, type} = this.props
@@ -164,7 +175,6 @@ class CustomDatePicker extends React.Component {
 
     render(){
         const {label, name, id, defaultValue, minDate, maxDate, type, disabled} = this.props
-        const date = defaultValue ? new Date(defaultValue) : new Date()
         const inputValue = this.state.inputValue
         const inputErrorId = 'date-input-error__' + id
         return(
@@ -185,7 +195,7 @@ class CustomDatePicker extends React.Component {
                         />
                         <DatePicker
                             disabled={disabled}
-                            selected={date}
+                            openToDate={this.getDatePickerOpenDate(defaultValue, minDate)}
                             onChange={this.handleDatePickerChange}
                             customInput={<DatePickerButton disabled={disabled}/>}
                             minDate={this.getCorrectMinDate(minDate)}
