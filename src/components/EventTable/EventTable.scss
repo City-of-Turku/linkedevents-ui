@@ -17,8 +17,54 @@ $checkbox-column-width: 50px;
 .tag-space {
     margin-right: 4px;
 }
+.Mui-selected {
+    background-color: #cce2f3;
+}
 
 .event-table {
+    thead {
+        th:not(.checkbox) {
+
+            .glyphicon {
+                margin: 0;
+                font-size: 10px;
+            }
+        }
+        @media (max-width: 500px) {
+            tr {
+                display: flex;
+            }
+        }
+    }
+
+    tbody {
+        tr {
+            td {
+                .nameCell {
+                    .draft-icon {
+                        display: inline-flex;
+                    }
+                }
+            }
+            @media (max-width: 500px) {
+                display: flex;
+                td {
+                    padding: 1rem;
+                    .nameCell {
+                        margin-left: -24px;
+                        .draft-icon,>div {
+                            display: none;
+                        }
+                    }
+                    &.date-time {
+                        margin-left: 24px;
+                    }
+                }
+            }
+        }
+    }
+
+    font-size: 0.875rem;
     th.checkbox,
     td.checkbox {
         padding: 10px;
@@ -30,6 +76,9 @@ $checkbox-column-width: 50px;
     td.checkbox + td:not(.checkbox),
     td:first-of-type:not(.checkbox) {
         width: auto;
+        @media (max-width: 500px) {
+            width: 18%;
+        }
     }
 
     td.name-cell {
@@ -73,6 +122,13 @@ $checkbox-column-width: 50px;
                     width: $checkbox-column-width;
                 }
             }
+        }
+    }
+    .checkbox {
+        input {
+            position: inherit;
+            margin-top: initial;
+            margin-left: initial;
         }
     }
 }
@@ -121,7 +177,7 @@ tbody {
             display: block;
         }
         td:first-child, th:first-child {
-            margin-top: 20px;
+         //   margin-top: 20px;
         }
     }
 }

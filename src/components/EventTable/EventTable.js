@@ -1,21 +1,14 @@
-import './EventTable.scss'
-import React from 'react'
-import PropTypes from 'prop-types'
-import {
-    TableCell,
-    TableRow,
-    Table,
-    TableHead,
-    TableBody,
-    TablePagination,
-    TableFooter,
-} from '@material-ui/core'
-import {FormattedMessage, injectIntl} from 'react-intl'
-import EventRow from './EventRow'
-import TableHeaderCell from './CellTypes/TableHeaderCell'
-import constants from '../../constants'
-//Replaced Material-ui Spinner for a Bootstrap implementation. - Turku
-import Spinner from 'react-bootstrap/Spinner'
+import './EventTable.scss';
+import React from 'react';
+import PropTypes from 'prop-types';
+import {TablePagination} from '@material-ui/core';
+import {FormattedMessage, injectIntl} from 'react-intl';
+import EventRow from './EventRow';
+import TableHeaderCell from './CellTypes/TableHeaderCell';
+import constants from 'src/constants';
+
+import Spinner from 'react-bootstrap/Spinner';
+import {Table} from 'react-bootstrap';
 
 const {TABLE_COLUMNS} = constants
 
@@ -64,8 +57,8 @@ const EventTable = ({
 
     return (
         <Table className="event-table">
-            <TableHead>
-                <TableRow>
+            <thead>
+                <tr>
                     {tableColumns.map(item => (
                         <TableHeaderCell
                             key={item}
@@ -79,6 +72,7 @@ const EventTable = ({
                             handleRowSelect={handleRowSelect}
                             handleSortChange={handleSortChange}
                             fetchComplete={fetchComplete}
+                            sortBy={sortBy}
                         >
                             {item !== 'checkbox' || item !== 'validation'
                                 ? <FormattedMessage id={`event-sort-${item}`}/>
@@ -86,28 +80,34 @@ const EventTable = ({
                             }
                         </TableHeaderCell>
                     ))}
-                </TableRow>
-            </TableHead>
+                </tr>
+            </thead>
             {/*
                 since event will contain sub events, using multiple body helps break down
                 the whole table into smaller sub sections with consistent styles
             */}
-            {fetchComplete === true && rows.map((row, index) => (
-                <TableBody key={events[index].id}>{row}</TableBody>
-            ))}
+            {fetchComplete === true &&
+                <tbody>
+                    {rows.map((row, index) => (
+                        <React.Fragment key={events[index].id}>
+                            {row}
+                        </React.Fragment>
+                    ))}
+                </tbody>
+            }
             {fetchComplete === false &&
-                <TableBody>
-                    <TableRow>
-                        <TableCell>
+                <tbody>
+                    <tr>
+                        <td>
                             <Spinner animation="border" role="status">
                                 <span className="sr-only">Loading...</span>
                             </Spinner>
-                        </TableCell>
-                    </TableRow>
-                </TableBody>
+                        </td>
+                    </tr>
+                </tbody>
             }
-            <TableFooter>
-                <TableRow>
+            <tfoot>
+                <tr>
                     <TablePagination
                         count={count !== null ? count : 0}
                         rowsPerPage={pageSize}
@@ -118,8 +118,8 @@ const EventTable = ({
                         labelDisplayedRows={({from, to, count}) => `${from}-${to} / ${count}`}
                         labelRowsPerPage={intl.formatMessage({id: 'table-events-per-page'})}
                     />
-                </TableRow>
-            </TableFooter>
+                </tr>
+            </tfoot>
         </Table>
     )
 }
