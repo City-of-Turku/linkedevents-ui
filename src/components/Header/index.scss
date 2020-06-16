@@ -223,6 +223,11 @@ ul.language {
 	}
 }
 
+.logout-component {
+	display: flex;
+	justify-content: center;
+}
+
 ul.user-dropdown {
 	color: black;
 	padding-left: 0;
@@ -231,8 +236,11 @@ ul.user-dropdown {
 	z-index: 1;
 	cursor: pointer;
 	user-select: none;
-	min-width: 10px;
-	display: flex;
+	min-width: 180px;
+	@media (max-width: 500px) {
+		right: 0;
+		min-width: 180px;
+	}
 	li {
 		display: none;
 		position: relative;
@@ -243,8 +251,9 @@ ul.user-dropdown {
 			background-color: white;
 			display: block;
 			text-align: center;
-			padding-top: 0.375rem;
-			padding-bottom: 0.375rem;
+			padding: 0.5rem;
+		//	padding-top: 0.375rem;
+		//	padding-bottom: 0.375rem;
 			z-index: 99999;
 			&.active {
 				background-color: lightgrey;
