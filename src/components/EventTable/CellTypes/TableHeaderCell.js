@@ -73,7 +73,7 @@ TableHeaderCell.defaultProps = {
 
 TableHeaderCell.propTypes = {
     children: PropTypes.element,
-    isActive: PropTypes.bool,
+    isActive: PropTypes.func,
     sortDirection: PropTypes.string,
     name: PropTypes.oneOf(TABLE_COLUMNS),
     tableName: PropTypes.string,
