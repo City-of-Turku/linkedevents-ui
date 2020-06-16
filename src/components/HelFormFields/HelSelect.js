@@ -1,7 +1,7 @@
 import './HelSelect.scss'
 
+import React, {Fragment, useRef} from 'react'
 import PropTypes from 'prop-types';
-import React, {useRef} from 'react'
 import AsyncSelect from 'react-select/async'
 import {createFilter} from 'react-select'
 import {setData as setDataAction} from '../../actions/editor'
@@ -152,7 +152,7 @@ const HelSelect = ({
     }
 
     return (
-        <React.Fragment>
+        <Fragment>
             <legend ref={labelRef}>
                 {legend}
             </legend>
@@ -174,7 +174,7 @@ const HelSelect = ({
                 anchor={labelRef.current}
                 validationErrors={validationErrors}
             />
-        </React.Fragment>
+        </Fragment>
     )
 }
 

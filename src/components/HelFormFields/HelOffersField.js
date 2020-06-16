@@ -2,20 +2,13 @@ import PropTypes from 'prop-types';
 import React from 'react'
 
 import {FormattedMessage, injectIntl} from 'react-intl'
-import MultiLanguageField from './MultiLanguageField'
 import HelCheckbox from './HelCheckbox'
 import NewOffer from './NewOffer'
 import './HelOffersField.scss'
 
 import {Button} from 'reactstrap';
 
-import {connect} from 'react-redux'
 import {addOffer, setOfferData, setFreeOffers} from 'src/actions/editor.js'
-
-
-import ValidationPopover from '../ValidationPopover'
-import {HelMaterialTheme} from '../../themes/material-ui'
-import {Add} from '@material-ui/icons'
 
 class HelOffersField extends React.Component {
 

@@ -1,15 +1,15 @@
 import './index.scss';
-import React from 'react'
-import {Popper} from '@material-ui/core'
+import React, {Fragment} from 'react'
 import PropTypes from 'prop-types'
+import Popover from 'react-bootstrap/Popover'
 import {FormattedMessage} from 'react-intl'
 import {getCharacterLimitByRule} from '../../utils/helpers'
-import {HelMaterialTheme} from '../../themes/material-ui'
+
+// Removed Material-Ui Popper since it's not very customizable through CSS.
 
 const ValidationPopover =  ({
     validationErrors,
     anchor,
-    placement = 'right-end',
     index,
     inModal = false,
 }) => {
@@ -46,27 +46,17 @@ const ValidationPopover =  ({
     }
 
     return (
-        <React.Fragment>
+        <Fragment>
             {anchor
-                ? <Popper
+                ? <Popover
                     open
                     className={`validation-popper ${inModal ? 'modal-popper' : ''}`}
-                    anchorEl={anchor}
-                    placement={placement}
-                    modifiers={{
-                        flip: {
-                            behavior: ['right', 'bottom'],
-                        },
-                        offset: {
-                            offset: `0 ${HelMaterialTheme.spacing(3)} 0 0`,
-                        },
-                    }}
-                >
+                    anchorEl={anchor}>
                     { errorMsg }
-                </Popper>
+                </Popover>
                 : <React.Fragment />
             }
-        </React.Fragment>
+        </Fragment>
     )
 }
 
