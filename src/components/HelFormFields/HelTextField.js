@@ -58,7 +58,7 @@ class HelTextField extends Component {
             const diff =  limit - this.state.value.length.toString()
 
             if(diff >= 0) {
-                return this.context.intl.formatMessage({id: 'validation-stringLengthCounter'}, {counter: diff})
+                return this.context.intl.formatMessage({id: 'validation-stringLengthCounter'}, {counter: diff + '/' + limit})
             }
         }
 
