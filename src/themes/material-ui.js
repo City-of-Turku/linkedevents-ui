@@ -91,29 +91,7 @@ export const HelMaterialTheme = createMuiTheme({
                 },
             },
         },
-        MuiChip: {
-            root: {
-                marginRight: `${SPACING}px`,
-                fontWeight: 700,
-                fontSize: 18,
-            },
-            label: {
-                '&:first-letter': {
-                    textTransform: 'capitalize',
-                },
-            },
-            deletableColorPrimary: {
-                '&:focus': {
-                    backgroundColor: primary.main,
-                },
-            },
-            deleteIconColorPrimary: {
-                color: helBrandColors.gray.white,
-                '&:hover': {
-                    transform: 'scale(1.05)',
-                },
-            },
-        },
+       
         MuiSvgIcon: {
             fontSizeLarge: {
                 fontSize: '4.5rem',
