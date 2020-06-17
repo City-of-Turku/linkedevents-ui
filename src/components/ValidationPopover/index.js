@@ -51,7 +51,7 @@ const ValidationPopover =  ({
                 ? <Popover
                     open
                     className={`validation-popper ${inModal ? 'modal-popper' : ''}`}
-                    anchorEl={anchor}>
+                    anchor={anchor}>
                     { errorMsg }
                 </Popover>
                 : <React.Fragment />

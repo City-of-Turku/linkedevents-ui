@@ -68,11 +68,12 @@ const HelLabeledCheckboxGroup = (props) => {
                         )
                     })}
                 </div>
-                <ValidationPopover
-                    className='main-category-popover'
-                    anchor={labelRef.current}
-                    validationErrors={validationErrors}
-                />
+                <div className='main-category-popover'>
+                    <ValidationPopover
+                        anchor={labelRef.current}
+                        validationErrors={validationErrors}
+                    />
+                </div>
             </fieldset>
         </Fragment>
     )

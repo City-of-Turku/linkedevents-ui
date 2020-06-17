@@ -11,3 +11,15 @@ $select-input-border-radius: 0px;
         }
     }
 }
+
+.select-popover {
+    position: absolute;
+    left: 100%;
+    top: 6%;
+}
+@media (max-width: 575px) {
+    .select-popover {
+        left: 30%;
+        top: -5%;
+    }
+}

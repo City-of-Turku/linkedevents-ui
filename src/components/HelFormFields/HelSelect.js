@@ -170,10 +170,12 @@ const HelSelect = ({
                 styles={HelSelectStyles}
                 theme={HelSelectTheme}
             />
-            <ValidationPopover
-                anchor={labelRef.current}
-                validationErrors={validationErrors}
-            />
+            <div className='select-popover'>
+                <ValidationPopover
+                    anchor={labelRef.current} 
+                    validationErrors={validationErrors}
+                />
+            </div>
         </Fragment>
     )
 }

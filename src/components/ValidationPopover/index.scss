@@ -1,6 +1,7 @@
 @import '../../assets/colors';
 
 .validation-popper {
+    position: absolute;
     z-index: 10;
     $arrow-size: 12px;
     background-color: $hel-coat;
@@ -9,7 +10,8 @@
     padding: 8px 16px;
     user-select: none;
     inline-size: max-content;
-    margin-left: 105%;
+    left: 103%;
+    top: 50%;
     .arrow {
         display: none;
     }
@@ -28,5 +30,18 @@
 
     &.modal-popper {
         z-index: 1300;
+    }
+}
+@media (max-width: 575px) {
+    .validation-popper {
+        left: 35%;
+        bottom: auto;
+        top: -15%;
+        &:before {
+            height: 0;
+            left: 46%;
+            top: 100%;
+            transform: rotate(-90deg);
+        }
     }
 }

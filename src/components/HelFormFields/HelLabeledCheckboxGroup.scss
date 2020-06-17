@@ -5,3 +5,14 @@
         width: unset;
     }
 }
+.main-category-popover {
+    position: absolute;
+    left: 103%;
+    bottom: 100%;
+}
+@media (max-width: 575px) {
+    .main-category-popover {
+        left: 51%;
+        top: -6%;
+    }
+}
