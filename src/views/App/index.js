@@ -40,9 +40,6 @@ class LocalizedUtils extends MomentUtils {
 }
 
 class App extends React.Component {
-    state = {
-        isOpen: false,
-    }
 
     static propTypes = {
         children: PropTypes.node,
@@ -81,7 +78,7 @@ class App extends React.Component {
     }
     getModalCloseButton() {
         return (
-            <Button onClick={() => this.props.dispatch(cancelAction())}><span className="glyphicon glyphicon-remove"></span></Button>
+            <Button onClick={() => this.props.dispatch(cancelAction())}><span className="glyphicon glyphicon-remove" /></Button>
         );
     }
 
