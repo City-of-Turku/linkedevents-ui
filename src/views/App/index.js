@@ -11,8 +11,7 @@ import {connect} from 'react-redux'
 import Headerbar from 'src/components/Header'
 import Footer from 'src/components/Footer/Footer';
 import SkipLink from 'src/components/SkipLink'
-import {ThemeProvider,IconButton, Paper, Dialog, DialogTitle, DialogContent, DialogActions} from '@material-ui/core';
-import {Close} from '@material-ui/icons';
+import {ThemeProvider, Paper} from '@material-ui/core';
 import {Helmet} from 'react-helmet';
 
 import {injectIntl, FormattedMessage} from 'react-intl'
@@ -27,7 +26,7 @@ import Notifications from '../Notification'
 import {MuiPickersUtilsProvider} from '@material-ui/pickers'
 import MomentUtils from '@date-io/moment';
 import moment from 'moment'
-import {Button} from 'reactstrap';
+import {Button, Modal, ModalHeader, ModalBody, ModalFooter} from 'reactstrap';
 import CookieBar from '../../components/CookieBar/CookieBar';
 
 // localized moment utils
@@ -41,6 +40,9 @@ class LocalizedUtils extends MomentUtils {
 }
 
 class App extends React.Component {
+    state = {
+        isOpen: false,
+    }
 
     static propTypes = {
         children: PropTypes.node,
@@ -77,8 +79,14 @@ class App extends React.Component {
             this.props.fetchUser(this.props.auth.user.profile.sub);
         }
     }
+    getModalCloseButton() {
+        return (
+            <Button onClick={() => this.props.dispatch(cancelAction())}><span className="glyphicon glyphicon-remove"></span></Button>
+        );
+    }
 
     render() {
+        const closebtn = this.getModalCloseButton();
 
         let confirmMsg = (<span/>)
         if(this.props.app.confirmAction && this.props.app.confirmAction.msg && this.props.app.confirmAction.msg.length) {
@@ -152,22 +160,20 @@ class App extends React.Component {
                             {this.props.children}
                         </main>
                         <Notifications flashMsg={this.props.app.flashMsg} />
-                        <Dialog
-                            open={!!this.props.app.confirmAction}
+                        <Modal
+                            size='lg'
+                            isOpen={!!this.props.app.confirmAction}
                             onClose={() => this.props.dispatch(cancelAction())}
-                            transitionDuration={0}
+                            className='ConfirmationModal'
                         >
-                            <DialogTitle>
+                            <ModalHeader tag='h1' close={closebtn}>
                                 {confirmMsg}
-                                <Button onClick={() => this.props.dispatch(cancelAction())}>
-                                    <Close />
-                                </Button>
-                            </DialogTitle>
-                            <DialogContent>
+                            </ModalHeader>
+                            <ModalBody>
                                 <p><strong>{additionalMsg}</strong></p>
                                 <div dangerouslySetInnerHTML={getMarkup()}/>
-                            </DialogContent>
-                            <DialogActions>
+                            </ModalBody>
+                            <ModalFooter>
                                 <Button
                                     variant="contained"
                                     onClick={() => this.props.cancel()}
@@ -181,8 +187,8 @@ class App extends React.Component {
                                 >
                                     <FormattedMessage id={actionButtonLabel} />
                                 </Button>
-                            </DialogActions>
-                        </Dialog>
+                            </ModalFooter>
+                        </Modal>
                         {appSettings.show_cookie_bar && <CookieBar />}
                         <Footer />
                     </div>

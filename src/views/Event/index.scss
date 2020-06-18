@@ -45,7 +45,7 @@
         }
     }
 
-    footer {
+    .EventActions {
         align-items: center;
         background-color: #f7f7f7;
         display: flex;
@@ -68,7 +68,7 @@
     margin-right: 8px;
 }
 
-@media (max-width: 480px) {
+@media (max-width: 768px) {
     .actions {
         margin: 0;
         padding: 0;
@@ -80,11 +80,28 @@
             }
         }
     }
-
-    .event-actions button {
+    .EventActions {
+        height: 100% !important;
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+    .event-actions {
+        display: block !important;
+    button {
         margin-bottom: 10px;
         line-height: 1.5;
         padding: 12px;
-        width: 160px;
+        width: 100%;
+            
+        }
+    }
+}
+@media (min-width:768px) and (max-width:1200px) {
+    .event-actions {
+        display: block !important;
+        text-align: center;
+        button {
+            margin: 10px;
+        }
     }
 }

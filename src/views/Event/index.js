@@ -260,9 +260,9 @@ class EventPage extends React.Component {
                     publisher={publisher}
                     editor={editor}
                 />
-                <footer>
+                <div className='EventActions'>
                     {this.getEventActions()}
-                </footer>
+                </div>
             </div>
         )
     }

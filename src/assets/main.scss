@@ -169,6 +169,38 @@ h2 {
     margin: 0.3em;
     color: #48a3e7;
 }
+//app.js Confirmation modal for actions like delete, draft, publish
+.ConfirmationModal {
+    .modal-header {
+        border: none;
+        padding: 16px 24px;
+        .modal-title {
+            padding: 0px;
+            margin-top: 0px !important;
+        }
+                    h1 {
+                        font-weight: 500;
+                        font-size: 1.25rem;
+                    }
+                button {
+                    color: black;
+                    background-color: transparent;
+                    border: none;
+                    &:focus {
+                    outline: -webkit-focus-ring-color auto 5px;
+                    }
+                    &:hover &:active {
+                        background-color: rgba(0, 0, 0, 0.08);
+                    }
+                .glyphicon {
+                    margin: 0px;
+                    color:rgba(0, 0, 0, 0.54);
+                }
+            }
+            }
+        }
+    
+
 
 @media (max-width: 480px) {
     h1 {
