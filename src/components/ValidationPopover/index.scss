@@ -3,7 +3,7 @@
 .validation-popper {
     position: absolute;
     z-index: 10;
-    $arrow-size: 12px;
+    $arrow-size: 13px;
     background-color: $hel-coat;
     color: #fff;
     font-size: 90%;
@@ -18,7 +18,7 @@
     &:before {
         border-color: transparent $hel-coat transparent transparent;
         border-style: solid;
-        border-width: $arrow-size / 2 $arrow-size $arrow-size / 2 0;
+        border-width: 8px 14px 8px 0;
         content: '';
         height: 0;
         left: 0;
@@ -38,9 +38,8 @@
         bottom: auto;
         top: -15%;
         &:before {
-            height: 0;
             left: 46%;
-            top: 100%;
+            top: 95%;
             transform: rotate(-90deg);
         }
     }
