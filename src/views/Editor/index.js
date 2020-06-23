@@ -32,7 +32,7 @@ import {scrollToTop} from '../../utils/helpers'
 import {doValidations} from '../../validation/validator'
 import {mapAPIDataToUIFormat} from '../../utils/formDataMapping'
 import getContentLanguages from '../../utils/language'
-
+import PreviewModal from '../../components/PreviewModal/PreviewModal'
 const {PUBLICATION_STATUS, SUPER_EVENT_TYPE_UMBRELLA, USER_TYPE} = constants
 
 // sentinel for authentication alert
@@ -47,6 +47,7 @@ export class EditorPage extends React.Component {
         loading: false,
         isDirty: false,
         isRegularUser: false,
+        showPreviewEventModal: false,
     }
 
     componentDidMount() {
@@ -230,6 +231,10 @@ export class EditorPage extends React.Component {
         }
     }
 
+    showPreviewEventModal() {
+        this.setState({showPreviewEventModal: !this.state.showPreviewEventModal})
+    }
+
     validateEvent = () => {
         const {event} = this.state
         const {setValidationErrors, setFlashMsg, editor: {keywordSets}} = this.props
@@ -286,6 +291,18 @@ export class EditorPage extends React.Component {
                             <FormattedMessage id="clear-form"/>
                         </Button> */}
                     </span>
+                    <PreviewModal
+                        toggle={() => this.showPreviewEventModal()}
+                        isOpen={this.state.showPreviewEventModal}
+                    />
+                    <Button
+                        size='lg'
+                        variant="contained"
+                        onClick={() => this.showPreviewEventModal()}
+
+                    ><span  className="glyphicon glyphicon-refresh"></span>
+                        <FormattedMessage id="event-add-recurring" />
+                    </Button>
                 </div>
 
                 <div className="container">
