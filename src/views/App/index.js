@@ -145,6 +145,7 @@ class App extends React.Component {
             <ThemeProvider theme={HelMaterialTheme}>
                 <MuiPickersUtilsProvider utils={LocalizedUtils}>
                     <div className='main-wrapper'>
+                       
                         <Helmet>
                             <html lang={this.props.intl.locale} />
                         </Helmet>
@@ -153,6 +154,7 @@ class App extends React.Component {
                             <Headerbar />
                         </header>
                         {organization_missing_msg}
+                        <Notifications flashMsg={this.props.app.flashMsg} />
                         <main id="main-content" className="content">
                             {this.props.children}
                         </main>

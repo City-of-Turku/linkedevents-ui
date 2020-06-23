@@ -1,9 +1,12 @@
+import './index.scss';
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 
 import {FormattedMessage} from 'react-intl'
-import {Button, Snackbar} from '@material-ui/core';
+
+
+import {Jumbotron, Button, Label, Alert, Card} from 'reactstrap';
 
 import {clearFlashMsg as clearFlashMsgAction} from 'src/actions/app.js'
 
@@ -46,13 +49,15 @@ class Notifications extends React.Component {
         }
 
         return (
-            <Snackbar
+            <Card
+                className='sticky-top'
                 open={(!!flashMsg)}
-                message={flashMsgSpan}
-                autoHideDuration={duration}
-                onClose={closeFn}
-                action={[actionButton]}
-            />
+                autohideduration={duration}
+                onClose={closeFn}  
+            >
+                <h6 className="blockquote text-center" >{flashMsgSpan}</h6> 
+                {[actionButton]}
+            </Card>
         )
     }
 }

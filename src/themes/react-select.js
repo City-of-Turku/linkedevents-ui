@@ -1,32 +1,32 @@
-import helBrandColors from './hel/hel-brand-colors'
+
 
 const singleValueStyles = (provided) => ({
     ...provided,
-    color: helBrandColors.gray.black90,
+    color: '#1a1a1a',
 })
 const menuListStyles = (provided) => ({
     ...provided,
-    backgroundColor: helBrandColors.gray.white,
+    backgroundColor: '#fff',
     borderRadius: 2,
 })
 const optionStyles = (provided, {isSelected, isFocused}) => ({
     ...provided,
     backgroundColor: isSelected
         // selected
-        ? helBrandColors.coatBlue.main
+        ? '#0072c6'
         : isFocused
             // focused but not selected
-            ? helBrandColors.coatBlue.lighter
+            ? '#cce2f3'
             // not focused and not selected
-            : helBrandColors.coatBlue.contrastText,
+            : '#fff',
     color: isSelected
-        ? helBrandColors.coatBlue.contrastText
-        : helBrandColors.gray.black90,
+        ? '#fff'
+        : '#1a1a1a',
     ':hover': {
         ...provided[':hover'],
         backgroundColor: isSelected
-            ? helBrandColors.coatBlue.main
-            : helBrandColors.coatBlue.lighter,
+            ? '#0072c6'
+            : '#cce2f3',
     },
 })
 
@@ -46,15 +46,15 @@ export const HelLanguageSelectStyles = {
     }),
     singleValue: (provided) => ({
         ...provided,
-        color: helBrandColors.coatBlue.contrastText,
+        color: '#fff',
         fontWeight: 'bold',
     }),
     dropdownIndicator: (provided) => ({
         ...provided,
-        color: helBrandColors.coatBlue.contrastText,
+        color: '#fff',
         padding: 0,
         ':hover': {
-            color: helBrandColors.coatBlue.contrastText,
+            color: '#fff',
         },
     }),
     indicatorSeparator: () => ({
@@ -76,7 +76,7 @@ export const HelSelectTheme = (theme) => ({
     borderRadius: 2,
     colors: {
         ...theme.colors,
-        primary: helBrandColors.coatBlue.main,
-        danger: helBrandColors.error.main,
+        primary:  '#0072c6',
+        danger: '#c4123e',
     },
 })
