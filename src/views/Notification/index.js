@@ -49,15 +49,15 @@ class Notifications extends React.Component {
         }
 
         return (
-            <Card
-                className='sticky-top'
-                open={(!!flashMsg)}
-                autohideduration={duration}
-                onClose={closeFn}  
-            >
-                <h6 className="blockquote text-center" >{flashMsgSpan}</h6> 
-                {[actionButton]}
-            </Card>
+            <div className='notification'>
+                <Alert
+                    open={(!!flashMsg)}
+                    autohideduration={duration}
+                    onClose={closeFn}  
+                >
+                    <h6 className="text-center" >{flashMsgSpan}{[actionButton]}</h6> 
+                </Alert>
+            </div>
         )
     }
 }

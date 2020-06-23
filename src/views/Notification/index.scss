@@ -1,29 +1,18 @@
-.card {
-    position: sticky;
-    display: flex;
-    flex-direction: column;
-    max-width: 50%;
-    background-clip: border-box;
-    border: None;
-    color:#ffff;
-    margin-bottom: 3rem;
-    margin-right:35%;
-    margin-left: 35%;
-       
-}
-.card .btn {
-    position: sticky;
-    top: 20px;
-    color: #ffff;
-    text-align: center;
-    vertical-align: middle;
-    cursor: pointer;
-    border: 1px solid;
-    line-height: 1.5;
-    border-radius: none;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    margin: 1rem 10rem;
+.notification {
+    z-index: 11;
+    position: fixed;
+    bottom: 0;
+    min-width: -webkit-fill-available;
+    .alert {
+        margin-bottom: 0;
+        .btn {
+            margin-left: 1rem;
+            background-color: transparent;
+            border-color: black;
+        }
+    }
+    .alert-success {
+        background-color: #007bff;
+        border: none;
+    }
 }
