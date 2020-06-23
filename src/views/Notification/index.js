@@ -18,7 +18,7 @@ class Notifications extends React.Component {
 
     render() {
         const {flashMsg, clearFlashMsg} = this.props
-        let flashMsgSpan = (<span/>)
+        let flashMsgSpan = ('')
         let isSticky =  flashMsg && flashMsg.sticky
 
         if(flashMsg && flashMsg.data.response && flashMsg.data.response.status == 400) {
@@ -49,14 +49,13 @@ class Notifications extends React.Component {
         }
 
         return (
-            <div className='notification'>
-                <Alert
-                    open={(!!flashMsg)}
-                    autohideduration={duration}
-                    onClose={closeFn}  
-                >
-                    <h6 className="text-center" >{flashMsgSpan}{[actionButton]}</h6> 
-                </Alert>
+            <div className='notification'
+                open={(!!flashMsg)}
+                autohideduration={duration}
+                onClose={closeFn} 
+            >
+                <h6 className="text-center" >{flashMsgSpan}{[actionButton]}</h6> 
+               
             </div>
         )
     }

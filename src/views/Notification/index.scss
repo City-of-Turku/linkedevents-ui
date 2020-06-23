@@ -1,18 +1,17 @@
-.notification {
+
+.notification{
     z-index: 11;
     position: fixed;
     bottom: 0;
     min-width: -webkit-fill-available;
-    .alert {
-        margin-bottom: 0;
-        .btn {
-            margin-left: 1rem;
-            background-color: transparent;
-            border-color: black;
-        }
+    background-color: #000000;
+    .btn {
+        margin-left: 1rem;
+        background-color: transparent;
+        border-color: #ffffff;
     }
-    .alert-success {
-        background-color: #007bff;
-        border: none;
-    }
+    
+}
+.text-center{
+    color: #ffff;
 }
