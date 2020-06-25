@@ -1,0 +1,42 @@
+.checkbox {
+    position: relative;
+    display: block;
+    border-top: solid;
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+
+input[type=checkbox] {
+    cursor: pointer;
+    font-size:20px;
+    color:#ffffff;
+    -webkit-box-shadow: 0px 0px 0px 1px rgb(10, 10, 10);
+    -moz-box-shadow: 0px 0px 0px 1px rgb(3, 3, 3);
+    box-shadow: 0px 0px 0px 1px rgb(5, 5, 5);
+  }
+  
+  input[type=checkbox]:after {
+    content: " ";
+    width: 1.5rem;
+    height: 1.5rem;
+    background-color: #ffffff;
+    display: inline-block;
+    visibility: visible;
+    -webkit-box-shadow: 0px 0px 0px 1px rgb(10, 10, 10);
+    -moz-box-shadow: 0px 0px 0px 1px rgb(3, 3, 3);
+    box-shadow: 0px 0px 0px 1px rgb(5, 5, 5);
+  }
+  
+  input[type=checkbox]:checked:after {
+    content: "X";
+    width: 1.5rem;
+    height: 1.5rem;
+    background-color: #ffffff;
+  }
+  .helcheckbox{
+  label {
+    margin-bottom:0.2rem;
+    margin-top: 1rem;
+    margin-left: 1rem;
+}
+  }
