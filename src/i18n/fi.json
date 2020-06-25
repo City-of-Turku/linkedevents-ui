@@ -376,5 +376,8 @@
     "footer-city": "© Helsingin kaupunki",
     "footer-city1": "PL 1  (Pohjoisesplanadi 11-13) 00099 ",
     "footer-city2": "HELSINGIN KAUPUNKI",
-    "footer-city3": "www.hel.fi"
+    "footer-city3": "www.hel.fi",
+
+    "preview-event": "Tapahtuman tiedot",
+    "preview-event-button": "Tarkista lomakkeen tiedot"
 }

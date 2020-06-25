@@ -5,7 +5,7 @@ import {connect} from 'react-redux'
 import {FormattedMessage, injectIntl, intlShape} from 'react-intl'
 import {get, isNull} from 'lodash'
 import PropTypes from 'prop-types'
-import {Button} from '@material-ui/core'
+import {Button} from 'reactstrap';
 //Replaced Material-ui Spinner for a Bootstrap implementation. - Turku
 import Spinner from 'react-bootstrap/Spinner'
 import {Close} from '@material-ui/icons'
@@ -234,6 +234,17 @@ export class EditorPage extends React.Component {
     showPreviewEventModal() {
         this.setState({showPreviewEventModal: !this.state.showPreviewEventModal})
     }
+    //Preview Modals button
+    getPreviewButton () {
+        return (
+            <Button
+                variant="contained"
+                onClick={() => this.showPreviewEventModal()}
+            >
+                <FormattedMessage id="preview-event-button" />
+            </Button>
+        )
+    } 
 
     validateEvent = () => {
         const {event} = this.state
@@ -294,15 +305,11 @@ export class EditorPage extends React.Component {
                     <PreviewModal
                         toggle={() => this.showPreviewEventModal()}
                         isOpen={this.state.showPreviewEventModal}
+                        editor={editor}
+                        event={event}
+                        superEvent={superEvent}
+                        values={editor.values}
                     />
-                    <Button
-                        size='lg'
-                        variant="contained"
-                        onClick={() => this.showPreviewEventModal()}
-
-                    ><span  className="glyphicon glyphicon-refresh"></span>
-                        <FormattedMessage id="event-add-recurring" />
-                    </Button>
                 </div>
 
                 <div className="container">
@@ -328,6 +335,16 @@ export class EditorPage extends React.Component {
                             {editMode === 'update' && this.getActionButton('delete')}
                             {isDraft && hasOrganizationWithRegularUsers(user) &&
                                 this.getActionButton('return', this.navigateToModeration, false)
+                            }
+                            {
+                                //Button that shows how event would look like,
+                                //after it's submitted and displayed
+                                this.getPreviewButton(
+                                    'preview',
+                                    this.showPreviewEventModal,
+                                    true,
+                                    'preview-event-button'
+                                )
                             }
                             {
                                 // button that saves changes to a draft without publishing
