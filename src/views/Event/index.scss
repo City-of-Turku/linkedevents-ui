@@ -31,31 +31,30 @@
         text-align: right;
         margin: 20px 10px;
     }
+}
 
-    .event-actions {
-        display: flex;
-        justify-content: space-between;
+.event-actions {
+    display: flex;
+    justify-content: space-evenly;
 
-        .cancel-delete-btn,
-        .edit-copy-btn {
+    .cancel-delete-btn,
+    .edit-copy-btn {
 
-            > *:not(:last-child) {
-                margin-right: 8px;
-            }
+        > *:not(:last-child) {
+            margin-right: 8px;
         }
     }
+}
 
-    .EventActions {
-        align-items: center;
-        background-color: #f7f7f7;
-        display: flex;
-        height: 120px;
-        margin: 3rem -15px 0;
-        padding-top: 2rem;
+.event-action-buttons {
+    align-items: center;
+    background-color: #f7f7f7;
+    display: flex;
+    height: 120px;
+    margin: 3rem 0 0;
 
-        .event-actions {
-            width: 100%;
-        }
+    .event-actions {
+        width: 100%;
     }
 }
 
