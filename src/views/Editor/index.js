@@ -337,13 +337,8 @@ export class EditorPage extends React.Component {
                                 this.getActionButton('return', this.navigateToModeration, false)
                             }
                             {
-                                //Button that shows how event would look like,
-                                //after it's submitted and displayed
+                                //Button that opens a preview modal of the event
                                 this.getPreviewButton(
-                                    'preview',
-                                    this.showPreviewEventModal,
-                                    true,
-                                    'preview-event-button'
                                 )
                             }
                             {
