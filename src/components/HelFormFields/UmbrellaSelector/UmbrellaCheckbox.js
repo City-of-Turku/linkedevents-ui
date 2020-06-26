@@ -1,28 +1,35 @@
+import './UmbrellaCheckbox.scss'
 import PropTypes from 'prop-types'
-import React from 'react'
-import {FormControlLabel, Checkbox, Tooltip} from '@material-ui/core'
+import React,{Fragment}  from 'react'
+import {Tooltip} from '@material-ui/core'
+//Replaced Material-ui CheckBox for a reactstrap implementation. - Turku
+import {Label, Input} from 'reactstrap';
+
 
 const UmbrellaCheckbox = props => {
-    const {intl, name, checked, disabled, handleCheck} = props
+    const {intl, name, checked, disabled, handleCheck, id} = props
     const tooltipTitle = intl.formatMessage({id: `event-${name.replace('_', '-')}-tooltip`})
 
+
+    
     const getCheckbox = () => (
-        <FormControlLabel
-            control={
-                <Checkbox
-                    color="primary"
+        <div className='UmbrellaCheckbox'>  
+            <label htmlFor={id} className='UmbrellaCheckbox'>
+                <input
+                    className='UmbrellaCheckbox'
+                    id={id}
+                    type='checkbox'
                     name={name}
                     onChange={handleCheck}
                     checked={checked}
-                    disabled={disabled}
-                />
-            }
-            label={props.children}
-        />
+                    disabled={disabled} 
+                />{props.children}
+            </label>       
+        </div>
     )
 
     return (
-        <React.Fragment>
+        <Fragment>
             {
                 disabled
                     ? <Tooltip title={tooltipTitle}>
@@ -30,9 +37,11 @@ const UmbrellaCheckbox = props => {
                     </Tooltip>
                     : getCheckbox()
             }
-        </React.Fragment>
+        </Fragment>
     )
+        
 }
+
 
 UmbrellaCheckbox.propTypes = {
     children: PropTypes.element,
@@ -41,6 +50,7 @@ UmbrellaCheckbox.propTypes = {
     checked: PropTypes.bool,
     disabled: PropTypes.bool,
     handleCheck: PropTypes.func,
+    id: PropTypes.string,
 }
 
 export default UmbrellaCheckbox

@@ -15,6 +15,7 @@ import {mapKeywordSetToForm} from '../../utils/apiDataMapping'
 import LinksToEvents from '../LinksToEvents/LinksToEvents'
 import {CheckBox, CheckBoxOutlineBlank} from '@material-ui/icons'
 import helBrandColors from '../../themes/hel/hel-brand-colors'
+import classNames from 'classnames';
 
 const NoValue = (props) => {
     let header = props.labelKey ? (<span ><FormattedMessage id={`${props.labelKey}`}/>&nbsp;</span>) : null
@@ -307,7 +308,7 @@ const EventDetails = (props) => {
     const nonMainCategoryKeywords = values.keywords.filter(item => !mainCategoryValues.includes(item.value))
 
     return (
-        <div className="event-details">
+        <div className={classNames('event-details', {'preview': props.isPreview})}>
             <ImageValue labelKey="event-image" value={values['image']}/>
             <FormHeader>
                 {intl.formatMessage({id: 'event-description-fields-header'})}
@@ -384,15 +385,18 @@ const EventDetails = (props) => {
                     <TextValue labelKey="maximum-attendee-capacity" value={values['maximum_attendee_capacity']}/>
                 </React.Fragment>
             }
-
-            <FormHeader>
-                {intl.formatMessage({id: 'links-to-events'})}
-            </FormHeader>
-            <LinksToEvents
-                event={rawData}
-                superEvent={superEvent}
-                tabIndex='0'
-            />
+            {!props.disableSuperEventLinks &&
+    <React.Fragment>
+        <FormHeader>
+            {intl.formatMessage({id: 'links-to-events'})}
+        </FormHeader>
+        <LinksToEvents
+            event={rawData}
+            superEvent={superEvent}
+            tabIndex='0'
+        />
+    </React.Fragment>
+            }
         </div>
     )
 }
@@ -404,6 +408,8 @@ EventDetails.propTypes = {
     intl: intlShape,
     publisher: PropTypes.object,
     editor: PropTypes.object,
+    disableSuperEventLinks: PropTypes.bool,
+    isPreview: PropTypes.bool,
 }
 
 export default injectIntl(EventDetails)

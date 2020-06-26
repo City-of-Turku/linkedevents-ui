@@ -1,0 +1,13 @@
+.UmbrellaCheckbox {
+    input {
+        margin-bottom: 1rem;
+    }
+}
+
+@media (min-width: 575px) {
+    .UmbrellaCheckbox {
+        label {
+            width: max-content;
+        }
+    }
+}

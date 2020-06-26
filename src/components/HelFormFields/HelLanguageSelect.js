@@ -3,9 +3,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {FormattedMessage} from 'react-intl'
-
-import {FormControlLabel, Checkbox} from '@material-ui/core'
-
+//Replaced Material-ui CheckBox for a reactstrap implementation. - Turku
+import {Form, Label, Input} from 'reactstrap';
 import {connect} from 'react-redux'
 import {setLanguages as setLanguageAction} from 'src/actions/editor.js'
 
@@ -32,22 +31,21 @@ class HelLanguageSelect extends React.Component {
             const disabled = isChecked && checkedOptions && checkedOptions.length === 1
 
             return (
-                <FormControlLabel
-                    key={index}
-                    control={
-                        <Checkbox
-                            color="primary"
-                            inputRef={ref => this[`checkRef${index}`] = ref}
-                            key={index}
-                            name={item.value}
-                            checked={isChecked}
-                            disabled={disabled}
-                            onChange={this.onChange}
-                        />
-                    }
-                    // label={item.label}
-                    label={<FormattedMessage id={item.label} />}
-                />
+                <Form key={index}>
+                    <Label className='language-selection' htmlFor={`checkBox-${item.value}`}><FormattedMessage id={item.label}/></Label>
+                    <Input
+                        id={`checkBox-${item.value}`}
+                        className='checkbox1'
+                        type='checkbox'
+                        innerRef={ref => this[`checkRef${index}`] = ref}
+                        key={index}
+                        name={item.value}
+                        checked={isChecked}
+                        disabled={disabled}
+                        onChange={this.onChange}
+                        aria-checked='mixed'
+                    />   
+                </Form>
             )
         })
 

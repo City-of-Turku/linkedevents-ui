@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {Fragment} from 'react'
 import {connect} from 'react-redux'
 import EventDetails from 'src/components/EventDetails'
 import moment from 'moment'
@@ -229,17 +229,18 @@ class EventPage extends React.Component {
         const publishedText = this.getPublishedText();
 
         return (
-            <div className="event-page container">
-                <header>
-                    <h1 tabIndex='0'>
-                        {loading
-                            ? <Spinner animation="border" role="status">
-                                <span className="sr-only">Loading...</span>
-                            </Spinner>
-                            : getStringWithLocale(event, 'name')
-                        }
-                    </h1>
-                    {!loading &&
+            <Fragment>
+                <div className="event-page container">
+                    <header>
+                        <h1 tabIndex='0'>
+                            {loading
+                                ? <Spinner animation="border" role="status">
+                                    <span className="sr-only">Loading...</span>
+                                </Spinner>
+                                : getStringWithLocale(event, 'name')
+                            }
+                        </h1>
+                        {!loading &&
                         <h2 tabIndex='0'>
                             {isPostponed && getBadge('postponed', 'medium')}
                             {isCancelled && getBadge('cancelled', 'medium')}
@@ -247,23 +248,24 @@ class EventPage extends React.Component {
                             {isUmbrellaEvent && getBadge('umbrella', 'medium')}
                             {isRecurringEvent && getBadge('series', 'medium')}
                         </h2>
-                    }
-                </header>
-                {this.getEventActions()}
-                <div className="published-information">
-                    {publishedText}
+                        }
+                    </header>
+                    {this.getEventActions()}
+                    <div className="published-information">
+                        {publishedText}
+                    </div>
+                    <EventDetails
+                        values={formattedEvent}
+                        superEvent={superEvent}
+                        rawData={event}
+                        publisher={publisher}
+                        editor={editor}
+                    />
                 </div>
-                <EventDetails
-                    values={formattedEvent}
-                    superEvent={superEvent}
-                    rawData={event}
-                    publisher={publisher}
-                    editor={editor}
-                />
-                <div className='EventActions'>
+                <div className='event-action-buttons'>
                     {this.getEventActions()}
                 </div>
-            </div>
+            </Fragment>
         )
     }
 }

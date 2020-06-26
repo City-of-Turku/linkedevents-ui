@@ -216,6 +216,10 @@ export class ImagePicker extends Component {
                         </ModalHeader>
                         <ModalHeader tag='p'>
                             <FormattedMessage id='uploaded-image-size-tip'/>
+                            <br/>
+                            <FormattedMessage id='uploaded-image-size-tip2'/>
+                            <br/>
+                            <FormattedMessage id='uploaded-image-size-tip3'/>
                         </ModalHeader>
                         <div className='file-upload'>
                             <div className='file-upload--new'>
@@ -236,7 +240,7 @@ export class ImagePicker extends Component {
                                 {this.state.fileSizeError && (
                                     <Fragment>
                                         {/* <ErrorOutline style={{margin: HelMaterialTheme.spacing(0, 1, 0, 2)}} /> */}
-                                        <FormattedMessage id='uploaded-image-size-error' />
+                                        <FormattedMessage id='uploaded-image-size-error'>{txt => <p role="alert" className='image-error'>{txt}</p>}</FormattedMessage>
                                     </Fragment>
                                 )}
                             </div>

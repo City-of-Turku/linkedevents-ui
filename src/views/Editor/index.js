@@ -5,7 +5,7 @@ import {connect} from 'react-redux'
 import {FormattedMessage, injectIntl, intlShape} from 'react-intl'
 import {get, isNull} from 'lodash'
 import PropTypes from 'prop-types'
-import {Button} from '@material-ui/core'
+import {Button} from 'reactstrap';
 //Replaced Material-ui Spinner for a Bootstrap implementation. - Turku
 import Spinner from 'react-bootstrap/Spinner'
 import {Close} from '@material-ui/icons'
@@ -33,6 +33,7 @@ import {doValidations} from '../../validation/validator'
 import {mapAPIDataToUIFormat} from '../../utils/formDataMapping'
 import getContentLanguages from '../../utils/language'
 import Notifications from '../Notification'
+import PreviewModal from '../../components/PreviewModal/PreviewModal'
 
 const {PUBLICATION_STATUS, SUPER_EVENT_TYPE_UMBRELLA, USER_TYPE} = constants
 
@@ -48,6 +49,7 @@ export class EditorPage extends React.Component {
         loading: false,
         isDirty: false,
         isRegularUser: false,
+        showPreviewEventModal: false,
     }
 
     componentDidMount() {
@@ -231,6 +233,21 @@ export class EditorPage extends React.Component {
         }
     }
 
+    showPreviewEventModal() {
+        this.setState({showPreviewEventModal: !this.state.showPreviewEventModal})
+    }
+    //Preview Modals button
+    getPreviewButton () {
+        return (
+            <Button
+                variant="contained"
+                onClick={() => this.showPreviewEventModal()}
+            >
+                <FormattedMessage id="preview-event-button" />
+            </Button>
+        )
+    } 
+
     validateEvent = () => {
         const {event} = this.state
         const {setValidationErrors, setFlashMsg, editor: {keywordSets}} = this.props
@@ -287,6 +304,14 @@ export class EditorPage extends React.Component {
                             <FormattedMessage id="clear-form"/>
                         </Button> */}
                     </span>
+                    <PreviewModal
+                        toggle={() => this.showPreviewEventModal()}
+                        isOpen={this.state.showPreviewEventModal}
+                        editor={editor}
+                        event={event}
+                        superEvent={superEvent}
+                        values={editor.values}
+                    />
                 </div>
 
                 <div className="container">
@@ -312,6 +337,11 @@ export class EditorPage extends React.Component {
                             {editMode === 'update' && this.getActionButton('delete')}
                             {isDraft && hasOrganizationWithRegularUsers(user) &&
                                 this.getActionButton('return', this.navigateToModeration, false)
+                            }
+                            {
+                                //Button that opens a preview modal of the event
+                                this.getPreviewButton(
+                                )
                             }
                             {
                                 // button that saves changes to a draft without publishing

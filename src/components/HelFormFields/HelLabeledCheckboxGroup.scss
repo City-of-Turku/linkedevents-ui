@@ -1,14 +1,25 @@
 .checkbox-group {
+    text-transform: capitalize;
     legend {
         font-size: 24px;
         font-weight: 300;
         width: unset;
     }
 }
+.checkboxes {
+    position: initial;
+    display: inline-block;
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-left: 0.25rem;
+}
 .main-category-popover {
     position: absolute;
     left: 103%;
     bottom: 100%;
+}
+.main-category-text {
+    text-align: center;
 }
 @media (max-width: 575px) {
     .main-category-popover {
