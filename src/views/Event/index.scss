@@ -79,19 +79,16 @@
             }
         }
     }
-    .EventActions {
-        height: 100% !important;
-        padding-right: 15px;
-        padding-left: 15px;
+    .event-action-buttons {
+        display: contents;
     }
     .event-actions {
-        display: block !important;
+        display: grid !important;
     button {
         margin-bottom: 10px;
         line-height: 1.5;
         padding: 12px;
         width: 100%;
-            
         }
     }
 }
