@@ -43,14 +43,14 @@ $actionBtnHeight: 60px;
             & > * {
                 flex: 0 1 33%;
                 margin: 0;
+                min-width: max-content;
             }
-          
             .checkbox1 {
                 position: absolute;
                 height:1.5rem;
                 width: 1.5rem;
                 margin-top: 0.2rem;
-               margin-left: 1rem;
+                margin-left: 1rem;
             }
         }
     }
