@@ -6,7 +6,7 @@ import {connect} from 'react-redux'
 import {FormattedMessage} from 'react-intl'
 
 
-import {Jumbotron, Button, Label, Alert, Card} from 'reactstrap';
+import {Button} from 'reactstrap';
 
 import {clearFlashMsg as clearFlashMsgAction} from 'src/actions/app.js'
 

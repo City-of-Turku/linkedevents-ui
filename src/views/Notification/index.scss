@@ -4,6 +4,7 @@
     position: fixed;
     bottom: 0;
     min-width: -webkit-fill-available;
+    min-width:  -moz-available;
     background-color: #000000;
     .btn {
         margin-left: 1rem;
