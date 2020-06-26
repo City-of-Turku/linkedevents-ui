@@ -49,14 +49,17 @@ class Notifications extends React.Component {
         }
 
         return (
+            <React.Fragment>
+                { flashMsgSpan &&
             <div className='notification'
                 open={(!!flashMsg)}
                 autohideduration={duration}
-                onClose={closeFn} 
+                onClose={closeFn}
             >
-                <h6 className="text-center" >{flashMsgSpan}{[actionButton]}</h6> 
-               
+                <h6 className="text-center" >{flashMsgSpan}{[actionButton]}</h6>
             </div>
+                }
+            </React.Fragment>
         )
     }
 }
