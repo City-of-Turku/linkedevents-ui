@@ -356,8 +356,9 @@ class FormFields extends React.Component {
 
                         <Form>
                             <FormGroup className='place-id'>
-                                <label>{this.context.intl.formatMessage({id: 'event-location-id'})}</label>
-                                <input type="text" className="form-control"value={values['location'] && values['location'].id ? values['location'].id : ''} readOnly/>
+                                <label>{this.context.intl.formatMessage({id: 'event-location-id'})}
+                                    <input type="text" className="form-control"value={values['location'] && values['location'].id ? values['location'].id : ''} readOnly/>
+                                </label>
                             </FormGroup>
 
                         </Form>
@@ -365,7 +366,9 @@ class FormFields extends React.Component {
 
                         <CopyToClipboard text={values['location'] ? values['location'].id : ''}>
                             <button type='button' className="clipboard-copy-button btn btn-default" title={this.context.intl.formatMessage({id: 'copy-to-clipboard'})}>
-                                <span className="glyphicon glyphicon-duplicate" aria-hidden="true"></span>
+                                <div hidden>.</div>
+                                <span className="glyphicon glyphicon-duplicate" aria-hidden="true">
+                                </span>
                             </button>
                         </CopyToClipboard>
                         <MultiLanguageField
