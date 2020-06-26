@@ -124,7 +124,8 @@ $actionBtnHeight: 60px;
     .editor-page {
     .editor-action-buttons {
         .buttons-group {
-            button {
+            display: block;
+            .btn-secondary {
                 margin-top: 5px;
                 width: 100%;
             }
