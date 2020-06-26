@@ -11,7 +11,6 @@ class HelCheckbox extends React.Component {
        
         this.handleCheck = this.handleCheck.bind(this)
     }
-  
     
     handleCheck (event) {
         let newValue = event.target.checked
@@ -52,21 +51,19 @@ class HelCheckbox extends React.Component {
            
         }
         const {fieldID} = this.props
-    
-       
 
         return (
             <div className='price-info-checkbox'>
-                <input
-                    className='checkbox'
-                    type='checkbox'
-                    innerRef={ref => this.checkboxRef = ref}
-                    name={name}
-                    onChange={this.handleCheck}
-                    checked={defaultChecked}
-                    id={fieldID}
-                />
-                <label className='price-label' htmlFor={fieldID}>{label}
+                <label className='price-label' htmlFor={fieldID}>
+                    <input
+                        className='checkbox'
+                        type='checkbox'
+                        ref={ref => this.checkboxRef = ref}
+                        name={name}
+                        onChange={this.handleCheck}
+                        checked={defaultChecked}
+                        id={fieldID}
+                    />{label}
                 </label>
             </div>
             
