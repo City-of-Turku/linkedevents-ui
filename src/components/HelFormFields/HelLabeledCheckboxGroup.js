@@ -52,7 +52,6 @@ const HelLabeledCheckboxGroup = (props) => {
 
                         return (
                             <Form key={`hel-checkbox-${index}`} className={(itemClassName || '')} >
-                                
                                 <Input
                                     className='checkboxes'
                                     type='checkbox'
@@ -63,17 +62,18 @@ const HelLabeledCheckboxGroup = (props) => {
                                     onChange={() => handleChange(refs, props)}
                                     id={`checkBox-${item.value}`}
                                 />
-                                <Label htmlFor={`checkBox-${item.value}`}>{item.label}</Label>
+                                <Label htmlFor={`checkBox-${item.value}`} className='main-category-text'>{item.label}</Label>
                             </Form>
-                        
                         )
                     })}
                 </div>
+                <div className='main-category-popover'>
+                    <ValidationPopover
+                        anchor={labelRef.current}
+                        validationErrors={validationErrors}
+                    />
+                </div>
             </fieldset>
-            <ValidationPopover
-                anchor={labelRef.current}
-                validationErrors={validationErrors}
-            />
         </Fragment>
     )
 }

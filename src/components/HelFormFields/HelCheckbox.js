@@ -4,8 +4,6 @@ import React from 'react'
 import PropTypes from 'prop-types';
 import {setData} from '../../actions/editor'
 //Replaced Material-ui CheckBox for a reactstrap implementation. - Turku
-import {Label, Input} from 'reactstrap';
-
 
 class HelCheckbox extends React.Component {
     constructor(props) {
@@ -58,18 +56,18 @@ class HelCheckbox extends React.Component {
        
 
         return (
-            <div>
-                <Label className='Helcheckbox' htmlFor={fieldID}>{label}
-                    <Input
-                        className='checkbox'
-                        type='checkbox'
-                        innerRef={ref => this.checkboxRef = ref}
-                        name={name}
-                        onChange={this.handleCheck}
-                        checked={defaultChecked}
-                        id={fieldID}
-                    />
-                </Label>
+            <div className='price-info-checkbox'>
+                <input
+                    className='checkbox'
+                    type='checkbox'
+                    innerRef={ref => this.checkboxRef = ref}
+                    name={name}
+                    onChange={this.handleCheck}
+                    checked={defaultChecked}
+                    id={fieldID}
+                />
+                <label className='price-label' htmlFor={fieldID}>{label}
+                </label>
             </div>
             
         )

@@ -13,7 +13,6 @@ const UmbrellaCheckbox = props => {
 
     
     const getCheckbox = () => (
-     
         <div className='UmbrellaCheckbox'>  
             <label htmlFor={id} className='UmbrellaCheckbox'>
                 <input
