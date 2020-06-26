@@ -216,6 +216,10 @@ export class ImagePicker extends Component {
                         </ModalHeader>
                         <ModalHeader tag='p'>
                             <FormattedMessage id='uploaded-image-size-tip'/>
+                            <br/>
+                            <FormattedMessage id='uploaded-image-size-tip2'/>
+                            <br/>
+                            <FormattedMessage id='uploaded-image-size-tip3'/>
                         </ModalHeader>
                         <div className='file-upload'>
                             <div className='file-upload--new'>
