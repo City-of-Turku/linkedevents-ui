@@ -121,7 +121,21 @@ $actionBtnHeight: 60px;
         .legend  {
         margin-top: 2rem !important;
     }
-}
+    .editor-page {
+    .editor-action-buttons {
+        .buttons-group {
+            button {
+                margin-top: 5px;
+                width: 100%;
+            }
+            > * {
+                &:not(:first-child) {
+                    margin-left: 0px;
+                }
+        }
+    }
+    
+}}
 @media (max-width: 780px) {
     .editor-page {
         .highlighted-block {
@@ -130,4 +144,4 @@ $actionBtnHeight: 60px;
             }
         }
     }
-}
+}}
