@@ -236,7 +236,7 @@ export class ImagePicker extends Component {
                                 {this.state.fileSizeError && (
                                     <Fragment>
                                         {/* <ErrorOutline style={{margin: HelMaterialTheme.spacing(0, 1, 0, 2)}} /> */}
-                                        <FormattedMessage id='uploaded-image-size-error' />
+                                        <FormattedMessage id='uploaded-image-size-error'>{txt => <p role="alert" className='image-error'>{txt}</p>}</FormattedMessage>
                                     </Fragment>
                                 )}
                             </div>
