@@ -257,17 +257,18 @@ export class EventListing extends React.Component {
                     }
                 </p>
                 {!isRegularUser &&
-                    <Label htmlFor='user-events-toggle'> {<FormattedMessage id={'user-events-toggle'} />}
-                        <Input
-                            id='user-events-toggle'
-                            type='checkbox'
-                            color="primary"
-                            onChange={this.toggleUserEvents}
-                            checked={showCreatedByUser}
-                        />
-                        
-                      
-                    </Label>
+                <div className='user-events-toggle'>
+                    <Input
+                        id='user-events-toggle'
+                        type='checkbox'
+                        color="primary"
+                        onChange={this.toggleUserEvents}
+                        checked={showCreatedByUser}
+                    />
+                    <Label htmlFor='user-events-toggle'> 
+                        {<FormattedMessage id={'user-events-toggle'} />}</Label>
+                         
+                </div>
                 }
                 <EventTable
                     events={events}
