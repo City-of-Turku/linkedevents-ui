@@ -24,6 +24,7 @@ import {EventQueryParams, fetchEvent} from '../../utils/events'
 import {push} from 'react-router-redux'
 import moment from 'moment'
 import {
+    getOrganizationAncestors,
     getOrganizationMembershipIds,
     hasOrganizationWithRegularUsers,
 } from '../../utils/user'
@@ -71,7 +72,11 @@ export class EditorPage extends React.Component {
         }
     }
 
-    componentDidUpdate(prevProps) {
+    componentDidUpdate(prevProps, prevState) {
+        const {event} = this.state
+
+        const publisherId = get(event, 'publisher')
+        const oldPublisherId = get(prevState, ['event', 'publisher'])
         const prevParams = get(prevProps, ['match', 'params'], {})
         const currParams = get(this.props, ['match', 'params'], {})
 
@@ -87,6 +92,14 @@ export class EditorPage extends React.Component {
                     subEvents: [],
                 })
             }
+        }
+        
+        if (publisherId && publisherId !== oldPublisherId) {
+            getOrganizationAncestors(publisherId)
+                .then(response => this.setState(state => ({
+                    ...state,
+                    event: {...state.event, publisherAncestors: response.data.data},
+                })))
         }
     }
 

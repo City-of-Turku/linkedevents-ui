@@ -12,6 +12,7 @@ export const userMayEdit = (user, event) => {
     const adminOrganizations = get(user, 'adminOrganizations')
     const userOrganization = get(user, 'organization')
     const eventOrganization = get(event, 'publisher')
+    const eventOrganizationAncestors = get(event, 'publisherAncestors')
     const organizationMemberships = get(user, 'organizationMemberships')
     const publicationStatus = get(event, 'publication_status')
     const userHasOrganizations = !isNull(getOrganizationMembershipIds(user))
@@ -22,20 +23,20 @@ export const userMayEdit = (user, event) => {
     if (!userHasOrganizations) {
         return false
     }
-    // For simplicity, support both old and new user api.
+    // If present, also check event organization ancestors for admin orgs.
     // Check admin_organizations and organization_membership, but fall back to user.organization if needed
-    if (adminOrganizations) {
-    // TODO: in the future, we will need information (currently not present) on whether event.organization is
-    // a sub-organization of the user admin_organization. This should be done in the API by e.g.
-    // including all super-organizations of a sub-organization in the sub-organization API JSON,
-    // and fetching that json for the event organization.
+    if (eventOrganization && eventOrganizationAncestors && adminOrganizations) {
+        userMayEdit =
+            adminOrganizations.includes(eventOrganization) ||
+            adminOrganizations.some(id => (eventOrganizationAncestors.map(org => org.id).includes(id)))
+    } else if (eventOrganization && adminOrganizations) {
         userMayEdit = adminOrganizations.includes(eventOrganization)
     } else {
         userMayEdit = eventOrganization === userOrganization
     }
 
     // exceptions to the above:
-    if (organizationMemberships && !userMayEdit) {
+    if (eventOrganization && organizationMemberships && !userMayEdit) {
     // non-admins may still edit drafts if they are organization members
         userMayEdit = organizationMemberships.includes(eventOrganization)
             && publicationStatus === PUBLICATION_STATUS.DRAFT
