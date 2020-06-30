@@ -7,11 +7,14 @@
     .modal-header {
         padding-left: 24px;
         padding-right: 24px;
+        align-items: center;
         .modal-title {
             margin-top: 0px !important;
             display: flex;
             flex: auto;
             justify-content: space-between;
+            font-size: 1.25rem;
+            font-weight: 500;
         }
         button {
             color: black;
@@ -34,6 +37,11 @@
         .col-sm-12 {
         h2 {
             margin-top: 0px !important;
+            font-weight: 500;
+            font-size: 1.25rem;
+        }
+        h3 {
+            font-size: 1.25rem;
         }
         button {
             width: 100%;

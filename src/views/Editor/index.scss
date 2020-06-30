@@ -30,7 +30,7 @@ $actionBtnHeight: 60px;
         color: #5a5959;
         label {
             font-size: 24px;
-            line-height: 2.5; 
+            line-height: 1.5; 
         }
         .language-selection {
             height: 0.1%;
@@ -119,10 +119,20 @@ $actionBtnHeight: 60px;
 @media (max-width: 480px) {
     legend,
         .legend  {
-        margin-top: 2rem !important;
+        margin-top: 1rem !important;
     }
     .editor-page {
+        .highlighted-block {
+        .language-selection{
+            display: inline-block;
+            .checkbox1 {
+                vertical-align: text-bottom;
+                position: relative !important;
+            }
+        }
+    }
     .editor-action-buttons {
+        height: auto;
         .buttons-group {
             display: block;
             .btn-secondary {
@@ -136,13 +146,52 @@ $actionBtnHeight: 60px;
         }
     }
     
-}}
-@media (max-width: 780px) {
+}}}
+@media (min-width: 480px) and (max-width: 780px) {
     .editor-page {
+        .editor-action-buttons {
+            height: auto;
+            .buttons-group {
+                display: grid;
+                justify-content: normal !important;
+                button {
+                    width: 100%;
+                    margin: 0.3vh;
+                }
+                            > * {
+                &:not(:first-child) {
+                    margin-left: 0px;
+                }
+        }
+    }
+    }
         .highlighted-block {
             .language-selection {
-                display: contents;
+                display: inline-block;
+                    .checkbox1 {
+                        vertical-align: text-bottom;
+                        position: relative !important;
+                    }
             }
         }
     }
-}}
+}
+@media (max-width: 1200px) and (min-width: 768px) {
+    .editor-page {
+    .editor-action-buttons{
+        height: auto;
+    .buttons-group {
+    display: grid !important;
+    text-align: center;
+    justify-content: normal !important;
+    *:not(:first-child) {
+        margin-left: 0px;
+    }
+    button {
+        width: 100%;
+        margin-bottom: 0.3vh;
+    }
+}
+    }
+}
+}

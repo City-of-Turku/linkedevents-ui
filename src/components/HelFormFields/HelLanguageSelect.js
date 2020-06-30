@@ -32,7 +32,6 @@ class HelLanguageSelect extends React.Component {
 
             return (
                 <Form key={index}>
-                    <Label className='language-selection' htmlFor={`checkBox-${item.value}`}><FormattedMessage id={item.label}/></Label>
                     <Input
                         id={`checkBox-${item.value}`}
                         className='checkbox1'
@@ -43,8 +42,9 @@ class HelLanguageSelect extends React.Component {
                         checked={isChecked}
                         disabled={disabled}
                         onChange={this.onChange}
-                        aria-checked='mixed'
+                        aria-checked={isChecked}
                     />   
+                    <Label className='language-selection' htmlFor={`checkBox-${item.value}`}><FormattedMessage id={item.label}/></Label>
                 </Form>
             )
         })
