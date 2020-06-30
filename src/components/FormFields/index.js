@@ -279,7 +279,7 @@ class FormFields extends React.Component {
                                     validationErrors={validationErrors['start_time']}
                                     defaultValue={values['start_time']}
                                     name="start_time"
-                                    label="event-starting-datetime"
+                                    label={<FormattedMessage  id="event-starting-datetime" />}
                                     setDirtyState={this.props.setDirtyState}
                                     maxDate={values['end_time'] ? moment(values['end_time']) : undefined}
                                 />
@@ -292,7 +292,7 @@ class FormFields extends React.Component {
                                     validationErrors={validationErrors['end_time']}
                                     defaultValue={values['end_time']}
                                     name="end_time"
-                                    label="event-ending-datetime"
+                                    label={<FormattedMessage  id="event-ending-datetime" />}
                                     setDirtyState={this.props.setDirtyState}
                                     minDate={values['start_time'] ? moment(values['start_time']) : undefined}
                                 />

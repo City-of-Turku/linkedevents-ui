@@ -6,6 +6,7 @@ import {connect} from 'react-redux'
 import {deleteSubEvent as deleteSubEventAction} from 'src/actions/editor'
 import {IconButton, withStyles} from '@material-ui/core'
 import {Delete} from '@material-ui/icons'
+import {FormattedMessage} from 'react-intl'
 
 const DeleteButton = withStyles(theme => ({
     root: {
@@ -26,7 +27,7 @@ const NewEvent = ({event, eventKey, errors, deleteSubEvent}) => (
             <CustomDateTimeField
                 id={'start_time' + eventKey}
                 name="start_time"
-                label="event-starting-datetime"
+                label={<FormattedMessage  id="event-starting-datetime" />}
                 defaultValue={event.start_time}
                 eventKey={eventKey}
                 validationErrors={errors['start_time']}
@@ -35,7 +36,7 @@ const NewEvent = ({event, eventKey, errors, deleteSubEvent}) => (
                 disablePast
                 id={'end_time' + eventKey}
                 name="end_time"
-                label="event-ending-datetime"
+                label={<FormattedMessage  id="event-ending-datetime" />}
                 defaultValue={event.end_time}
                 eventKey={eventKey}
                 validationErrors={errors['end_time']}
