@@ -9,22 +9,11 @@ import constants from '../../constants'
 import {getSortDirection} from '../../utils/table'
 import EventTable from '../../components/EventTable/EventTable'
 import {getOrganizationMembershipIds} from '../../utils/user'
-import {Checkbox, FormControlLabel, withStyles} from '@material-ui/core'
+
+import {Label, Input} from 'reactstrap';
 
 const {USER_TYPE, TABLE_DATA_SHAPE, PUBLICATION_STATUS} = constants
 
-const CustomFormControlLabel = withStyles(theme => ({
-    root: {
-        marginTop: theme.spacing(2),
-        marginBottom: theme.spacing(2),
-        '& svg': {
-            fontSize: '110%',
-        },
-    },
-    label: {
-        fontSize: '110%',
-    },
-}))(FormControlLabel)
 
 export class EventListing extends React.Component {
 
@@ -268,16 +257,17 @@ export class EventListing extends React.Component {
                     }
                 </p>
                 {!isRegularUser &&
-                    <CustomFormControlLabel
-                        control={
-                            <Checkbox
-                                color="primary"
-                                onChange={this.toggleUserEvents}
-                                checked={showCreatedByUser}
-                            />
-                        }
-                        label={<FormattedMessage id={'user-events-toggle'} />}
-                    />
+                    <Label htmlFor='user-events-toggle'> {<FormattedMessage id={'user-events-toggle'} />}
+                        <Input
+                            id='user-events-toggle'
+                            type='checkbox'
+                            color="primary"
+                            onChange={this.toggleUserEvents}
+                            checked={showCreatedByUser}
+                        />
+                        
+                      
+                    </Label>
                 }
                 <EventTable
                     events={events}

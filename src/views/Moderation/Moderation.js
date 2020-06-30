@@ -1,7 +1,8 @@
 require('./moderation.scss')
 import React from 'react'
 import PropTypes from 'prop-types'
-import {Button} from '@material-ui/core'
+import {Button} from 'reactstrap';
+
 import {FormattedMessage, injectIntl} from 'react-intl'
 import EventTable from '../../components/EventTable/EventTable'
 import {connect} from 'react-redux'
