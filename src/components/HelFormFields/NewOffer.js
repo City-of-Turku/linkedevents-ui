@@ -1,25 +1,11 @@
 import './NewOffer.scss'
 import PropTypes from 'prop-types';
 import React from 'react'
-
 import MultiLanguageField from 'src/components/HelFormFields/MultiLanguageField'
 import {setOfferData, deleteOffer} from 'src/actions/editor'
-import {IconButton, withStyles} from '@material-ui/core'
-import {Delete} from '@material-ui/icons'
 import CONSTANTS from '../../constants'
 
-const DeleteButton = withStyles(theme => ({
-    root: {
-        left: 0,
-        position: 'absolute',
-        top: 0,
-        transform: `translate(calc(-1.2em - ${theme.spacing(3)}px), ${theme.spacing(4)}px)`,
-        '& svg': {
-            height: '1.2em',
-            width: '1.2em',
-        },
-    },
-}))(IconButton)
+
 
 class NewOffer extends React.Component {
     static contextTypes = {
@@ -89,18 +75,18 @@ class NewOffer extends React.Component {
     render() {
         const {offerKey, defaultValue, isFree, languages} = this.props
         const {VALIDATION_RULES} = CONSTANTS
-
-        // TODO: Remove this buttonStyles inline
-        const buttonStyles = {
-            width: '42px',
-            minWidth: '42px',
-            height: '36px',
-            position: 'absolute',
-            left: '-55px',
-            top: '2rem',
-        }
+      
         return (
             <div key={offerKey} className="new-offer">
+
+                <button
+                    title="Delete"
+                    className="offers-button"
+                    onClick={() =>  this.deleteOffer()}
+                >
+                    <span className="glyphicon glyphicon-trash" aria-hidden="true"><p hidden>trash</p></span>
+    
+                </button>
                 <MultiLanguageField
                     defaultValue={defaultValue.price} 
                     disabled={isFree} 
@@ -135,13 +121,7 @@ class NewOffer extends React.Component {
                     validationErrors={this.props.validationErrors['offer_description']} 
                     index={this.props.offerKey} 
                 />
-
-                <DeleteButton
-                    color="secondary"
-                    onClick={() => this.deleteOffer()}
-                >
-                    <Delete/>
-                </DeleteButton>
+               
             </div>
         )
     }
