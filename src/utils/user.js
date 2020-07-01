@@ -17,6 +17,22 @@ export const getOrganization = async (organizationId) => {
 }
 
 /**
+ * Returns a promise containing data for the organizations that the organization is located under
+ * @param organizationId Organization id
+ */
+export const getOrganizationAncestors = async (organizationId) => {
+    const params = {
+        child: organizationId,
+    }
+
+    try {
+        return await client.get(`organization`, params)
+    } catch (e) {
+        throw Error(e)
+    }
+}
+
+/**
  * Returns a promise containing data for the admin organizations that the given user belongs to
  * @param user  User data
  */

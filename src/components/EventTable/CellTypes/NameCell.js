@@ -60,7 +60,7 @@ class NameCell extends React.Component {
                     {eventStatus.postponed && getBadge('postponed')}
                     {eventStatus.cancelled && getBadge('cancelled')}
                     {eventStatus.draft && getBadge('draft')}
-                    {eventStatus.umbrella && getBadge('draft')}
+                    {eventStatus.umbrella && getBadge('umbrella')}
                     {eventStatus.series && getBadge('series')}
                     <Link to={`/event/${event.id}`}>{name}</Link>
                 </div>

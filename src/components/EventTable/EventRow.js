@@ -54,8 +54,11 @@ class EventRow extends React.Component {
             const queryParams = new EventQueryParams()
             queryParams.super_event = event.id
             queryParams.include = 'keywords'
-            queryParams.show_all = userType === USER_TYPE.REGULAR ? true : null
-            queryParams.admin_user = userType === USER_TYPE.ADMIN ? true : null
+            queryParams.page_size = 100
+            // with sub events, also show drafts if the user has the right to see them
+            queryParams.show_all = true
+            // with sub events, fetch *all*, including sub events contributed by other organizations!
+            // this way, the admin notices there are sub events even if they have no rights to edit them.
 
             try {
                 const response = await fetchEvents(queryParams)

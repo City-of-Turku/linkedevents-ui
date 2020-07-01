@@ -5,17 +5,13 @@ import CustomDateTimeField from '../CustomFormFields/CustomDateTimeField';
 import {connect} from 'react-redux'
 import {deleteSubEvent as deleteSubEventAction} from 'src/actions/editor'
 
-
-
-
-
 const NewEvent = ({event, eventKey, errors, deleteSubEvent}) => (
     <div className="new-sub-event">
         <div className="new-sub-event--inputs">
             <CustomDateTimeField
                 id={'start_time' + eventKey}
                 name="start_time"
-                label="event-starting-datetime"
+                label={<FormattedMessage  id="event-starting-datetime" />}
                 defaultValue={event.start_time}
                 eventKey={eventKey}
                 validationErrors={errors['start_time']}
@@ -24,7 +20,7 @@ const NewEvent = ({event, eventKey, errors, deleteSubEvent}) => (
                 disablePast
                 id={'end_time' + eventKey}
                 name="end_time"
-                label="event-ending-datetime"
+                label={<FormattedMessage  id="event-ending-datetime" />}
                 defaultValue={event.end_time}
                 eventKey={eventKey}
                 validationErrors={errors['end_time']}
@@ -36,7 +32,6 @@ const NewEvent = ({event, eventKey, errors, deleteSubEvent}) => (
         >
             <span className="glyphicon glyphicon-trash" aria-hidden="true"><p hidden>trash</p></span>
         </button>
-        
     </div>
 )
 

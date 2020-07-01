@@ -55,6 +55,8 @@
 
     .event-actions {
         width: 100%;
+        padding-right: 15px;
+        padding-left: 15px;
     }
 }
 
@@ -84,6 +86,14 @@
     }
     .event-actions {
         display: grid !important;
+        .cancel-delete-btn,
+        .edit-copy-btn {
+    
+            > *:not(:last-child) {
+                margin-right: 0px;
+            }
+        }
+
     button {
         margin-bottom: 10px;
         line-height: 1.5;

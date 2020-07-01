@@ -78,7 +78,7 @@ CustomDateTimeField.propTypes = {
     eventKey: PropTypes.string,
     defaultValue: PropTypes.string,
     setDirtyState: PropTypes.func,
-    label: PropTypes.string.isRequired,
+    label: PropTypes.oneOfType([PropTypes.string, PropTypes.object]).isRequired,
     validationErrors: PropTypes.oneOfType([
         PropTypes.array,
         PropTypes.object,
