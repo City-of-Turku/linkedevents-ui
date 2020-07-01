@@ -5,8 +5,6 @@ import PropTypes from 'prop-types';
 
 import {FormattedMessage, injectIntl} from 'react-intl';
 import {Button, Modal, ModalHeader, ModalBody, Form, FormGroup} from 'reactstrap';
-import {Dialog, TextField} from '@material-ui/core';
-import {ErrorOutline} from '@material-ui/icons';
 import {deleteImage} from 'src/actions/userImages.js';
 import {connect} from 'react-redux';
 import {get as getIfExists, isEmpty} from 'lodash';
