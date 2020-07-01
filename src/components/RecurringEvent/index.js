@@ -5,7 +5,6 @@ import {FormattedMessage} from 'react-intl'
 import moment from 'moment-timezone'
 import {isNil, isEmpty} from 'lodash'
 import DayCheckbox from './DayCheckbox'
-import {TextField, withStyles} from '@material-ui/core';
 import {Button, Modal, ModalHeader, ModalBody} from 'reactstrap';
 import {setEventData, sortSubEvents} from 'src/actions/editor'
 import validationRules from 'src/validation/validationRules'
@@ -18,17 +17,6 @@ import CustomDatePicker from '../CustomFormFields/CustomDatePicker'
 //Added row-color className to {days} row for city_theme
 
 const {VALIDATION_RULES} = constants
-
-const RepetitionTextField = withStyles(theme => ({
-    root: {
-        margin: 0,
-        width: 40,
-        '& input': {
-            padding: `${theme.spacing(0.5)}px ${theme.spacing(1)}px`,
-            textAlign: 'center',
-        },
-    },
-}))(TextField)
 
 class RecurringEvent extends React.Component {
 
@@ -315,7 +303,7 @@ class RecurringEvent extends React.Component {
 
                             <div className="repetition-count" ref={this.repetitionRef}>
                                 <FormattedMessage id="repeated" />
-                                <RepetitionTextField
+                                <input
                                     value={this.state.weekInterval}
                                     onFocus={event => event.target.select()}
                                     onBlur={() => this.clearErrors()}
