@@ -21,6 +21,7 @@
     "update-events": "Spara",
     "delete-events": "Radera händelse",
     "cancel-events": "Avbryt händelse",
+    "postpone-events": "Uppskjut händelsen",
     "publish-events": "Publicera evenemang",
     "delete-events-multi": "Poista tapahtumat",
     "publish-events-multi": "Julkaise tapahtumat",
@@ -355,5 +356,14 @@
 	"cookieBar.decline.url": "https://www.google.se/",
 	"cookieBar.description": "Vi använder cookies för att kunna ge dig en bättre upplevelse. Genom att du fortsätter att använda Linked Events så accepterar du användingen av cookies.",
 	"cookieBar.link.text": "Länk till Cookie Policy",
-	"cookieBar.link.url": "https://testilinkedevents.turku.fi/cookie-policy/info-sv.html"
+    "cookieBar.link.url": "https://testilinkedevents.turku.fi/cookie-policy/info-sv.html",
+
+    "footer-accessibility": "Tillgänglighet uttalande",
+    "footer-city": "© Helsingfors stad",
+    "footer-city1": "Norra esplanaden 11-13, PB 1, 00099 ",
+    "footer-city2": "HELSINGFORS STAD",
+    "footer-city3": "www.hel.fi",
+    
+    "preview-event": "Information om evenemang",
+    "preview-event-button": "Kontrollera formuläret"
 }
