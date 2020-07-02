@@ -191,6 +191,7 @@ class EventPage extends React.Component {
      */
     getActionButton = (action, customAction, confirm = true) => {
         const {event, subEvents, loading} = this.state
+        const {intl} = this.props;
 
         return <EventActionButton
             action={action}
@@ -200,6 +201,7 @@ class EventPage extends React.Component {
             loading={loading}
             runAfterAction={this.handleConfirmedAction}
             subEvents={subEvents}
+            intl={intl}
         />
     }
 
