@@ -34,8 +34,8 @@ NoValue.propTypes = {
 const CheckedValue = ({checked, labelKey, label}) => (
     <div className="checked-value">
         {checked
-            ? <input type='checkbox' checked='disabled'  id={label}/>
-            : <input type='checkbox' disabled id={label}  aria-hidden="true" /> 
+            ? <input type='checkbox' checked='disabled' readOnly  id={label}/>
+            : <input type='checkbox' disabled id={label} readOnly aria-hidden="true" /> 
         }
         <label htmlFor={label}>
             {labelKey
