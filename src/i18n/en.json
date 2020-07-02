@@ -110,6 +110,12 @@
     "external-url-here": "URL to image",
     "or": "or",
     "organization-images": "Images of your organization",
+    "organization-missing-heading": "Welcome to Linked Events, ",
+    "organization-missing-message": "You don't have any permission to manage events yet. ",
+    "organization-missing-message1": "If you have already been granted access, your login may have expired. Try refreshing the page (F5) or logging in again.",
+    "organization-missing-message-contact": "Contact ",
+    "organization-missing-message-contact1": "Paavo Jantunen ",
+    "organization-missing-message-contact2": "to gain permissions to edit events in your unit. ",
     "use-existing-image": "Use an image in the system",
     "no-image": "NO IMAGE",
 

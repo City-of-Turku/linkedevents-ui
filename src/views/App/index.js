@@ -111,34 +111,33 @@ class App extends React.Component {
         if (this.props.user && !this.props.user.organization) {
             if (appSettings.ui_mode === 'courses') {
                 organization_missing_msg =
-                    <Paper
-                        elevation={3}
-                        style={{
-                            margin: HelMaterialTheme.spacing(3),
-                            padding: 16,
-                        }}
-                    >
-                        <h4>Tervetuloa käyttämään Linked Coursesia, {this.props.user.displayName}!</h4>
-                        <p>Sinulla ei ole vielä oikeutta hallinnoida yhdenkään yksikön kursseja.</p>
-                        <p>Jos olet jo saanut käyttöoikeudet, kirjautumisesi saattaa olla vanhentunut. Kokeile sivun
-                            päivittämistä (F5) ja kirjautumista uudestaan.</p>
-                    </Paper>
+                    <div className='organization-missing-msg'>
+                        <h1>
+                            <FormattedMessage id='organization-missing-heading-courses'/>
+                            {this.props.user.displayName}!
+                        </h1>
+                        <p>
+                            <FormattedMessage id='organization-missing-message-courses'/>
+                        </p>
+                        <FormattedMessage id='organization-missing-message1'/>
+                    </div>
             } else {
                 organization_missing_msg =
-                    <Paper
-                        elevation={3}
-                        style={{
-                            margin: HelMaterialTheme.spacing(3),
-                            padding: 16,
-                        }}
-                    >
-                        <h4>Tervetuloa käyttämään Linked Eventsiä, {this.props.user.displayName}!</h4>
-                        <p>Sinulla ei ole vielä oikeutta hallinnoida yhdenkään yksikön tapahtumia.
-                        Ota yhteyttä <a href="mailto:matias.peltonen@turku.fi">Matias Peltoseen</a> saadaksesi oikeudet
-                        muokata yksikkösi tapahtumia.</p>
-                        <p>Jos olet jo saanut käyttöoikeudet, kirjautumisesi saattaa olla vanhentunut. Kokeile sivun
-                        päivittämistä (F5) ja kirjautumista uudestaan.</p>
-                    </Paper>
+                    <div className='organization-missing-msg'>
+                        <h1>
+                            <FormattedMessage id='organization-missing-heading'/>
+                            {this.props.user.displayName}!
+                        </h1>
+                        <p>
+                            <FormattedMessage id='organization-missing-message'/>
+                            <FormattedMessage id='organization-missing-message-contact'/>
+                            <a href="mailto:matias.peltonen@turku.fi">
+                                <FormattedMessage id='organization-missing-message-contact1'/>
+                            </a>
+                            <FormattedMessage id='organization-missing-message-contact2'/>
+                        </p>
+                        <FormattedMessage id='organization-missing-message1'/>
+                    </div>
             }
         }
         return (
@@ -152,6 +151,11 @@ class App extends React.Component {
                         <header>
                             <Headerbar />
                         </header>
+                        { this.props.location.pathname == '/' &&
+                            <React.Fragment>
+                                {organization_missing_msg}
+                            </React.Fragment>
+                        }
                         <main id="main-content" className="content">
                             {this.props.children}
                         </main>
@@ -201,6 +205,7 @@ App.propTypes = {
     fetchLanguages: PropTypes.func,
     auth : PropTypes.object,
     fetchUser: PropTypes.func,
+    location: PropTypes.string,
 }
 
 const mapStateToProps = (state) => ({

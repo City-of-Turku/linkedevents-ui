@@ -106,6 +106,12 @@
     "external-url-here": "Kuvan URL",
     "or": "tai",
     "organization-images": "Organisaation kuvat",
+    "organization-missing-heading": "Välkommen till Linked Events, ",
+    "organization-missing-message": "Du har ingen behörighet att hantera händelser än. ",
+    "organization-missing-message1": "Om du redan har fått åtkomst kan din inloggning ha gått ut. Försök att uppdatera sidan (F5) eller logga in igen.",
+    "organization-missing-message-contact": "Kontakt ",
+    "organization-missing-message-contact1": "Paavo Jantunen ",
+    "organization-missing-message-contact2": "för att få behörigheter att redigera händelser i din enhet. ",
     "use-existing-image": "Käytä järjestelmässä olemassaolevaa kuvaa",
     "no-image": "Tapahtumalla ei ole kuvaa",
 
