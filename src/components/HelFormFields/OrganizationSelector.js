@@ -5,11 +5,9 @@ import {FormattedMessage} from 'react-intl';
 import Select from 'react-select';
 import {get} from 'lodash';
 
-
 const OrganizationSelector = ({formType, selectedOption, options, onChange}) => {
     const label = selectedOption.label ? selectedOption.label : ''
    
-
     return (
         <React.Fragment>
             <label className='event-publiser' tabIndex='0' htmlFor='event-publiser'>{<FormattedMessage id='event-publisher' />}</label>
@@ -35,7 +33,6 @@ const OrganizationSelector = ({formType, selectedOption, options, onChange}) => 
                         options={options}>
                         <options value={selectedOption} aria-label={label}>{options[0]}</options> 
                     </Select>
-
                 </React.Fragment>
             ) : (
                 <input
@@ -59,11 +56,6 @@ OrganizationSelector.propTypes = {
     selectedOption: PropTypes.object,
     onChange: PropTypes.func,
     intl: PropTypes.object,
-    placeholderId: PropTypes.string,
+   
 }
-OrganizationSelector.defaultProps = {
-    placeholderId: 'select',
-
-}
-
 export default OrganizationSelector;

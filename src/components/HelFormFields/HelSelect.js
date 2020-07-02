@@ -10,7 +10,6 @@ import {get, isNil} from 'lodash'
 import ValidationPopover from '../ValidationPopover'
 import client from '../../api/client'
 import {injectIntl} from 'react-intl'
-import {HelSelectTheme, HelSelectStyles} from '../../themes/react-select'
 
 const HelSelect = ({
     intl,
