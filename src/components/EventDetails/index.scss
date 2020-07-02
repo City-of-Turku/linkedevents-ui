@@ -165,3 +165,25 @@ legend {
         }
     }
 }
+.event-details {
+    input[type="checkbox"] {
+        -webkit-appearance: none;
+        appearance: none;
+    }
+    input[type="checkbox"]::before {
+        position: absolute;
+        font-size: 1.2em;
+        right: -1px;
+        top: -0.3em;
+        visibility: hidden;
+    }
+    input[type="checkbox"]:checked::before {
+        /* Use `visibility` instead of `display` to avoid recalculating layout */
+        visibility: visible;
+    }
+    input[type="checkbox"]:disabled {
+        border-color: black;
+        background: #ddd;
+        color: gray;
+    }
+}
