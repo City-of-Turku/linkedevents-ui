@@ -1,148 +1,140 @@
-import React, {Fragment} from 'react';
-import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
-import {FormattedMessage, intlShape, injectIntl} from 'react-intl';
-import {get} from 'lodash';
-import {checkEventEditability} from '../../utils/checkEventEditability';
-import constants from '../../constants';
-import showConfirmationModal from '../../utils/confirm';
-import {appendEventDataWithSubEvents, getEventsWithSubEvents} from '../../utils/events';
-import {Tooltip} from '@material-ui/core';
+import React, {useState,Fragment} from 'react'
+import PropTypes from 'prop-types'
+import {connect} from 'react-redux'
+import {FormattedMessage, injectIntl, intlShape} from 'react-intl'
+import {get} from 'lodash'
+import {checkEventEditability} from '../../utils/checkEventEditability'
+import constants from '../../constants'
+import showConfirmationModal from '../../utils/confirm'
+import {appendEventDataWithSubEvents, getEventsWithSubEvents} from '../../utils/events'
+import {Checkbox, FormControlLabel, Tooltip} from '@material-ui/core'
 //Replaced Material-ui Button for a Bootstrap implementation. - Turku
-import {Button, Input} from 'reactstrap';
-import {confirmAction} from '../../actions/app';
-import {getButtonLabel} from '../../utils/helpers';
-import {Link} from 'react-router-dom';
+import {Button} from 'reactstrap';
+import {confirmAction} from '../../actions/app'
+import {getButtonLabel} from '../../utils/helpers'
+import {Link} from 'react-router-dom'
 
+const {PUBLICATION_STATUS, EVENT_STATUS, USER_TYPE} = constants
 
-const {PUBLICATION_STATUS, EVENT_STATUS, USER_TYPE} = constants;
+/**
+ * Returns whether the button is a save button based on given action
+ * @param action
+ * @returns {boolean}
+ */
+const isSaveButton = (action) => [
+    'publish',
+    'update',
+    'update-draft',
+].includes(action)
 
-class EventActionButton extends React.Component {
-    constructor(props) {
-        super(props);
+/**
+ * Opens a confirmation modal and runs the given action
+ * @param props
+ */
+const confirmEventAction = (props) => {
+    const {action, event, subEvents, confirm, intl, runAfterAction, customAction} = props;
+    const eventData = [event, ...subEvents]
 
-        this.state = {
-            agreedToTerms: false,
-        }
-
-        this.handleChange = this.handleChange.bind(this);
+    // opens the confirm modal
+    const doConfirm = (data) => {
+        showConfirmationModal(data, action, confirm, intl, event.publication_status, customAction)
+            .then(() => runAfterAction(action, event))
     }
 
-    isSaveButton(action) {
-        return ['publish','update','update-draft'].includes(action)
+    // get the id's of events that have sub events
+    // don't re-fetch sub event data for the event that the action is run for, as we already have it
+    const eventsWithSubEvents = getEventsWithSubEvents(eventData)
+        .filter(eventId => eventId !== event.id)
+
+    // we need to append the event data with sub events of recurring events,
+    // when we're running the action for an umbrella event
+    eventsWithSubEvents.length > 0
+        ? appendEventDataWithSubEvents(eventData, eventsWithSubEvents)
+            .then((appendedData) => doConfirm(appendedData))
+        : doConfirm(eventData)
+}
+
+const EventActionButton = (props) => {
+    const {
+        intl,
+        editor,
+        user,
+        action,
+        confirmAction,
+        customAction,
+        customButtonLabel,
+        event,
+        eventIsPublished,
+        loading,
+    } = props
+
+    const [agreedToTerms, setAgreedToTerms] = useState(false)
+
+    const isRegularUser = get(user, 'userType') === USER_TYPE.REGULAR
+    const formHasSubEvents = get(editor, ['values', 'sub_events'], []).length > 0
+    const isDraft = get(event, 'publication_status') === PUBLICATION_STATUS.DRAFT
+    const isPostponed = get(event, 'event_status') === EVENT_STATUS.POSTPONED
+    const {editable, explanationId} = checkEventEditability(user, event, action, editor)
+    const showTermsCheckbox = isRegularUser && isSaveButton(action) && !isDraft
+    let disabled = !editable || loading || (showTermsCheckbox && !agreedToTerms)
+
+    let color = 'default'
+    const buttonLabel = customButtonLabel || getButtonLabel(action, isRegularUser, isDraft, eventIsPublished, formHasSubEvents)
+
+    if (action === 'publish' || action.includes('update') || action === 'edit') {
+        color = 'primary'
+    }
+    if (action === 'cancel' || action === 'delete') {
+        color = 'secondary'
     }
 
-    confirmEventAction() {
-        const {action, event, subEvents, confirm, intl, runAfterAction, customAction} = this.props;
-        const eventData = [event, ...subEvents];
-
-        const doConfirm = (data) => {
-            showConfirmationModal(
-                data,
-                action,
-                confirm,
-                intl,
-                event.publication_status,
-                customAction)
-                .then(() => runAfterAction(action, event))
-        };
-
-        const eventsWithSubEvents = getEventsWithSubEvents(eventData)
-            .filter(eventId => eventId !== event.id);
-
-        eventsWithSubEvents.length > 0 ?
-            appendEventDataWithSubEvents(eventData, eventsWithSubEvents)
-                .then((appendedData) => doConfirm(appendedData))
-            : doConfirm(eventData)
+    if (action === 'postpone' && isPostponed) {
+        disabled = true
     }
 
-    handleChange = (event) => {
-        console.log(event);
-    }
+    const button =
+        <Fragment>
+            {showTermsCheckbox &&
+                <FormControlLabel
+                    control={
+                        <Checkbox
+                            color="primary"
+                            checked={agreedToTerms}
+                            onChange={(e) => setAgreedToTerms(e.target.checked)}
+                        />
+                    }
+                    label={
+                        <Fragment>
+                            <FormattedMessage id={'terms-agree-text'} />
+                            &nbsp;
+                            <Link to={'/terms'} target="_blank">
+                                <FormattedMessage id={'terms-agree-link'} />
+                            </Link>
+                        </Fragment>
+                    }
+                />
+            }
+            <Button
+                color="secondary"
+                variant="contained "
+                disabled={disabled}
+                className={`editor-${action}-button`}
+                onClick={() => confirmAction ? confirmEventAction(props) : customAction()}
+            >
+                <FormattedMessage id={buttonLabel}/>
+            </Button>
+        </Fragment>
 
-    getButton(showTermsCheckbox, buttonLabel, disabled) {
-        const {customAction, action} = this.props;
+    return disabled && explanationId
+        ? <Tooltip title={intl.formatMessage({id: explanationId})}>
+            <span>{button}</span>
+        </Tooltip>
+        : button
+}
 
-        return (
-            <React.Fragment>
-                {showTermsCheckbox &&
-                <React.Fragment>
-                    <label>
-                        <FormattedMessage id={'terms-agree-text'}>{txt => txt}</FormattedMessage>
-                        <Link to={'/terms'} target='_black'>
-                            <FormattedMessage id={'terms-agree-link'}>{txt => txt}</FormattedMessage>
-                        </Link>
-                    </label>
-                    <Input
-                        type='checkbox'
-                        checked={this.state.agreedToTerms}
-                        onChange={this.handleChange}
-                    />
-                </React.Fragment>
-                }
-                <Button
-                    color='secondary'
-                    className={`editor-${action}-button`}
-                    onClick={() => confirmAction ? this.confirmEventAction : customAction()}
-                >
-                    <FormattedMessage id={buttonLabel}>{txt => txt}</FormattedMessage>
-                </Button>
-            </React.Fragment>
-        )
-    }
-
-    render() {
-        const {
-            intl,
-            editor,
-            user,
-            action,
-            confirmAction,
-            customAction,
-            customButtonLabel,
-            event,
-            eventIsPublished,
-            loading,
-        } = this.props;
-        
-        const isRegularUser = get(user, 'userType') === USER_TYPE.REGULAR;
-        const formHasSubEvents = get(editor, ['values', 'sub_events'], []).length > 0;
-        const isDraft = get(event, 'publication_status') === PUBLICATION_STATUS.DRAFT;
-        const isPostponed = get(event, 'event_status') === EVENT_STATUS.POSTPONED;
-        const {editable, explanationId} = checkEventEditability(user, event, action, editor);
-        const showTermsCheckbox = isRegularUser && this.isSaveButton(action) && !isDraft;
-        let disabled = !editable || loading || (showTermsCheckbox && !this.state.agreedToTerms);
-
-        let color = 'default';
-        const buttonLabel = customButtonLabel || getButtonLabel(action, isRegularUser, isDraft, eventIsPublished, formHasSubEvents);
-
-        if (action === 'publish' || action.includes('update') || action === 'edit') {
-            color = 'primary';
-        }
-        if (action === 'cancel' || action === 'delete') {
-            color = 'secondary';
-        }
-
-        if (action === 'postpone' && isPostponed) {
-            disabled = true;
-        }
-        return (
-            <React.Fragment>
-                {(disabled && explanationId) &&
-                    <Tooltip title={intl.formatMessage({id: explanationId})}>
-                        <span>
-                            {this.getButton(showTermsCheckbox, buttonLabel, disabled)}
-                        </span>
-                    </Tooltip>
-                }
-                {(!disabled && !explanationId) &&
-                    <React.Fragment>
-                        {this.getButton(showTermsCheckbox,buttonLabel, disabled)}
-                    </React.Fragment>
-                }
-            </React.Fragment>
-        )
-    }
+EventActionButton.defaultProps = {
+    event: {},
+    subEvents: [],
 }
 
 EventActionButton.propTypes = {
