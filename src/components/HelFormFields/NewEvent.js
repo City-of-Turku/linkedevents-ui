@@ -4,7 +4,7 @@ import React from 'react'
 import CustomDateTimeField from '../CustomFormFields/CustomDateTimeField';
 import {connect} from 'react-redux'
 import {deleteSubEvent as deleteSubEventAction} from 'src/actions/editor'
-
+import {FormattedMessage, injectIntl} from 'react-intl';
 const NewEvent = ({event, eventKey, errors, deleteSubEvent}) => (
     <div className="new-sub-event">
         <div className="new-sub-event--inputs">
