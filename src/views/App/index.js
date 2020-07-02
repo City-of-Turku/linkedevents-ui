@@ -205,7 +205,7 @@ App.propTypes = {
     fetchLanguages: PropTypes.func,
     auth : PropTypes.object,
     fetchUser: PropTypes.func,
-    location: PropTypes.string,
+    location: PropTypes.object,
 }
 
 const mapStateToProps = (state) => ({
