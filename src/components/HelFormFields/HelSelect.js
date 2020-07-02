@@ -153,7 +153,7 @@ const HelSelect = ({
 
     return (
         <Fragment>
-            <legend ref={labelRef}>
+            <legend ref={labelRef} tabIndex='0'>
                 {legend}
             </legend>
             <AsyncSelect
@@ -167,8 +167,8 @@ const HelSelect = ({
                 noOptionsMessage={() => intl.formatMessage({id: 'search-no-results'})}
                 filterOption={filterOptions}
                 formatOptionLabel={formatOption}
-                styles={HelSelectStyles}
-                theme={HelSelectTheme}
+                aria-label={intl.formatMessage({id: placeholderId})}
+
             />
             <div className='select-popover'>
                 <ValidationPopover

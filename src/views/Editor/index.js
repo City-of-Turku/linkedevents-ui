@@ -294,7 +294,7 @@ export class EditorPage extends React.Component {
         return (
             <div className="editor-page">
                 <div className="container header">
-                    <h1>
+                    <h1 tabIndex='0'>
                         <FormattedMessage id={headerTextId}/>
                     </h1>
                     <span className="controls">
