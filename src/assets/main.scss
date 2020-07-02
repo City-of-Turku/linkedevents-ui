@@ -58,6 +58,10 @@ h2,h3,legend,.legend {
     font-size: 31px;
 }
 
+a {
+    color: #0071EB;
+}
+
 .legend {
     position: relative;
     display: inline-block;
@@ -206,9 +210,6 @@ h2 {
     box-shadow: 0px 6px 20px -10px rgba(0,0,0,0.75);
     h1 {
         margin-top: 0rem;
-    }
-    a {
-        color: #0071EB;
     }
 }
 
