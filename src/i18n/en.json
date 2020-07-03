@@ -362,5 +362,13 @@
 	"cookieBar.decline.url": "https://www.google.com/",
 	"cookieBar.description": "We use cookies to improve your browsing experience. By continuing to use Linked Events, you accept the use of cookies.",
 	"cookieBar.link.text": "Link to cookie policy",
-	"cookieBar.link.url": "https://testilinkedevents.turku.fi/cookie-policy/info-en.html"
+    "cookieBar.link.url": "https://testilinkedevents.turku.fi/cookie-policy/info-en.html",
+    
+    "reportbutton-send": "Send report",
+    "reportmodal-title": "Report an error situation",
+    "reportmodal-field": "Describe the problem",
+    "reportmodal-version": "Application version identifier:",
+    "reportmodal-tooltip": "Jos tapahtumien hallinnassa tai syöttölomakkeen toiminnassa on virhe, klikkaa tästä raportoidaksesi virheestä, niin saamme virhetilanteesta tiedon ja voimme tutkia asiaa.",
+    "reportmodal-sent": "Report sent, thank you",
+    "reportmodal-debugbutton": "Feedback"
 }

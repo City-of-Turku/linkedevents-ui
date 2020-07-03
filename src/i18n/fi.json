@@ -381,5 +381,13 @@
     "footer-city3": "www.hel.fi",
 
     "preview-event": "Tapahtuman tiedot",
-    "preview-event-button": "Tarkista lomakkeen tiedot"
+    "preview-event-button": "Tarkista lomakkeen tiedot",
+
+    "reportbutton-send": "Lähetä raportti",
+    "reportmodal-title": "Raportoi virhetilanne",
+    "reportmodal-field": "Kuvaile ongelmaa",
+    "reportmodal-version": "Sovelluksen versiotunniste:",
+    "reportmodal-tooltip": "Jos tapahtumien hallinnassa tai syöttölomakkeen toiminnassa on virhe, klikkaa tästä raportoidaksesi virheestä, niin saamme virhetilanteesta tiedon ja voimme tutkia asiaa.",
+    "reportmodal-sent": "Raportti lähetetty, kiitoksia",
+    "reportmodal-debugbutton": "Palaute"
 }

@@ -140,7 +140,12 @@ h2 {
     top: 0;
     margin-top: -0.5em;
     padding: 0.2em 0.3em 0.2em 3.3em;
+    &.show-me{
+        transition: 0.5s;
+        left: 0;
+    }
 }
+
 
 #debughelper:hover #slide {
     transition: 0.5s;
