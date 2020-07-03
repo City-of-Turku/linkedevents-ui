@@ -30,7 +30,7 @@ $actionBtnHeight: 60px;
         color: #5a5959;
         label {
             font-size: 24px;
-            line-height: 1.5; 
+            line-height: 1.5;
         }
         .language-selection {
             height: 0.1%;
@@ -112,6 +112,22 @@ $actionBtnHeight: 60px;
                     margin-right: auto;
                 }
             }
+            .terms-checkbox {
+                height: $actionBtnHeight;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                @media (max-width: 768px) {
+                    height: 30px;
+                }
+                input {
+                    position: unset;
+                    margin: 0;
+                }
+                label {
+                    margin: 0 0 0 1em;
+                }
+            }
         }
     }
 }
@@ -145,7 +161,7 @@ $actionBtnHeight: 60px;
                 }
         }
     }
-    
+
 }}}
 @media (min-width: 480px) and (max-width: 780px) {
     .editor-page {

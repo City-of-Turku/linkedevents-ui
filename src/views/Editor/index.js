@@ -93,7 +93,7 @@ export class EditorPage extends React.Component {
                 })
             }
         }
-        
+
         if (publisherId && publisherId !== oldPublisherId) {
             getOrganizationAncestors(publisherId)
                 .then(response => this.setState(state => ({
@@ -261,7 +261,7 @@ export class EditorPage extends React.Component {
                 <FormattedMessage id="preview-event-button" />
             </Button>
         )
-    } 
+    }
 
     validateEvent = () => {
         const {event} = this.state
@@ -355,8 +355,7 @@ export class EditorPage extends React.Component {
                             }
                             {
                                 //Button that opens a preview modal of the event
-                                this.getPreviewButton(
-                                )
+                                this.getPreviewButton()
                             }
                             {
                                 // button that saves changes to a draft without publishing

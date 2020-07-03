@@ -24,12 +24,22 @@ class EventActionButton extends React.Component {
             agreedToTerms: false,
         }
         this.handleChange = this.handleChange.bind(this);
+        this.confirmEventAction = this.confirmEventAction.bind(this);
     }
 
+    /**
+     * Returns whether the button is a save button based on given action
+     * @param {string} action
+     * @returns {boolean}
+     */
     isSaveButton(action) {
         return ['publish','update','update-draft'].includes(action)
     }
 
+    /**
+     * Opens a confirmation modal and runs the given action
+     * @param props
+     */
     confirmEventAction() {
         const {action, event, subEvents, confirm, runAfterAction, customAction, intl} = this.props;
         const eventData = [event, ...subEvents];
@@ -54,32 +64,51 @@ class EventActionButton extends React.Component {
             : doConfirm(eventData)
     }
 
+    /**
+     * Toggle state agreedToTerms based on checkbox
+     * @param event
+     */
     handleChange = (event) => {
         this.setState({agreedToTerms: event.target.checked})
     }
 
+    /**
+     * Returns a Button element and depending on showTermsCheckbox an input element with a label
+     * @param {boolean} showTermsCheckbox
+     * @param {string} buttonLabel
+     * @param {boolean} disabled
+     * @returns {*}
+     */
     getButton(showTermsCheckbox, buttonLabel, disabled) {
-        const {customAction, action} = this.props;
+        const {action, confirmAction, customAction} = this.props;
+        const color = 'secondary';
+        /*
+        color = this.getButtonColor(action), to get color based on action.
+        The getButtonColor function is currently not in use and can be removed if deemed unnecessary.
+        */
 
         return (
             <Fragment>
                 {showTermsCheckbox &&
-                <Fragment>
-                    <label>
-                        <FormattedMessage id={'terms-agree-text'}>{txt => txt}</FormattedMessage>
-                        <Link to={'/terms'} target='_black'>
-                            <FormattedMessage id={'terms-agree-link'}>{txt => txt}</FormattedMessage>
-                        </Link>
-                    </label>
+                <div className='terms-checkbox'>
                     <Input
                         type='checkbox'
                         checked={this.state.agreedToTerms}
                         onChange={this.handleChange}
+                        id='terms-agree'
                     />
-                </Fragment>
+                    <label htmlFor='terms-agree'>
+                        <FormattedMessage id={'terms-agree-text'}>{txt => txt}</FormattedMessage>
+                        &nbsp;
+                        <Link to={'/terms'} target='_black'>
+                            <FormattedMessage id={'terms-agree-link'}>{txt => txt}</FormattedMessage>
+                        </Link>
+                    </label>
+                </div>
                 }
                 <Button
-                    color='secondary'
+                    disabled={disabled}
+                    color={color}
                     className={`editor-${action}-button`}
                     onClick={() => confirmAction ? this.confirmEventAction : customAction()}
                 >
@@ -89,14 +118,47 @@ class EventActionButton extends React.Component {
         )
     }
 
+    /**
+     * Return Button that has a tooltip
+     * @see getButton
+     * @param {string} explanationId
+     * @param {boolean} showTermsCheckbox
+     * @param {string} buttonLabel
+     * @param {boolean} disabled
+     * @returns {*}
+     */
+    getToolTip(explanationId,showTermsCheckbox, buttonLabel, disabled) {
+        const {intl} = this.props;
+        return (
+            <Tooltip title={intl.formatMessage({id: explanationId})}>
+                <span>
+                    {this.getButton(showTermsCheckbox, buttonLabel, disabled)}
+                </span>
+            </Tooltip>
+        )
+    }
+
+    /**
+     * Returns string based on action
+     * @param {string} action
+     * @returns {string}
+     */
+    getButtonColor(action) {
+        // this is not currently in use, see getButton() for further details
+        if (action === 'publish' || action.includes('update') || action === 'edit') {
+            return 'primary';
+        } else if (action === 'cancel' || action === 'delete') {
+            return 'secondary';
+        } else {
+            return 'default';
+        }
+    }
+
     render() {
         const {
-            intl,
             editor,
             user,
             action,
-            confirmAction,
-            customAction,
             customButtonLabel,
             event,
             eventIsPublished,
@@ -111,36 +173,27 @@ class EventActionButton extends React.Component {
         const showTermsCheckbox = isRegularUser && this.isSaveButton(action) && !isDraft;
         let disabled = !editable || loading || (showTermsCheckbox && !this.state.agreedToTerms);
 
-        let color = 'default';
+
         const buttonLabel = customButtonLabel || getButtonLabel(action, isRegularUser, isDraft, eventIsPublished, formHasSubEvents);
 
-        if (action === 'publish' || action.includes('update') || action === 'edit') {
-            color = 'primary';
-        }
-        if (action === 'cancel' || action === 'delete') {
-            color = 'secondary';
-        }
         if (action === 'postpone' && isPostponed) {
             disabled = true;
         }
 
         return (
             <Fragment>
-                {(disabled && explanationId) &&
-                    <Tooltip title={intl.formatMessage({id: explanationId})}>
-                        <span>
-                            {this.getButton(showTermsCheckbox, buttonLabel, disabled)}
-                        </span>
-                    </Tooltip>
-                }
-                {(!disabled && !explanationId) &&
-                    <Fragment>
-                        {this.getButton(showTermsCheckbox,buttonLabel, disabled)}
-                    </Fragment>
+                {disabled && explanationId
+                    ? this.getToolTip(explanationId, showTermsCheckbox,buttonLabel,disabled)
+                    : this.getButton(showTermsCheckbox, buttonLabel,disabled)
                 }
             </Fragment>
         )
     }
+}
+
+EventActionButton.defaultProps = {
+    event: {},
+    subEvents: [],
 }
 
 EventActionButton.propTypes = {
