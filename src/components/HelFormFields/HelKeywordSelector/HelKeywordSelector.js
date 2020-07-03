@@ -92,6 +92,7 @@ const HelKeywordSelector = ({intl, editor, setDirtyState, setData}) => {
                 <CopyToClipboard text={values['keywords'] ? getKeywordIds(keywords) : ''}>
                     <button type='button' className="clipboard-copy-button btn btn-default" title={intl.formatMessage({id: 'copy-to-clipboard'})}>
                         <span className="glyphicon glyphicon-duplicate" aria-hidden="true"></span>
+                        <p hidden>duplicate</p>
                     </button>
                 </CopyToClipboard>
                 <SelectedKeywords

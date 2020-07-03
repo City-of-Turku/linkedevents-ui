@@ -7,32 +7,32 @@ import {setData as setDataAction} from 'src/actions/editor'
 import {HelTextField} from '../index'
 import {SideField} from '../../FormFields'
 import {connect} from 'react-redux'
-import {IconButton, withStyles} from '@material-ui/core'
+// import {IconButton, withStyles} from '@material-ui/core'
 import constants from '../../../constants'
 import {get, set, isEqual, isEmpty} from 'lodash'
-import {Add, Delete} from '@material-ui/icons'
-import {Button} from 'reactstrap';
+// import {Add, Delete} from '@material-ui/icons'
+// import {Button} from 'reactstrap';
 
 const {VALIDATION_RULES, CHARACTER_LIMIT} = constants
 
-const AddButton = withStyles(theme => ({
-    root: {
-        marginTop: theme.spacing(2),
-    },
-}))(Button)
+// const AddButton = withStyles(theme => ({
+//     root: {
+//         marginTop: theme.spacing(2),
+//     },
+// }))(Button)
 
-const DeleteButton = withStyles(theme => ({
-    root: {
-        alignSelf: 'center',
-        position: 'absolute',
-        left: 0,
-        transform: `translateX(calc(-1.2em - ${theme.spacing(3)}px))`,
-        '& svg': {
-            height: '1.2em',
-            width: '1.2em',
-        },
-    },
-}))(IconButton)
+// const DeleteButton = withStyles(theme => ({
+//     root: {
+//         alignSelf: 'center',
+//         position: 'absolute',
+//         left: 0,
+//         transform: `translateX(calc(-1.2em - ${theme.spacing(3)}px))`,
+//         '& svg': {
+//             height: '1.2em',
+//             width: '1.2em',
+//         },
+//     },
+// }))(IconButton)
 
 /**
  * Handle blur
@@ -137,14 +137,14 @@ const HelVideoFields = ({
                                     )
                                 })}
                         </div>
-                        {state.length > 1 &&
+                        {/* {state.length > 1 &&
                         <DeleteButton
                             color="secondary"
                             onClick={() => handleDelete(index, state, setData)}
                         >
                             <Delete/>
                         </DeleteButton>
-                        }
+                        } */}
                     </div>
                 ))}
                 {/*

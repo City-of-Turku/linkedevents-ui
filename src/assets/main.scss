@@ -58,6 +58,10 @@ h2,h3,legend,.legend {
     font-size: 31px;
 }
 
+a {
+    color: #0071EB;
+}
+
 .legend {
     position: relative;
     display: inline-block;
@@ -205,7 +209,20 @@ h2 {
             }
         }
     
+.organization-missing-msg {
+    margin: 3rem 1rem 0rem 1rem;
+    padding: 1rem;
+    box-shadow: 0px 6px 20px -10px rgba(0,0,0,0.75);
+    h1 {
+        margin-top: 0rem;
+    }
+}
 
+@media (max-width: 991px) {
+    .organization-missing-msg {
+        margin: 1rem 1rem 0rem 1rem;
+    }
+}
 
 @media (max-width: 480px) {
     h1 {
@@ -219,6 +236,11 @@ h2 {
     }
     #debughelper {
         bottom: 1em;
+    }
+    .organization-missing-msg {
+        h1 {
+            margin-top: 0rem;
+        }
     }
 }
 

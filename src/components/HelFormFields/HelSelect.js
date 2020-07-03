@@ -10,7 +10,6 @@ import {get, isNil} from 'lodash'
 import ValidationPopover from '../ValidationPopover'
 import client from '../../api/client'
 import {injectIntl} from 'react-intl'
-import {HelSelectTheme, HelSelectStyles} from '../../themes/react-select'
 
 const HelSelect = ({
     intl,
@@ -153,7 +152,7 @@ const HelSelect = ({
 
     return (
         <Fragment>
-            <legend ref={labelRef}>
+            <legend ref={labelRef} tabIndex='0'>
                 {legend}
             </legend>
             <AsyncSelect
@@ -167,8 +166,8 @@ const HelSelect = ({
                 noOptionsMessage={() => intl.formatMessage({id: 'search-no-results'})}
                 filterOption={filterOptions}
                 formatOptionLabel={formatOption}
-                styles={HelSelectStyles}
-                theme={HelSelectTheme}
+                aria-label={intl.formatMessage({id: placeholderId})}
+
             />
             <div className='select-popover'>
                 <ValidationPopover
