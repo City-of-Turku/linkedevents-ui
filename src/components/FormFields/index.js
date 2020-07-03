@@ -485,7 +485,7 @@ class FormFields extends React.Component {
                         setDirtyState={this.props.setDirtyState}
                     />
                 </div>
-                <div className="row">
+                <div className="row audience-row">
                     <HelLabeledCheckboxGroup
                         groupLabel={<FormattedMessage id="hel-target-groups"/>}
                         selectedValues={values['audience']}
