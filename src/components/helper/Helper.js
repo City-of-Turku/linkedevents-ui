@@ -128,7 +128,7 @@ class DebugHelper extends React.Component {
                             <span className='glyphicon glyphicon-exclamation-sign' style={{marginLeft: '8px'}}></span>
                         </button>
                     </div>
-                    <div id='slide'className={this.state.showModalTooltip && 'show-me'}>
+                    <div id='slide'className={this.state.showModalTooltip ? 'show-me' : undefined}>
                         <FormattedMessage id='reportmodal-tooltip'>{txt => <p id='tooltip'>{txt}</p>}</FormattedMessage>
                     </div>
                 </div>
