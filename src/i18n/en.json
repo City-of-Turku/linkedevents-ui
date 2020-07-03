@@ -375,7 +375,7 @@
     "reportmodal-title": "Report an error situation",
     "reportmodal-field": "Describe the problem",
     "reportmodal-version": "Application version identifier:",
-    "reportmodal-tooltip": "Jos tapahtumien hallinnassa tai syöttölomakkeen toiminnassa on virhe, klikkaa tästä raportoidaksesi virheestä, niin saamme virhetilanteesta tiedon ja voimme tutkia asiaa.",
+    "reportmodal-tooltip": "If there is an error in event management or the operation of the input form, click here to report the error, and we will be informed of the error situation and can investigate.",
     "reportmodal-sent": "Report sent, thank you",
     "reportmodal-debugbutton": "Feedback",
 
