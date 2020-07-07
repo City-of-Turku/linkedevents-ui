@@ -16,21 +16,35 @@ exports[`EventListing Snapshot should render view by default 1`] = `
       values={Object {}}
     />
   </p>
-  <WithStyles(WithStyles(ForwardRef(FormControlLabel)))
-    control={
-      <ForwardRef(WithStyles)
-        checked={false}
-        color="primary"
-        onChange={[Function]}
-      />
-    }
-    label={
+  <div
+    className="user-events-toggle"
+  >
+    <Input
+      checked={false}
+      color="primary"
+      id="user-events-toggle"
+      onChange={[Function]}
+      type="checkbox"
+    />
+    <Label
+      htmlFor="user-events-toggle"
+      tag="label"
+      widths={
+        Array [
+          "xs",
+          "sm",
+          "md",
+          "lg",
+          "xl",
+        ]
+      }
+    >
       <FormattedMessage
         id="user-events-toggle"
         values={Object {}}
       />
-    }
-  />
+    </Label>
+  </div>
   <InjectIntl(EventTable)
     count={null}
     events={Array []}
@@ -72,7 +86,7 @@ exports[`EventListing Snapshot should render view correctly 1`] = `
       "confirm": "Suorita",
       "confirm-action-header": "Varmista toiminto",
       "confirm-cancel": "Varmista tapahtuman peruminen",
-      "confirm-cancel-extra": "Muistathan, että perumisen sijaan voit myös järjestää tapahtuman etänä internetissä. Valitse tällöin muokkauslomakkeella tapahtumapaikaksi Internet. Voit myös lykätä tapahtuman tulevaisuuteen.",
+      "confirm-cancel-extra": "Muistathan, että perumisen sijaan voit myös järjestää tapahtuman etänä internetissä. Valitse tällöin muokkauslomakkeella tapahtumapaikaksi Virtuaalitapahtuma. Voit myös lykätä tapahtuman tulevaisuuteen.",
       "confirm-delete": "Varmista tapahtuman poistaminen",
       "confirm-delete-draft": "Varmista luonnoksen poistaminen",
       "confirm-image-delete": "Varmista kuvan poistaminen",
@@ -87,7 +101,7 @@ exports[`EventListing Snapshot should render view correctly 1`] = `
       "cookieBar.decline.url": "https://www.google.fi/",
       "cookieBar.description": "Käytämme evästeitä parantaaksemme käyttökokemustasi. Jatkamalla Linked Events käyttöä hyväksyt evästeiden käytön.",
       "cookieBar.link.text": "Linkki evästekäytäntöön",
-      "cookieBar.link.url": "https://www.google.fi/",
+      "cookieBar.link.url": "https://testilinkedevents.turku.fi/cookie-policy/info-fi.html",
       "copy-event-to-draft": "Kopioi uuden tapahtuman pohjaksi",
       "copy-to-clipboard": "Kopioi leikepöydälle",
       "courses-management": "Kurssien hallinta",
@@ -124,7 +138,7 @@ exports[`EventListing Snapshot should render view correctly 1`] = `
       "editor-tip-keywords": "Liitä tapahtumaan vähintään yksi asiasana, joka kuvaa tapahtuman teemaa. Aloita kirjoittamaan asiasanaa ja valitse lisättävä asiasana alle ilmestyvästä listasta.",
       "editor-tip-location": "Kirjoita kenttään tapahtumapaikan nimi tai katuosoite ja valitse oikea paikka listasta.",
       "editor-tip-location-extra": "Jos tapahtumapaikka löytyy listasta, sen sijaintia ei tarvitse kuvailla erikseen. Voit kuitenkin antaa lisätietoja tapahtumapaikan löytämiseksi, esimerkiksi kerrosnumeron tai luokkahuoneen nimen.",
-      "editor-tip-location-internet": "Jos tapahtuma järjestetään vain etänä internetissä, valitse tapahtumapaikaksi Internet. Tapahtuman URL-osoite laitetaan kotisivu-kenttään ja/tai tapahtuma sosiaalisessa mediassa -kenttiin.",
+      "editor-tip-location-internet": "Jos tapahtuma järjestetään vain etänä internetissä, valitse tapahtumapaikaksi Virtuaalitapahtuma. Tapahtuman URL-osoite laitetaan kotisivu-kenttään ja/tai tapahtuma sosiaalisessa mediassa -kenttiin.",
       "editor-tip-location-not-found": "Jos tarkkaa tapahtumapaikkaa ei löydy listasta, valitse tapahtumapaikaksi lähin katuosoite ja kirjoita paikan nimi tai muut tarkemmat saapumisohjeet tiiviisti lisätietokenttään.",
       "editor-tip-price": "Merkitse onko tapahtuma maksuton. Syötä maksulliselle tapahtumalle hinta muodossa \\"5€\\".",
       "editor-tip-price-multi": "Jos tapahtumalla on useita hintoja, klikkaa Lisää uusi hintatieto ja merkitse kunkin hintaryhmän nimi (esim. Lapset) Hintatietojen kuvaus -kenttään.",
@@ -202,7 +216,7 @@ exports[`EventListing Snapshot should render view correctly 1`] = `
       "event-publisher": "Tapahtuman julkaisija",
       "event-publisher-info": "Julkaisija: {publisher}",
       "event-purchase-link": "Linkki lipunmyyntiin/ilmoittautumiseen",
-      "event-short-description": "Lyhyt kuvaus (korkeintaan 160 merkkiä)",
+      "event-short-description": "Lyhyt kuvaus",
       "event-social-media-fields-header": "Tapahtuma sosiaalisessa mediassa",
       "event-sort-date_published": "Hyväksytty",
       "event-sort-end_time": "Tapahtuma päättyy",
@@ -227,11 +241,16 @@ exports[`EventListing Snapshot should render view correctly 1`] = `
       "events-management-prompt": "muokataksesi tapahtumia.",
       "external-url-here": "Kuvan URL",
       "facebook-url": "Facebook (url)",
+      "footer-accessibility": "Saavutettavuusseloste",
+      "footer-city": "© Helsingin kaupunki",
+      "footer-city1": "PL 1  (Pohjoisesplanadi 11-13) 00099 ",
+      "footer-city2": "HELSINGIN KAUPUNKI",
+      "footer-city3": "www.hel.fi",
       "format-select-count": " ({count} tapahtumaa)",
       "friday": "perjantai",
       "hel-event-languages": "Tapahtuman kielet",
       "hel-target-groups": "Kohderyhmät",
-      "image-caption-limit-for-min-and-max": "Kuvateksti (pituus korkeintaan {maxLength} merkkiä)",
+      "image-caption-limit-for-min-and-max": "Kuvateksti",
       "image-creation-error": "Virhe kuvaa luodessa.",
       "image-creation-success": "Kuva luotiin onnistuneesti!",
       "image-deletion-error": "Virhe kuvaa poistettaessa.",
@@ -286,11 +305,21 @@ exports[`EventListing Snapshot should render view correctly 1`] = `
       "no-value": "-kenttää ei ole täytetty.",
       "or": "tai",
       "organization-images": "Organisaation kuvat",
+      "organization-missing-heading": "Tervetuloa käyttämään Linked Eventsiä, ",
+      "organization-missing-heading-courses": "Tervetuloa käyttämään Linked Coursesia, ",
+      "organization-missing-message": "Sinulla ei ole vielä oikeutta hallinnoida yhdenkään yksikön tapahtumia. ",
+      "organization-missing-message-contact": "Ota yhteyttä ",
+      "organization-missing-message-contact1": "Paavo Jantuseen ",
+      "organization-missing-message-contact2": "saadaksesi oikeudet muokata yksikkösi tapahtumia. ",
+      "organization-missing-message-courses": "Sinulla ei ole vielä oikeutta hallinnoida yhdenkään yksikön kursseja. ",
+      "organization-missing-message1": "Jos olet jo saanut käyttöoikeudet, kirjautumisesi saattaa olla vanhentunut. Kokeile sivun päivittämistä (F5) ja kirjautumista uudestaan.",
       "photographer": "Kuvaaja",
       "pick-time-range": "Etsi vain ajalta",
       "play-date-label": "Toistopäivät",
       "postpone-events": "Lykkää tapahtumaa",
       "postponed": "Lykätty",
+      "preview-event": "Tapahtuman tiedot",
+      "preview-event-button": "Tarkista lomakkeen tiedot",
       "publish-events": "Julkaise tapahtuma",
       "publish-events-multi": "Julkaise tapahtumat",
       "ready": "Valmis",
@@ -301,6 +330,13 @@ exports[`EventListing Snapshot should render view correctly 1`] = `
       "repetition-interval": " viikon välein.",
       "repetition-interval-label": "Toistoväli",
       "repetition-start-time": "Tapahtumien alkuaika (tt.mm)",
+      "reportbutton-send": "Lähetä raportti",
+      "reportmodal-debugbutton": "Palaute",
+      "reportmodal-field": "Kuvaile ongelmaa",
+      "reportmodal-sent": "Raportti lähetetty, kiitoksia",
+      "reportmodal-title": "Raportoi virhetilanne",
+      "reportmodal-tooltip": "Jos tapahtumien hallinnassa tai syöttölomakkeen toiminnassa on virhe, klikkaa tästä raportoidaksesi virheestä, niin saamme virhetilanteesta tiedon ja voimme tutkia asiaa.",
+      "reportmodal-version": "Sovelluksen versiotunniste:",
       "return-to-events": "Palaa takaisin tapahtumiin",
       "return-without-saving": "Palaa tekemättä muutoksia",
       "saturday": "lauantai",
@@ -326,6 +362,10 @@ exports[`EventListing Snapshot should render view correctly 1`] = `
       "super-event-of-series": "Tämä on tapahtumasarjan ylätapahtuma.",
       "super-event-of-umbrella": "Tämä tapahtuma on kattotapahtuma.",
       "table-events-per-page": "Tapahtumia per sivu",
+      "table-pagination-next-page": "Seuraava sivu",
+      "table-pagination-previous-page": "Edellinen sivu",
+      "table-pagination-results": "Tapahtumat välillä {from} ja {to} / {count}",
+      "table-pagination-shortcut-link": "Siirry taulukon alkuun",
       "terms-agree-link": "palvelun käyttöehdot",
       "terms-agree-text": "Hyväksyn",
       "terms-heading": "Linked Eventsin käyttöehdot",
@@ -339,6 +379,8 @@ exports[`EventListing Snapshot should render view correctly 1`] = `
       "upload-image-from-url": "Tai syötä ulkoisen kuvan osoite (url)",
       "uploaded-image-size-error": "Kuva on liian suuri. Kuvan koon on oltava alle 2 Mt.",
       "uploaded-image-size-tip": " Kuvan sallittu koko on maksimissaan 2 Mt.",
+      "uploaded-image-size-tip2": "Muokkaa kuva ennen syöttöä verkkoon sopivaksi ja 3:2-vaakakuvasuhteeseen, esim. 1200X800px (leveys x korkeus).",
+      "uploaded-image-size-tip3": "Sallitut tiedostotyypit ovat jpeg, gif ja png.",
       "use-existing-image": "Käytä järjestelmässä olemassaolevaa kuvaa",
       "use-external-image-url": "tai syötä ulkoisen kuvan osoite:",
       "user-events-toggle": "Näytä vain itse luomani tapahtumat",
