@@ -1,7 +1,7 @@
 import './EventTable.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
-import {TablePagination} from '@material-ui/core';
+import CustomTablePagination from './CustomTablePagination'
 import {FormattedMessage, injectIntl} from 'react-intl';
 import EventRow from './EventRow';
 import TableHeaderCell from './CellTypes/TableHeaderCell';
@@ -54,9 +54,9 @@ const EventTable = ({
     const isActive = name => sortBy === name
     // only show page size options dropdown if there are more events than the smallest option available
     const showPageSizeOptions = pageSizeOptions.length && pageSizeOptions[0] <= events.length
-
+    const tableId = tableName ? tableName + '-id' : 'events-table-id'
     return (
-        <Table className="event-table">
+        <Table className="event-table" id={tableId}>
             <thead>
                 <tr>
                     {tableColumns.map(item => (
@@ -108,15 +108,16 @@ const EventTable = ({
             }
             <tfoot>
                 <tr>
-                    <TablePagination
+                    <CustomTablePagination
                         count={count !== null ? count : 0}
-                        rowsPerPage={pageSize}
+                        rowsPerPage={parseInt(pageSize)}
                         rowsPerPageOptions = {showPageSizeOptions ? pageSizeOptions : []}
                         page={paginationPage}
                         onChangePage={(event, newPage) => handlePageChange(event, newPage, tableName)}
                         onChangeRowsPerPage={(event) => handlePageSizeChange(event, tableName)}
                         labelDisplayedRows={({from, to, count}) => `${from}-${to} / ${count}`}
                         labelRowsPerPage={intl.formatMessage({id: 'table-events-per-page'})}
+                        shortcutElementId={tableId}
                     />
                 </tr>
             </tfoot>

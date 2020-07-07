@@ -1,0 +1,54 @@
+.custom-table-pagination {
+    align-items: center;
+
+    .flex-container {
+        display: flex;
+    }
+
+    label {
+        margin-bottom: 0;
+    }
+
+    &__spacer {
+        flex: 1 1 100%;
+    }
+
+    &__content {
+        flex-shrink: 0;
+        text-align: end;
+        
+        > * {
+            margin-left: 4px;
+            margin-right: 4px;
+            margin: auto 4px;
+        }
+
+        p {
+            display: inline;
+        }
+
+        .visually-hidden {
+            position: absolute;
+            left: -10000px;
+            top: auto;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+        }
+
+        #back-to-start-shortcut {
+            display: block;
+            text-align: end;
+            margin: 0;
+        }
+    }
+
+    &__buttons {
+        display: contents;
+        button {
+            padding: 0 6px;
+            margin-bottom: 4px;
+            margin-left: 2px;
+        }
+    }
+}

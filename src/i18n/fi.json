@@ -397,5 +397,10 @@
     "reportmodal-version": "Sovelluksen versiotunniste:",
     "reportmodal-tooltip": "Jos tapahtumien hallinnassa tai syöttölomakkeen toiminnassa on virhe, klikkaa tästä raportoidaksesi virheestä, niin saamme virhetilanteesta tiedon ja voimme tutkia asiaa.",
     "reportmodal-sent": "Raportti lähetetty, kiitoksia",
-    "reportmodal-debugbutton": "Palaute"
+    "reportmodal-debugbutton": "Palaute",
+	
+	"table-pagination-results": "Tapahtumat välillä {from} ja {to} / {count}",
+	"table-pagination-shortcut-link": "Siirry taulukon alkuun",
+	"table-pagination-next-page": "Seuraava sivu",
+	"table-pagination-previous-page": "Edellinen sivu"
 }

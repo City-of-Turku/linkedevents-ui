@@ -320,7 +320,7 @@
     "moderation-page-published-heading": "Julkaistut tapahtumat",
     "moderation-page-published-description": "Jos julkaisit tapahtumaehdotuksen valmiin kattotapahtuman alle, sitä ei näytetä tässä näkymässä.",
 
-    "table-events-per-page": "Tapahtumia per sivu",
+    "table-events-per-page": "Händelser per sida",
 
     "draft-cancel": "Tapahtumaluonnoksia ei voi perua.",
     "draft-publish-subevent": "Sarjan alatapahtumia ei voi julkaista.",
@@ -371,5 +371,10 @@
     "footer-city3": "www.hel.fi",
     
     "preview-event": "Information om evenemang",
-    "preview-event-button": "Kontrollera formuläret"
+    "preview-event-button": "Kontrollera formuläret",
+	
+	"table-pagination-results": "Händelserna mellan {from} och {to} / {count}",
+	"table-pagination-shortcut-link": "Hoppa till början av tabellen",
+	"table-pagination-next-page": "Nästa sida",
+	"table-pagination-previous-page": "Föregående sida"
 }

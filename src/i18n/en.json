@@ -386,5 +386,10 @@
     "footer-city3": "www.hel.fi",
     
     "preview-event": "Event Information",
-    "preview-event-button": "Preview the form"
+    "preview-event-button": "Preview the form",
+	
+	"table-pagination-results": "Events between {from} and {to} / {count}",
+	"table-pagination-shortcut-link": "Back to top of the table",
+	"table-pagination-next-page": "Next page",
+	"table-pagination-previous-page": "Previous page"
 }

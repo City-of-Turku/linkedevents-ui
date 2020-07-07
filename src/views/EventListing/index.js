@@ -275,7 +275,7 @@ export class EventListing extends React.Component {
                     user={user}
                     fetchComplete={fetchComplete}
                     count={count}
-                    pageSize={pageSize}
+                    pageSize={parseInt(pageSize)}
                     paginationPage={paginationPage}
                     sortBy={sortBy}
                     sortDirection={sortDirection}

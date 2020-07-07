@@ -420,7 +420,7 @@ export class Moderation extends React.Component {
                             user={user}
                             fetchComplete={table.data.fetchComplete}
                             count={table.data.count}
-                            pageSize={table.data.pageSize}
+                            pageSize={parseInt(table.data.pageSize)}
                             paginationPage={table.data.paginationPage}
                             sortBy={table.data.sortBy}
                             sortDirection={table.data.sortDirection}
