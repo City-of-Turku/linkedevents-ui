@@ -374,7 +374,7 @@
     "preview-event-button": "Kontrollera formuläret",
 	
 	"table-pagination-results": "Händelserna mellan {from} och {to} / {count}",
-	"table-pagination-shortcut-link": "Hoppa till början av tabellen",
+	"table-pagination-shortcut-link": "Gå till början av tabellen",
 	"table-pagination-next-page": "Nästa sida",
 	"table-pagination-previous-page": "Föregående sida"
 }
