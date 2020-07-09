@@ -27,9 +27,14 @@ textarea {
         top: 65px;
     }
 }
-
+.audience-row {
+    padding-left: 15px;
+    padding-right: 15px;
+}
 .keyword-row {
     position: relative;
+    padding-left: 15px;
+    padding-right: 15px;
     .clipboard-copy-button {
         left: 480px;
         top: 65px;

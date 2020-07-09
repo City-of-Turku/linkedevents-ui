@@ -16,21 +16,35 @@ exports[`EventListing Snapshot should render view by default 1`] = `
       values={Object {}}
     />
   </p>
-  <WithStyles(WithStyles(ForwardRef(FormControlLabel)))
-    control={
-      <ForwardRef(WithStyles)
-        checked={false}
-        color="primary"
-        onChange={[Function]}
-      />
-    }
-    label={
+  <div
+    className="user-events-toggle"
+  >
+    <Input
+      checked={false}
+      color="primary"
+      id="user-events-toggle"
+      onChange={[Function]}
+      type="checkbox"
+    />
+    <Label
+      htmlFor="user-events-toggle"
+      tag="label"
+      widths={
+        Array [
+          "xs",
+          "sm",
+          "md",
+          "lg",
+          "xl",
+        ]
+      }
+    >
       <FormattedMessage
         id="user-events-toggle"
         values={Object {}}
       />
-    }
-  />
+    </Label>
+  </div>
   <InjectIntl(EventTable)
     count={null}
     events={Array []}
@@ -294,6 +308,14 @@ exports[`EventListing Snapshot should render view correctly 1`] = `
       "no-value": "-kenttää ei ole täytetty.",
       "or": "tai",
       "organization-images": "Organisaation kuvat",
+      "organization-missing-heading": "Tervetuloa käyttämään Linked Eventsiä, ",
+      "organization-missing-heading-courses": "Tervetuloa käyttämään Linked Coursesia, ",
+      "organization-missing-message": "Sinulla ei ole vielä oikeutta hallinnoida yhdenkään yksikön tapahtumia. ",
+      "organization-missing-message-contact": "Ota yhteyttä ",
+      "organization-missing-message-contact1": "Paavo Jantuseen ",
+      "organization-missing-message-contact2": "saadaksesi oikeudet muokata yksikkösi tapahtumia. ",
+      "organization-missing-message-courses": "Sinulla ei ole vielä oikeutta hallinnoida yhdenkään yksikön kursseja. ",
+      "organization-missing-message1": "Jos olet jo saanut käyttöoikeudet, kirjautumisesi saattaa olla vanhentunut. Kokeile sivun päivittämistä (F5) ja kirjautumista uudestaan.",
       "photographer": "Kuvaaja",
       "pick-time-range": "Etsi vain ajalta",
       "play-date-label": "Toistopäivät",
@@ -311,6 +333,13 @@ exports[`EventListing Snapshot should render view correctly 1`] = `
       "repetition-interval": " viikon välein.",
       "repetition-interval-label": "Toistoväli",
       "repetition-start-time": "Tapahtumien alkuaika (tt.mm)",
+      "reportbutton-send": "Lähetä raportti",
+      "reportmodal-debugbutton": "Palaute",
+      "reportmodal-field": "Kuvaile ongelmaa",
+      "reportmodal-sent": "Raportti lähetetty, kiitoksia",
+      "reportmodal-title": "Raportoi virhetilanne",
+      "reportmodal-tooltip": "Jos tapahtumien hallinnassa tai syöttölomakkeen toiminnassa on virhe, klikkaa tästä raportoidaksesi virheestä, niin saamme virhetilanteesta tiedon ja voimme tutkia asiaa.",
+      "reportmodal-version": "Sovelluksen versiotunniste:",
       "return-to-events": "Palaa takaisin tapahtumiin",
       "return-without-saving": "Palaa tekemättä muutoksia",
       "saturday": "lauantai",
@@ -336,6 +365,10 @@ exports[`EventListing Snapshot should render view correctly 1`] = `
       "super-event-of-series": "Tämä on tapahtumasarjan ylätapahtuma.",
       "super-event-of-umbrella": "Tämä tapahtuma on kattotapahtuma.",
       "table-events-per-page": "Tapahtumia per sivu",
+      "table-pagination-next-page": "Seuraava sivu",
+      "table-pagination-previous-page": "Edellinen sivu",
+      "table-pagination-results": "Tapahtumat välillä {from} ja {to} / {count}",
+      "table-pagination-shortcut-link": "Siirry taulukon alkuun",
       "terms-agree-link": "palvelun käyttöehdot",
       "terms-agree-text": "Hyväksyn",
       "terms-heading": "Linked Eventsin käyttöehdot",

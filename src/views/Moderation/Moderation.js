@@ -1,7 +1,8 @@
 require('./moderation.scss')
 import React from 'react'
 import PropTypes from 'prop-types'
-import {Button} from '@material-ui/core'
+import {Button} from 'reactstrap';
+
 import {FormattedMessage, injectIntl} from 'react-intl'
 import EventTable from '../../components/EventTable/EventTable'
 import {connect} from 'react-redux'
@@ -419,7 +420,7 @@ export class Moderation extends React.Component {
                             user={user}
                             fetchComplete={table.data.fetchComplete}
                             count={table.data.count}
-                            pageSize={table.data.pageSize}
+                            pageSize={parseInt(table.data.pageSize)}
                             paginationPage={table.data.paginationPage}
                             sortBy={table.data.sortBy}
                             sortDirection={table.data.sortDirection}

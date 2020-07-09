@@ -1,57 +1,65 @@
+import './index.scss';
+
 import React, {useState} from 'react';
-import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
-import {Close, Feedback} from '@material-ui/icons';
 import {report} from '../../utils/raven_reporter';
-import {HelMaterialTheme} from '../../themes/material-ui';
-import {Dialog, DialogTitle, DialogContent, IconButton, TextField, withStyles} from '@material-ui/core';
+import {Button, Modal, ModalBody, ModalHeader, Input} from 'reactstrap';
+import {FormattedMessage, injectIntl} from 'react-intl';
 
-const DebugDialogTitle = withStyles({
-    root: {
-        '& .MuiTypography-root': {
-            alignItems: 'center',
-            display: 'flex',
-            justifyContent: 'space-between',
-        },
-    },
-})(DialogTitle);
 
-const DebugReporterModal = ({showModal, close, sendReport}) => {
+const DebugReporterModal = ({showModal, close, sendReport,intl}) => {
     const [value, setValue] = useState();
+    const getCloseButton = () => {
+        return (
+            <Button
+                className='icon-button'
+                type='button'
+                aria-label={intl.formatMessage({id: `close`})}
+                onClick={() => close()}>
+                <span className='glyphicon glyphicon-remove'></span>
+            </Button>
+        )
+    }
 
     return (
         <div id='debugreporterform'>
-            <Dialog open={showModal} onClose={close} transitionDuration={0}>
-                <DebugDialogTitle>
-                    Raportoi virhetilanne
-                    <IconButton onClick={() => close()}>
-                        <Close />
-                    </IconButton>
-                </DebugDialogTitle>
-                <DialogContent>
-                    <TextField
-                        multiline
-                        fullWidth
+            <Modal
+                className='debugreporterform'
+                size='s'
+                role='dialog'
+                aria-modal='true'
+                isOpen={showModal}
+                onClose={close}
+            >
+                <ModalHeader tag='h1' close={getCloseButton()}>
+                    <FormattedMessage id='reportmodal-title'/>
+                </ModalHeader>
+                <ModalBody>
+                    <label htmlFor='reportfield'><FormattedMessage id='reportmodal-field'/></label>
+                    <Input
+                        id='reportfield'
+                        type="textarea"
+                        name="text"
+                        multiline='true'
                         value={value}
-                        label={'Kuvaile ongelmaa halutessasi'}
                         style={{margin: 0}}
                         onChange={(event) => setValue(event.target.value)}
                     />
-                    <button onClick={() => sendReport(value)} style={{margin: '1rem 0 0'}}>
-                        Lähetä raportti
-                    </button>
+                    <Button onClick={() => sendReport(value)} style={{margin: '1rem 0 0'}}>
+                        <FormattedMessage id='reportbutton-send'/>
+                    </Button>
                     <hr />
                     <small
                         style={{
                             display: 'block',
                             margin: '0 0 10px',
                         }}>
-                        Sovelluksen versiotunniste:
+                        <FormattedMessage id='reportmodal-version'/>
                         <br />
                         {appSettings.commit_hash}
                     </small>
-                </DialogContent>
-            </Dialog>
+                </ModalBody>
+            </Modal>
         </div>
     );
 };
@@ -60,17 +68,23 @@ DebugReporterModal.propTypes = {
     sendReport: PropTypes.func,
     showModal: PropTypes.bool,
     close: PropTypes.func,
+    intl: PropTypes.object.isRequired,
 };
 
 class DebugHelper extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {reporting: false};
-
+        this.state = {
+            reporting: false,
+            showModalTooltip: false,
+        };
+        this.handleButtonBlur = this.handleButtonBlur.bind(this)
+        this.handleButtonFocus = this.handleButtonFocus.bind(this)
         this.showReportForm = this.showReportForm.bind(this);
         this.closeReportForm = this.closeReportForm.bind(this);
         this.serializeState = this.serializeState.bind(this);
     }
+    
 
     showReportForm() {
         this.setState({reporting: true});
@@ -84,7 +98,14 @@ class DebugHelper extends React.Component {
         this.closeReportForm();
         report(window.ARG, reportmsg, appSettings.commit_hash);
 
-        window.setTimeout(() => alert('Raportti lähetetty, kiitoksia'), 100);
+        window.setTimeout(() => alert(this.props.intl.formatMessage({id: `reportmodal-sent`})), 100);
+    }
+
+    handleButtonFocus(){
+        this.setState({showModalTooltip: true});
+    }
+    handleButtonBlur(){
+        this.setState({showModalTooltip: false});
     }
 
     render() {
@@ -94,17 +115,21 @@ class DebugHelper extends React.Component {
                     showModal={this.state.reporting}
                     close={this.closeReportForm}
                     sendReport={this.serializeState}
+                    intl={this.props.intl}
                 />
                 <div id='debughelper'>
                     <div id='debughelper_container'>
-                        <button className='btn btn-default' aria-label='Feedback' onClick={this.showReportForm}>
-                            <Feedback style={{marginLeft: HelMaterialTheme.spacing(1)}} />
+                        <button className='btn btn-default'
+                            onClick={this.showReportForm}
+                            onBlur={this.handleButtonBlur}
+                            onFocus={this.handleButtonFocus}
+                            aria-labelledby='tooltip'
+                        >
+                            <span className='glyphicon glyphicon-exclamation-sign' style={{marginLeft: '8px'}}></span>
                         </button>
                     </div>
-                    <div id='slide'>
-                        Jos tapahtumien hallinnassa tai syöttölomakkeen toiminnassa on virhe,
-                        klikkaa {`"raportoi virhe"`}&#x2011;nappia, niin saamme virhetilanteesta
-                        tiedon ja voimme tutkia asiaa.
+                    <div id='slide'className={this.state.showModalTooltip ? 'show-me' : undefined}>
+                        <FormattedMessage id='reportmodal-tooltip'>{txt => <p id='tooltip'>{txt}</p>}</FormattedMessage>
                     </div>
                 </div>
             </div>
@@ -112,11 +137,11 @@ class DebugHelper extends React.Component {
     }
 }
 
-ReactDOM.render(
-    <div>
-        <DebugHelper />
-    </div>,
-    document.getElementById('content')
-);
+DebugHelper.propTypes = {
+    intl: PropTypes.object.isRequired,
+};
+DebugHelper.contextTypes = {
+    intl: PropTypes.object,
+};
 
-export default DebugHelper;
+export default injectIntl(DebugHelper);

@@ -21,6 +21,7 @@
     "update-events": "Save",
     "delete-events": "Delete event",
     "cancel-events": "Cancel event",
+    "postpone-events": "Postpone the event",
     "publish-events": "Publish event",
     "delete-events-multi": "Delete events",
     "publish-events-multi": "Publish events",
@@ -109,6 +110,12 @@
     "external-url-here": "URL to image",
     "or": "or",
     "organization-images": "Images of your organization",
+    "organization-missing-heading": "Welcome to Linked Events, ",
+    "organization-missing-message": "You don't have any permission to manage events yet. ",
+    "organization-missing-message1": "If you have already been granted access, your login may have expired. Try refreshing the page (F5) or logging in again.",
+    "organization-missing-message-contact": "Contact ",
+    "organization-missing-message-contact1": "Paavo Jantunen ",
+    "organization-missing-message-contact2": "to gain permissions to edit events in your unit. ",
     "use-existing-image": "Use an image in the system",
     "no-image": "NO IMAGE",
 
@@ -360,10 +367,34 @@
     "navbar.sv": "Swedish",
     "navbar.active": "Current language is english",
 
-	"cookieBar.accept": "Accept",
-	"cookieBar.decline.text": "Decline",
-	"cookieBar.decline.url": "https://www.google.com/",
-	"cookieBar.description": "We use cookies to improve your browsing experience. By continuing to use Linked Events, you accept the use of cookies.",
-	"cookieBar.link.text": "Link to cookie policy",
-	"cookieBar.link.url": "https://testilinkedevents.turku.fi/cookie-policy/info-en.html"
+	
+	  "cookieBar.accept": "Accept",
+	  "cookieBar.decline.text": "Decline",
+	  "cookieBar.decline.url": "https://www.google.com/",
+	  "cookieBar.description": "We use cookies to improve your browsing experience. By continuing to use Linked Events, you accept the use of cookies.",
+	  "cookieBar.link.text": "Link to cookie policy",
+    "cookieBar.link.url": "https://testilinkedevents.turku.fi/cookie-policy/info-en.html",
+    
+    "reportbutton-send": "Send report",
+    "reportmodal-title": "Report an error situation",
+    "reportmodal-field": "Describe the problem",
+    "reportmodal-version": "Application version identifier:",
+    "reportmodal-tooltip": "If there is an error in event management or the operation of the input form, click here to report the error, and we will be informed of the error situation and can investigate.",
+    "reportmodal-sent": "Report sent, thank you",
+    "reportmodal-debugbutton": "Feedback",
+
+    "footer-accessibility": "Accessibility statement",
+    "footer-city": "© City of Helsinki",
+    "footer-city1": "Pohjoisesplanadi 11-13, P.O. Box 1 00099 ",
+    "footer-city2": "CITY OF HELSINKI",
+    "footer-city3": "www.hel.fi",
+    
+    "preview-event": "Event Information",
+    "preview-event-button": "Preview the form",
+	
+	"table-pagination-results": "Events between {from} and {to} / {count}",
+	"table-pagination-shortcut-link": "Back to top of the table",
+	"table-pagination-next-page": "Next page",
+	"table-pagination-previous-page": "Previous page"
+
 }

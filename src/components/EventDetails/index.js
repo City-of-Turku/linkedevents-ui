@@ -13,8 +13,8 @@ import {
 import {getStringWithLocale} from '../../utils/locale'
 import {mapKeywordSetToForm} from '../../utils/apiDataMapping'
 import LinksToEvents from '../LinksToEvents/LinksToEvents'
-import {CheckBox, CheckBoxOutlineBlank} from '@material-ui/icons'
-import helBrandColors from '../../themes/hel/hel-brand-colors'
+
+
 import classNames from 'classnames';
 
 const NoValue = (props) => {
@@ -34,16 +34,16 @@ NoValue.propTypes = {
 const CheckedValue = ({checked, labelKey, label}) => (
     <div className="checked-value">
         {checked
-            ? <CheckBox htmlColor={helBrandColors.tram.main} />
-            : <CheckBoxOutlineBlank />
+            ? <input type='checkbox' checked='disabled' readOnly id={label}/>
+            : <input type='checkbox' disabled id={label} readOnly aria-hidden="true" /> 
         }
-        <label htmlFor='checkedvalue'>
+        <label htmlFor={label}>
             {labelKey
                 ? <FormattedMessage id={labelKey}/>
                 : label
             }
         </label>
-        <input type="hidden" id='checkedvalue'/>
+      
     </div>
 )
 

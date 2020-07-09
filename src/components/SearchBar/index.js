@@ -49,6 +49,7 @@ const SearchBar = ({intl, onFormSubmit}) => {
             <div className='search-bar--input event-input'>
                 <Form>
                     <input
+                        id='search'
                         aria-hidden='true'
                         className='hidden'
                         onInput={(e) => setSearchQuery(e.target.value)}
@@ -57,8 +58,9 @@ const SearchBar = ({intl, onFormSubmit}) => {
                         }
                     />
                     <FormGroup>
-                        <label>{intl.formatMessage({id: 'event-name-or-place'})}</label>
+                        <label htmlFor='search'>{intl.formatMessage({id: 'event-name-or-place'})}</label>
                         <input
+                            id='search'
                             className='event-search-bar'
                             type='text'
                             autoFocus

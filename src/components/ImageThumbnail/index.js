@@ -7,7 +7,6 @@ import {FormattedMessage, injectIntl} from 'react-intl'
 import {connect} from 'react-redux'
 import {selectImage as selectImageAction} from 'src/actions/userImages'
 import ImageEdit from '../ImageEdit'
-import {Build} from '@material-ui/icons'
 
 class ImageThumbnail extends React.PureComponent {
 
@@ -66,7 +65,7 @@ class ImageThumbnail extends React.PureComponent {
                         <span className={'image-title'}>
                             {this.props.data.name || <FormattedMessage id="edit-image"/>}
                         </span>
-                        <Build />
+                        <span className="glyphicon glyphicon-wrench"></span>
                     </div>
                 </div>
                 { editModal }

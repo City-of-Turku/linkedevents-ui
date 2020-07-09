@@ -35,7 +35,7 @@ import classNames from 'classnames';
 
 let FormHeader = (props) => (
     <div className="row">
-        <legend className="col-sm-12">{ props.children }</legend>
+        <legend tabIndex='0'className="col-sm-12">{ props.children }</legend>
     </div>
 )
 
@@ -196,9 +196,10 @@ class FormFields extends React.Component {
             <div>
                 <div className="col-sm-12 highlighted-block">
                     <div className="col-xl-4 col-sm-12">
-                        <label>
+                        <label htmlFor='languages' tabIndex='0'>
                             <FormattedMessage id="event-presented-in-languages"/>
                         </label>
+                        <input id='languages' type='hidden'/>
                     </div>
                     <div className="col-xl-8 col-sm-12">
                         <HelLanguageSelect
@@ -287,6 +288,7 @@ class FormFields extends React.Component {
                             type='text'
                         />
                         <OrganizationSelector
+                            
                             formType={formType}
                             options={publisherOptions}
                             selectedOption={selectedPublisher}
@@ -294,7 +296,8 @@ class FormFields extends React.Component {
                         />
                     </div>
                     <SideField>
-                        <label><FormattedMessage id="event-image"/></label>
+                        <label htmlFor='image'><FormattedMessage id="event-image"/></label>
+                        <input id='image' type='hidden'/>
                         <ImagePickerForm label="image-preview" name="image" loading={this.props.loading} />
                     </SideField>
                 </div>
@@ -537,7 +540,7 @@ class FormFields extends React.Component {
                         setDirtyState={this.props.setDirtyState}
                     />
                 </div>
-                <div className="row">
+                <div className="row audience-row">
                     <HelLabeledCheckboxGroup
                         groupLabel={<FormattedMessage id="hel-target-groups"/>}
                         selectedValues={values['audience']}

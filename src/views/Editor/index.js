@@ -8,7 +8,7 @@ import PropTypes from 'prop-types'
 import {Button} from 'reactstrap';
 //Replaced Material-ui Spinner for a Bootstrap implementation. - Turku
 import Spinner from 'react-bootstrap/Spinner'
-import {Close} from '@material-ui/icons'
+
 import {
     executeSendRequest as executeSendRequestAction,
     clearData as clearDataAction,
@@ -213,6 +213,7 @@ export class EditorPage extends React.Component {
         const {event, subEvents} = this.state
         const eventIsPublished = this.eventIsPublished()
         const loading = this.state.loading || this.props.editor.loading
+        const {intl} = this.props;
 
         return <EventActionButton
             action={action}
@@ -224,6 +225,7 @@ export class EditorPage extends React.Component {
             loading={loading}
             runAfterAction={this.handleConfirmedAction}
             subEvents={subEvents}
+            intl={intl}
         />
     }
 
@@ -309,7 +311,8 @@ export class EditorPage extends React.Component {
                                 </Button>
                             }
                             {/* Commented out since we decided that we wouldn't need this button - Turku
-                            <Button
+
+                             <Button
                                 variant="contained"
                                 onClick={this.clearEventData}
                                 color="primary"

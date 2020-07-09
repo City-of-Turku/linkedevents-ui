@@ -1,6 +1,15 @@
 .repetition-count {
     align-items: center;
     display: inline-flex;
+    input {
+        margin: 0;
+        width: 40px;
+        padding: 4px 8px;
+        text-align: center;
+        border-top: none;
+        border-left: none;
+        border-right: none;
+    }
 }
 //Styling for the Modal
 .recurringEvent {
@@ -53,6 +62,3 @@
         }
     }
 }
-
-    
-
