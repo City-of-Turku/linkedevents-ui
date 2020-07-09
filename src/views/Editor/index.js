@@ -28,7 +28,7 @@ import {
     getOrganizationMembershipIds,
     hasOrganizationWithRegularUsers,
 } from '../../utils/user'
-import EventActionButton from '../../components/EventActionButton/EventActionButton'
+import EventActionButton from '../../components/EventActionButton/EventActionButton';
 import {scrollToTop} from '../../utils/helpers'
 import {doValidations} from '../../validation/validator'
 import {mapAPIDataToUIFormat} from '../../utils/formDataMapping'
@@ -93,7 +93,7 @@ export class EditorPage extends React.Component {
                 })
             }
         }
-        
+
         if (publisherId && publisherId !== oldPublisherId) {
             getOrganizationAncestors(publisherId)
                 .then(response => this.setState(state => ({
@@ -259,7 +259,7 @@ export class EditorPage extends React.Component {
                 <FormattedMessage id="preview-event-button" />
             </Button>
         )
-    } 
+    }
 
     validateEvent = () => {
         const {event} = this.state
@@ -292,95 +292,97 @@ export class EditorPage extends React.Component {
         }
 
         return (
-            <div className="editor-page">
-                <div className="container header">
-                    <h1>
-                        <FormattedMessage id={headerTextId}/>
-                    </h1>
-                    <span className="controls">
-                        {isAdminUser && isDraft &&
+            <React.Fragment>
+                <div className="editor-page">
+                    <div className="container header">
+                        <h1>
+                            <FormattedMessage id={headerTextId}/>
+                        </h1>
+                        <span className="controls">
+                            {isAdminUser && isDraft &&
+                                <Button
+                                    variant="contained"
+                                    onClick={this.validateEvent}
+                                    color="primary"
+                                >
+                                    <FormattedMessage id="validate-form"/>
+                                </Button>
+                            }
+                            {/* Commented out since we decided that we wouldn't need this button - Turku
                             <Button
                                 variant="contained"
-                                onClick={this.validateEvent}
+                                onClick={this.clearEventData}
                                 color="primary"
+                                endIcon={<Close/>}
                             >
-                                <FormattedMessage id="validate-form"/>
-                            </Button>
+                                <FormattedMessage id="clear-form"/>
+                            </Button> */}
+                        </span>
+                        <PreviewModal
+                            toggle={() => this.showPreviewEventModal()}
+                            isOpen={this.state.showPreviewEventModal}
+                            editor={editor}
+                            event={event}
+                            superEvent={superEvent}
+                            values={editor.values}
+                        />
+                    </div>
+
+                    <div className="container">
+                        <FormFields
+                            action={editMode}
+                            editor={editor}
+                            event={event}
+                            superEvent={superEvent}
+                            user={user}
+                            setDirtyState={this.setDirtyState}
+                            loading={loading}
+                        />
+                    </div>
+
+                    <div className="editor-action-buttons">
+                        {loading
+                            ? <Spinner animation="border" role="status">
+                                <span className="sr-only">Loading...</span>
+                            </Spinner>
+                            : <div className='buttons-group container'>
+                                {editMode === 'update' && this.getActionButton('postpone')}
+                                {editMode === 'update' && this.getActionButton('cancel')}
+                                {editMode === 'update' && this.getActionButton('delete')}
+                                {isDraft && hasOrganizationWithRegularUsers(user) &&
+                                    this.getActionButton('return', this.navigateToModeration, false)
+                                }
+                                {
+                                    //Button that opens a preview modal of the event
+                                    this.getPreviewButton(
+                                    )
+                                }
+                                {
+                                    // button that saves changes to a draft without publishing
+                                    // only shown to moderators
+                                    isDraft && hasOrganizationWithRegularUsers(user) &&
+                                    this.getActionButton(
+                                        'update-draft',
+                                        this.saveChangesToDraft,
+                                        hasSubEvents && !isUmbrellaEvent,
+                                        'event-action-save-draft-existing'
+                                    )
+                                }
+                                {
+                                    // show confirmation modal when the updated event has sub events and isn't an umbrella event,
+                                    // otherwise save directly
+                                    this.getActionButton(
+                                        'update',
+                                        this.saveChanges,
+                                        hasSubEvents && !isUmbrellaEvent
+                                    )
+                                }
+                            </div>
                         }
-                        {/* Commented out since we decided that we wouldn't need this button - Turku
-                        <Button
-                            variant="contained"
-                            onClick={this.clearEventData}
-                            color="primary"
-                            endIcon={<Close/>}
-                        >
-                            <FormattedMessage id="clear-form"/>
-                        </Button> */}
-                    </span>
-                    <PreviewModal
-                        toggle={() => this.showPreviewEventModal()}
-                        isOpen={this.state.showPreviewEventModal}
-                        editor={editor}
-                        event={event}
-                        superEvent={superEvent}
-                        values={editor.values}
-                    />
+                    </div>
+                    <Notifications flashMsg={this.props.app.flashMsg} />
                 </div>
-
-                <div className="container">
-                    <FormFields
-                        action={editMode}
-                        editor={editor}
-                        event={event}
-                        superEvent={superEvent}
-                        user={user}
-                        setDirtyState={this.setDirtyState}
-                        loading={loading}
-                    />
-                </div>
-
-                <div className="editor-action-buttons">
-                    {loading
-                        ? <Spinner animation="border" role="status">
-                            <span className="sr-only">Loading...</span>
-                        </Spinner>
-                        : <div className='buttons-group container'>
-                            {editMode === 'update' && this.getActionButton('postpone')}
-                            {editMode === 'update' && this.getActionButton('cancel')}
-                            {editMode === 'update' && this.getActionButton('delete')}
-                            {isDraft && hasOrganizationWithRegularUsers(user) &&
-                                this.getActionButton('return', this.navigateToModeration, false)
-                            }
-                            {
-                                //Button that opens a preview modal of the event
-                                this.getPreviewButton(
-                                )
-                            }
-                            {
-                                // button that saves changes to a draft without publishing
-                                // only shown to moderators
-                                isDraft && hasOrganizationWithRegularUsers(user) &&
-                                this.getActionButton(
-                                    'update-draft',
-                                    this.saveChangesToDraft,
-                                    hasSubEvents && !isUmbrellaEvent,
-                                    'event-action-save-draft-existing'
-                                )
-                            }
-                            {
-                                // show confirmation modal when the updated event has sub events and isn't an umbrella event,
-                                // otherwise save directly
-                                this.getActionButton(
-                                    'update',
-                                    this.saveChanges,
-                                    hasSubEvents && !isUmbrellaEvent
-                                )
-                            }
-                        </div>
-                    }
-                </div>
-                <Notifications flashMsg={this.props.app.flashMsg} />
-            </div>
+            </React.Fragment>
         )
     }
 }

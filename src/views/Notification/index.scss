@@ -1,6 +1,6 @@
 
 .notification{
-    z-index: 11;
+    z-index: 9999;
     position: fixed;
     bottom: 0;
     min-width: -webkit-fill-available;
@@ -11,7 +11,7 @@
         background-color: transparent;
         border-color: #ffffff;
     }
-    
+
 }
 .text-center{
     color: #ffff;

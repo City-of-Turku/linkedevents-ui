@@ -138,3 +138,56 @@ textarea {
         }
     }
 }
+
+.hel-select {
+    .location-select {
+        position: relative;
+        z-index: 1001;
+    }
+    .map-button-container {
+        display: block;
+        text-align: right;
+        margin: 5px 0px;
+        > button.btn {
+            padding-right: 8px;
+            background-color: var(--main-color);
+            color: var(--black-color);
+            border: 1px solid #6c757d;
+
+            &:hover {
+                text-decoration: none;
+            }
+            &:focus {
+                border-color: #545b62;
+                box-shadow: 0 0 0 0.2rem rgba(130,138,145, 0.5);
+                text-decoration: none;
+            }
+
+            span.glyphicon {
+                margin-right: 0;
+                font-size: 16px;
+            }
+        }
+    }
+
+    .map-container {
+        width: 100%;
+        height: 1px;
+        max-height: 500px;
+        transition-property: height;
+        transition-duration: 0.2s;
+
+        .map-component {
+            display: none;
+
+        }
+        &.open {
+            height: 300px;
+
+            .map-component {
+                display: initial;
+
+            }
+        }
+    }
+}

@@ -136,6 +136,9 @@
     "event-location": "Paikka",
     "event-location-id": "Paikan ID",
     "event-location-additional-info": "Paikan lisätiedot",
+    "event-location-button": "Visa platsen på kartan",
+    "event-location-button-tooltip": "Välj händelseplats",
+    "event-location-map-error-missing-coordinates": "Händelseplatsen har inte koordinater.",
 
     "event-price-fields-header": "Hintatiedot",
     "is-free": "Maksuton",
@@ -242,7 +245,7 @@
     "confirm-image-delete": "Varmista kuvan poistaminen",
 
     "search-results-count": "{count} resultat",
-    "search-no-results": "Ei tuloksia",
+    "search-no-results": "Inga resultat",
 	"search-date-label-start": "Från (dd.mm.åååå)",
 	"search-date-label-end": "Till (dd.mm.åååå)",
 	"date-picker-button-label": "Datumnväljare",
@@ -325,7 +328,7 @@
     "return-without-saving": "Palaa tekemättä muutoksia",
     "return-to-events": "Palaa takaisin tapahtumiin",
 
-    "format-select-count": " ({count} tapahtumaa)",
+    "format-select-count": " ({count} st händelser)",
     "upload-image-from-url": "Tai syötä ulkoisen kuvan osoite (url)",
     "uploaded-image-size-error": "Kuva on liian suuri. Kuvan koon on oltava alle 2 Mt.",
     "image-modal-image-info": "Kuvan tiedot",
@@ -349,7 +352,7 @@
     "navbar.en": "Engelska",
     "navbar.sv": "Svenska",
     "navbar.active": "Det nuvarande språket är svenska",
-	
+
 	"cookieBar.accept": "Godkänn",
 	"cookieBar.decline.text": "Avvisa",
 	"cookieBar.decline.url": "https://www.google.se/",

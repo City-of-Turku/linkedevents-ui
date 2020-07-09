@@ -1,6 +1,6 @@
 $languageCheckboxInitialWidth: 30%;
 $actionBtnHeight: 60px;
-
+@import '~leaflet/dist/leaflet.css';
 .editor-page {
     font-weight: 300;
     background-color: #ffffff;
@@ -30,7 +30,7 @@ $actionBtnHeight: 60px;
         color: #5a5959;
         label {
             font-size: 24px;
-            line-height: 1.5; 
+            line-height: 1.5;
         }
         .language-selection {
             height: 0.1%;
@@ -145,7 +145,7 @@ $actionBtnHeight: 60px;
                 }
         }
     }
-    
+
 }}}
 @media (min-width: 480px) and (max-width: 780px) {
     .editor-page {

@@ -5,6 +5,16 @@ import {shallow} from 'enzyme'
 import renderer from 'react-test-renderer'
 
 import testReduxIntWrapper from '__mocks__/testReduxIntWrapper'
+
+// these 2 mocks are for the EventMap component
+jest.mock('@city-i18n/localization.json', () => ({
+    mapPosition: [60.451744, 22.266601],
+}),{virtual: true});
+
+jest.mock('@city-assets/urls.json', () => ({
+    rasterMapTiles: 'this is a url to the maptiles',
+}),{virtual: true});
+
 import {EditorPage} from './index'
 import {mockUser, mockEditorNewEvent, mockEditorExistingEvent} from '../../../__mocks__/mockData';
 
@@ -31,7 +41,7 @@ const initialStoreExistingEvent = {
 }
 
 describe('Editor Snapshot', () => {
-    
+
     it('should render view correctly when new event', () => {
         const componentProps = {
             match: {
