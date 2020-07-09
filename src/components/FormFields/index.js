@@ -16,7 +16,7 @@ import {
     HelKeywordSelector,
 } from 'src/components/HelFormFields'
 import RecurringEvent from 'src/components/RecurringEvent'
-import {Button,Form, FormGroup, Label, Input, UncontrolledTooltip} from 'reactstrap';
+import {Button,Form, FormGroup, Label, Input} from 'reactstrap';
 import {mapKeywordSetToForm, mapLanguagesSetToForm} from '../../utils/apiDataMapping'
 import {setEventData, setData} from '../../actions/editor'
 import {get, isNull, pickBy} from 'lodash'
@@ -389,9 +389,10 @@ class FormFields extends React.Component {
                         />
                         <div className='map-button-container'>
                             <Button
+                                aria-label={position ? null : this.context.intl.formatMessage({id: 'event-location-button-tooltip'})}
                                 aria-pressed={this.state.openMapContainer}
                                 id='map-button'
-                                color='link'
+                                className={classNames('btn btn-link', {disabled: !position})}
                                 onClick={() => this.toggleMapContainer()}
                             >
                                 <FormattedMessage id={'event-location-button'}>{txt => txt}</FormattedMessage>
@@ -401,11 +402,6 @@ class FormFields extends React.Component {
                                     {'glyphicon-triangle-top': !this.state.openMapContainer})}
                                 />
                             </Button>
-                            {!position &&
-                                <UncontrolledTooltip placement='bottom' target='map-button'>
-                                    <FormattedMessage id={'event-location-button-tooltip'}>{txt => txt}</FormattedMessage>
-                                </UncontrolledTooltip>
-                            }
                         </div>
                         <div aria-expanded={this.state.openMapContainer} className={classNames('map-container', {open: this.state.openMapContainer})} ref={this.handleSetMapContainer}>
                             {this.state.openMapContainer &&
