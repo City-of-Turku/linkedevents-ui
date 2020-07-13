@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import React from 'react'
 // Removed Material-Ui/core since it's no longer in use.
 import {Badge, Button} from 'reactstrap';
-const SelectedKeywords = ({selectedKeywords,onDelete}) => {
+const SelectedKeywords = ({selectedKeywords,onDelete, locale}) => {
     return(
         <div
             className="keyword-chip-container"
@@ -14,8 +14,8 @@ const SelectedKeywords = ({selectedKeywords,onDelete}) => {
                     className="keyword-chip-item"
                     key={`keyword-${index}`}
                     color="primary"
-                >{keyword.label}  
-                    <Button onClick={() => onDelete(keyword)} className="badge badge-pill  badge-primary" 
+                >{keyword.name[locale] || keyword.label}
+                    <Button onClick={() => onDelete(keyword)} className="badge badge-pill  badge-primary"
                         aria-hidden="true">&times;</Button>
                 </Badge>
             ))}
@@ -29,7 +29,8 @@ SelectedKeywords.defaultProps = {
 }
 SelectedKeywords.propTypes = {
     selectedKeywords: PropTypes.array,
-    onDelete: PropTypes.func,  
+    onDelete: PropTypes.func,
+    locale: PropTypes.string,
 }
 
 export default SelectedKeywords

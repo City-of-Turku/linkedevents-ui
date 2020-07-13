@@ -11,6 +11,7 @@ export function mapKeywordSetToForm(keywordSets, id, locale = 'fi') {
             return {
                 value: item['@id'],
                 label: label,
+                name: item.name,
             }
         })
     }

@@ -364,7 +364,7 @@ exports[`Image add form ImagePicker component should render correctly with data 
   }
 >
   <MemoryRouter>
-    <Connect(InjectIntl(ImagePicker))
+    <InjectIntl(Connect(ImagePicker))
       dispatch={[MockFunction]}
     />
   </MemoryRouter>
@@ -386,50 +386,94 @@ exports[`Image add form ImagePicker component should render view by default 1`] 
       Loading...
     </span>
   </Spinner>
-  <WithStyles(ForwardRef(Dialog))
+  <Modal
     aria-modal="true"
+    autoFocus={true}
+    backdrop={true}
+    backdropTransition={
+      Object {
+        "mountOnEnter": true,
+        "timeout": 150,
+      }
+    }
+    centered={false}
     className="image-picker--dialog"
-    fullWidth={true}
+    fade={true}
     id="dialog1"
-    maxWidth="lg"
-    onClose={[Function]}
-    open={false}
+    isOpen={false}
+    keyboard={true}
+    modalTransition={
+      Object {
+        "timeout": 300,
+      }
+    }
+    onClosed={[Function]}
+    onOpened={[Function]}
+    returnFocusAfterClose={true}
     role="dialog"
-    transitionDuration={0}
+    scrollable={false}
+    size="xl"
+    toggle={[Function]}
+    unmountOnClose={true}
+    zIndex={1050}
   >
-    <div
-      className="image-picker-modal"
-    >
-      <ModalHeader
-        charCode={215}
-        closeAriaLabel="Close"
-        tag="h5"
-        wrapTag="div"
-      >
-        <FormattedMessage
-          id="event-image-title"
-          values={Object {}}
-        />
-        <button
-          aria-label="Close"
-          className="icon-button"
+    <ModalHeader
+      charCode={215}
+      className="modalH1"
+      close={
+        <Button
+          aria-label="Sulje"
+          color="secondary"
           onClick={[Function]}
-          type="button"
+          tag="button"
         >
           <span
             className="glyphicon glyphicon-remove"
           />
-        </button>
-      </ModalHeader>
+        </Button>
+      }
+      closeAriaLabel="Close"
+      tag="h1"
+      wrapTag="div"
+    >
+      <FormattedMessage
+        id="event-image-title"
+        values={Object {}}
+      />
+    </ModalHeader>
+    <ModalBody
+      tag="div"
+    >
       <ModalHeader
         charCode={215}
         className="image-picker--dialog-title"
         closeAriaLabel="Close"
-        tag="h5"
+        tag="h2"
         wrapTag="div"
       >
         <FormattedMessage
           id="new-image"
+          values={Object {}}
+        />
+      </ModalHeader>
+      <ModalHeader
+        charCode={215}
+        closeAriaLabel="Close"
+        tag="p"
+        wrapTag="div"
+      >
+        <FormattedMessage
+          id="uploaded-image-size-tip"
+          values={Object {}}
+        />
+        <br />
+        <FormattedMessage
+          id="uploaded-image-size-tip2"
+          values={Object {}}
+        />
+        <br />
+        <FormattedMessage
+          id="uploaded-image-size-tip3"
           values={Object {}}
         />
       </ModalHeader>
@@ -506,7 +550,7 @@ exports[`Image add form ImagePicker component should render view by default 1`] 
         charCode={215}
         className="image-picker--dialog-title"
         closeAriaLabel="Close"
-        tag="h5"
+        tag="h3"
         wrapTag="div"
       >
         <FormattedMessage
@@ -569,7 +613,7 @@ exports[`Image add form ImagePicker component should render view by default 1`] 
         images={Object {}}
         user={Object {}}
       />
-    </div>
-  </WithStyles(ForwardRef(Dialog))>
+    </ModalBody>
+  </Modal>
 </div>
 `;

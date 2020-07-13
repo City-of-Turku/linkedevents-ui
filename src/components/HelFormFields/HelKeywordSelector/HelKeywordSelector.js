@@ -49,11 +49,13 @@ const getKeywordIds = (keywords) => keywords
     })
     .join()
 
-const HelKeywordSelector = ({intl, editor, setDirtyState, setData}) => {
+const HelKeywordSelector = ({intl, editor, setDirtyState, setData, currentLocale}) => {
     const {values, keywordSets, validationErrors} = editor
     const keywords = get(values, 'keywords', [])
     // Changed keywordSets to be compatible with Turku's backend.
-    const mainCategoryOptions = mapKeywordSetToForm(keywordSets, 'turku:topics')
+    const mainCategoryOptions = mapKeywordSetToForm(keywordSets, 'turku:topics', currentLocale)
+    const parsedMainCategoryOptions = mainCategoryOptions.map(item => ({label: item.label, value: item.value}))
+
     // Internet location automatically implies "remote participation"
     const remoteParticipationKeyword = mainCategoryOptions.find(keyword => keyword['value'].includes('yso:p26626'))
     if (remoteParticipationKeyword
@@ -72,9 +74,10 @@ const HelKeywordSelector = ({intl, editor, setDirtyState, setData}) => {
                 name="keywords"
                 validationErrors={validationErrors['keywords']}
                 itemClassName="col-md-12 col-lg-6"
-                options={mainCategoryOptions}
+                options={parsedMainCategoryOptions}
                 setDirtyState={setDirtyState}
                 customOnChangeHandler={(checkedOptions) => handleKeywordChange(checkedOptions, keywords, mainCategoryOptions, setData)}
+                currentLocale={currentLocale}
             />
             <SideField>
                 <p className="tip">
@@ -88,6 +91,7 @@ const HelKeywordSelector = ({intl, editor, setDirtyState, setData}) => {
                     resource="keyword"
                     setDirtyState={setDirtyState}
                     customOnChangeHandler={(selectedOption) => handleKeywordChange(selectedOption, keywords, mainCategoryOptions, setData)}
+                    currentLocale={currentLocale}
                 />
                 <CopyToClipboard text={values['keywords'] ? getKeywordIds(keywords) : ''}>
                     <button type='button' className="clipboard-copy-button btn btn-default" title={intl.formatMessage({id: 'copy-to-clipboard'})}>
@@ -98,6 +102,7 @@ const HelKeywordSelector = ({intl, editor, setDirtyState, setData}) => {
                 <SelectedKeywords
                     selectedKeywords={keywords}
                     onDelete={(deletedItem) => handleKeywordDelete(deletedItem, keywords, setData)}
+                    locale={currentLocale}
                 />
             </div>
             <SideField>
@@ -114,6 +119,7 @@ HelKeywordSelector.propTypes = {
     setData: PropTypes.func,
     setDirtyState: PropTypes.func,
     editor: PropTypes.object,
+    currentLocale: PropTypes.string,
 }
 
 const mapDispatchToProps = (dispatch) => ({

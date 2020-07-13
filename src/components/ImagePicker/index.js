@@ -345,4 +345,4 @@ const mapStateToProps = (state) => ({
     images: state.images,
 });
 
-export default connect(mapStateToProps)(injectIntl(ImagePicker));
+export default injectIntl(connect(mapStateToProps)(ImagePicker));

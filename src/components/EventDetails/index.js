@@ -35,7 +35,7 @@ const CheckedValue = ({checked, labelKey, label}) => (
     <div className="checked-value">
         {checked
             ? <input type='checkbox' checked='disabled' readOnly id={label}/>
-            : <input type='checkbox' disabled id={label} readOnly aria-hidden="true" /> 
+            : <input type='checkbox' disabled id={label} readOnly aria-hidden="true" />
         }
         <label htmlFor={label}>
             {labelKey
@@ -43,7 +43,7 @@ const CheckedValue = ({checked, labelKey, label}) => (
                 : label
             }
         </label>
-      
+
     </div>
 )
 
@@ -154,7 +154,7 @@ const OptionGroup = (props) => {
     let values = props.values || []
 
     let elements = _.map(values, (val, key) => {
-        let name = getStringWithLocale(val, 'name') || val.label || val.id || val || ''
+        let name = getStringWithLocale(val, 'name', props.locale) || val.label || val.id || val || ''
         return (<CheckedValue checked={true} label={name} key={key}/>)
     })
 
@@ -176,6 +176,7 @@ const OptionGroup = (props) => {
 OptionGroup.propTypes = {
     values: PropTypes.array,
     labelKey: PropTypes.string,
+    locale: PropTypes.string,
 }
 
 const DateTime = (props) => {
@@ -249,12 +250,12 @@ const OffersValue = (props) => {
                     <MultiLanguageValue
                         labelKey="event-price"
                         hidden={offer.is_free}
-                        value={offer.price}                   
+                        value={offer.price}
                     />
                     <MultiLanguageValue
                         labelKey="event-price-info"
                         hidden={offer.is_free}
-                        value={offer.description}                      
+                        value={offer.description}
                     />
                 </div>
             ))}
@@ -302,7 +303,7 @@ VideoValue.propTypes = {
 const EventDetails = (props) => {
     const {editor, values, intl, rawData, publisher, superEvent} = props
     // Changed keywordSets to be compatible with Turku's backend.
-    const mainCategoryValues = mapKeywordSetToForm(editor.keywordSets, 'turku:topics')
+    const mainCategoryValues = mapKeywordSetToForm(editor.keywordSets, 'turku:topics', intl.locale)
         .map(item => item.value)
     const mainCategoryKeywords = values.keywords.filter(item => mainCategoryValues.includes(item.value))
     const nonMainCategoryKeywords = values.keywords.filter(item => !mainCategoryValues.includes(item.value))
@@ -359,10 +360,10 @@ const EventDetails = (props) => {
                 {intl.formatMessage({id: 'event-categorization'})}
             </FormHeader>
 
-            <OptionGroup values={mainCategoryKeywords} labelKey="main-categories"/>
-            <OptionGroup values={nonMainCategoryKeywords} labelKey="additional-keywords"/>
-            <OptionGroup values={rawData['audience']} labelKey="hel-target-groups"/>
-            <OptionGroup values={rawData['in_language']} labelKey="hel-event-languages"/>
+            <OptionGroup values={mainCategoryKeywords} labelKey="main-categories" locale={intl.locale}/>
+            <OptionGroup values={nonMainCategoryKeywords} labelKey="additional-keywords" locale={intl.locale}/>
+            <OptionGroup values={rawData['audience']} labelKey="hel-target-groups" locale={intl.locale}/>
+            <OptionGroup values={rawData['in_language']} labelKey="hel-event-languages" locale={intl.locale}/>
 
             {appSettings.ui_mode === 'courses' &&
                 <React.Fragment>

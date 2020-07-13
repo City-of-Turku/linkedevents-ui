@@ -30,7 +30,7 @@ describe('Image add form', () => {
     let store;
 
     it('ImagePicker component should render view by default', () => {
-        const wrapper = shallow(<ImagePicker />);
+        const wrapper = shallow(<ImagePicker />,{context: {intl}});
         expect(wrapper).toMatchSnapshot()
     })
 
@@ -60,7 +60,7 @@ describe('ImagePicker', () => {
         test('contains Modal with correct props', () => {
             const element = getWrapper().find(Modal);
             expect(element).toHaveLength(1);
-            expect(element.prop('open')).toEqual(defaultProps.open);
+            expect(element.prop('isOpen')).toEqual(defaultProps.open);
         });
         /*
         test('Modal opening', () => {
@@ -71,7 +71,7 @@ describe('ImagePicker', () => {
         }); */
         test('correct amount of FormattedMessages', () => {
             const element = getWrapper().find(FormattedMessage);
-            expect(element).toHaveLength(9);
+            expect(element).toHaveLength(12);
         })
     })
 })

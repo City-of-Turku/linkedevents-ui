@@ -10,6 +10,7 @@ import {get, isNil} from 'lodash'
 import ValidationPopover from '../ValidationPopover'
 import client from '../../api/client'
 import {injectIntl} from 'react-intl'
+import {getStringWithLocale} from '../../utils/locale';
 
 const HelSelect = ({
     intl,
@@ -25,6 +26,7 @@ const HelSelect = ({
     placeholderId,
     customOnChangeHandler,
     optionalWrapperAttributes,
+    currentLocale,
 })  => {
     const labelRef = useRef(null)
 
@@ -67,11 +69,14 @@ const HelSelect = ({
             const response = await client.get(`${resource}`, queryParams)
             const options = response.data.data
 
-            return options.map(item => ({
-                value: item['@id'],
-                label: item.name.fi,
-                n_events: item.n_events,
-            }))
+            return options.map((item) => {
+                return ({
+                    value: item['@id'],
+                    label: getStringWithLocale(item,'name', currentLocale || intl.locale),
+                    n_events: item.n_events,
+                    name: item.name,
+                })
+            })
         } catch (e) {
             throw Error(e)
         }
@@ -98,11 +103,12 @@ const HelSelect = ({
                 });
 
                 if (item.data_source !== 'osoite' && item.street_address) {
-                    previewLabel = `${itemNames[`${intl.locale}`] || itemNames.fi} (${item.street_address[`${intl.locale}`] || item.street_address.fi})`;
-                    keys.forEach(lang => {
-                        names[`${lang}`] = `${itemNames[`${lang}`]} (${item.street_address[`${lang}`] || item.street_address.fi})`;
-                    });
+                    const address = getStringWithLocale(item,'street_address', currentLocale || intl.locale)
 
+                    previewLabel = `${itemNames[`${intl.locale}`] || itemNames.fi} (${address})`;
+                    keys.forEach(lang => {
+                        names[`${lang}`] = `${itemNames[`${lang}`]} (${getStringWithLocale(item, 'street_address',`${lang}`)})`;
+                    });
                 }
 
                 return {
@@ -117,7 +123,6 @@ const HelSelect = ({
             })
         } catch (e) {
             throw Error(e)
-
         }
     }
 
@@ -135,12 +140,16 @@ const HelSelect = ({
             return null
         }
         if (name === 'keywords') {
-            return selectedValue.map(item => ({label: item.label, value: item.value}))
+            return selectedValue.map((item) => {
+                return ({
+                    label: getStringWithLocale(item,'label', currentLocale || intl.locale),
+                    value: item.value,
+                })
+            })
         }
         if (name === 'location') {
-            const name = selectedValue.name[`${intl.locale}`] || selectedValue.name.fi;
             return ({
-                label: name,
+                label: getStringWithLocale(selectedValue,'name', currentLocale || intl.locale),
                 value: selectedValue.id,
             })
         }
@@ -222,6 +231,7 @@ HelSelect.propTypes = {
     placeholderId: PropTypes.string,
     customOnChangeHandler: PropTypes.func,
     optionalWrapperAttributes: PropTypes.object,
+    currentLocale: PropTypes.string,
 }
 
 const mapDispatchToProps = (dispatch) => ({

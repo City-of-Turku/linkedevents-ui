@@ -66,17 +66,21 @@ class FormFields extends React.Component {
             showRecurringEvent: false,
             mapContainer: null,
             openMapContainer: false,
+            availableLocales: [],
 
         }
     }
 
     componentDidMount() {
-        const {action} = this.props;
-
+        const {action, editor} = this.props;
+        const availableLanguages = editor.languages;
+        const availableLocales = availableLanguages.reduce((total, lang) => [...total, lang.id], []);
         // set default value for organization if user is creating new event
         if (action === 'create') {
             this.setDefaultOrganization()
         }
+
+        this.setState({availableLocales: availableLocales});
     }
 
     /**
@@ -171,8 +175,9 @@ class FormFields extends React.Component {
 
     render() {
         // Changed keywordSets to be compatible with Turku's backend.
-        const helTargetOptions = mapKeywordSetToForm(this.props.editor.keywordSets, 'turku:audiences')
-        const helEventLangOptions = mapLanguagesSetToForm(this.props.editor.languages)
+        const currentLocale = this.state.availableLocales.includes(this.context.intl.locale) ? this.context.intl.locale : 'fi';
+        const helTargetOptions = mapKeywordSetToForm(this.props.editor.keywordSets, 'turku:audiences', currentLocale)
+        const helEventLangOptions = mapLanguagesSetToForm(this.props.editor.languages, currentLocale)
 
         const {event, superEvent, user, editor} = this.props
         const {values, validationErrors, contentLanguages} = editor
@@ -288,7 +293,7 @@ class FormFields extends React.Component {
                             type='text'
                         />
                         <OrganizationSelector
-                            
+
                             formType={formType}
                             options={publisherOptions}
                             selectedOption={selectedPublisher}
@@ -389,6 +394,7 @@ class FormFields extends React.Component {
                             validationErrors={validationErrors['location']}
                             setDirtyState={this.props.setDirtyState}
                             optionalWrapperAttributes={{className: 'location-select'}}
+                            currentLocale={currentLocale}
                         />
                         <div className='map-button-container'>
                             <Button
@@ -538,6 +544,7 @@ class FormFields extends React.Component {
                         editor={editor}
                         intl={this.context.intl}
                         setDirtyState={this.props.setDirtyState}
+                        currentLocale={currentLocale}
                     />
                 </div>
                 <div className="row audience-row">

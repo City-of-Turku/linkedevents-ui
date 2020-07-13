@@ -179,7 +179,7 @@ function mapAPIDataToUIFormat(values) {
     obj.sub_events = {...values.sub_events}
 
     // Keywords, audience, languages
-    obj.keywords = map(values.keywords, (item) => ({value: item['@id'], label: (getStringWithLocale(item, 'name') || item['id'])}))
+    obj.keywords = map(values.keywords, (item) => ({value: item['@id'], label: (getStringWithLocale(item, 'name') || item['id']), name: item.name}))
 
     if(values.audience) {
         obj.audience = map(values.audience, item => item['@id'])
@@ -257,7 +257,7 @@ export const calculateSuperEventTime = (subEvents) => {
     const superEventStartTime = startTimes.length <= 0 ? undefined : moment.min(startTimes);
     let superEventEndTime = endTimes.length <= 0
         ? startTimes.length <= 0
-            ? undefined    
+            ? undefined
             : moment.max(startTimes).endOf('day')
         : moment.max(endTimes)
     return {
