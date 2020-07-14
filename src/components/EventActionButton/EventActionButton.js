@@ -7,9 +7,7 @@ import {checkEventEditability} from '../../utils/checkEventEditability';
 import constants from '../../constants';
 import showConfirmationModal from '../../utils/confirm';
 import {appendEventDataWithSubEvents, getEventsWithSubEvents} from '../../utils/events';
-import {Tooltip} from '@material-ui/core';
-//Replaced Material-ui Button for a Bootstrap implementation. - Turku
-import {Button, Input} from 'reactstrap';
+import {Button, Input, UncontrolledTooltip} from 'reactstrap';
 import {confirmAction} from '../../actions/app';
 import {getButtonLabel} from '../../utils/helpers';
 import {Link} from 'react-router-dom';
@@ -73,13 +71,15 @@ class EventActionButton extends React.Component {
     }
 
     /**
-     * Returns a Button element and depending on showTermsCheckbox an input element with a label
+     * Returns a Button element with additional input & label element if showTermsCheckbox is true.
+     * If explanationId parameter is given then that string is used to fetch correct error message for the tooltip.
      * @param {boolean} showTermsCheckbox
      * @param {string} buttonLabel
      * @param {boolean} disabled
+     * @param {string} [explanationId=''] - errorMessage
      * @returns {*}
      */
-    getButton(showTermsCheckbox, buttonLabel, disabled) {
+    getButton(showTermsCheckbox, buttonLabel, disabled, explanationId = '') {
         const {action, confirmAction, customAction} = this.props;
         const color = 'secondary';
         /*
@@ -107,6 +107,7 @@ class EventActionButton extends React.Component {
                 </div>
                 }
                 <Button
+                    id={action}
                     disabled={disabled}
                     color={color}
                     className={`editor-${action}-button`}
@@ -114,27 +115,13 @@ class EventActionButton extends React.Component {
                 >
                     <FormattedMessage id={buttonLabel}>{txt => txt}</FormattedMessage>
                 </Button>
-            </Fragment>
-        )
-    }
+                {(disabled && explanationId) &&
+                    <UncontrolledTooltip placement="bottom" target={action} innerClassName='tooltip-disabled' hideArrow>
+                        <FormattedMessage id={explanationId}>{txt => txt}</FormattedMessage>
+                    </UncontrolledTooltip>
+                }
 
-    /**
-     * Return Button that has a tooltip
-     * @see getButton
-     * @param {string} explanationId
-     * @param {boolean} showTermsCheckbox
-     * @param {string} buttonLabel
-     * @param {boolean} disabled
-     * @returns {*}
-     */
-    getToolTip(explanationId,showTermsCheckbox, buttonLabel, disabled) {
-        const {intl} = this.props;
-        return (
-            <Tooltip title={intl.formatMessage({id: explanationId})}>
-                <span>
-                    {this.getButton(showTermsCheckbox, buttonLabel, disabled)}
-                </span>
-            </Tooltip>
+            </Fragment>
         )
     }
 
@@ -182,9 +169,8 @@ class EventActionButton extends React.Component {
 
         return (
             <Fragment>
-                {disabled && explanationId
-                    ? this.getToolTip(explanationId, showTermsCheckbox,buttonLabel,disabled)
-                    : this.getButton(showTermsCheckbox, buttonLabel,disabled)
+                {
+                    this.getButton(showTermsCheckbox, buttonLabel,disabled, explanationId)
                 }
             </Fragment>
         )

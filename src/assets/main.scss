@@ -39,7 +39,7 @@ html, body {
     height: 100%;
     display: flex;
     flex-direction: column;
-}	
+}
 
 h1,h2,h3 {
     font-family: "HelsinkiGrotesk", "Roboto", "Helvetica Neue", "Segoe UI", Calibri, sans-serif;
@@ -208,7 +208,7 @@ h2 {
             }
             }
         }
-    
+
 .organization-missing-msg {
     margin: 3rem 1rem 0rem 1rem;
     padding: 1rem;
@@ -242,5 +242,18 @@ h2 {
             margin-top: 0rem;
         }
     }
+}
+
+// Reactstrap Tooltip component styles
+.tooltip-disabled {
+    color: #fff;
+    padding: 4px 8px;
+    //font-size: 0.625rem;
+    max-width: 400px;
+    word-wrap: break-word;
+    font-weight: 500;
+    line-height: 1.4em;
+    border-radius: 4px;
+    background-color: rgba(97, 97, 97, 0.9);
 }
 
