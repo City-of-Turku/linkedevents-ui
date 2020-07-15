@@ -226,7 +226,7 @@
 
     "event-action-save-draft-new": "Skicka in för granskning",
     "event-action-save-draft-existing": "Uppdatera förslag",
-    "event-action-save-new": "Julkaise tapahtuma",
+    "event-action-save-new": "Publicera händelse",
     "event-action-save-new-active": "Julkaistaan tapahtumaa",
     "event-action-save-existing": "Tallenna muutokset julkaistuun tapahtumaan",
     "event-action-save-existing-active": "Tallennetaan muutoksia",

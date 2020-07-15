@@ -11,6 +11,7 @@ import {Button, Input, UncontrolledTooltip} from 'reactstrap';
 import {confirmAction} from '../../actions/app';
 import {getButtonLabel} from '../../utils/helpers';
 import {Link} from 'react-router-dom';
+import classNames from 'classnames';
 
 const {PUBLICATION_STATUS, EVENT_STATUS, USER_TYPE} = constants;
 
@@ -80,7 +81,7 @@ class EventActionButton extends React.Component {
      * @returns {*}
      */
     getButton(showTermsCheckbox, buttonLabel, disabled, explanationId = '') {
-        const {action, confirmAction, customAction} = this.props;
+        const {action, confirmAction, customAction, intl} = this.props;
         const color = 'secondary';
         /*
         color = this.getButtonColor(action), to get color based on action.
@@ -107,11 +108,13 @@ class EventActionButton extends React.Component {
                 </div>
                 }
                 <Button
+                    aria-disabled={disabled}
+                    aria-label={(disabled && explanationId) ? intl.formatMessage({id: explanationId}) : null}
                     id={action}
-                    disabled={disabled}
                     color={color}
-                    className={`editor-${action}-button`}
-                    onClick={() => confirmAction ? this.confirmEventAction : customAction()}
+                    className={classNames(`editor-${action}-button`,{'disabled': disabled})}
+                    onClick={() => disabled ? null : confirmAction ? this.confirmEventAction : customAction()}
+                    style={disabled ? {cursor: 'not-allowed'} : null}
                 >
                     <FormattedMessage id={buttonLabel}>{txt => txt}</FormattedMessage>
                 </Button>
