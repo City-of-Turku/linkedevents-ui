@@ -109,7 +109,7 @@ class EventActionButton extends React.Component {
                 }
                 <Button
                     aria-disabled={disabled}
-                    aria-label={(disabled && explanationId) ? intl.formatMessage({id: explanationId}) : null}
+                    aria-label={disabled && explanationId && `${intl.formatMessage({id: buttonLabel})}. ${intl.formatMessage({id: explanationId})}`}
                     id={action}
                     color={color}
                     className={classNames(`editor-${action}-button`,{'disabled': disabled})}
