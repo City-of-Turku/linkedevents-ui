@@ -1,17 +1,22 @@
 import React from 'react';
 import {shallow} from 'enzyme';
 import HelTextField from '../HelTextField';
-import {TextField} from '@material-ui/core';
+import {Input, FormText} from 'reactstrap';
 import ValidationPopover from '../../ValidationPopover';
 import {IntlProvider} from 'react-intl';
 import fiMessages from 'src/i18n/fi.json';
 import mapValues from 'lodash/mapValues';
+import constants from '../../../constants'
+const {VALIDATION_RULES, CHARACTER_LIMIT} = constants
+import {setData} from 'src/actions/editor.js'
 
 const testMessages = mapValues(fiMessages, (value, key) => value);
 
 const intlProvider = new IntlProvider({locale: 'fi', messages: testMessages}, {});
 const {intl} = intlProvider.getChildContext();
+const dispatch = jest.fn()
 const defaultProps = {
+    id: 'test-id',
     name: undefined,
     placeholder: 'placeholdervalue',
     defaultValue: 'oletusarvo',
@@ -20,84 +25,340 @@ const defaultProps = {
     required: true,
     disabled: undefined,
     validationErrors: undefined,
-
+    type: 'text',
+    index: 'text-index',
 }
 
 describe('HelTextField', () => {
     function getWrapper(props) {
-        return shallow(<HelTextField {...defaultProps} {...props} />, {context: {intl}});
+        return shallow(<HelTextField {...defaultProps} {...props} />, {context: {intl, dispatch}});
     }
 
-    describe('default renders', () => {
-        test('correct components', () => {
-            const elements = getWrapper();
-            const textField = elements.find(TextField);
-            const validationPopover = elements.find(ValidationPopover);
-            expect(elements).toHaveLength(1);
-            expect(textField).toHaveLength(1);
-            expect(validationPopover).toHaveLength(1);
-        });
+    describe('renders', () => {
+        test('div event-input', () => {
+            const div = getWrapper().find('.event-input')
+            expect(div).toHaveLength(1)
+        })
 
-        test('TextField with correct props', () => {
-            const element = getWrapper();
-            const textField = element.find(TextField);
-            expect(textField.prop('fullWidth')).toBeDefined();
-            expect(textField.prop('name')).toBe(defaultProps.name);
-            expect(textField.prop('label')).toBe(defaultProps.label);
-            expect(textField.prop('value')).toBe(element.state('value'));
-            expect(textField.prop('required')).toBe(defaultProps.required);
-            expect(textField.prop('placeholder')).toBe(defaultProps.placeholder);
-            expect(textField.prop('disabled')).toBe(defaultProps.disabled);
-            expect(textField.prop('onChange')).toBeDefined();
-            expect(textField.prop('onBlur')).toBeDefined();
-            expect(textField.prop('multiline')).toBe(defaultProps.multiLine);
-            expect(textField.prop('inputRef')).toBeDefined();
-            expect(textField.prop('helperText')).toBeUndefined();
-            expect(textField.prop('InputLabelProps')).toEqual({focused: false, shrink: false, disableAnimation: true});
-            expect(textField.prop('error')).toBe(element.state('error'));
-        });
+        describe('label', () => {
+            test('with correct props', () => {
+                const label = getWrapper().find('label')
+                expect(label).toHaveLength(1)
+                expect(label.prop('htmlFor')).toBe(defaultProps.id)
+            })
+            test('with correct text when required is true', () => {
+                const required = true
+                const label = getWrapper({required}).find('label')
+                expect(label.text()).toBe(defaultProps.label + '*')
+            })
+            test('with correct text when required is false', () => {
+                const required = false
+                const label = getWrapper({required}).find('label')
+                expect(label.text()).toBe(defaultProps.label)
+            })
+        })
 
-        test('ValidationPopover with correct props', () => {
-            const element = getWrapper().find(ValidationPopover);
-            expect(element.prop('index')).toBeUndefined();
-            expect(element.prop('anchor')).toBeUndefined();
-            expect(element.prop('validationErrors')).toBeUndefined();
-        });
-    });
+        test('Input with correct props', () => {
+            const wrapper = getWrapper()
+            const instance = wrapper.instance()
+            const inputComponent = wrapper.find(Input)
 
-    describe('renders a short description TextField', () => {
-        const descriptionProps = {
-            defaultValue: '',
-            label: 'Lyhyt kuvaus',
-            multiLine: true,
-            validations: ['shortString'],
-        };
+            expect(inputComponent).toHaveLength(1)
+            expect(inputComponent.prop('id')).toBe(defaultProps.id)
+            expect(inputComponent.prop('placeholder')).toBe(defaultProps.placeholder)
+            expect(inputComponent.prop('type')).toBe(defaultProps.type)
+            expect(inputComponent.prop('name')).toBe(defaultProps.name)
+            expect(inputComponent.prop('value')).toBe(defaultProps.defaultValue)
+            expect(inputComponent.prop('required')).toBe(defaultProps.required)
+            expect(inputComponent.prop('onChange')).toBe(instance.handleChange)
+            expect(inputComponent.prop('onBlur')).toBe(instance.handleBlur)
+            expect(inputComponent.prop('innerRef')).toBeDefined()
+            expect(inputComponent.prop('disabled')).toBe(defaultProps.disabled)
+        })
 
-        test('with correct props', () => {
-            const element = getWrapper(descriptionProps);
-            const textField = element.find(TextField);
-            expect(textField.prop('multiline')).toBe(true);
-            expect(textField.prop('helperText')).toBe('160 merkkiä jäljellä');
-        });
+        describe('FormText', () => {
+            test('with correct props when there is an error', () => {
+                const wrapper = getWrapper()
+                wrapper.setState({error: true})
+                const formText = wrapper.find(FormText)
+                expect(formText).toHaveLength(1)
+                expect(formText.prop('role')).toBe('alert')
+                expect(formText.prop('className')).toBe('red-alert')
+            })
 
-        test('TextField props change according to state.value', () => {
-            // Because this uses <shallow> we cant test for the
-            // correct text after '0 merkkiä jäljellä'.
-            // If we wanted to test that this should be rewritten with <mount>
-            let element = getWrapper(descriptionProps);
-            const instance = element.instance();
-            expect(element.find(TextField).prop('helperText')).toBe('160 merkkiä jäljellä');
-            instance.handleChange({target:{value:'kymmenenkö'}});
-            expect(element.find(TextField).prop('helperText')).toBe('150 merkkiä jäljellä');
-            instance.handleChange({
-                target: {
-                    value:'kymmenen..kymmenen..kymmenen..kymmenen..kymmenen..' +
-                        'kymmenen..kymmenen..kymmenen..kymmenen..kymmenen..' +
-                        'kymmenen..kymmenen..kymmenen..kymmenen..kymmenen..' +
-                        'kymmenen..',
-                },
-            });
-            expect(element.find(TextField).prop('helperText')).toBe('0 merkkiä jäljellä');
-        });
-    });
-});
+            test('with correct props when there is no error', () => {
+                const wrapper = getWrapper()
+                wrapper.setState({error: false})
+                const formText = wrapper.find(FormText)
+                expect(formText).toHaveLength(1)
+                expect(formText.prop('role')).toBe(undefined)
+                expect(formText.prop('className')).toBe(undefined)
+            })
+
+            test('ValidationPopover with correct props', () => {
+                const wrapper = getWrapper()
+                const instance = wrapper.instance()
+                const validationPopover = wrapper.find(ValidationPopover)
+                expect(validationPopover).toHaveLength(1)
+                expect(validationPopover.prop('index')).toBe(defaultProps.index)
+                expect(validationPopover.prop('anchor')).toBe(instance.inputRef)
+                expect(validationPopover.prop('validationErrors')).toBe(defaultProps.validationErrors)
+            })
+        })
+    })
+
+    describe('functions', () => {
+        test('componentDidMount', () => {
+            const instance = getWrapper().instance()
+            jest.spyOn(instance, 'setValidationErrorsToState')
+            instance.componentDidMount()
+            expect(instance.setValidationErrorsToState).toHaveBeenCalledTimes(1)
+        })
+
+        describe('UNSAFE_componentWillReceiveProps', () => {
+            test('sets state.value when props.defaultValue changes', () => {
+                const wrapper = getWrapper()
+                const instance = wrapper.instance()
+                const expectedValue = 'test123'
+                wrapper.setProps({defaultValue: expectedValue})
+                expect(instance.state.value).toBe(expectedValue)
+            })
+
+            test('sets state.value to empty string when props.defaultValue changes to falsy value', () => {
+                const defaultValue = 'test123'
+                const wrapper = getWrapper({defaultValue})
+                const instance = wrapper.instance()
+                wrapper.setProps({defaultValue: null})
+                expect(instance.state.value).toBe('')
+            })
+        })
+
+        describe('getStringLengthValidationText', () => {
+
+            test('returns chars left msg when there is no error and char limit exists', () => {
+                const validationRules = [VALIDATION_RULES.SHORT_STRING, VALIDATION_RULES.MEDIUM_STRING, VALIDATION_RULES.LONG_STRING]
+                const charLimits = [CHARACTER_LIMIT.SHORT_STRING, CHARACTER_LIMIT.MEDIUM_STRING, CHARACTER_LIMIT.LONG_STRING]
+                const wrapper = getWrapper({value: 'test'})
+                const instance = wrapper.instance()
+
+                for (let index = 0; index < validationRules.length; index++) {
+                    const validations = [validationRules[index]]
+                    wrapper.setProps({validations})
+                    const limit = charLimits[index]
+                    const diff = limit - instance.state.value.length
+                    const expected = instance.context.intl.formatMessage(
+                        {id: 'validation-stringLengthCounter'}, {counter: diff + '/' + limit}
+                    )
+                    expect(instance.getStringLengthValidationText()).toBe(expected)
+                }
+            })
+
+            test('returns state.errorMessage when char limit doesnt exist', () => {
+                const wrapper = getWrapper({value: 'test'})
+                const instance = wrapper.instance()
+                const expectedError = 'test-error'
+                instance.state.errorMessage = expectedError
+                expect(instance.getStringLengthValidationText()).toBe(expectedError)
+            })
+
+            test('returns state.errorMessage when state.error is true', () => {
+                const validations = [VALIDATION_RULES.SHORT_STRING]
+                const wrapper = getWrapper({validations, value: 'test'})
+                const instance = wrapper.instance()
+                instance.state.error = true
+                const expectedError = 'test-error'
+                instance.state.errorMessage = expectedError
+                expect(instance.getStringLengthValidationText()).toBe(expectedError)
+            })
+        })
+
+        test('getValue returns input ref value', () => {
+            const wrapper = getWrapper()
+            const instance = wrapper.instance()
+            instance.inputRef = {value: 'test'}
+            expect(instance.getValue()).toBe('test')
+        })
+
+        describe('helpText', () => {
+            test('returns stringLengthMessage when it exists', () => {
+                const validations = [VALIDATION_RULES.SHORT_STRING]
+                const wrapper = getWrapper({validations, value: 'test'})
+                const instance = wrapper.instance()
+                expect(instance.helpText()).toBe(instance.getStringLengthValidationText())
+            })
+
+            test('returns false when field is url, there is no stringLengthMessage and state.error is true', () => {
+                const validations = [VALIDATION_RULES.IS_URL]
+                const wrapper = getWrapper({validations, value: 'test'})
+                const instance = wrapper.instance()
+                instance.state.error = true
+                const expected = instance.context.intl.formatMessage({id: 'validation-isUrl'})
+                expect(instance.helpText()).toBe(expected)
+            })
+
+            test('returns urlmsg when field is url, there is no stringLengthMessage and state.error is false', () => {
+                const validations = [VALIDATION_RULES.IS_URL]
+                const wrapper = getWrapper({validations, value: 'test'})
+                const instance = wrapper.instance()
+                instance.state.error = false
+                expect(instance.helpText()).toBe(false)
+            })
+
+            test('returns undefined when field isnt url and there is no stringLengthMessage', () => {
+                const wrapper = getWrapper({value: 'test'})
+                const instance = wrapper.instance()
+                expect(instance.helpText()).toBe(undefined)
+            })
+        })
+
+        describe('handleChange', () => {
+            const expectedValue = 'test-change'
+            const event = {target: {value: expectedValue}}
+
+            test('sets state value', () => {
+                const wrapper = getWrapper()
+                const instance = wrapper.instance()
+                instance.handleChange(event)
+                expect(instance.state.value).toBe(expectedValue)
+            })
+
+            test('calls setValidationErrorsToState', () => {
+                const wrapper = getWrapper()
+                const instance = wrapper.instance()
+                jest.spyOn(instance, 'setValidationErrorsToState')
+                instance.handleChange(event)
+                expect(instance.setValidationErrorsToState).toHaveBeenCalledTimes(1)
+            })
+
+            test('calls props.onChange if its a function', () => {
+                const onChange = jest.fn()
+                const wrapper = getWrapper({onChange})
+                const instance = wrapper.instance()
+                instance.handleChange(event)
+                expect(onChange.mock.calls.length).toBe(1);
+                expect(onChange.mock.calls[0][0]).toBe(event);
+                expect(onChange.mock.calls[0][1]).toBe(expectedValue);
+            })
+        })
+
+        describe('handleBlur', () => {
+            const expectedValue = 'test-change'
+            const event = {target: {value: expectedValue}}
+
+            describe('if there are no validation errors, name exists and forceApplyToStore is true', () => {
+                const name = 'test-name'
+                
+                test('calls context.dispatch', () => {
+                    const wrapper = getWrapper({forceApplyToStore: true, name})
+                    const instance = wrapper.instance()
+                    dispatch.mockClear()
+                    instance.handleBlur(event)
+                    expect(dispatch.mock.calls.length).toBe(1);
+                    expect(dispatch.mock.calls[0][0]).toEqual(setData({[name]: expectedValue}));
+                })
+                
+                test('calls setDirtyState if props.setDirtyState is defined', () => {
+                    const setDirtyState = jest.fn()
+                    const wrapper = getWrapper({forceApplyToStore: true, name, setDirtyState})
+                    const instance = wrapper.instance()
+                    instance.handleBlur(event)
+                    expect(setDirtyState.mock.calls.length).toBe(1);
+                })
+            })
+
+            test('calls props.onBlur if it is a function', () => {
+                const onBlur = jest.fn()
+                const wrapper = getWrapper({onBlur})
+                const instance = wrapper.instance()
+                instance.handleBlur(event)
+                expect(onBlur.mock.calls.length).toBe(1);
+                expect(onBlur.mock.calls[0][0]).toEqual(event);
+                expect(onBlur.mock.calls[0][1]).toEqual(expectedValue);
+            })
+        })
+
+        describe('getValidationErrors', () => {
+            const validations = [VALIDATION_RULES.IS_URL]
+
+            test('returns an array of validation error objects when errors exist', () => {
+                const wrapper = getWrapper({validations})
+                const instance = wrapper.instance()
+                instance.inputRef = {value: 'test'}
+                const expected = {'passed': false, 'rule': 'isUrl'}
+                expect(instance.getValidationErrors()).toEqual([expected])
+            })
+
+            test('returns an empty array when validation errors dont exist', () => {
+                const wrapper = getWrapper({validations})
+                const instance = wrapper.instance()
+                instance.inputRef = {value: 'https://google.fi'}
+                expect(instance.getValidationErrors()).toEqual([])
+            })
+        })
+
+        describe('setValidationErrorsToState', () => {
+            const validations = [VALIDATION_RULES.SHORT_STRING, VALIDATION_RULES.IS_URL]
+            test('sets state.errors to true when there are validation errors', () => {
+                const wrapper = getWrapper({validations})
+                const instance = wrapper.instance()
+                instance.state.error = false
+                instance.inputRef = {value: 'test'}
+                instance.setValidationErrorsToState()
+                expect(instance.state.error).toBe(true)
+            })
+
+            test('sets state.errors to false when there are no validation errors', () => {
+                const wrapper = getWrapper({validations})
+                const instance = wrapper.instance()
+                instance.state.error = true
+                instance.inputRef = {value: 'https://google.fi'}
+                instance.setValidationErrorsToState()
+                expect(instance.state.error).toBe(false)
+            })
+
+            test('sets correct state.errorMessage when over char limit', () => {
+                const limitRules = [VALIDATION_RULES.SHORT_STRING, VALIDATION_RULES.MEDIUM_STRING, VALIDATION_RULES.LONG_STRING]
+                const charLimits = [CHARACTER_LIMIT.SHORT_STRING, CHARACTER_LIMIT.MEDIUM_STRING, CHARACTER_LIMIT.LONG_STRING]
+
+                const wrapper = getWrapper()
+                const instance = wrapper.instance()
+
+                for (let index = 0; index < limitRules.length; index++) {
+                    const validations = [limitRules[index]]
+                    wrapper.setProps({validations})
+                    const limit = charLimits[index];
+                    instance.inputRef = {value: 'a'.repeat(limit + 1)}
+                    instance.setValidationErrorsToState()
+                    const expected = instance.context.intl.formatMessage({id: `validation-stringLimitReached`}, {limit})
+                    expect(instance.state.errorMessage).toBe(expected)
+                }
+            })
+
+            test('sets correct state.errorMessage when error is not char limit', () => {
+                const wrapper = getWrapper({validations})
+                const instance = wrapper.instance()
+                instance.inputRef = {value: 'not-url'}
+                instance.setValidationErrorsToState()
+                const expected = instance.context.intl.formatMessage({id: `validation-${VALIDATION_RULES.IS_URL}`})
+                expect(instance.state.errorMessage).toBe(expected)
+            })
+        })
+
+        describe('noValidationErrors', () => {
+            const validations = [VALIDATION_RULES.IS_URL]
+            test('returns false if there are validation errors', () => {
+                const wrapper = getWrapper({validations})
+                const instance = wrapper.instance()
+                instance.inputRef = {value: 'not-url'}
+                expect(instance.noValidationErrors()).toBe(false)
+            })
+
+            test('returns true if there are no validation errors', () => {
+                const wrapper = getWrapper({validations})
+                const instance = wrapper.instance()
+                instance.inputRef = {value: 'https://google.fi'}
+                expect(instance.noValidationErrors()).toBe(true)
+            })
+        })
+    })
+})
