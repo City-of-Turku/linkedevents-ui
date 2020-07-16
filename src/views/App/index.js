@@ -11,7 +11,6 @@ import {connect} from 'react-redux'
 import Headerbar from 'src/components/Header'
 import Footer from 'src/components/Footer/Footer';
 import SkipLink from 'src/components/SkipLink'
-import {ThemeProvider, Paper} from '@material-ui/core';
 import {Helmet} from 'react-helmet';
 
 import {injectIntl, FormattedMessage} from 'react-intl'
@@ -21,9 +20,7 @@ import {fetchUser as fetchUserAction} from '../../actions/user'
 
 import {cancelAction, doAction} from 'src/actions/app'
 
-import {HelMaterialTheme} from 'src/themes/material-ui'
 import Notifications from '../Notification'
-import {MuiPickersUtilsProvider} from '@material-ui/pickers'
 import MomentUtils from '@date-io/moment';
 import moment from 'moment'
 import {Button, Modal, ModalHeader, ModalBody, ModalFooter} from 'reactstrap';
@@ -49,14 +46,12 @@ class App extends React.Component {
     };
 
     static childContextTypes = {
-        muiTheme: PropTypes.object,
         intl: PropTypes.object,
         dispatch: PropTypes.func,
     };
 
     getChildContext() {
         return {
-            muiTheme: HelMaterialTheme,
             dispatch: this.props.dispatch,
             intl: this.props.intl,
         }
@@ -141,58 +136,54 @@ class App extends React.Component {
             }
         }
         return (
-            <ThemeProvider theme={HelMaterialTheme}>
-                <MuiPickersUtilsProvider utils={LocalizedUtils}>
-                    <div className='main-wrapper'>
-                        <Helmet>
-                            <html lang={this.props.intl.locale} />
-                        </Helmet>
-                        <SkipLink />
-                        <header>
-                            <Headerbar />
-                        </header>
-                        { this.props.location.pathname == '/' &&
+            <div className='main-wrapper'>
+                <Helmet>
+                    <html lang={this.props.intl.locale} />
+                </Helmet>
+                <SkipLink />
+                <header>
+                    <Headerbar />
+                </header>
+                { this.props.location.pathname == '/' &&
                             <React.Fragment>
                                 {organization_missing_msg}
                             </React.Fragment>
-                        }
-                        <main id="main-content" className="content">
-                            {this.props.children}
-                        </main>
-                        <Modal
-                            size='lg'
-                            isOpen={!!this.props.app.confirmAction}
-                            onClose={() => this.props.dispatch(cancelAction())}
-                            className='ConfirmationModal'
+                }
+                <main id="main-content" className="content">
+                    {this.props.children}
+                </main>
+                <Modal
+                    size='lg'
+                    isOpen={!!this.props.app.confirmAction}
+                    onClose={() => this.props.dispatch(cancelAction())}
+                    className='ConfirmationModal'
+                >
+                    <ModalHeader tag='h1' close={closebtn}>
+                        {confirmMsg}
+                    </ModalHeader>
+                    <ModalBody>
+                        <p><strong>{additionalMsg}</strong></p>
+                        <div dangerouslySetInnerHTML={getMarkup()}/>
+                    </ModalBody>
+                    <ModalFooter>
+                        <Button
+                            variant="contained"
+                            onClick={() => this.props.cancel()}
                         >
-                            <ModalHeader tag='h1' close={closebtn}>
-                                {confirmMsg}
-                            </ModalHeader>
-                            <ModalBody>
-                                <p><strong>{additionalMsg}</strong></p>
-                                <div dangerouslySetInnerHTML={getMarkup()}/>
-                            </ModalBody>
-                            <ModalFooter>
-                                <Button
-                                    variant="contained"
-                                    onClick={() => this.props.cancel()}
-                                >
-                                    <FormattedMessage id="cancel" />
-                                </Button>
-                                <Button
-                                    variant="contained"
-                                    color={useWarningButtonStyle ? 'secondary' : 'primary'}
-                                    onClick={() => this.props.do(this.props.app.confirmAction.data)}
-                                >
-                                    <FormattedMessage id={actionButtonLabel} />
-                                </Button>
-                            </ModalFooter>
-                        </Modal>
-                        {appSettings.show_cookie_bar && <CookieBar />}
-                        <Footer />
-                    </div>
-                </MuiPickersUtilsProvider>
-            </ThemeProvider>
+                            <FormattedMessage id="cancel" />
+                        </Button>
+                        <Button
+                            variant="contained"
+                            color={useWarningButtonStyle ? 'secondary' : 'primary'}
+                            onClick={() => this.props.do(this.props.app.confirmAction.data)}
+                        >
+                            <FormattedMessage id={actionButtonLabel} />
+                        </Button>
+                    </ModalFooter>
+                </Modal>
+                {appSettings.show_cookie_bar && <CookieBar />}
+                <Footer />
+            </div>
         )
     }
 }
