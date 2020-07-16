@@ -20,22 +20,10 @@ import {mockUser, mockEditorNewEvent, mockEditorExistingEvent} from '../../../__
 
 const mockStore = configureStore([thunk])
 const initialStoreNewEvent = {
-    subEvents: {
-        isFetching: false,
-        fetchComplete: false,
-        items: [],
-        error: null,
-    },
     user: mockUser,
     editor: mockEditorNewEvent,
 }
 const initialStoreExistingEvent = {
-    subEvents: {
-        isFetching: false,
-        fetchComplete: false,
-        items: [],
-        error: null,
-    },
     user: mockUser,
     editor: mockEditorExistingEvent,
 }
@@ -49,6 +37,10 @@ describe('Editor Snapshot', () => {
                     action: 'create',
                     eventId: 'new?_k=dn954b',
                 },
+            },
+            app: {
+                flashMsg: null,
+                confirmAction: null,
             },
             setFlashMsg: jest.fn(),
             setEditorAuthFlashMsg: jest.fn(),
@@ -66,6 +58,10 @@ describe('Editor Snapshot', () => {
                     eventId: 'helsinki:afqxukccli',
                 },
             },
+            app: {
+                flashMsg: null,
+                confirmAction: null,
+            },
             setFlashMsg: jest.fn(),
             setEditorAuthFlashMsg: jest.fn(),
             ...initialStoreExistingEvent,
@@ -81,6 +77,10 @@ describe('Editor Snapshot', () => {
                     action: 'create',
                     eventId: 'new?_k=dn954b',
                 },
+            },
+            app: {
+                flashMsg: null,
+                confirmAction: null,
             },
             setFlashMsg: jest.fn(),
             setEditorAuthFlashMsg: jest.fn(),

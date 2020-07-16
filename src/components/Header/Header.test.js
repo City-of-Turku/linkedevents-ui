@@ -95,18 +95,6 @@ describe('components/Header/index', () => {
                 });
             });
     
-            describe('Logout button', () => {
-                test('calls handleLogoutClick', () => {
-                    const wrapper = getWrapper();
-                    const handleLogoutClick = jest.fn();
-                    wrapper.instance().handleLogoutClick = handleLogoutClick;
-                    wrapper.instance().forceUpdate(); // update to register mocked function
-                    const logoutButton = wrapper.find('.bar__login-and-language').find(Button);
-                    expect(logoutButton).toHaveLength(1);
-                    logoutButton.prop('onClick')();
-                    expect(handleLogoutClick).toHaveBeenCalled();
-                });
-            });
             describe('componentDidMount', () => {
                 test('state.showModerationLink is true if user is admin and part of organization', () => {
                     const element = getWrapper({user: userAdmin});
