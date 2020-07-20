@@ -88,6 +88,16 @@ class EventActionButton extends React.Component {
         The getButtonColor function is currently not in use and can be removed if deemed unnecessary.
         */
 
+        let handleOnClick = null
+        if (!disabled){
+            handleOnClick = confirmAction ? this.confirmEventAction : customAction
+        }
+
+        let ariaLabelText = undefined;
+        if(disabled && explanationId){
+            ariaLabelText = `${intl.formatMessage({id: buttonLabel})}. ${intl.formatMessage({id: explanationId})}`
+        }
+
         return (
             <Fragment>
                 {showTermsCheckbox &&
@@ -109,11 +119,11 @@ class EventActionButton extends React.Component {
                 }
                 <Button
                     aria-disabled={disabled}
-                    aria-label={disabled && explanationId && `${intl.formatMessage({id: buttonLabel})}. ${intl.formatMessage({id: explanationId})}`}
+                    aria-label={ariaLabelText ? ariaLabelText : undefined}
                     id={action}
                     color={color}
                     className={classNames(`editor-${action}-button`,{'disabled': disabled})}
-                    onClick={() => disabled ? null : confirmAction ? this.confirmEventAction : customAction()}
+                    onClick={handleOnClick}
                     style={disabled ? {cursor: 'not-allowed'} : null}
                 >
                     <FormattedMessage id={buttonLabel}>{txt => txt}</FormattedMessage>
