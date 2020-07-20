@@ -67,6 +67,7 @@ class Notifications extends React.Component {
 Notifications.propTypes = {
     flashMsg: PropTypes.object,
     clearFlashMsg: PropTypes.func,
+    locale: PropTypes.string,
 }
 
 const mapDisPatchToProps = (dispatch) => ({
@@ -76,4 +77,5 @@ const mapStateToProps = (state) => ({
     locale: state.userLocale.locale,
 })
 
+export {Notifications as UnconnectedNotifications}
 export default connect(mapStateToProps, mapDisPatchToProps)(Notifications)
