@@ -72,6 +72,8 @@ Notifications.propTypes = {
 const mapDisPatchToProps = (dispatch) => ({
     clearFlashMsg: () => dispatch(clearFlashMsgAction()),
 }) 
-const mapStateToProps = () => ({})
-// TODO: if leave null, react-intl not refresh. Replace this with better React context
+const mapStateToProps = (state) => ({
+    locale: state.userLocale.locale,
+})
+
 export default connect(mapStateToProps, mapDisPatchToProps)(Notifications)
