@@ -220,4 +220,5 @@ const mapDispatchToProps = (dispatch) => ({
     confirm: (msg, style, actionButtonLabel, data) => dispatch(confirmAction(msg, style, actionButtonLabel, data)),
 })
 
+export {EventActionButton as UnconnectedEventActionButton}
 export default connect(mapStateToProps, mapDispatchToProps)(EventActionButton)
