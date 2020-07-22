@@ -9,6 +9,7 @@ import {Button, Form, FormGroup} from 'reactstrap';
 
 const handleKeyPress = (event, startDate, endDate, onFormSubmit, setSearchQuery) => {
     if (event.key === 'Enter') {
+        event.preventDefault();
         const searchQuery = event.target.value;
 
         onFormSubmit(searchQuery, startDate, endDate);
@@ -47,23 +48,13 @@ const SearchBar = ({intl, onFormSubmit}) => {
                 />
             </div>
             <div className='search-bar--input event-input'>
-                <Form>
-                    <input
-                        id='search'
-                        aria-hidden='true'
-                        className='hidden'
-                        onInput={(e) => setSearchQuery(e.target.value)}
-                        onKeyPress={(e) =>
-                            handleKeyPress(e, startDate, endDate, onFormSubmit, setSearchQuery)
-                        }
-                    />
+                <Form>                   
                     <FormGroup>
                         <label htmlFor='search'>{intl.formatMessage({id: 'event-name-or-place'})}</label>
                         <input
                             id='search'
                             className='event-search-bar'
                             type='text'
-                            autoFocus
                             onChange={(e) => setSearchQuery(e.target.value)}
                             onKeyPress={(e) =>
                                 handleKeyPress(e, startDate, endDate, onFormSubmit, setSearchQuery)
@@ -88,4 +79,5 @@ SearchBar.propTypes = {
     intl: PropTypes.object,
 };
 
+export {SearchBar as SearchBarWithoutIntl}
 export default injectIntl(SearchBar);
