@@ -16,6 +16,7 @@
     "submit": "Lähetä",
     "cancel": "Kumoa",
     "clear": "Tyhjennä",
+	"create-admin-draft-events": "Tallenna luonnoksena",
     "create-events": "Lisää uusi tapahtuma",
     "edit-events": "Muokkaa tapahtumaa",
     "update-events": "Tallenna",

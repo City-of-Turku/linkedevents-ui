@@ -16,6 +16,7 @@
     "submit": "Submit",
     "cancel": "Cancel",
     "clear": "Clear",
+	"create-admin-draft-events": "Create as a draft",
     "create-events": "Create a new event",
     "edit-events": "Edit the event",
     "update-events": "Save",

@@ -44,6 +44,7 @@ exports[`Image add form ImagePicker component should render correctly with data 
       "copy-event-to-draft": "Kopioi uuden tapahtuman pohjaksi",
       "copy-to-clipboard": "Kopioi leikepöydälle",
       "courses-management": "Kurssien hallinta",
+      "create-admin-draft-events": "Tallenna luonnoksena",
       "create-courses": "Lisää uusi kurssi",
       "create-events": "Lisää uusi tapahtuma",
       "date": "Päivämäärä",

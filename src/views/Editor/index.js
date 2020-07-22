@@ -170,13 +170,13 @@ export class EditorPage extends React.Component {
     /**
      * Saves the editor changes
      */
-    saveChanges = () => {
+    saveChanges = (isAdminDraft) => {
         const {subEvents, isRegularUser} = this.state
         const {match, editor: {values: formValues}, executeSendRequest} = this.props
         const updateExisting = get(match, ['params', 'action']) === 'update'
-        const publicationStatus = isRegularUser
-            ? PUBLICATION_STATUS.DRAFT
-            : PUBLICATION_STATUS.PUBLIC
+        const publicationStatus = (!isRegularUser && !isAdminDraft)
+            ? PUBLICATION_STATUS.PUBLIC
+            : PUBLICATION_STATUS.DRAFT
 
         this.setState({isDirty: false})
         executeSendRequest(formValues, updateExisting, publicationStatus, subEvents)
@@ -372,11 +372,19 @@ export class EditorPage extends React.Component {
                                     )
                                 }
                                 {
+                                    (isAdminUser && editMode === 'create') &&
+                                    this.getActionButton(
+                                        'create-admin-draft',
+                                        () => this.saveChanges(true),
+                                        hasSubEvents && !isUmbrellaEvent
+                                    )
+                                }
+                                {
                                     // show confirmation modal when the updated event has sub events and isn't an umbrella event,
                                     // otherwise save directly
                                     this.getActionButton(
                                         'update',
-                                        this.saveChanges,
+                                        () => this.saveChanges(false),
                                         hasSubEvents && !isUmbrellaEvent
                                     )
                                 }

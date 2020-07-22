@@ -16,6 +16,7 @@
     "submit": "Skicka",
     "cancel": "Avboka",
     "clear": "Klar",
+	"create-admin-draft-events": "Skapa som ett utkast",
     "create-events": "Skapa händelse",
     "edit-events": "Redigera händelse",
     "update-events": "Spara",
