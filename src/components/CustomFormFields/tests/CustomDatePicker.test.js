@@ -375,16 +375,31 @@ describe('CustomDatePicker', () => {
             beforeEach(() => {
                 spy.mockClear()
             })
+            
+            describe('calls validateDate if state.inputValue is defined', () => {
+                test('with correct params when inputValue is not valid', () => {
+                    const wrapper = mount(<CustomDatePicker {...defaultProps} />, {context: {intl}});
+                    const instance = wrapper.instance()
+                    instance.state.inputValue = '123'
+                    const minDate = moment('2020-03-23')
+                    wrapper.setProps({minDate})
+                    const expectedDate = moment(instance.state.inputValue, instance.getDateFormat(defaultProps.type), true)
+                    expect(spy).toHaveBeenCalledTimes(1);
+                    expect(JSON.stringify(spy.mock.calls[0][0])).toEqual(JSON.stringify(expectedDate))
+                    expect(spy.mock.calls[0][1]).toBe(minDate)
+                })
 
-            test('calls validateDate if state.inputValue is defined', () => {
-                const wrapper = mount(<CustomDatePicker {...defaultProps} />, {context: {intl}});
-                const instance = wrapper.instance()
-                instance.state.inputValue = '123'
-                const minDate = moment('2020-03-23')
-                wrapper.setProps({minDate})
-                expect(spy).toHaveBeenCalledTimes(1);
-                expect(spy).toHaveBeenCalledWith(
-                    moment(instance.state.inputValue, instance.getDateFormat(defaultProps.type)), minDate)
+                test('with correct params when inputValue is valid', () => {
+                    const wrapper = mount(<CustomDatePicker {...defaultProps} />, {context: {intl}});
+                    const instance = wrapper.instance()
+                    instance.state.inputValue = '20.5.2020'
+                    const minDate = moment('2020-03-23')
+                    wrapper.setProps({minDate})
+                    const expectedDate = moment(instance.state.inputValue, instance.getDateFormat(defaultProps.type), true)
+                    expect(spy).toHaveBeenCalledTimes(1);
+                    expect(spy.mock.calls[0][0]).toEqual(expectedDate)
+                    expect(spy.mock.calls[0][1]).toBe(minDate)
+                })
             })
 
             test('doesnt call validateDate if state.inputValue is not defined', () => {

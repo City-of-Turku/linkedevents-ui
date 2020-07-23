@@ -168,8 +168,9 @@ class CustomDatePicker extends React.Component {
         // Update validation if min or max date changes and state.inputValue is not empty
         const {minDate, maxDate, type} = this.props
         if (minDate !== prevProps.minDate || maxDate !== prevProps.maxDate) {
-            if(this.state.inputValue)
-                this.validateDate(moment(this.state.inputValue, this.getDateFormat(type)), minDate)
+            if(this.state.inputValue) {
+                this.validateDate(moment(this.state.inputValue, this.getDateFormat(type), true), minDate)
+            }
         }
     }
 
