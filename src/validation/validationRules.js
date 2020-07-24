@@ -14,7 +14,13 @@ let _isExisty = function _isExisty(value) {
 }
 
 let isEmpty = function isEmpty(value) {
-    return value === '';
+
+    if (value === '') {return true}
+    else if (typeof value == 'object') {
+        const vals = Object.values(value);
+        if (vals.length > 0 && vals[0] === '') {return true}
+        if (vals.length === 0) {return true}
+    }
 }
 
 const _containsAllLanguages = (value, languages) => {

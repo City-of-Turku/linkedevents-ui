@@ -282,13 +282,25 @@ const VideoValue = ({values}) => {
                     className={'video-item--container'}
                 >
                     {Object.entries(item)
-                        .map(([key, value]) => (
-                            <TextValue
-                                key={`video-value-${key}`}
-                                labelKey={`event-video-${key}`}
-                                value={value}
-                            />
-                        ))
+                        .map(([key, value]) => {
+                            if (key === 'url') {
+                                return (
+                                    <TextValue
+                                        key={`video-value-${key}`}
+                                        labelKey={`event-video-${key}`}
+                                        value={value}
+                                    />
+                                )
+                            } else {
+                                return (
+                                    <MultiLanguageValue
+                                        key={`video-value-${key}`}
+                                        labelKey={`event-video-${key}`}
+                                        value={value}
+                                    />
+                                )
+                            }
+                        })
                     }
                 </div>
             ))}
