@@ -43,13 +43,13 @@ class LogoutDropdown extends React.Component {
             <div className='logout-component'>
                 <div onClick={this.toggle} ref={node => this.node = node} className='Logoutdrop'>
                     <div className="logout">
-                        <a aria-label="" href="#">
+                        <a role="menu" aria-label={user.displayName} href="#">
                             {user.displayName}
                             <span className="caret"></span>
                         </a>
                     </div>
                 </div>
-                <ul className={classNames('user-dropdown', {open: this.state.isOpen})}>
+                <ul role='menuitem' className={classNames('user-dropdown', {open: this.state.isOpen})}>
                     <li className="" onClick={logout}>
                         <a aria-label={this.context.intl.formatMessage({id: `logout`})} href="#">
                             <FormattedMessage id='logout'>{txt => txt}</FormattedMessage>

@@ -14,7 +14,7 @@ import LogoutDropdown from './LogoutDropdown';
 import {FormattedMessage} from 'react-intl';
 import constants from '../../constants';
 //Updated Nav from Material UI to Reactstrap based on Open design
-import {Collapse, Navbar, NavbarToggler, Nav, NavbarBrand, Button} from 'reactstrap';
+import {Collapse, Navbar, NavbarToggler, Nav, NavItem, NavLink, NavbarBrand, Button} from 'reactstrap';
 //Citylogo can now be used from scss
 //import cityOfHelsinkiLogo from '../../assets/images/helsinki-logo.svg'
 import {hasOrganizationWithRegularUsers} from '../../utils/user';
@@ -114,7 +114,7 @@ class HeaderBar extends React.Component {
 
         return (
             <div className='main-navbar'>
-                <Navbar className='bar'>
+                <Navbar role='navigation' className='bar'>
                     <NavbarBrand className='bar__logo' href='#' onClick={this.onLinkToMainPage} aria-label={this.context.intl.formatMessage({id: `navbar.brand`})} />
                     <div className='bar__login-and-language'>
                         <div className='language-selector'>
@@ -129,7 +129,7 @@ class HeaderBar extends React.Component {
                                 <LogoutDropdown user={user} logout={this.handleLogoutClick} />
                             </div>
                         ) : (
-                            <Button onClick={this.handleLoginClick}>
+                            <Button role='link' onClick={this.handleLoginClick}>
                                 <span className='glyphicon glyphicon-user'></span>
                                 <FormattedMessage id='login' />
                             </Button>
@@ -137,7 +137,7 @@ class HeaderBar extends React.Component {
                     </div>
                 </Navbar>
 
-                <Navbar className='linked-events-bar' expand='lg'>
+                <Navbar role='navigation' className='linked-events-bar' expand='lg'>
                     <NavbarBrand
                         href='#'
                         className='linked-events-bar__logo'
@@ -149,24 +149,61 @@ class HeaderBar extends React.Component {
                     <Collapse isOpen={this.state.isOpen} navbar>
                         <div className='linked-events-bar__links'>
                             <div className='linked-events-bar__links__list'>
-                                <NavLinks
+                                <NavItem>
+                                    <NavLink
+                                        active={window.location.pathname === '/'}
+                                        href='#'
+                                        onClick={toMainPage}>
+                                        <FormattedMessage id={`${appSettings.ui_mode}-management`} />
+                                    </NavLink>
+                                </NavItem>
+                                <NavItem>
+                                    <NavLink
+                                        active={window.location.pathname === '/search'}
+                                        href='#'
+                                        onClick={toSearchPage}>
+                                        <FormattedMessage id={`search-${appSettings.ui_mode}`} />
+                                    </NavLink>
+                                </NavItem>
+                                <NavItem>
+                                    <NavLink
+                                        active={window.location.pathname === '/help'}
+                                        href='#'
+                                        onClick={toHelpPage}>
+                                        {' '}
+                                        <FormattedMessage id='more-info' />
+                                    </NavLink>
+                                </NavItem>
+                                {showModerationLink && (
+                                    <NavItem>
+                                        <NavLink
+                                            //Added classNames for moderation-link, now applies className "moderator true" when state true for scss-rule color.
+                                            href='#'
+                                            className={classNames('moderator', {true: showModerationLink})}
+                                            onClick={toModerationPage}>
+                                            <FormattedMessage id='moderation-page' />
+                                        </NavLink>
+                                    </NavItem>
+                                )}
+                                {/* <NavLinks
                                     showModerationLink={showModerationLink}
                                     toMainPage={toMainPage}
                                     toSearchPage={toSearchPage}
                                     toHelpPage={toHelpPage}
                                     toModerationPage={toModerationPage}
-                                />
+                               /> */}
                             </div>
-                            <Nav className='ml-auto' navbar>
-                                {!isInsideForm && (
-                                    <Button
-                                        className='linked-events-bar__links__create-events'
-                                        onClick={() => routerPush('/event/create/new')}>
-                                        <span className='glyphicon glyphicon-plus'></span>
-                                        <FormattedMessage id={`create-${appSettings.ui_mode}`} />
-                                    </Button>
-                                )}
-                            </Nav>
+
+                            {!isInsideForm && (
+                                <NavLink
+                                    role='link'
+                                    className='linked-events-bar__links__create-events ml-auto'
+                                    onClick={() => routerPush('/event/create/new')}>
+                                    <span aria-hidden className='glyphicon glyphicon-plus'></span>
+                                    <FormattedMessage id={`create-${appSettings.ui_mode}`} />
+                                </NavLink>
+                            )}
+
                         </div>
                     </Collapse>
                 </Navbar>
@@ -176,29 +213,47 @@ class HeaderBar extends React.Component {
 }
 /**
  * Returns the page links, if showModeration is true then the link to the moderation page is rendered aswell.
- */
+ */ /*
 export const NavLinks = (props) => {
     const {showModerationLink, toMainPage, toSearchPage, toHelpPage, toModerationPage} = props;
 
     return (
         <React.Fragment>
-            <Button onClick={toMainPage}>
-                <FormattedMessage id={`${appSettings.ui_mode}-management`} />
-            </Button>
-            <Button onClick={toSearchPage}>
-                <FormattedMessage id={`search-${appSettings.ui_mode}`} />
-            </Button>
-            <Button onClick={toHelpPage}>
-                {' '}
-                <FormattedMessage id='more-info' />
-            </Button>
+            <NavItem>
+                <NavLink
+                    active={window.location.pathname === '/'}
+                    href='#'
+                    onClick={toMainPage}>
+                    <FormattedMessage id={`${appSettings.ui_mode}-management`} />
+                </NavLink>
+            </NavItem>
+            <NavItem>
+                <NavLink
+                    active={window.location.pathname === '/search'}
+                    href='#'
+                    onClick={toSearchPage}>
+                    <FormattedMessage id={`search-${appSettings.ui_mode}`} />
+                </NavLink>
+            </NavItem>
+            <NavItem>
+                <NavLink
+                    active={window.location.pathname === '/help'}
+                    href='#'
+                    onClick={toHelpPage}>
+                    {' '}
+                    <FormattedMessage id='more-info' />
+                </NavLink>
+            </NavItem>
             {showModerationLink && (
-                <Button
+                <NavItem>
+                    <NavLink
                     //Added classNames for moderation-link, now applies className "moderator true" when state true for scss-rule color.
-                    className={classNames('moderator', {true: showModerationLink})}
-                    onClick={toModerationPage}>
-                    <FormattedMessage id='moderation-page' />
-                </Button>
+                        href='#'
+                        className={classNames('moderator', {true: showModerationLink})}
+                        onClick={toModerationPage}>
+                        <FormattedMessage id='moderation-page' />
+                    </NavLink>
+                </NavItem>
             )}
         </React.Fragment>
     );
@@ -211,7 +266,7 @@ NavLinks.propTypes = {
     toHelpPage: PropTypes.func,
     toModerationPage: PropTypes.func,
 };
-
+*/
 // Adds dispatch to this.props for calling actions, add user from store to props
 HeaderBar.propTypes = {
     user: PropTypes.object,

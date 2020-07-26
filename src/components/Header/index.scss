@@ -136,21 +136,30 @@ $iconMarginLeft: 24px;
 				}
 			}
 			&__list {
-				.btn {
+				display: flex;
+				align-items: center;
+				.nav-item {
+					display: inline-flex;
+				.nav-link {
 					color: black;
-					border: none;
+					&.active {
+						border-radius: inherit;
+						outline: 5px auto !important;
+					}
 					&:hover {
 						background-color: rgba(0, 0, 0, 0.08);
+						outline: 5px auto !important;
 					}
 					&:focus {
 						color: inherit;
-						outline: 5px auto -webkit-focus-ring-color;
+						outline: 5px auto !important;
 						box-shadow: none;
 					}
 					.text {
 						padding: 6px 8px;
 					}
 				}
+			}
 				//moderation button
 				.moderator {
 					color: #0072c6;

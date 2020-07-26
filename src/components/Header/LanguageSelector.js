@@ -63,12 +63,12 @@ class LanguageSelector extends React.Component {
                 <div onClick={this.toggle} ref={node => this.node = node} className='LanguageMain'>
                     <span className="glyphicon glyphicon-globe" />
                     <div className="currentLanguage">
-                        <a aria-label={this.context.intl.formatMessage({id: `navbar.active`})} href="#">{activeLocale}
+                        <a role="menu" aria-label={this.context.intl.formatMessage({id: `navbar.active`})} href="#">{activeLocale}
                             <span className="caret"></span>
                         </a>
                     </div>
                 </div>
-                <ul className={classNames('language', {open: this.state.isOpen})}>
+                <ul role="menuitem" className={classNames('language', {open: this.state.isOpen})}>
                     {this.props.languages.map((language, index) => {
                         return (
                             <li
