@@ -535,6 +535,7 @@ class FormFields extends React.Component {
                     validationErrors={validationErrors}
                     setDirtyState={this.props.setDirtyState}
                     intl={this.context.intl}
+                    action={this.props.action}
                 />
 
                 <FormHeader>

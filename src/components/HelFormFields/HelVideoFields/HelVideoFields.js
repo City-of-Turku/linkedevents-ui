@@ -89,6 +89,9 @@ class HelVideoFields extends React.Component {
             }
             this.props.setData({videos: videos});
         }
+        if (prevProps.action === 'update' && this.props.action === 'create') {
+            this.setState({videos: [Object.assign({}, EMPTY_VIDEO)]})
+        }
     }
 
     /**
@@ -299,6 +302,7 @@ HelVideoFields.contextTypes = {
 }
 
 HelVideoFields.propTypes = {
+    action: PropTypes.string,
     setData: PropTypes.func,
     defaultValues: PropTypes.array,
     validationErrors: PropTypes.object,

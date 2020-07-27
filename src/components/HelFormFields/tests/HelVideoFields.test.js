@@ -25,6 +25,7 @@ const mockEditor = mockEditorNewEvent;
 
 describe('HelVideoFields', () => {
     const defaultProps = {
+        action: 'create',
         setData: jest.fn(),
         clearVideos: jest.fn(),
         validationErrors: {},
@@ -105,9 +106,17 @@ describe('HelVideoFields', () => {
 
                 wrapper.setProps({languages:['fi']});
                 expect(spy).toHaveBeenCalledWith({videos: [MOCK_VIDEO]});
+                wrapper.unmount();
+            });
 
-            })
-        })
+            test('if prevProps.action was update && this.props.action is create -> clear state by setting it to an empty video', () =>{
+                const wrapper = getWrapper({defaultValues:[MOCK_VIDEO], action: 'update'});
+                expect(wrapper.state()).toEqual({videos:[MOCK_VIDEO]});
+                wrapper.setProps({action: 'create'});
+                expect(wrapper.state()).toEqual({videos:[EMPTY_VIDEO]});
+            });
+
+        });
 
         describe('handleBlur', () => {
             let wrapper;
