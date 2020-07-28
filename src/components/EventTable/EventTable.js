@@ -56,7 +56,7 @@ const EventTable = ({
     const showPageSizeOptions = pageSizeOptions.length && pageSizeOptions[0] <= events.length
     const tableId = tableName ? tableName + '-id' : 'events-table-id'
     return (
-        <Table className="event-table" id={tableId}>
+        <Table className="event-table" responsive='md' id={tableId}>
             <thead>
                 <tr>
                     {tableColumns.map(item => (
