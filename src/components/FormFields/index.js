@@ -311,6 +311,14 @@ class FormFields extends React.Component {
                     <FormattedMessage id="event-datetime-fields-header" />
                 </FormHeader>
                 <div className="row date-row">
+                    <SideField>
+                        <div className="tip">
+                            <p><FormattedMessage id="editor-tip-time-start"/></p>
+                            <p><FormattedMessage id="editor-tip-time-end"/></p>
+                            <p><FormattedMessage id="editor-tip-time-multi"/></p>
+                            <p><FormattedMessage id="editor-tip-time-delete"/></p>
+                        </div>
+                    </SideField>
                     <div className="col-sm-6">
                         <div className="row">
                             <div className="col-xs-12 col-sm-12">
@@ -369,20 +377,21 @@ class FormFields extends React.Component {
                             <FormattedMessage id="event-add-recurring" />
                         </Button>
                     </div>
-                    <SideField>
-                        <div className="tip">
-                            <p><FormattedMessage id="editor-tip-time-start"/></p>
-                            <p><FormattedMessage id="editor-tip-time-end"/></p>
-                            <p><FormattedMessage id="editor-tip-time-multi"/></p>
-                            <p><FormattedMessage id="editor-tip-time-delete"/></p>
-                        </div>
-                    </SideField>
+
                 </div>
 
                 <FormHeader>
                     <FormattedMessage id="event-location-fields-header" />
                 </FormHeader>
                 <div className="row location-row">
+                    <SideField>
+                        <div className="tip">
+                            <p><FormattedMessage id="editor-tip-location"/></p>
+                            <p><strong><FormattedMessage id="editor-tip-location-internet"/></strong></p>
+                            <p><FormattedMessage id="editor-tip-location-extra"/></p>
+                            <p><FormattedMessage id="editor-tip-location-not-found"/></p>
+                        </div>
+                    </SideField>
                     <div className="col-sm-6 hel-select">
 
                         <HelSelect
@@ -449,20 +458,19 @@ class FormFields extends React.Component {
                             type='text'
                         />
                     </div>
-                    <SideField>
-                        <div className="tip">
-                            <p><FormattedMessage id="editor-tip-location"/></p>
-                            <p><strong><FormattedMessage id="editor-tip-location-internet"/></strong></p>
-                            <p><FormattedMessage id="editor-tip-location-extra"/></p>
-                            <p><FormattedMessage id="editor-tip-location-not-found"/></p>
-                        </div>
-                    </SideField>
+
                 </div>
 
                 <FormHeader>
                     <FormattedMessage id="event-price-fields-header" />
                 </FormHeader>
-                <div className="row">
+                <div className="row offers-row">
+                    <SideField>
+                        <div className="tip">
+                            <p><FormattedMessage id="editor-tip-price"/></p>
+                            <p><FormattedMessage id="editor-tip-price-multi"/></p>
+                        </div>
+                    </SideField>
                     <div className="col-sm-6">
                         <HelOffersField
                             ref="offers"
@@ -473,18 +481,14 @@ class FormFields extends React.Component {
                             setDirtyState={this.props.setDirtyState}
                         />
                     </div>
-                    <SideField>
-                        <div className="tip">
-                            <p><FormattedMessage id="editor-tip-price"/></p>
-                            <p><FormattedMessage id="editor-tip-price-multi"/></p>
-                        </div>
-                    </SideField>
+
                 </div>
 
                 <FormHeader>
                     <FormattedMessage id="event-social-media-fields-header" />
                 </FormHeader>
-                <div className="row">
+                <div className="row social-media-row">
+                    <SideField><p className="tip"><FormattedMessage id="editor-tip-social-media"/></p></SideField>
                     <div className="col-sm-6">
                         {/* Removed formatted message from label since it was causing accessibility issues */}
                         <HelTextField
@@ -524,7 +528,7 @@ class FormFields extends React.Component {
                             type='text'
                         />
                     </div>
-                    <SideField><p className="tip"><FormattedMessage id="editor-tip-social-media"/></p></SideField>
+
                 </div>
 
                 <FormHeader>
@@ -550,6 +554,7 @@ class FormFields extends React.Component {
                     />
                 </div>
                 <div className="row audience-row">
+                    <SideField><p className="tip"><FormattedMessage id="editor-tip-hel-target-group"/></p></SideField>
                     <HelLabeledCheckboxGroup
                         groupLabel={<FormattedMessage id="hel-target-groups"/>}
                         selectedValues={values['audience']}
@@ -560,7 +565,7 @@ class FormFields extends React.Component {
                         options={helTargetOptions}
                         setDirtyState={this.props.setDirtyState}
                     />
-                    <SideField><p className="tip"><FormattedMessage id="editor-tip-hel-target-group"/></p></SideField>
+                    <SideField><p className="tip"><FormattedMessage id="editor-tip-event-languages"/></p></SideField>
                     <HelLabeledCheckboxGroup
                         groupLabel={<FormattedMessage id="hel-event-languages"/>}
                         selectedValues={values['in_language']}
@@ -571,7 +576,7 @@ class FormFields extends React.Component {
                         options={helEventLangOptions}
                         setDirtyState={this.props.setDirtyState}
                     />
-                    <SideField><p className="tip"><FormattedMessage id="editor-tip-event-languages"/></p></SideField>
+
                 </div>
 
                 {appSettings.ui_mode === 'courses' &&

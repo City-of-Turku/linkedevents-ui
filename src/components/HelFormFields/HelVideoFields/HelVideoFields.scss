@@ -1,4 +1,5 @@
 .event-videos {
+    flex-direction: row-reverse;
     &--item-container {
         display: flex;
         position: relative;

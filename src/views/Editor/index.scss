@@ -56,6 +56,10 @@ $actionBtnHeight: 60px;
     }
     .side-field {
         padding-top: 36px;
+        @media (max-width: 768px) {
+            padding-top: 0;
+            padding-bottom: 36px;
+        }
         p {
             font-size: 18px;
             font-weight: 300;

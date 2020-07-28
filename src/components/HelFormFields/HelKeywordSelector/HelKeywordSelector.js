@@ -68,6 +68,11 @@ const HelKeywordSelector = ({intl, editor, setDirtyState, setData, currentLocale
 
     return (
         <React.Fragment>
+            <SideField>
+                <p className="tip">
+                    <FormattedMessage id="editor-tip-hel-main-category"/>
+                </p>
+            </SideField>
             <HelLabeledCheckboxGroup
                 groupLabel={<FormattedMessage id="main-categories"/>}
                 selectedValues={keywords}
@@ -81,7 +86,7 @@ const HelKeywordSelector = ({intl, editor, setDirtyState, setData, currentLocale
             />
             <SideField>
                 <p className="tip">
-                    <FormattedMessage id="editor-tip-hel-main-category"/>
+                    <FormattedMessage id="editor-tip-keywords"/>
                 </p>
             </SideField>
             <div className="col-sm-6 hel-select">
@@ -105,11 +110,7 @@ const HelKeywordSelector = ({intl, editor, setDirtyState, setData, currentLocale
                     locale={currentLocale}
                 />
             </div>
-            <SideField>
-                <p className="tip">
-                    <FormattedMessage id="editor-tip-keywords"/>
-                </p>
-            </SideField>
+
         </React.Fragment>
     )
 }

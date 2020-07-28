@@ -218,7 +218,13 @@ class HelVideoFields extends React.Component {
         return (
             <React.Fragment>
                 <div className="row event-videos">
+                    <SideField>
+                        <div className="tip">
+                            <p><FormattedMessage id="editor-tip-video"/></p>
+                            <p><FormattedMessage id="editor-tip-video-fields"/></p>
+                        </div>
 
+                    </SideField>
                     <div className="col-xs-12 col-sm-6">
                         {stateVideos.map((video, index) => (
                             <div key={`video-field-${index}`} className={classNames('event-videos--item-container', {'indented': this.state.videos.length > 1})}>
@@ -284,13 +290,7 @@ class HelVideoFields extends React.Component {
                         </div>
                         */}
                     </div>
-                    <SideField>
-                        <div className="tip">
-                            <p><FormattedMessage id="editor-tip-video"/></p>
-                            <p><FormattedMessage id="editor-tip-video-fields"/></p>
-                        </div>
 
-                    </SideField>
                 </div>
             </React.Fragment>
         )

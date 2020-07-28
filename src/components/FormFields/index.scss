@@ -40,6 +40,14 @@ textarea {
         top: 65px;
     }
 }
+.date-row,
+.offers-row,
+.social-media-row,
+.keyword-row,
+.audience-row,
+.location-row {
+    flex-direction: row-reverse;
+}
 
 // Styling for new Form Inputs
 .event-input {
