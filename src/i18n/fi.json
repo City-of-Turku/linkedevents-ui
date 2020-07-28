@@ -372,9 +372,9 @@
     "user-events-toggle": "Näytä vain itse luomani tapahtumat",
 
     "navbar.brand": "Linked Events logo, linkki etusivulle",
-    "navbar.fi": "Suomi",
-    "navbar.en": "Englanti",
-    "navbar.sv": "Ruotsi",
+    "navbar.fi": "Valitse kieleksi Suomi",
+    "navbar.en": "Valitse kieleksi Englanti",
+    "navbar.sv": "Valitse kieleksi Ruotsi",
     "navbar.active": "Käytössä oleva kieli on Suomi",
 
     "skiplink-shortcut": "Siirry sisältöön",

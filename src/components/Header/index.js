@@ -151,7 +151,8 @@ class HeaderBar extends React.Component {
                             <div className='linked-events-bar__links__list'>
                                 <NavItem>
                                     <NavLink
-                                        active={window.location.pathname === '/'}
+                                        tabIndex='0'
+                                        active={location.pathname === '/'}
                                         href='#'
                                         onClick={toMainPage}>
                                         <FormattedMessage id={`${appSettings.ui_mode}-management`} />
@@ -159,7 +160,8 @@ class HeaderBar extends React.Component {
                                 </NavItem>
                                 <NavItem>
                                     <NavLink
-                                        active={window.location.pathname === '/search'}
+                                        tabIndex='0'
+                                        active={location.pathname === '/search'}
                                         href='#'
                                         onClick={toSearchPage}>
                                         <FormattedMessage id={`search-${appSettings.ui_mode}`} />
@@ -167,7 +169,8 @@ class HeaderBar extends React.Component {
                                 </NavItem>
                                 <NavItem>
                                     <NavLink
-                                        active={window.location.pathname === '/help'}
+                                        tabIndex='0'
+                                        active={location.pathname === '/help'}
                                         href='#'
                                         onClick={toHelpPage}>
                                         {' '}
@@ -177,6 +180,7 @@ class HeaderBar extends React.Component {
                                 {showModerationLink && (
                                     <NavItem>
                                         <NavLink
+                                            tabIndex='0'
                                             //Added classNames for moderation-link, now applies className "moderator true" when state true for scss-rule color.
                                             href='#'
                                             className={classNames('moderator', {true: showModerationLink})}
@@ -193,15 +197,18 @@ class HeaderBar extends React.Component {
                                     toModerationPage={toModerationPage}
                                /> */}
                             </div>
-
                             {!isInsideForm && (
-                                <NavLink
-                                    role='link'
-                                    className='linked-events-bar__links__create-events ml-auto'
-                                    onClick={() => routerPush('/event/create/new')}>
-                                    <span aria-hidden className='glyphicon glyphicon-plus'></span>
-                                    <FormattedMessage id={`create-${appSettings.ui_mode}`} />
-                                </NavLink>
+                                <NavItem className='linked-events-bar__links__create-event'>
+                                    <NavLink
+                                        tabIndex='0'
+                                        active={window.location.pathname === '/event/create/new'}
+                                        href='#'
+                                        className='linked-events-bar__links__create-events ml-auto'
+                                        onClick={() => routerPush('/event/create/new')}>
+                                        <span aria-hidden className='glyphicon glyphicon-plus'></span>
+                                        <FormattedMessage id={`create-${appSettings.ui_mode}`} />
+                                    </NavLink>
+                                </NavItem>
                             )}
 
                         </div>

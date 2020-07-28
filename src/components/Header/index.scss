@@ -121,6 +121,9 @@ $iconMarginLeft: 24px;
 			display: flex;
 			flex-grow: 1;
 			justify-content: space-between;
+			.nav-item {
+				display: inline-flex;
+			}
 			&__create-events {
 				color: #0072c6;
 				border: 1px solid rgba(0, 0, 0, 0.23);
@@ -140,8 +143,9 @@ $iconMarginLeft: 24px;
 				align-items: center;
 				.nav-item {
 					display: inline-flex;
-				.nav-link {
+				a.nav-link {
 					color: black;
+					cursor: pointer;
 					&.active {
 						border-radius: inherit;
 						outline: 5px auto !important;
@@ -151,9 +155,7 @@ $iconMarginLeft: 24px;
 						outline: 5px auto !important;
 					}
 					&:focus {
-						color: inherit;
 						outline: 5px auto !important;
-						box-shadow: none;
 					}
 					.text {
 						padding: 6px 8px;
@@ -316,15 +318,41 @@ ul.user-dropdown {
 			&__links {
 				display: block;
 				text-align: center;
+				&__create-event {
+					display: block !important;
+					margin-bottom: 5px;
+					margin-top: 5px;
+					.nav-link{
+						display: inline-flex !important;
+					}
+				}
+				&__list {
+					display: inline-grid !important;
+					.nav-item {
+						a.nav-link {
+							width: 100%;
+							margin-bottom: 10px;
+							margin-top:5px;
+						}
+					}
+				}
 			}
 		}
 	}
 }
+
 @media only screen and (max-width: 472px) {
 	.linked-events-bar {
 		&__links {
 			&__list {
-				display: inline-grid;
+				display: inline-grid !important;
+				.nav-item {
+					a.nav-link {
+						width: 100%;
+						margin-bottom: 5px;
+						margin-top: 5px;
+					}
+				}
 			}
 		}
 	}
