@@ -140,7 +140,15 @@ $checkbox-column-width: 50px;
 
 .draft-actions {
     margin-top: 20px;
-
+    @media (max-width:500px) {
+        display: grid;
+        button {
+            margin: 10px 0px 10px;
+    }
+    &--button:not(:first-of-type) {
+        margin-left: 0px !important;
+    }
+}
     &--button:not(:first-of-type) {
         margin-left: 20px;
     }
