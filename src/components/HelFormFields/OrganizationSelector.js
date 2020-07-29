@@ -21,7 +21,7 @@ const OrganizationSelector = ({formType, selectedOption, options, onChange}) => 
             <label className='event-publisher' htmlFor='event-publisher'>{<FormattedMessage id='event-publisher' />}</label>
 
             {formType === 'update' ? (
-                <input
+                <Input
                     className='event-publisher-input'
                     id='event-publisher'
                     aria-disabled={true}
@@ -41,7 +41,7 @@ const OrganizationSelector = ({formType, selectedOption, options, onChange}) => 
                     </Input>
                 </React.Fragment>
             ) : (
-                <input
+                <Input
                     readOnly
                     className='event-publisher-input'
                     id='event-publisher'

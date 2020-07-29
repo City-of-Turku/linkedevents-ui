@@ -41,7 +41,7 @@ describe('OrganizationSelector', () => {
             test('input', () => {
                 const formType = 'update'
                 const selectedOption = testOrgB
-                const input = getWrapper({formType, selectedOption}).find('input')
+                const input = getWrapper({formType, selectedOption}).find(Input)
                 expect(input).toHaveLength(1)
                 expect(input.prop('className')).toBe('event-publisher-input')
                 expect(input.prop('id')).toBe('event-publisher')
@@ -71,7 +71,7 @@ describe('OrganizationSelector', () => {
             })
 
             test('readonly input when there is only one option', () => {
-                const input = getWrapper().find('input')
+                const input = getWrapper().find(Input)
                 expect(input).toHaveLength(1)
                 expect(input.prop('className')).toBe('event-publisher-input')
                 expect(input.prop('id')).toBe('event-publisher')
