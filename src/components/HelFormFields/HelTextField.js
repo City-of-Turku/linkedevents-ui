@@ -185,8 +185,9 @@ class HelTextField extends Component {
             validationErrors,
             index,
             name,
+            fieldID,
         } = this.props
-        const fieldID = this.props.id;
+       
         const type = this.props.type;
         const alert = this.state.error ? {role: 'alert', className: 'red-alert'} : '';
         // Replaced TextField component with Form/FormGroup + Input, to make inputs actually accessible and customizable.
@@ -221,6 +222,7 @@ class HelTextField extends Component {
 
 HelTextField.propTypes = {
     name: PropTypes.string,
+    fieldID: PropTypes.string,
     placeholder: PropTypes.string,
     defaultValue: PropTypes.oneOfType([
         PropTypes.number,
@@ -246,10 +248,12 @@ HelTextField.propTypes = {
     type: PropTypes.string,
     maxLength: PropTypes.number,
     id: PropTypes.string,
+    
 }
 
 HelTextField.defaultProps = {
     type: 'text',
 };
+
 
 export default HelTextField
