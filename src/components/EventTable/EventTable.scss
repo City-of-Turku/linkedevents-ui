@@ -20,7 +20,11 @@ $checkbox-column-width: 50px;
 .Mui-selected {
     background-color: #cce2f3;
 }
-
+@media (max-width: 768px) {
+    .event-table thead th:not(.checkbox) .glyphicon { 
+    display: inline;
+    }
+}
 .event-table {
     thead {
         th:not(.checkbox) {
@@ -99,6 +103,7 @@ $checkbox-column-width: 50px;
         text-align: center;
         width: $checkbox-column-width;
 
+
         span {
             cursor: pointer;
             display: inline-block;
@@ -175,7 +180,7 @@ tbody {
     .event-table {
         td, th {
             display: block;
-            margin-left: 24px;
+            margin-left: 20px;
         }
         td:first-child, th:first-child {
          //   margin-top: 20px;
