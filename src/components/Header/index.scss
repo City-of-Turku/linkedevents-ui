@@ -95,6 +95,7 @@ $iconMarginLeft: 24px;
 
 	.navbar-collapse {
 		min-inline-size: fit-content;
+        height: 100%; // uusi lisäys
 	}
 
 	.linked-events-bar {
@@ -118,14 +119,52 @@ $iconMarginLeft: 24px;
 			height: 100%;
 		}
 		&__links {
-			display: flex;
-			flex-grow: 1;
+      		// tästä riville 154 olen tehnyt muutoksia
+			  display: contents;;
+			//display: flex;
+			//flex-grow: 1;
 			justify-content: space-between;
+            margin-bottom: 0;
+            list-style: none;
+            padding-left: 0;
+
 			.nav-item {
-				display: inline-flex;
+				//display: inline-flex;
+                position: relative;
+				display: block;
+				.moderator {
+					&:active {
+					border-color:#0072C6;
+					}
+					span {
+					color: #0072C6;
+				}
+			}
+                .nav-link {
+                    padding-top: 12px;
+                    padding-bottom: 12px;
+                    position: relative;
+                    color: black;
+                    cursor: pointer;
+
+                    &.active {
+                        border-radius: inherit;
+                    }
+
+                    &:hover {
+                        background-color: rgba(0, 0, 0, 0.08);
+                    }
+
+                    &.active,&:hover, &:focus {
+                        outline: 5px auto;
+                    }
+
+                }
 			}
 			&__create-events {
+				span {
 				color: #0072c6;
+				}
 				border: 1px solid rgba(0, 0, 0, 0.23);
 				padding: 5px 15px;
 				border-color: #0072c6;
@@ -357,3 +396,4 @@ ul.user-dropdown {
 		}
 	}
 }
+ 
