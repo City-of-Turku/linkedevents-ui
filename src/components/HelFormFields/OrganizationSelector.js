@@ -18,12 +18,12 @@ const OrganizationSelector = ({formType, selectedOption, options, onChange}) => 
 
     return (
         <React.Fragment>
-            <label className='event-publiser' htmlFor='event-publiser'>{<FormattedMessage id='event-publisher' />}</label>
+            <label className='event-publisher' htmlFor='event-publisher'>{<FormattedMessage id='event-publisher' />}</label>
 
             {formType === 'update' ? (
                 <input
-                    className='event-publiser-input'
-                    id='event-publiser'
+                    className='event-publisher-input'
+                    id='event-publisher'
                     aria-disabled={true}
                     value={label}
                     readOnly
@@ -31,9 +31,9 @@ const OrganizationSelector = ({formType, selectedOption, options, onChange}) => 
             ) : options.length > 1 ? (
                 <React.Fragment>
                     <Input
-                        className="event-publiser-input"
-                        id="event-publiser"
-                        name="event-publiser"
+                        className="event-publisher-input"
+                        id="event-publisher"
+                        name="event-publisher"
                         onChange={onChange}
                         type="select"
                     >
@@ -43,8 +43,8 @@ const OrganizationSelector = ({formType, selectedOption, options, onChange}) => 
             ) : (
                 <input
                     readOnly
-                    className='event-publiser-input'
-                    id='event-publiser'
+                    className='event-publisher-input'
+                    id='event-publisher'
                     aria-disabled={true}
                     value={get(options, '[0].label', '')}
                 />
