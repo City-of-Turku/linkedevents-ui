@@ -2,47 +2,50 @@ import './OrganizationSelector.scss'
 import React from 'react';
 import PropTypes from 'prop-types';
 import {FormattedMessage} from 'react-intl';
-import Select from 'react-select';
 import {get} from 'lodash';
+import {Input} from 'reactstrap'
+
+function renderSelectOptions(options) {
+    return(
+        options.map((option, index) => {
+            return(<option key={index} value={option.value}>{option.label}</option>)
+        })
+    )
+}
 
 const OrganizationSelector = ({formType, selectedOption, options, onChange}) => {
     const label = selectedOption.label ? selectedOption.label : ''
-   
+
     return (
         <React.Fragment>
-            <label className='event-publiser' tabIndex='0' htmlFor='event-publiser'>{<FormattedMessage id='event-publisher' />}</label>
-            <input type='hidden' id='event-publiser'/>
+            <label className='event-publiser' htmlFor='event-publiser'>{<FormattedMessage id='event-publisher' />}</label>
+
             {formType === 'update' ? (
                 <input
-                    tabIndex='0'
                     className='event-publiser-input'
                     id='event-publiser'
-                    type='disabled'
+                    aria-disabled={true}
                     value={label}
-                    aria-label={label}
-                    read-only="true"
+                    readOnly
                 />
             ) : options.length > 1 ? (
                 <React.Fragment>
-                    <Select
-                        tabIndex='0'
-                        isClearable={false}
-                        defaultValue={options[0]}
+                    <Input
+                        className="event-publiser-input"
+                        id="event-publiser"
+                        name="event-publiser"
                         onChange={onChange}
-                        aria-label={label}
-                        options={options}>
-                        <options value={selectedOption} aria-label={label}>{options[0]}</options> 
-                    </Select>
+                        type="select"
+                    >
+                        {renderSelectOptions(options)}
+                    </Input>
                 </React.Fragment>
             ) : (
                 <input
-                    read-only="true"
-                    aria-label={label}
-                    tabIndex='0'
+                    readOnly
                     className='event-publiser-input'
                     id='event-publiser'
-                    type='disabled'
-                    onChange={onChange}
+                    aria-disabled={true}
                     value={get(options, '[0].label', '')}
                 />
             )}
@@ -54,8 +57,6 @@ OrganizationSelector.propTypes = {
     options: PropTypes.arrayOf(PropTypes.object),
     formType: PropTypes.oneOf(['update', 'create']),
     selectedOption: PropTypes.object,
-    onChange: PropTypes.func,
-    intl: PropTypes.object,
-   
+    onChange: PropTypes.func,   
 }
 export default OrganizationSelector;
