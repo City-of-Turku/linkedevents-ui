@@ -364,7 +364,7 @@ class FormFields extends React.Component {
                             variant="contained"
                             disabled={formType === 'update'}
                             onClick={() => this.addNewEventDialog()}
-                        ><span  className="glyphicon glyphicon-plus"></span>
+                        ><span aria-hidden='true' className="glyphicon glyphicon-plus"></span>
                             <FormattedMessage id="event-add-new-occasion" />
                         </Button>
                         <Button
@@ -373,7 +373,7 @@ class FormFields extends React.Component {
                             disabled={formType === 'update'}
                             onClick={() => this.showRecurringEventDialog()}
 
-                        ><span  className="glyphicon glyphicon-refresh"></span>
+                        ><span aria-hidden='true' className="glyphicon glyphicon-refresh"></span>
                             <FormattedMessage id="event-add-recurring" />
                         </Button>
                     </div>
