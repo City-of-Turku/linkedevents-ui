@@ -257,7 +257,8 @@
 	"search-date-label-start": "Från (dd.mm.åååå)",
 	"search-date-label-end": "Till (dd.mm.åååå)",
 	"date-picker-button-label": "Datumnväljare",
-    "copy-to-clipboard": "Kopioi leikepöydälle",
+    "copy-location-to-clipboard": "Kopiera plats-ID till urklipp",
+    "copy-keyword-to-clipboard": "Kopiera nyckelord till urklipp",
 
     "hel-target-groups": "Målgrupp",
     "additional-keywords": "Muut avainsanat",

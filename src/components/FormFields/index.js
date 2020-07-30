@@ -440,7 +440,7 @@ class FormFields extends React.Component {
 
 
                         <CopyToClipboard text={values['location'] ? values['location'].id : ''}>
-                            <button type='button' className="clipboard-copy-button btn btn-default" title={this.context.intl.formatMessage({id: 'copy-to-clipboard'})}>
+                            <button type='button' className="clipboard-copy-button btn btn-default" aria-label={this.context.intl.formatMessage({id: 'copy-location-to-clipboard'})}>
                                 <div hidden>.</div>
                                 <span className="glyphicon glyphicon-duplicate" aria-hidden="true">
                                 </span>

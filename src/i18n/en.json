@@ -262,7 +262,8 @@
 	"search-date-label-start": "From (dd.mm.yyyy)",
 	"search-date-label-end": "To (dd.mm.yyyy)",
 	"date-picker-button-label": "Date picker",
-    "copy-to-clipboard": "Copy to clipboard",
+    "copy-location-to-clipboard": "Copy location id to clipboard",
+    "copy-keyword-to-clipboard": "Copy keyword to clipboard",
 
     "hel-target-groups": "Target groups",
     "additional-keywords": "Other keywords",

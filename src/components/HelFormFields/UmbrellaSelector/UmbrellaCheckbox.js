@@ -12,8 +12,9 @@ const UmbrellaCheckbox = props => {
     return (
         <Fragment>
             <div className='UmbrellaCheckbox'>
-                <label id={`${name}_label`} className='UmbrellaCheckbox'>
+                <label htmlFor={`${name}_label`} className='UmbrellaCheckbox'>
                     <input
+                        id={`${name}_label`}
                         className='UmbrellaCheckbox'
                         type='checkbox'
                         name={name}

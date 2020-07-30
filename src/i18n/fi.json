@@ -264,7 +264,8 @@
 	"search-date-label-start": "Alkaen (pp.kk.vvvv)",
 	"search-date-label-end": "Päättyen (pp.kk.vvvv)",
 	"date-picker-button-label": "Päivämäärävalitsin",
-    "copy-to-clipboard": "Kopioi leikepöydälle",
+    "copy-location-to-clipboard": "Kopioi paikka id leikepöydälle",
+    "copy-keyword-to-clipboard": "Kopioi asiasana leikepöydälle",
 
     "hel-target-groups": "Kohderyhmät",
     "additional-keywords": "Muut avainsanat",

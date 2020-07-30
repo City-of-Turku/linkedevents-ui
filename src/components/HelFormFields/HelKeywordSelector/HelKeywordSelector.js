@@ -99,7 +99,7 @@ const HelKeywordSelector = ({intl, editor, setDirtyState, setData, currentLocale
                     currentLocale={currentLocale}
                 />
                 <CopyToClipboard text={values['keywords'] ? getKeywordIds(keywords) : ''}>
-                    <button type='button' className="clipboard-copy-button btn btn-default" title={intl.formatMessage({id: 'copy-to-clipboard'})}>
+                    <button type='button' className="clipboard-copy-button btn btn-default" aria-label={intl.formatMessage({id: 'copy-keyword-to-clipboard'})}>
                         <span className="glyphicon glyphicon-duplicate" aria-hidden="true"></span>
                         <p hidden>duplicate</p>
                     </button>
