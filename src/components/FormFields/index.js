@@ -69,6 +69,7 @@ class FormFields extends React.Component {
             availableLocales: [],
 
         }
+        this.handleOrganizationChange = this.handleOrganizationChange.bind(this)
     }
 
     componentDidMount() {
@@ -124,6 +125,14 @@ class FormFields extends React.Component {
         const defaultOrganizationData = get(user, [`${userType}OrganizationData`, `${user.organization}`], {})
 
         this.context.dispatch(setData({organization: defaultOrganizationData.id}));
+    }
+
+    handleOrganizationChange(event){
+        const {value} = event.target
+        event.preventDefault()
+        if(value){
+            this.context.dispatch(setData({organization: value}))
+        }
     }
 
     addNewEventDialog() {
@@ -293,11 +302,10 @@ class FormFields extends React.Component {
                             type='text'
                         />
                         <OrganizationSelector
-
                             formType={formType}
                             options={publisherOptions}
                             selectedOption={selectedPublisher}
-                            onChange={ option => option && this.context.dispatch(setData({organization: option.value})) }
+                            onChange={this.handleOrganizationChange}
                         />
                     </div>
                     <SideField>

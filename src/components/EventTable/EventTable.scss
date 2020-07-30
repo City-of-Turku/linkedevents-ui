@@ -20,7 +20,11 @@ $checkbox-column-width: 50px;
 .Mui-selected {
     background-color: #cce2f3;
 }
-
+@media (max-width: 768px) {
+    .event-table thead th:not(.checkbox) .glyphicon { 
+    display: inline;
+    }
+}
 .event-table {
     thead {
         th:not(.checkbox) {
@@ -99,6 +103,7 @@ $checkbox-column-width: 50px;
         text-align: center;
         width: $checkbox-column-width;
 
+
         span {
             cursor: pointer;
             display: inline-block;
@@ -135,7 +140,15 @@ $checkbox-column-width: 50px;
 
 .draft-actions {
     margin-top: 20px;
-
+    @media (max-width:500px) {
+        display: grid;
+        button {
+            margin: 10px 0px 10px;
+    }
+    &--button:not(:first-of-type) {
+        margin-left: 0px !important;
+    }
+}
     &--button:not(:first-of-type) {
         margin-left: 20px;
     }
@@ -175,6 +188,7 @@ tbody {
     .event-table {
         td, th {
             display: block;
+            margin-left: 20px;
         }
         td:first-child, th:first-child {
          //   margin-top: 20px;

@@ -1,10 +1,10 @@
-.event-publiser{
+.event-publisher{
     margin-top: 2rem;
     font-size: 1.2rem;
     margin-right: 10rem;
     
 }
-.event-publiser-input{
+.event-publisher-input{
     height: 2.5rem;
     width: 100%;
     border: solid 2px;
@@ -15,7 +15,7 @@
     }
     &:focus,
     &:active {
-      border: solid 4px;
+      border: solid 3px;
       border-color: var(--main-color);
     }
 }
