@@ -185,18 +185,16 @@ class HelTextField extends Component {
             validationErrors,
             index,
             name,
-            fieldID,
         } = this.props
-       
         const type = this.props.type;
         const alert = this.state.error ? {role: 'alert', className: 'red-alert'} : '';
         // Replaced TextField component with Form/FormGroup + Input, to make inputs actually accessible and customizable.
         return (
             <Fragment>
                 <div className='event-input'>
-                    <label htmlFor={fieldID}>{label}{required ? '*' : ''}</label>
+                    <label htmlFor={label}>{label}{required ? '*' : ''}</label>
                     <Input
-                        id={fieldID}
+                        id={label}
                         placeholder={placeholder}
                         type={type}
                         name={name}
@@ -222,7 +220,6 @@ class HelTextField extends Component {
 
 HelTextField.propTypes = {
     name: PropTypes.string,
-    fieldID: PropTypes.string,
     placeholder: PropTypes.string,
     defaultValue: PropTypes.oneOfType([
         PropTypes.number,
