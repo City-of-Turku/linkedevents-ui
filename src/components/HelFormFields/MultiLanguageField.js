@@ -128,7 +128,7 @@ class MultiLanguageField extends React.Component {
             return (
                 <div style={{position:'relative'}} key={`${props.name}_${langs[0]}`}>
                     <HelTextField required={this.props.required}
-                        id={this.props.id + '1'}
+                        id={this.props.id}
                         defaultValue={this.state.value[langs[0]]}
                         label={label}
                         ref={langs[0]}

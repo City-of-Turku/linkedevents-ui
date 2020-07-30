@@ -73,7 +73,7 @@ class NewOffer extends React.Component {
     }
 
     render() {
-        const {offerKey, defaultValue, isFree, languages} = this.props
+        const {offerKey, defaultValue, isFree, languages, label} = this.props
         const {VALIDATION_RULES} = CONSTANTS
       
         return (
@@ -88,6 +88,7 @@ class NewOffer extends React.Component {
     
                 </button>
                 <MultiLanguageField
+                    id={'event-price' + this.props.offerKey}
                     defaultValue={defaultValue.price} 
                     disabled={isFree} 
                     ref="price" 
@@ -100,6 +101,7 @@ class NewOffer extends React.Component {
                 />
 
                 <MultiLanguageField 
+                    id={'event-purchase-link' + this.props.offerKey}
                     defaultValue={defaultValue.info_url} 
                     ref="info_url" 
                     label="event-purchase-link" 
@@ -111,6 +113,7 @@ class NewOffer extends React.Component {
                 />
 
                 <MultiLanguageField 
+                    id={'event-price-info' + this.props.offerKey}
                     defaultValue={defaultValue.description} 
                     disabled={isFree} 
                     ref="description" 
@@ -132,6 +135,8 @@ NewOffer.propTypes = {
     languages: PropTypes.array,
     offerKey: PropTypes.string.isRequired,
     defaultValue: PropTypes.object,
+    id: PropTypes.string,
+    label: PropTypes.string,
 }
 
 export default NewOffer;

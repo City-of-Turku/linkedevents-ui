@@ -17,6 +17,7 @@ let isEmpty = function isEmpty(value) {
 
     if (value === '') {return true}
     else if (typeof value == 'object') {
+        if (value == null) {return true}
         const vals = Object.values(value);
         if (vals.length > 0 && vals[0] === '') {return true}
         if (vals.length === 0) {return true}
