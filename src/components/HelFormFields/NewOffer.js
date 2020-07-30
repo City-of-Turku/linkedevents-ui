@@ -80,7 +80,7 @@ class NewOffer extends React.Component {
             <div key={offerKey} className="new-offer">
 
                 <button
-                    title="Delete"
+                    aria-label='Delete'
                     className="offers-button"
                     onClick={() =>  this.deleteOffer()}
                 >
