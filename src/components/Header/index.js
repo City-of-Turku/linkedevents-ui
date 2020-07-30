@@ -14,6 +14,7 @@ import LogoutDropdown from './LogoutDropdown';
 import {FormattedMessage} from 'react-intl';
 import constants from '../../constants';
 //Updated Nav from Material UI to Reactstrap based on Open design
+//Removed NavLinks-component and replaced it with NavItems and NavLinks from Reactstrap
 import {Collapse, Navbar, NavbarToggler, Nav, NavItem, NavLink, NavbarBrand, Button} from 'reactstrap';
 //Citylogo can now be used from scss
 //import cityOfHelsinkiLogo from '../../assets/images/helsinki-logo.svg'
@@ -193,13 +194,6 @@ class HeaderBar extends React.Component {
                                     </NavLink>
                                 </NavItem>
                             )}
-                            {/* <NavLinks
-                                    showModerationLink={showModerationLink}
-                                    toMainPage={toMainPage}
-                                    toSearchPage={toSearchPage}
-                                    toHelpPage={toHelpPage}
-                                    toModerationPage={toModerationPage}
-                               /> */}
                             {!isInsideForm && (
                                 <NavItem className='linked-events-bar__links__create-event  ml-auto'>
                                     <NavLink
@@ -221,62 +215,6 @@ class HeaderBar extends React.Component {
         );
     }
 }
-/**
- * Returns the page links, if showModeration is true then the link to the moderation page is rendered aswell.
- */ /*
-export const NavLinks = (props) => {
-    const {showModerationLink, toMainPage, toSearchPage, toHelpPage, toModerationPage} = props;
-
-    return (
-        <React.Fragment>
-            <NavItem>
-                <NavLink
-                    active={window.location.pathname === '/'}
-                    href='#'
-                    onClick={toMainPage}>
-                    <FormattedMessage id={`${appSettings.ui_mode}-management`} />
-                </NavLink>
-            </NavItem>
-            <NavItem>
-                <NavLink
-                    active={window.location.pathname === '/search'}
-                    href='#'
-                    onClick={toSearchPage}>
-                    <FormattedMessage id={`search-${appSettings.ui_mode}`} />
-                </NavLink>
-            </NavItem>
-            <NavItem>
-                <NavLink
-                    active={window.location.pathname === '/help'}
-                    href='#'
-                    onClick={toHelpPage}>
-                    {' '}
-                    <FormattedMessage id='more-info' />
-                </NavLink>
-            </NavItem>
-            {showModerationLink && (
-                <NavItem>
-                    <NavLink
-                    //Added classNames for moderation-link, now applies className "moderator true" when state true for scss-rule color.
-                        href='#'
-                        className={classNames('moderator', {true: showModerationLink})}
-                        onClick={toModerationPage}>
-                        <FormattedMessage id='moderation-page' />
-                    </NavLink>
-                </NavItem>
-            )}
-        </React.Fragment>
-    );
-};
-
-NavLinks.propTypes = {
-    showModerationLink: PropTypes.bool,
-    toMainPage: PropTypes.func,
-    toSearchPage: PropTypes.func,
-    toHelpPage: PropTypes.func,
-    toModerationPage: PropTypes.func,
-};
-*/
 // Adds dispatch to this.props for calling actions, add user from store to props
 HeaderBar.propTypes = {
     user: PropTypes.object,
