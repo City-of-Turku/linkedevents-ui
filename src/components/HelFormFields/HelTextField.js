@@ -244,8 +244,10 @@ HelTextField.propTypes = {
     disabled: PropTypes.bool,
     type: PropTypes.string,
     maxLength: PropTypes.number,
-    id: PropTypes.string,
-    
+    id: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number,
+    ]),
 }
 
 HelTextField.defaultProps = {
