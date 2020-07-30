@@ -4,7 +4,10 @@ import React from 'react'
 import MultiLanguageField from 'src/components/HelFormFields/MultiLanguageField'
 import {setOfferData, deleteOffer} from 'src/actions/editor'
 import CONSTANTS from '../../constants'
-import {FormattedMessage} from 'react-intl'
+import {
+    injectIntl,
+    intlShape,
+} from 'react-intl'
 
 
 class NewOffer extends React.Component {
@@ -73,14 +76,14 @@ class NewOffer extends React.Component {
     }
 
     render() {
-        const {offerKey, defaultValue, isFree, languages, label} = this.props
+        const {offerKey, defaultValue, isFree, languages, intl} = this.props
         const {VALIDATION_RULES} = CONSTANTS
       
         return (
             <div key={offerKey} className="new-offer">
 
                 <button
-                    aria-label={<FormattedMessage id="delete" />}
+                    aria-label={intl.formatMessage({id: 'delete'})}
                     className="offers-button"
                     onClick={() =>  this.deleteOffer()}
                 >
@@ -137,6 +140,7 @@ NewOffer.propTypes = {
     defaultValue: PropTypes.object,
     id: PropTypes.string,
     label: PropTypes.string,
+    intl: intlShape,
 }
 
-export default NewOffer;
+export default injectIntl(NewOffer);
