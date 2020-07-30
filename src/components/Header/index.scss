@@ -95,7 +95,7 @@ $iconMarginLeft: 24px;
 
 	.navbar-collapse {
 		min-inline-size: fit-content;
-        height: 100%; // uusi lisäys
+        height: 100%;
 	}
 
 	.linked-events-bar {
@@ -119,17 +119,13 @@ $iconMarginLeft: 24px;
 			height: 100%;
 		}
 		&__links {
-      		// tästä riville 154 olen tehnyt muutoksia
-			  display: contents;;
-			//display: flex;
-			//flex-grow: 1;
+			display: contents;
 			justify-content: space-between;
             margin-bottom: 0;
             list-style: none;
             padding-left: 0;
 
 			.nav-item {
-				//display: inline-flex;
                 position: relative;
 				display: block;
 				.moderator {
@@ -141,12 +137,13 @@ $iconMarginLeft: 24px;
 				}
 			}
                 .nav-link {
+					font-weight: bold;
                     padding-top: 12px;
                     padding-bottom: 12px;
                     position: relative;
                     color: black;
                     cursor: pointer;
-
+					font-size: 1rem;
                     &.active {
                         border-radius: inherit;
                     }
