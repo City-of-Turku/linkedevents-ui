@@ -1,9 +1,9 @@
 import React from 'react';
 import {shallow} from 'enzyme';
-import {Button} from 'reactstrap';
+import {NavLink, Button} from 'reactstrap';
 
 import {mockUser} from '__mocks__/mockData';
-import {UnconnectedHeaderBar, NavLinks} from './index';
+import {UnconnectedHeaderBar} from './index';
 import LanguageSelector from './LanguageSelector';
 import constants from '../../constants';
 import {IntlProvider} from 'react-intl';
@@ -24,6 +24,7 @@ describe('components/Header/index', () => {
 
     const defaultProps = {
         user: mockUser,
+        active: false,
         routerPush: () => {},
         setLocale: () => {},
         isOpen: false,
@@ -109,37 +110,34 @@ describe('components/Header/index', () => {
                     expect(element.prop('changeLanguage')).toBeDefined();
                 })
             });
-            describe('NavLinks props', () => {
-                test('NavLinks', () => {
-                    const element = getWrapper({user: userAdmin}).find(NavLinks);
-                    expect(element.prop('showModerationLink')).toBe(true)
+            describe('UL with NavLinks', () => {
+                test('Contains 5 NavLink when user is admin', () => {
+                    const element = getWrapper({user: userAdmin});
+                    const navLinks = element.find(NavLink);
+                    expect(element.find('ul')).toHaveLength(1);
+                    expect(navLinks).toHaveLength(5);
                 })
-            })
+            });
+            describe('NavLink for moderation', () => {
+                test('Displays moderator true-ClassName when admin at 3', () => {
+                    const element = getWrapper({user: userAdmin}).find(NavLink);
+                    expect(element.at(3).prop('className')).toBe('moderator true');
+                });
+            });
+            describe('Active for NavLinks', () => {
+                test('Displays active when path is active', () => {
+                    const element = getWrapper();
+                    element.setProps({location:{pathname:'/help'}});
+                    let navLinks = element.find(NavLink);
+                    expect(navLinks.at(1).prop('active')).toBe(false);
+                    expect(navLinks.at(2).prop('active')).toBe(true);
+                    element.setProps({location:{pathname:'/search'}});
+                    navLinks = element.find(NavLink);
+                    expect(navLinks.at(1).prop('active')).toBe(true);
+                    expect(navLinks.at(2).prop('active')).toBe(false);
+                });
+            });
         });
     });
-    const defaultNavProps = {
-        showModerationLink: false,
-        toMainPage: () => null,
-        toSearchPage: () => null,
-        toHelpPage: () => null,
-        toModerationPage: () => null,
-    }
-    describe('NavLinks', () => {
-        function getWrapper(props) {
-            return shallow(<NavLinks {...defaultNavProps} {...props}/>);
-        }
-        test('renders with default props', () => {
-            const element = getWrapper().find(Button);
-            expect(element).toHaveLength(3);
-            expect(element.at(0).prop('onClick')).toEqual(defaultNavProps.toMainPage);
-            expect(element.at(1).prop('onClick')).toEqual(defaultNavProps.toSearchPage);
-            expect(element.at(2).prop('onClick')).toEqual(defaultNavProps.toHelpPage);
-        });
-        // eslint-disable-next-line indent
-        test('renders additional Button when showModerationLink is true', () => {
-            const element = getWrapper({showModerationLink: true}).find(Button);
-            expect(element).toHaveLength(4);
-            expect(element.at(3).prop('onClick')).toEqual(defaultNavProps.toModerationPage);
-        })
-    })
 })
+

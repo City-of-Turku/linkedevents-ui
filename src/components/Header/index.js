@@ -101,6 +101,10 @@ class HeaderBar extends React.Component {
         routerPush('/');
     };
 
+    isActivePath(pathname){
+        return pathname === this.props.location.pathname
+    }
+
     render() {
         const {user, userLocale, routerPush, location} = this.props;
         const {showModerationLink} = this.state;
@@ -160,7 +164,7 @@ class HeaderBar extends React.Component {
                             <NavItem>
                                 <NavLink
                                     tabIndex='0'
-                                    active={location.pathname === '/search'}
+                                    active={this.isActivePath('/search')}
                                     href='#'
                                     onClick={toSearchPage}>
                                     <FormattedMessage id={`search-${appSettings.ui_mode}`} />
@@ -169,7 +173,7 @@ class HeaderBar extends React.Component {
                             <NavItem>
                                 <NavLink
                                     tabIndex='0'
-                                    active={location.pathname === '/help'}
+                                    active={this.isActivePath('/help')}
                                     href='#'
                                     onClick={toHelpPage}>
                                     {' '}
@@ -180,7 +184,7 @@ class HeaderBar extends React.Component {
                                 <NavItem>
                                     <NavLink
                                         tabIndex='0'
-                                        active={location.pathname === '/moderation'}
+                                        active={this.isActivePath('/moderation')}
                                         //Added classNames for moderation-link, now applies className "moderator true" when state true for scss-rule color.
                                         href='#'
                                         className={classNames('moderator', {true: showModerationLink})}
@@ -200,7 +204,7 @@ class HeaderBar extends React.Component {
                                 <NavItem className='linked-events-bar__links__create-event  ml-auto'>
                                     <NavLink
                                         tabIndex='0'
-                                        active={location.pathname === '/event/create/new'}
+                                        active={this.isActivePath('/event/create/new')}
                                         href='#'
                                         className='linked-events-bar__links__create-events'
                                         onClick={() => routerPush('/event/create/new')}>
