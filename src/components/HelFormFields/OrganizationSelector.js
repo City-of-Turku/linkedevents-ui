@@ -10,8 +10,7 @@ const OrganizationSelector = ({formType, selectedOption, options, onChange}) => 
    
     return (
         <React.Fragment>
-            <label className='event-publiser' tabIndex='0' htmlFor='event-publiser'>{<FormattedMessage id='event-publisher' />}</label>
-            <input type='hidden' id='event-publiser'/>
+            <label className='event-publiser' htmlFor='event-publiser'>{<FormattedMessage id='event-publisher' />}</label>
             {formType === 'update' ? (
                 <input
                     tabIndex='0'
@@ -19,7 +18,6 @@ const OrganizationSelector = ({formType, selectedOption, options, onChange}) => 
                     id='event-publiser'
                     type='disabled'
                     value={label}
-                    aria-label={label}
                     readOnly
                 />
             ) : options.length > 1 ? (
