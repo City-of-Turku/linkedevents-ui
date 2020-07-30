@@ -4,7 +4,7 @@ import {setData} from 'src/actions/editor.js'
 import validationRules from 'src/validation/validationRules';
 import ValidationPopover from 'src/components/ValidationPopover'
 import constants from '../../constants'
-import {Form, FormGroup, Input, FormText} from 'reactstrap';
+import {Input, FormText} from 'reactstrap';
 // Removed material-ui/core since it's no longer in use
 
 const {VALIDATION_RULES, CHARACTER_LIMIT} = constants

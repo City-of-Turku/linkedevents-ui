@@ -4,7 +4,7 @@ import React from 'react'
 import MultiLanguageField from 'src/components/HelFormFields/MultiLanguageField'
 import {setOfferData, deleteOffer} from 'src/actions/editor'
 import CONSTANTS from '../../constants'
-
+import {FormattedMessage} from 'react-intl'
 
 
 class NewOffer extends React.Component {
@@ -80,7 +80,7 @@ class NewOffer extends React.Component {
             <div key={offerKey} className="new-offer">
 
                 <button
-                    aria-label='Delete'
+                    aria-label={<FormattedMessage id="delete" />}
                     className="offers-button"
                     onClick={() =>  this.deleteOffer()}
                 >
