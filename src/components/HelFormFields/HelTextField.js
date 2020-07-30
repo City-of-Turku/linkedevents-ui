@@ -186,14 +186,13 @@ class HelTextField extends Component {
             index,
             name,
         } = this.props
-        const inputId = this.props.id;
         const type = this.props.type;
         const alert = this.state.error ? {role: 'alert', className: 'red-alert'} : '';
         // Replaced TextField component with Form/FormGroup + Input, to make inputs actually accessible and customizable.
         return (
             <Fragment>
                 <div className='event-input'>
-                    <label htmlFor={label}>{label}{required ? '*' : ''}</label>
+                    <label htmlFor={label + this.props.id}>{label}{required ? '*' : ''}</label>
                     <Input
                         id={label + this.props.id}
                         placeholder={placeholder}

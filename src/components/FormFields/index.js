@@ -430,7 +430,9 @@ class FormFields extends React.Component {
                         <Form>
                             <FormGroup className='place-id'>
                                 <label>{this.context.intl.formatMessage({id: 'event-location-id'})}
-                                    <input type="text" className="form-control" value={values['location'] && values['location'].id ? values['location'].id : ''} readOnly/>
+                                    <span className="form-control" value={values['location'] && values['location'].id ? values['location'].id : ''}>
+                                        {values['location'] && values['location'].id ? values['location'].id : ''}
+                                    </span>
                                 </label>
                             </FormGroup>
 
