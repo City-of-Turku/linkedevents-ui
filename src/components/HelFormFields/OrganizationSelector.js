@@ -20,7 +20,7 @@ const OrganizationSelector = ({formType, selectedOption, options, onChange}) => 
                     type='disabled'
                     value={label}
                     aria-label={label}
-                    read-only="true"
+                    readOnly
                 />
             ) : options.length > 1 ? (
                 <React.Fragment>
