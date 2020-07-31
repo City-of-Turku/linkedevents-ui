@@ -13,8 +13,7 @@ import LanguageSelector from './LanguageSelector';
 import LogoutDropdown from './LogoutDropdown';
 import {FormattedMessage} from 'react-intl';
 import constants from '../../constants';
-//Updated Nav from Material UI to Reactstrap based on Open design
-//Removed NavLinks-component and replaced it with NavItems and NavLinks from Reactstrap
+
 import {Collapse, Navbar, NavbarToggler, Nav, NavItem, NavLink, NavbarBrand, Button} from 'reactstrap';
 //Citylogo can now be used from scss
 //import cityOfHelsinkiLogo from '../../assets/images/helsinki-logo.svg'
@@ -22,7 +21,6 @@ import {hasOrganizationWithRegularUsers} from '../../utils/user';
 import {get} from 'lodash';
 import moment from 'moment';
 import * as momentTimezone from 'moment-timezone';
-import classNames from 'classnames';
 import userManager from '../../utils/userManager';
 
 const {USER_TYPE, APPLICATION_SUPPORT_TRANSLATION} = constants;
@@ -155,8 +153,7 @@ class HeaderBar extends React.Component {
                         <ul className='linked-events-bar__links'>
                             <NavItem>
                                 <NavLink
-                                    tabIndex='0'
-                                    active={location.pathname === '/'}
+                                    active={this.isActivePath('/')}
                                     href='#'
                                     onClick={toMainPage}>
                                     <FormattedMessage id={`${appSettings.ui_mode}-management`} />
@@ -164,7 +161,6 @@ class HeaderBar extends React.Component {
                             </NavItem>
                             <NavItem>
                                 <NavLink
-                                    tabIndex='0'
                                     active={this.isActivePath('/search')}
                                     href='#'
                                     onClick={toSearchPage}>
@@ -173,7 +169,6 @@ class HeaderBar extends React.Component {
                             </NavItem>
                             <NavItem>
                                 <NavLink
-                                    tabIndex='0'
                                     active={this.isActivePath('/help')}
                                     href='#'
                                     onClick={toHelpPage}>
@@ -184,11 +179,9 @@ class HeaderBar extends React.Component {
                             {showModerationLink && (
                                 <NavItem>
                                     <NavLink
-                                        tabIndex='0'
                                         active={this.isActivePath('/moderation')}
-                                        //Added classNames for moderation-link, now applies className "moderator true" when state true for scss-rule color.
                                         href='#'
-                                        className={classNames('moderator', {true: showModerationLink})}
+                                        className='moderator'
                                         onClick={toModerationPage}>
                                         <FormattedMessage id='moderation-page' />
                                     </NavLink>
@@ -197,7 +190,6 @@ class HeaderBar extends React.Component {
                             {!isInsideForm && (
                                 <NavItem className='linked-events-bar__links__create-event  ml-auto'>
                                     <NavLink
-                                        tabIndex='0'
                                         active={this.isActivePath('/event/create/new')}
                                         href='#'
                                         className='linked-events-bar__links__create-events'
@@ -207,7 +199,6 @@ class HeaderBar extends React.Component {
                                     </NavLink>
                                 </NavItem>
                             )}
-
                         </ul>
                     </Collapse>
                 </Navbar>
@@ -215,7 +206,7 @@ class HeaderBar extends React.Component {
         );
     }
 }
-// Adds dispatch to this.props for calling actions, add user from store to props
+
 HeaderBar.propTypes = {
     user: PropTypes.object,
     routerPush: PropTypes.func,
