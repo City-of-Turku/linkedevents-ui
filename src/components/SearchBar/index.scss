@@ -9,7 +9,7 @@
     }
     &--label {
         margin-right: 2rem;
-        align-self: center;
+        align-self: flex-end;
     }
     &--icon {
         transform: translateY(8px);
@@ -51,7 +51,14 @@
         border-radius: 2px;
     }
 }
-
+@media (max-width:472px) {
+    .search-bar--input {
+        display: block;
+    }
+    .event-search-bar {
+        width: 65% !important;
+    }
+}
 @media (max-width: 600px) {
     .search-bar--dates {
         flex-direction: column;
