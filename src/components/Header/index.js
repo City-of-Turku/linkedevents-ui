@@ -104,15 +104,20 @@ class HeaderBar extends React.Component {
         return pathname === this.props.location.pathname
     }
 
+    handleOnClick = (url) => {
+        const {routerPush} = this.props;
+        if (this.state.isOpen) {
+            this.setState({isOpen: false});
+            routerPush(url);
+        }
+        else {
+            routerPush(url);
+        }
+    }
+
     render() {
         const {user, userLocale, routerPush, location} = this.props;
         const {showModerationLink} = this.state;
-
-        const toMainPage = () => routerPush('/');
-        const toSearchPage = () => routerPush('/search');
-        const toHelpPage = () => routerPush('/help');
-        const toModerationPage = () => routerPush('/moderation');
-
         const isInsideForm = location.pathname.startsWith('/event/create/new');
 
         return (
@@ -155,7 +160,7 @@ class HeaderBar extends React.Component {
                                 <NavLink
                                     active={this.isActivePath('/')}
                                     href='#'
-                                    onClick={toMainPage}>
+                                    onClick={() => this.handleOnClick('/')}>
                                     <FormattedMessage id={`${appSettings.ui_mode}-management`} />
                                 </NavLink>
                             </NavItem>
@@ -163,7 +168,7 @@ class HeaderBar extends React.Component {
                                 <NavLink
                                     active={this.isActivePath('/search')}
                                     href='#'
-                                    onClick={toSearchPage}>
+                                    onClick={() => this.handleOnClick('/search')}>
                                     <FormattedMessage id={`search-${appSettings.ui_mode}`} />
                                 </NavLink>
                             </NavItem>
@@ -171,7 +176,7 @@ class HeaderBar extends React.Component {
                                 <NavLink
                                     active={this.isActivePath('/help')}
                                     href='#'
-                                    onClick={toHelpPage}>
+                                    onClick={() => this.handleOnClick('/help')}>
                                     {' '}
                                     <FormattedMessage id='more-info' />
                                 </NavLink>
@@ -182,7 +187,7 @@ class HeaderBar extends React.Component {
                                         active={this.isActivePath('/moderation')}
                                         href='#'
                                         className='moderator'
-                                        onClick={toModerationPage}>
+                                        onClick={() => this.handleOnClick('/moderation')}>
                                         <FormattedMessage id='moderation-page' />
                                     </NavLink>
                                 </NavItem>
@@ -193,7 +198,7 @@ class HeaderBar extends React.Component {
                                         active={this.isActivePath('/event/create/new')}
                                         href='#'
                                         className='linked-events-bar__links__create-events'
-                                        onClick={() => routerPush('/event/create/new')}>
+                                        onClick={() => this.handleOnClick('/event/create/new')}>
                                         <span aria-hidden className='glyphicon glyphicon-plus'></span>
                                         <FormattedMessage id={`create-${appSettings.ui_mode}`} />
                                     </NavLink>
