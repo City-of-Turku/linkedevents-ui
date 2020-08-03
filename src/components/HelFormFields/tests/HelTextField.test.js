@@ -44,7 +44,7 @@ describe('HelTextField', () => {
             test('with correct props', () => {
                 const label = getWrapper().find('label')
                 expect(label).toHaveLength(1)
-                expect(label.prop('htmlFor')).toBe(defaultProps.id)
+                expect(label.prop('htmlFor')).toBe(defaultProps.label + defaultProps.id)
             })
             test('with correct text when required is true', () => {
                 const required = true
@@ -64,7 +64,7 @@ describe('HelTextField', () => {
             const inputComponent = wrapper.find(Input)
 
             expect(inputComponent).toHaveLength(1)
-            expect(inputComponent.prop('id')).toBe(defaultProps.id)
+            expect(inputComponent.prop('id')).toBe(defaultProps.label + defaultProps.id)
             expect(inputComponent.prop('placeholder')).toBe(defaultProps.placeholder)
             expect(inputComponent.prop('type')).toBe(defaultProps.type)
             expect(inputComponent.prop('name')).toBe(defaultProps.name)
