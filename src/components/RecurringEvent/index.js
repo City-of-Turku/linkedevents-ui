@@ -1,7 +1,6 @@
 import './RecurringEvent.scss'
 import PropTypes from 'prop-types';
 import React from 'react'
-import {FormattedMessage} from 'react-intl'
 import moment from 'moment-timezone'
 import {isNil, isEmpty} from 'lodash'
 import DayCheckbox from './DayCheckbox'
@@ -11,6 +10,11 @@ import validationRules from 'src/validation/validationRules'
 import ValidationPopover from 'src/components/ValidationPopover'
 import constants from '../../constants'
 import CustomDatePicker from '../CustomFormFields/CustomDatePicker'
+import {
+    FormattedMessage,
+    injectIntl,
+    intlShape,
+} from 'react-intl'
 
 //Changed Material UI Dialog & Button to Reactstrap Modal & Button
 //Added isOpen prop for Modal & const closebtn for ModalHeaders close-attribute
@@ -34,6 +38,7 @@ class RecurringEvent extends React.Component {
         ]),
         formType: PropTypes.string,
         isOpen: PropTypes.bool,
+        intl: intlShape,
     }
 
     constructor (props) {
@@ -283,6 +288,7 @@ class RecurringEvent extends React.Component {
     }
     render() {
         const {recurringStartDate, recurringEndDate, errors} = this.state
+        const {intl} = this.props
         const days = this.generateCheckboxes(this.state.daysSelected)
         const closebtn = <Button onClick={this.props.toggle} aria-label={this.context.intl.formatMessage({id: `close`})}><span className="glyphicon glyphicon-remove"></span></Button>
 
@@ -300,16 +306,19 @@ class RecurringEvent extends React.Component {
                     <div className="row">
                         <div className="col-xs-12 col-sm-12">
                             <FormattedMessage id="repetition-interval-label">{txt => <h2>{txt}</h2>}</FormattedMessage>
-
                             <div className="repetition-count" ref={this.repetitionRef}>
-                                <FormattedMessage id="repeated" />
-                                <input
-                                    value={this.state.weekInterval}
-                                    onFocus={event => event.target.select()}
-                                    onBlur={() => this.clearErrors()}
-                                    onChange={this.weekIntervalChange}
-                                />
-                                <FormattedMessage id="repetition-interval" />
+                                <label htmlFor="repeated">
+                                    <FormattedMessage id="repeated" />
+                                    <input
+                                        aria-label={intl.formatMessage({id: 'repeated'}) + this.state.weekInterval + intl.formatMessage({id: 'repetition-interval'})}
+                                        id="repeated"
+                                        value={this.state.weekInterval}
+                                        onFocus={event => event.target.select()}
+                                        onBlur={() => this.clearErrors()}
+                                        onChange={this.weekIntervalChange}
+                                    />
+                                    <FormattedMessage id='repetition-interval'/>
+                                </label>
                                 <ValidationPopover
                                     inModal
                                     placement={'right-end'}
@@ -327,8 +336,7 @@ class RecurringEvent extends React.Component {
                                 style={{
                                     display: 'inline-block',
                                     marginTop: '16px',
-                                }}
-                                
+                                }}                               
                             >
                                 <FormattedMessage id="play-date-label">{txt => <h3>{txt}</h3>}</FormattedMessage>
                             </div>
@@ -408,7 +416,6 @@ class RecurringEvent extends React.Component {
                                 validationErrors={errors['recurringStartTime'] && [errors['recurringStartTime']]}
                             />
                         </div>
-
                         <div className="col-xs-6 col-sm-6">
                             <CustomDatePicker
                                 type={'time'}
@@ -420,7 +427,6 @@ class RecurringEvent extends React.Component {
                             />
                         </div>
                     </div>
-
                     <div className="row">
                         <div className="col-xs-12 col-sm-12">
                             <Button
@@ -436,9 +442,7 @@ class RecurringEvent extends React.Component {
                     </div>
                 </ModalBody>
             </Modal>
-
         )
     }
 }
-
-export default RecurringEvent
+export default injectIntl(RecurringEvent)
