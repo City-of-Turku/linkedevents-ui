@@ -154,7 +154,7 @@ class MultiLanguageField extends React.Component {
                             multiLine={this.props.multiLine}
                             required={this.props.required}
                             defaultValue={value} ref={lang}
-                            label={this.context.intl.formatMessage({id: `in-${lang}`})}
+                            label={this.context.intl.formatMessage({id: `${this.props.label}`}) + ' ' + this.context.intl.formatMessage({id: `in-${lang}`})}
                             onChange={(e,v) => this.onChange(e,v,lang)}
                             onBlur={(e,v) => this.onBlur(e,v)}
                             disabled={this.props.disabled}
