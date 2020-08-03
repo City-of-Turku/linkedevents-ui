@@ -83,7 +83,7 @@ class NewOffer extends React.Component {
             <div key={offerKey} className="new-offer">
 
                 <button
-                    aria-label={intl.formatMessage({id: 'delete'})}
+                    aria-label={intl.formatMessage({id: 'delete'}) + ' ' + intl.formatMessage({id: 'event-price-fields-header'})}
                     className="offers-button"
                     onClick={() =>  this.deleteOffer()}
                 >

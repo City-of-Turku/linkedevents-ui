@@ -21,4 +21,11 @@
    top: 3.5rem;
 }
 
-
+@media (max-width: 600px) {
+    .offers-button {
+        position: absolute;
+        left: 80%;
+        top: 5%;
+        z-index: 1;
+     }
+}
