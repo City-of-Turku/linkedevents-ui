@@ -445,4 +445,5 @@ class RecurringEvent extends React.Component {
         )
     }
 }
+export {RecurringEvent as RecurringEventWithoutIntl}
 export default injectIntl(RecurringEvent)

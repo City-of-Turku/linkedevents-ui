@@ -1,6 +1,6 @@
 import React from 'react';
 import {shallow} from 'enzyme';
-import RecurringEvent from './index';
+import {RecurringEventWithoutIntl} from './index'
 import {IntlProvider, FormattedMessage} from 'react-intl';
 import fiMessages from 'src/i18n/fi.json';
 import mapValues from 'lodash/mapValues';
@@ -18,11 +18,12 @@ const defaultProps = {
     validationErrors: [],
     formType: '',
     isOpen: false,
-};
+    intl,
+}; 
 
 describe('RecurringEvent', () => {
     function getWrapper(props) {
-        return shallow(<RecurringEvent {...defaultProps} {...props} />, {context: {intl}});
+        return shallow(<RecurringEventWithoutIntl {...defaultProps} {...props} />, {context: {intl}});
     }
     describe('render', () => {
         test('contains Modal with correct props', () => {
