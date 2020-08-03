@@ -42,7 +42,8 @@ exports[`Image add form ImagePicker component should render correctly with data 
       "cookieBar.link.text": "Linkki evästekäytäntöön",
       "cookieBar.link.url": "https://testilinkedevents.turku.fi/cookie-policy/info-fi.html",
       "copy-event-to-draft": "Kopioi uuden tapahtuman pohjaksi",
-      "copy-to-clipboard": "Kopioi leikepöydälle",
+      "copy-keyword-to-clipboard": "Kopioi asiasana leikepöydälle",
+      "copy-location-to-clipboard": "Kopioi paikka id leikepöydälle",
       "courses-management": "Kurssien hallinta",
       "create-admin-draft-events": "Tallenna luonnoksena",
       "create-courses": "Lisää uusi kurssi",
@@ -375,7 +376,6 @@ exports[`Image add form ImagePicker component should render correctly with data 
 exports[`Image add form ImagePicker component should render view by default 1`] = `
 <div
   className="image-picker"
-  role="tab"
 >
   <Spinner
     animation="border"
@@ -494,12 +494,10 @@ exports[`Image add form ImagePicker component should render view by default 1`] 
             type="file"
           />
           <Button
-            aria-label="upload"
             className="upload-img"
             color="secondary"
             onClick={[Function]}
             tag="button"
-            type="button"
             variant="contained"
           >
             <FormattedMessage
@@ -524,11 +522,11 @@ exports[`Image add form ImagePicker component should render view by default 1`] 
                   id="upload-image-from-url"
                   values={Object {}}
                 />
+                <input
+                  className="file-upload--external-input"
+                  onChange={[Function]}
+                />
               </label>
-              <input
-                className="file-upload--external-input"
-                onChange={[Function]}
-              />
             </FormGroup>
           </Form>
           <Button

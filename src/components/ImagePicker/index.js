@@ -20,12 +20,13 @@ const PreviewImage = (props) => {
 
     if (backgroundImage) {
         return (
-            <div
-                role='tab'
-                className='image-picker--preview'
-                style={backgroundStyle}
-                onClick={() => props.openModalMethod()}
-            />
+            <Fragment>
+                <Button
+                    className='image-picker--preview'
+                    style={backgroundStyle}
+                    onClick={() => props.openModalMethod()}
+                />
+            </Fragment>
         );
     } else {
         return (
@@ -33,8 +34,6 @@ const PreviewImage = (props) => {
                 <Button
                     className='image-picker--preview'
                     type='submit'
-                    tabIndex='0'
-                    aria-label='open'
                     onClick={() => props.openModalMethod()}>
                     <span className='glyphicon glyphicon-download-alt' aria-hidden='true'></span>
                     <FormattedMessage id='choose-image' />
@@ -184,7 +183,7 @@ export class ImagePicker extends Component {
         }
 
         return (
-            <div className='image-picker' role='tab'>
+            <div className='image-picker'>
                 {this.props.loading ? (
                     <Spinner animation='border' role='status'>
                         <span className='sr-only'>Loading...</span>
@@ -195,7 +194,6 @@ export class ImagePicker extends Component {
                         openModalMethod={this.openGalleryModal}
                     />
                 )}
-                {/* Temporary comments for upcoming changes, Dialog must be Modal */}
                 <Modal
                     className='image-picker--dialog'
                     isOpen={this.state.open}
@@ -230,14 +228,11 @@ export class ImagePicker extends Component {
                                 <Button
                                     className='upload-img'
                                     variant='contained'
-                                    aria-label='upload'
-                                    type='button'
                                     onClick={() => this.clickHiddenUploadInput()}>
                                     <FormattedMessage id='upload-image' />
                                 </Button>
                                 {this.state.fileSizeError && (
                                     <Fragment>
-                                        {/* <ErrorOutline style={{margin: HelMaterialTheme.spacing(0, 1, 0, 2)}} /> */}
                                         <FormattedMessage id='uploaded-image-size-error'>{txt => <p role="alert" className='image-error'>{txt}</p>}</FormattedMessage>
                                     </Fragment>
                                 )}
@@ -247,11 +242,12 @@ export class ImagePicker extends Component {
                                     <FormGroup>
                                         <label className='image-url'>
                                             {<FormattedMessage id='upload-image-from-url' />}
+                                            <input
+                                                className='file-upload--external-input'
+                                                onChange={this.handleExternalImage}
+                                            />
                                         </label>
-                                        <input
-                                            className='file-upload--external-input'
-                                            onChange={this.handleExternalImage}
-                                        />
+
                                     </FormGroup>
                                 </Form>
                                 <Button
