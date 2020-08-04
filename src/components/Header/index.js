@@ -118,7 +118,6 @@ class HeaderBar extends React.Component {
     render() {
         const {user, userLocale, routerPush, location} = this.props;
         const {showModerationLink} = this.state;
-        const isInsideForm = location.pathname.startsWith('/event/create/new');
 
         return (
             <div className='main-navbar'>
@@ -192,18 +191,16 @@ class HeaderBar extends React.Component {
                                     </NavLink>
                                 </NavItem>
                             )}
-                            {!isInsideForm && (
-                                <NavItem className='linked-events-bar__links__create-event  ml-auto'>
-                                    <NavLink
-                                        active={this.isActivePath('/event/create/new')}
-                                        href='#'
-                                        className='linked-events-bar__links__create-events'
-                                        onClick={() => this.handleOnClick('/event/create/new')}>
-                                        <span aria-hidden className='glyphicon glyphicon-plus'></span>
-                                        <FormattedMessage id={`create-${appSettings.ui_mode}`} />
-                                    </NavLink>
-                                </NavItem>
-                            )}
+                            <NavItem className='linked-events-bar__links__create-event  ml-auto'>
+                                <NavLink
+                                    active={this.isActivePath('/event/create/new')}
+                                    href='#'
+                                    className='linked-events-bar__links__create-events'
+                                    onClick={() => this.handleOnClick('/event/create/new')}>
+                                    <span aria-hidden className='glyphicon glyphicon-plus'></span>
+                                    <FormattedMessage id={`create-${appSettings.ui_mode}`} />
+                                </NavLink>
+                            </NavItem>
                         </ul>
                     </Collapse>
                 </Navbar>
