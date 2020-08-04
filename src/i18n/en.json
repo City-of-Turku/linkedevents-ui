@@ -393,6 +393,8 @@
     
     "preview-event": "Event Information",
     "preview-event-button": "Preview the form",
+
+    "eventable-expand": "Expand event",
 	
 	"table-pagination-results": "Events between {from} and {to} / {count}",
 	"table-pagination-shortcut-link": "Back to top of the table",

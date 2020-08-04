@@ -378,6 +378,8 @@
     "preview-event": "Information om evenemang",
     "preview-event-button": "Kontrollera formuläret",
 
+    "eventable-expand": "Utöka händelsen",
+
 	"table-pagination-results": "Händelserna mellan {from} och {to} / {count}",
 	"table-pagination-shortcut-link": "Gå till början av tabellen",
 	"table-pagination-next-page": "Nästa sida",

@@ -16,6 +16,11 @@ $checkbox-column-width: 50px;
 
 .tag-space {
     margin-right: 4px;
+    border: none;
+    background-color: transparent;
+    &:active, &:focus {
+        outline: 2px solid black;
+    }
 }
 .Mui-selected {
     background-color: #cce2f3;

@@ -12,6 +12,7 @@ import {getFirstMultiLanguageFieldValue} from 'src/utils/helpers';
 import {EventQueryParams, fetchEvents} from 'src/utils/events';
 import classNames from 'classnames';
 import Spinner from 'react-bootstrap/Spinner';
+import {injectIntl} from 'react-intl';
 
 const {USER_TYPE, SUPER_EVENT_TYPE_RECURRING, SUPER_EVENT_TYPE_UMBRELLA} = constants
 
@@ -303,4 +304,4 @@ const mapStateToProps = (state) => ({
     user: state.user,
 })
 
-export default connect(mapStateToProps)(EventRow)
+export default injectIntl(connect(mapStateToProps)(EventRow))
