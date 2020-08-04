@@ -308,7 +308,7 @@ class FormFields extends React.Component {
                             onChange={this.handleOrganizationChange}
                         />
                     </div>
-                    <SideField>
+                    <SideField className='ImagePickerField'>
                         <label htmlFor='image'><FormattedMessage id="event-image"/></label>
                         <input id='image' type='hidden'/>
                         <ImagePickerForm label="image-preview" name="image" loading={this.props.loading} />
