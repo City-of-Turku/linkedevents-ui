@@ -355,7 +355,7 @@
     "uploaded-image-size-tip2": "Muokkaa kuva ennen syöttöä verkkoon sopivaksi ja 3:2-vaakakuvasuhteeseen, esim. 1200X800px (leveys x korkeus).",
     "uploaded-image-size-tip3": "Sallitut tiedostotyypit ovat jpeg, gif ja png.",
     "image-modal-image-info": "Kuvan tiedot",
-    "alt-text": "Alt-teksti eli kuvan sisällön sanallinen kuvaus (pituus vähintään {minLength} merkkiä)",
+    "alt-text": "Alt-teksti eli kuvan sisällön sanallinen kuvaus (pituus vähintään 6 merkkiä)",
     "photographer": "Kuvaaja",
     "image-modal-license-restricted-to-event": "Käyttö rajattu tapahtuman yhteyteen",
     "image-modal-image-license": "Lisenssi",
@@ -403,7 +403,7 @@
     "reportmodal-tooltip": "Jos tapahtumien hallinnassa tai syöttölomakkeen toiminnassa on virhe, klikkaa tästä raportoidaksesi virheestä, niin saamme virhetilanteesta tiedon ja voimme tutkia asiaa.",
     "reportmodal-sent": "Raportti lähetetty, kiitoksia",
     "reportmodal-debugbutton": "Palaute",
-	
+
 	"table-pagination-results": "Tapahtumat välillä {from} ja {to} / {count}",
 	"table-pagination-shortcut-link": "Siirry taulukon alkuun",
 	"table-pagination-next-page": "Seuraava sivu",

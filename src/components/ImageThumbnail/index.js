@@ -7,6 +7,7 @@ import {FormattedMessage, injectIntl} from 'react-intl'
 import {connect} from 'react-redux'
 import {selectImage as selectImageAction} from 'src/actions/userImages'
 import ImageEdit from '../ImageEdit'
+import {getStringWithLocale} from 'src/utils/locale';
 
 class ImageThumbnail extends React.PureComponent {
 
@@ -39,9 +40,9 @@ class ImageThumbnail extends React.PureComponent {
         }
 
         const bgStyle = {backgroundImage: 'url(' + this.props.url + ')'};
-        
+
         let editModal = null;
-        
+
         if (this.state.edit) {
             editModal = <ImageEdit
                 id={this.props.data.id}
@@ -63,7 +64,7 @@ class ImageThumbnail extends React.PureComponent {
                         onClick={() => this.setState({edit: true})}
                     >
                         <span className={'image-title'}>
-                            {this.props.data.name || <FormattedMessage id="edit-image"/>}
+                            {getStringWithLocale(this.props.data, 'name', 'fi') || <FormattedMessage id="edit-image"/>}
                         </span>
                         <span className="glyphicon glyphicon-wrench"></span>
                     </div>

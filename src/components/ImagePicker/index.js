@@ -12,6 +12,7 @@ import ImageEdit from '../ImageEdit';
 import ImageGalleryGrid from '../ImageGalleryGrid';
 import {confirmAction} from 'src/actions/app.js';
 import Spinner from 'react-bootstrap/Spinner';
+import {getStringWithLocale} from 'src/utils/locale';
 
 // Display either the image thumbnail or the "Add an image to the event" text.
 const PreviewImage = (props) => {
@@ -121,11 +122,12 @@ export class ImagePicker extends Component {
 
     handleDelete(event) {
         let selectedImage = this.props.editor.values.image;
+        const currentLanguage = this.props.intl.locale;
         if (!isEmpty(selectedImage)) {
             this.props.dispatch(
                 confirmAction('confirm-image-delete', 'warning', 'delete', {
                     action: (e) => this.props.dispatch(deleteImage(selectedImage, this.props.user)),
-                    additionalMsg: selectedImage.name,
+                    additionalMsg: getStringWithLocale(selectedImage, 'name', currentLanguage),
                     additionalMarkup: ' ',
                 })
             );
@@ -256,7 +258,7 @@ export class ImagePicker extends Component {
                                     color='primary'
                                     disabled={
                                         !this.state.thumbnailUrl ||
-                                        this.state.thumbnailUrl.length === 0
+                                            this.state.thumbnailUrl.length === 0
                                     }
                                     onClick={() => this.handleExternalImageSave()}>
                                     <FormattedMessage id='attach-image-to-event' />
@@ -324,6 +326,7 @@ ImagePicker.propTypes = {
     children: PropTypes.element,
     dispatch: PropTypes.func,
     loading: PropTypes.bool,
+    intl: PropTypes.object,
 };
 
 ImagePicker.contextTypes = {
