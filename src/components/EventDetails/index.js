@@ -137,7 +137,7 @@ const TextValue = (props) => {
 
 const ImageValue = (props) => {
     if (props.value !== undefined && props.value instanceof Object) {
-        return <legend tabIndex='true'><img src={props.value.url} alt=''className="event-image"/></legend>
+        return <legend tabIndex='true'><img src={props.value.url} alt={getStringWithLocale(props.value, 'alt_text', props.locale)} className="event-image"/></legend>
     }
     return (
         <FormHeader>
@@ -148,6 +148,7 @@ const ImageValue = (props) => {
 
 ImageValue.propTypes = {
     value: PropTypes.object,
+    locale: PropTypes.string,
 }
 
 const OptionGroup = (props) => {
@@ -322,7 +323,7 @@ const EventDetails = (props) => {
 
     return (
         <div className={classNames('event-details', {'preview': props.isPreview})}>
-            <ImageValue labelKey="event-image" value={values['image']}/>
+            <ImageValue labelKey="event-image" value={values['image']} locale={intl.locale}/>
             <FormHeader>
                 {intl.formatMessage({id: 'event-description-fields-header'})}
             </FormHeader>

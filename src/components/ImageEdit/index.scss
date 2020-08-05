@@ -27,7 +27,7 @@
         margin: 0px;
         color:rgba(0, 0, 0, 0.54);
     }
-}
+    }
   }
   h2 {
     margin-top: 0px;
@@ -36,6 +36,46 @@
     font-weight: 500;
     line-height: 1.6;
   }
+    .image-license-container {
+        .license-choices {
+            margin: 0.5em 0;
+            display: flex;
+            flex-direction: column;
+            input {
+                font-size: inherit;
+            }
+
+            input[type="checkbox"]::after {
+                border: 0;
+                width: 1em;
+                height: 1em;
+            }
+            input[type="checkbox"]:checked::before {
+                /* Use `visibility` instead of `display` to avoid recalculating layout */
+                visibility: visible;
+            }
+            input[type="radio"] {
+                margin-right: 1em;
+            }
+        }
+
+
+
+        .license-help-text {
+            display: flex;
+            flex-direction: column;
+            background: var(--main-color);
+            border: 1px solid;
+            color: var(--black-color);
+
+            &.tip {
+                margin: 0;
+                padding: 10px;
+            }
+        }
+    }
+
+
 }
 .file-upload {
   .btn {

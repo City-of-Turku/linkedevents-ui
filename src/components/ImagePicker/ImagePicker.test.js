@@ -7,6 +7,14 @@ import fiMessages from 'src/i18n/fi.json';
 import mapValues from 'lodash/mapValues';
 import {Modal} from 'reactstrap';
 import testReduxIntWrapper from '../../../__mocks__/testReduxIntWrapper'
+// these 2 mocks are for the EventMap component, i dont understand why this test needs them
+jest.mock('@city-i18n/localization.json', () => ({
+    mapPosition: [60.451744, 22.266601],
+}),{virtual: true});
+
+jest.mock('@city-assets/urls.json', () => ({
+    rasterMapTiles: 'this is a url to the maptiles',
+}),{virtual: true});
 import ConnectedImagePicker, {ImagePicker} from './index'
 import {mockUser, mockEditorExistingEvent, mockImages} from '__mocks__/mockData';
 

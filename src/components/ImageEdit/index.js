@@ -1,11 +1,12 @@
+import './index.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
-import {injectIntl, FormattedMessage} from 'react-intl';
+import {injectIntl, FormattedMessage, FormattedHTMLMessage} from 'react-intl';
 import {connect} from 'react-redux';
 import {HelTextField, MultiLanguageField} from '../HelFormFields';
 import {postImage as postImageAction} from 'src/actions/userImages';
 import constants from 'src/constants';
-import {Button, Modal, ModalHeader, ModalBody, Input, Label, FormGroup, Form} from 'reactstrap';
+import {Button, Modal, ModalHeader, ModalBody, Input, Label} from 'reactstrap';
 import update from 'immutability-helper';
 import {getStringWithLocale} from 'src/utils/locale';
 
@@ -17,7 +18,7 @@ class ImageEdit extends React.Component {
         super(props);
         this.state = {
             image: {
-                caption: {},
+                name: {},
                 altText: {},
                 photographerName: '',
             },
@@ -27,7 +28,8 @@ class ImageEdit extends React.Component {
                 nameMaxLength: CHARACTER_LIMIT.SHORT_STRING,
                 altTextMaxLength: CHARACTER_LIMIT.MEDIUM_STRING,
             },
-            license: '',
+            license: 'cc_by',
+            imagePermission: false,
         };
 
         this.getCloseButton = this.getCloseButton.bind(this);
@@ -42,7 +44,7 @@ class ImageEdit extends React.Component {
                 {
                     image:
                         {
-                            caption:this.props.defaultName,
+                            name:this.props.defaultName,
                             altText: this.props.altText,
                             photographerName: this.props.defaultPhotographerName,
                         },
@@ -51,13 +53,30 @@ class ImageEdit extends React.Component {
         }
     }
 
+    /**
+     * Handles the license radio input/image permission checkbox onClicks.
+     * name = license_type -> set selected value to state.license
+     * name = permission -> toggles state.imagePermission
+     * @param e
+     */
     handleLicenseChange(e) {
-        //console.log(e.target.value);
-        if (e.target.value === 'cc_by' || e.target.value === 'event_only') {
-            this.setState({license: `${e.target.value}`});
+
+        if(e.target.name === 'license_type') {
+            if (e.target.value === 'cc_by' || e.target.value === 'event_only') {
+                this.setState({license: `${e.target.value}`});
+            }
         }
+        if (e.target.name === 'permission') {
+            this.setState({imagePermission: !this.state.imagePermission})
+        }
+
     }
 
+    /**
+     * Reads imageFile and returns image's data as a base64 encoded string.
+     * @param imageFile
+     * @returns {Promise<unknown>}
+     */
     imageToBase64(imageFile) {
         return new Promise((resolve, reject) => {
             const reader = new FileReader();
@@ -67,9 +86,14 @@ class ImageEdit extends React.Component {
         })
     }
 
+    /**
+     * Modifies/finalizes the object that is then dispatched to the server,
+     * when !updateExisting the imageFile is encoded to a base64 string and added to the object that is dispatched,
+     * @returns {Promise<void>}
+     */
     async handleImagePost() {
         let imageToPost = {
-            name: this.state.image['caption'],
+            name: this.state.image['name'],
             alt_text: this.state.image['altText'],
             photographer_name: this.state.image['photographerName'],
             license: this.state.license,
@@ -79,12 +103,12 @@ class ImageEdit extends React.Component {
             if (this.props.imageFile) {
                 let image64 = await this.imageToBase64(this.props.imageFile);
                 imageToPost = update(imageToPost,{
-                    'image':{$set: image64},
-                    'file_name':{$set: this.props.imageFile.name.split('.')[0]},
+                    image:{$set: image64},
+                    file_name:{$set: this.props.imageFile.name.split('.')[0]},
                 });
             } else {
                 imageToPost = update(imageToPost,{
-                    'url':{$set: this.props.thumbnailUrl},
+                    url:{$set: this.props.thumbnailUrl},
                 });
             }
             console.log(imageToPost);
@@ -93,9 +117,20 @@ class ImageEdit extends React.Component {
         else {
             this.props.postImage(imageToPost,this.props.user, this.props.id);
         }
-
+        this.props.close();
     }
 
+    /**
+     * Sets value to correct location in state
+     * @example
+     * this.state.image: {name:{}, altText:{},...}
+     * handleChange({target:{id: name}} {fi:'some text'})
+     * this.state.image: {name:{fi: 'some text'},altText:{},...}
+     * handleChange({target:{id: altText}} {fi:'alt text here'})
+     * this.state.image: {name:{fi: 'some text'},altText:{fi:'alt text here'},...}
+     * @param event
+     * @param value
+     */
     handleChange = (event, value) => {
         const {id} = event.target;
         let localImage = this.state.image;
@@ -108,10 +143,10 @@ class ImageEdit extends React.Component {
             });
             this.setState({image: localImage})
         }
-        else if (id.includes('caption')) {
+        else if (id.includes('name')) {
 
             localImage = update(localImage, {
-                'caption': {
+                'name': {
                     $set: value,
                 },
             });
@@ -156,10 +191,10 @@ class ImageEdit extends React.Component {
                 />
 
                 <MultiLanguageField
-                    id='caption'
+                    id='name'
                     multiLine
                     required={true}
-                    defaultValue={this.state.image.caption}
+                    defaultValue={this.state.image.name}
                     validations={[VALIDATION_RULES.SHORT_STRING]}
                     label='image-caption-limit-for-min-and-max'
                     languages={this.props.editor.contentLanguages}
@@ -185,32 +220,67 @@ class ImageEdit extends React.Component {
     getLicense() {
         const temp = (string) => this.props.updateExisting && this.state.license === string ? 'checked' : null;
         return (
-            <div className='MuiFormGroup-roots' style={{display: 'flex', flexDirection: 'column'}}>
+            <div className='image-license-container'>
+                <div className='license-choices'>
+                    <Label>
+                        <Input
+                            addon
+                            type='checkbox'
+                            name='permission'
+                            onChange={this.handleLicenseChange}
+                        />
+                        <FormattedMessage id={'image-modal-image-license-permission'}>{txt => txt}</FormattedMessage>
+                    </Label>
 
-                <Label>
-                    <Input
-                        addon
-                        type='radio'
-                        name='license_type'
-                        value='cc_by'
-                        onChange={this.handleLicenseChange}
-                        checked={temp('cc_by')} />
-                    Creative Commons BY 4.0
-                </Label>
-                <Label>
-                    <Input
-                        addon
-                        type='radio'
-                        name='license_type'
-                        value='event_only'
-                        onChange={this.handleLicenseChange}
-                        checked={temp('event_only')} />
+                    <Label>
+                        <Input
+                            addon
+                            type='radio'
+                            name='license_type'
+                            value='event_only'
+                            onChange={this.handleLicenseChange}
+                            checked={temp('event_only')} />
 
-                    <FormattedMessage id={'image-modal-license-restricted-to-event'}/>
-                </Label>
+                        <FormattedMessage id={'image-modal-license-restricted-to-event'}/>
+                    </Label>
+                    <Label>
+                        <Input
+                            addon
+                            type='radio'
+                            name='license_type'
+                            value='cc_by'
+                            onChange={this.handleLicenseChange}
+                            checked={temp('cc_by')} />
+                        Creative Commons BY 4.0
+                    </Label>
+                </div>
+                <div className='license-help-text tip'>
+                    <FormattedMessage id={'image-modal-image-license-explanation-event-only'}/>
+                    <FormattedHTMLMessage id={'image-modal-image-license-explanation-cc-by'} />
+
+
+
+                </div>
 
             </div>
         )
+    }
+
+    /**
+     * Returns true if some value in altText:{} or name:{} is too short or too long, or imagePermission is false
+     * @returns {boolean}
+     */
+    getIsReadyToSubmit() {
+        const {altTextMinLength, altTextMaxLength, nameMaxLength} = this.state.validation;
+        const {name, altText} = this.state.image;
+        const {imagePermission} = this.state;
+
+        const altTextTooShort = Object.values(altText).some(value => value.length < altTextMinLength);
+        const altTextTooLong = Object.values(altText).some(value => value.length > altTextMaxLength);
+        const nameTooShort = Object.values(name).some(value => value.length === 0);
+        const nameTooLong = Object.values(name).some(value => value.length > nameMaxLength);
+
+        return (altTextTooShort || altTextTooLong) || nameTooShort || nameTooLong || !imagePermission;
     }
 
 
@@ -240,11 +310,8 @@ class ImageEdit extends React.Component {
                                     className="image-edit-dialog--help-notice"
                                     style={{marginTop: '10px'}}
                                 >
-                                    <FormattedMessage id={'image-modal-view-terms-paragraph-text'}/>
-                                    &nbsp;
-                                    <a href={'/help#images'} target={'_blank'} rel="noopener noreferrer">
-                                        <FormattedMessage id={'image-modal-view-terms-link-text'}/>
-                                    </a>
+                                    <FormattedHTMLMessage id={'image-modal-view-terms-paragraph-text'}/>
+
                                 </div>
                             </div>
                             <img className="col-sm-4 image-edit-dialog--image" src={thumbnailUrl} alt={getStringWithLocale(this.state.image,'altText')} />
@@ -254,10 +321,10 @@ class ImageEdit extends React.Component {
                                     type="button"
                                     color="primary"
                                     variant="contained"
-                                    disabled={false}
+                                    disabled={this.getIsReadyToSubmit()}
                                     onClick={() => this.handleImagePost()}
                                 >
-                                    Tallenna tiedot
+                                    <FormattedMessage id={'image-modal-save-button-text'}>{txt => txt}</FormattedMessage>
                                 </Button>
                             </div>
                         </div>
@@ -293,6 +360,7 @@ const mapDispatchToProps = (dispatch) => ({
     postImage: (data, user, id) => dispatch(postImageAction(data, user, id)),
 });
 
+export {ImageEdit as UnconnectedImageEdit}
 export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(ImageEdit));
 
 

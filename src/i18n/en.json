@@ -321,7 +321,7 @@
     "courses-management": "Course management",
     "edit-image": "Edit image",
     "The name must be defined.": "The filename must be defined",
-    "image-caption-limit-for-min-and-max": "Image caption (the max length {maxLength} characters)",
+    "image-caption-limit-for-min-and-max": "Image caption",
     "delete-from-filesystem": "Delete image from the file system",
     "edit-selected-image": "Edit the selected image",
     "attach-image-to-event": "Attach image to event",
@@ -347,12 +347,14 @@
     "upload-image-from-url": "Upload image from url",
     "uploaded-image-size-error": "The allowed maximum size for uploaded images is 2 megabytes (MB).",
     "image-modal-image-info": "Image information",
-    "alt-text": "Alt-text: verbal description of image content (the min length is {minLength} and max length is {maxLength} characters)",
-    "photographer": "Photographer (the max length {maxLength} characters)",
+    "alt-text": "Alt-text: verbal description of image content (the min length is 6 characters)",
+    "photographer": "Photographer",
     "image-modal-license-restricted-to-event": "Image may be used only for this event",
     "image-modal-image-license": "Image license",
-    "image-modal-view-terms-paragraph-text": "Prior to uploading a new image, get to know the",
-    "image-modal-view-terms-link-text": "image terms and recommendations.",
+    "image-modal-image-license-permission": "I have permission to use/send this image.",
+    "image-modal-image-license-explanation-event-only": "Käyttö vain tapahtuman yhteydessä = Kuvaa saa käyttää ja jakaa vain tämän tapahtumatiedon yhteydessä.",
+    "image-modal-image-license-explanation-cc-by": "CC BY 4.0 = Kuvaa saa jakaa ja käyttää vapaasti, kun tekijäntiedot mainitaan. Valitse aina, kun kuva on saatu tällä käyttöoikeudella. (ks. <a href='https://creativecommons.org/licenses/by/4.0/' target='_blank' rel='noopener noreferrer'>lisätietoja</a>).",
+    "image-modal-view-terms-paragraph-text": "Prior to uploading a new image, get to know the <a href='/help#images' target='_blank' rel='noopener noreferrer'>image terms and recommendations.</a>",
     "image-modal-save-button-text": "Save image",
     "error-message-has-been-sent": "The error message has been sent. Thank you for reporting!",
     "invalid-date-format": "Invalid date format",
@@ -369,14 +371,14 @@
     "navbar.sv": "Swedish",
     "navbar.active": "Current language is english",
 
-	
+
 	  "cookieBar.accept": "Accept",
 	  "cookieBar.decline.text": "Decline",
 	  "cookieBar.decline.url": "https://www.google.com/",
 	  "cookieBar.description": "We use cookies to improve your browsing experience. By continuing to use Linked Events, you accept the use of cookies.",
 	  "cookieBar.link.text": "Link to cookie policy",
     "cookieBar.link.url": "https://testilinkedevents.turku.fi/cookie-policy/info-en.html",
-    
+
     "reportbutton-send": "Send report",
     "reportmodal-title": "Report an error situation",
     "reportmodal-field": "Describe the problem",
@@ -390,10 +392,10 @@
     "footer-city1": "Pohjoisesplanadi 11-13, P.O. Box 1 00099 ",
     "footer-city2": "CITY OF HELSINKI",
     "footer-city3": "www.hel.fi",
-    
+
     "preview-event": "Event Information",
     "preview-event-button": "Preview the form",
-	
+
 	"table-pagination-results": "Events between {from} and {to} / {count}",
 	"table-pagination-shortcut-link": "Back to top of the table",
 	"table-pagination-next-page": "Next page",
