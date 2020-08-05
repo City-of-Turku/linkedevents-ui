@@ -63,7 +63,6 @@ const SearchBar = ({intl, onFormSubmit}) => {
                     </FormGroup>
                 </Form>
                 <Button
-                    aria-disabled='true'
                     disabled={searchQuery.length === 0}
                     aria-label={searchQuery.length ? null : intl.formatMessage({id: 'search-event-button-disabled'})}
                     variant='contained'
