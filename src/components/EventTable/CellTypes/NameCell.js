@@ -4,7 +4,6 @@ import {Link} from 'react-router-dom';
 import {getBadge} from 'src/utils/helpers';
 import {getEventName} from 'src/utils/events';
 import constants from '../../../constants';
-import {injectIntl} from 'react-intl';
 
 class NameCell extends React.Component {
     constructor(props) {
