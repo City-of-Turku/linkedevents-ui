@@ -8,6 +8,7 @@
     "search-events-description": "Katsele kaikkia Linked Eventsin tapahtumia.",
     "pick-time-range": "Etsi vain ajalta",
     "event-name-or-place": "Tapahtuman nimi tai paikka",
+    "event-name-or-place-aria": "Kirjoita tapahtuman nimi tai paikka etsiäksesi tapahtumia",
     "search-event-button": "Hae tapahtumia",
     "lang-fi": "Suomi",
     "lang-en": "Englanti",
@@ -259,6 +260,7 @@
     "image-update-error": "Virhe kuvaa päivittäessä.",
     "confirm-image-delete": "Varmista kuvan poistaminen",
 
+    "search-event-button-disabled": "Kirjoita ensin hakusana kenttään",
     "search-no-results": "Ei tuloksia",
     "search-results-count": "Hakutulosten määrä on {count}",
 	"search-date-label-start": "Alkaen (pp.kk.vvvv)",

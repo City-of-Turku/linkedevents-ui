@@ -53,8 +53,8 @@ class SearchPage extends React.Component {
         //Added P role=status for screenreaders and to display overall amount of found results
         return (
             <div className="container">
-                <h1><FormattedMessage id={`search-${appSettings.ui_mode}`}/></h1>
-                <p><FormattedMessage id="search-events-description"/></p>
+                <h1 tabIndex='0'><FormattedMessage id={`search-${appSettings.ui_mode}`}/></h1>
+                <p tabIndex='0'><FormattedMessage id="search-events-description"/></p>
                 <SearchBar onFormSubmit={(query, start, end) => this.searchEvents(query, start, end)}/>
                 <FormattedMessage id="search-results-count" values={{count: this.state.events.length}}>{txt => <p role="status">{txt}</p>}</FormattedMessage>
                 <section className="container-fluid">

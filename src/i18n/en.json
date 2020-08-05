@@ -8,6 +8,8 @@
     "search-events-description": "View all events on Linked Events.",
     "pick-time-range": "Pick time range",
     "event-name-or-place": "Event name or place",
+    "event-name-or-place-aria": "Enter an event name or location to search for events",
+    "search-event-button-disabled": "First, enter a keyword in the field",
     "search-event-button": "Search for events",
     "lang-fi": "Finnish",
     "lang-en": "English",
