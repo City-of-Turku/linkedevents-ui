@@ -25,7 +25,7 @@ const SearchBar = ({intl, onFormSubmit}) => {
     return (
         <div className='search-bar'>
             <div className='search-bar--dates'>
-                <p tabIndex='0' className='search-bar--label'>
+                <p className='search-bar--label'>
                     <FormattedMessage id='pick-time-range' />
                 </p>
                 <CustomDatePicker
@@ -50,10 +50,10 @@ const SearchBar = ({intl, onFormSubmit}) => {
             <div className='search-bar--input event-input'>
                 <Form>                   
                     <FormGroup>
-                        <label>{intl.formatMessage({id: 'event-name-or-place'})}</label>
+                        <label htmlFor='search'>{intl.formatMessage({id: 'event-name-or-place'})}</label>
                         <input
+                            id='search'
                             className='event-search-bar'
-                            aria-label={intl.formatMessage({id: 'event-name-or-place-aria'})}
                             type='text'
                             onChange={(e) => setSearchQuery(e.target.value)}
                             onKeyPress={(e) =>
@@ -64,7 +64,6 @@ const SearchBar = ({intl, onFormSubmit}) => {
                 </Form>
                 <Button
                     disabled={searchQuery.length === 0}
-                    aria-label={searchQuery.length ? null : intl.formatMessage({id: 'search-event-button-disabled'})}
                     variant='contained'
                     color='primary'
                     onClick={() => onFormSubmit(searchQuery, startDate, endDate)}>
