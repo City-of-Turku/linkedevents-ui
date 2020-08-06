@@ -28,7 +28,7 @@ class ImageEdit extends React.Component {
                 nameMaxLength: CHARACTER_LIMIT.SHORT_STRING,
                 altTextMaxLength: CHARACTER_LIMIT.MEDIUM_STRING,
             },
-            license: 'cc_by',
+            license: 'event_only',
             imagePermission: false,
         };
 
@@ -111,7 +111,6 @@ class ImageEdit extends React.Component {
                     url:{$set: this.props.thumbnailUrl},
                 });
             }
-            console.log(imageToPost);
             this.props.postImage(imageToPost, this.props.user, null);
         }
         else {
@@ -131,7 +130,7 @@ class ImageEdit extends React.Component {
      * @param event
      * @param value
      */
-    handleChange = (event, value) => {
+    handleChange(event, value){
         const {id} = event.target;
         let localImage = this.state.image;
         if (id.includes('altText')) {
@@ -270,7 +269,7 @@ class ImageEdit extends React.Component {
      * Returns true if some value in altText:{} or name:{} is too short or too long, or imagePermission is false
      * @returns {boolean}
      */
-    getIsReadyToSubmit() {
+    getNotReadyToSubmit() {
         const {altTextMinLength, altTextMaxLength, nameMaxLength} = this.state.validation;
         const {name, altText} = this.state.image;
         const {imagePermission} = this.state;
@@ -321,7 +320,7 @@ class ImageEdit extends React.Component {
                                     type="button"
                                     color="primary"
                                     variant="contained"
-                                    disabled={this.getIsReadyToSubmit()}
+                                    disabled={this.getNotReadyToSubmit()}
                                     onClick={() => this.handleImagePost()}
                                 >
                                     <FormattedMessage id={'image-modal-save-button-text'}>{txt => txt}</FormattedMessage>

@@ -1,13 +1,7 @@
 import React from 'react';
 import {shallow, mount} from 'enzyme';
-// these 2 mocks are for the EventMap component, i dont understand why this test needs them
-jest.mock('@city-i18n/localization.json', () => ({
-    mapPosition: [60.451744, 22.266601],
-}),{virtual: true});
 
-jest.mock('@city-assets/urls.json', () => ({
-    rasterMapTiles: 'this is a url to the maptiles',
-}),{virtual: true});
+
 import {UnconnectedImageEdit} from './index';
 import {IntlProvider, FormattedMessage} from 'react-intl';
 import fiMessages from 'src/i18n/fi.json';
@@ -30,13 +24,21 @@ const defaultImageFile = {
     type: 'image/jpeg',
     webkitRelativePath: '',
 };
+
+
+const defaultUser = {
+    id: '038d639a-qwer-67n4-a32l-02le73o7a3',
+    displayName: 'Erkki Esimerkki',
+    firstName: 'Erkki',
+    lastName: 'Esimerkki',
+}
 const defaultProps = {
     imageFile: defaultImageFile,
     thumbnailUrl: 'http://localhost:8080/cba659d9-5440-4a21-9b58-df53064ec763',
-    user: mockUser,
-    close: jest.fn,
+    user: defaultUser,
+    close: jest.fn(),
     editor: mockEditorNewEvent,
-    postImage: jest.fn,
+    postImage: jest.fn(),
     intl: {intl},
     updateExisting: false,
 };
@@ -44,6 +46,14 @@ const defaultProps = {
 describe('ImageEdit', () => {
     function getWrapper(props) {
         return shallow(<UnconnectedImageEdit {...defaultProps} {...props}/>, {context: {intl}});
+    }
+
+    function longString(length) {
+        let str;
+        for (let i = 0; i < length; i++) {
+            str += 'A';
+        }
+        return str;
     }
 
     describe('methods', () => {
@@ -69,8 +79,187 @@ describe('ImageEdit', () => {
             });
         });
 
+        describe('handlers', () => {
+            describe('handleChange', () => {
+                test('sets value to state.image according to event.target.id', () => {
+                    const wrapper = getWrapper()
 
-    })
+                    // altText
+                    expect(wrapper.state('image')['altText']).toEqual({});
+                    wrapper.instance().handleChange({target:{id:'altText'}}, {fi:'finnishAlt'});
+                    expect(wrapper.state('image')['altText']).toEqual({fi:'finnishAlt'});
+
+                    //name
+                    expect(wrapper.state('image')['name']).toEqual({});
+                    wrapper.instance().handleChange({target:{id:'name'}}, {fi:'finnishName', sv:'swedishName'});
+                    expect(wrapper.state('image')['name']).toEqual({fi:'finnishName', sv:'swedishName'});
+
+                    // photographerName
+                    expect(wrapper.state('image')['photographerName']).toEqual('');
+                    wrapper.instance().handleChange({target:{id:'photographerName'}}, 'Photographer Phil');
+                    expect(wrapper.state('image')['photographerName']).toEqual('Photographer Phil');
+                });
+            });
+
+            describe('handleLicenseChange', () => {
+                test('if target.name=license_type, sets value to state.license', () => {
+                    const wrapper = getWrapper();
+                    // event_only by default
+                    expect(wrapper.state('license')).toEqual('event_only');
+
+                    wrapper.instance().handleLicenseChange({target:{name: 'license_type', value:'cc_by'}});
+                    expect(wrapper.state('license')).toEqual('cc_by');
+
+                    wrapper.instance().handleLicenseChange({target:{name: 'license_type', value:'event_only'}});
+                    expect(wrapper.state('license')).toEqual('event_only');
+                });
+
+                test('if target.name=permission, toggles state.imagePermission boolean', () => {
+                    const wrapper = getWrapper();
+                    expect(wrapper.state('imagePermission')).toBe(false);
+
+                    wrapper.instance().handleLicenseChange({target:{name:'permission'}});
+                    expect(wrapper.state('imagePermission')).toBe(true);
+
+                    wrapper.instance().handleLicenseChange({target:{name:'permission'}});
+                    expect(wrapper.state('imagePermission')).toBe(false);
+
+                });
+            });
+
+            describe('handleImagePost', () => {
+
+                let defaultImageBlob = new Blob([longString(100)], {type:'image/jpeg'});
+                defaultImageBlob.name = 'testfile.jpg';
+
+                const postImage = jest.fn();
+                const close = jest.fn();
+                const imageFile = defaultImageBlob;
+
+                afterEach(() => {
+                    postImage.mockReset();
+                    close.mockReset();
+                })
+
+                test('calls postImage with correct props when !updateExisting', async () => {
+                    const wrapper = getWrapper({postImage, close, imageFile});
+                    jest.spyOn(wrapper.instance(),'imageToBase64');
+                    wrapper.instance().handleChange({target:{id:'altText'}}, {fi:'finnishAlt'});
+                    wrapper.instance().handleChange({target:{id:'name'}}, {fi:'finnishName'});
+                    wrapper.instance().handleChange({target:{id:'photographerName'}}, 'Photographer Phil');
+                    const expectedImage = await wrapper.instance().imageToBase64(defaultImageBlob);
+                    await wrapper.instance().handleImagePost();
+
+                    const imageToPost = {
+                        alt_text: {
+                            fi: 'finnishAlt',
+                        },
+                        name: {
+                            fi: 'finnishName',
+                        },
+                        file_name: 'testfile',
+                        image: expectedImage,
+                        license: 'event_only',
+                        photographer_name: 'Photographer Phil',
+                    };
+
+                    expect(wrapper.instance().imageToBase64).toHaveBeenCalled();
+                    expect(postImage).toHaveBeenCalledWith(imageToPost,defaultUser,null)
+                    expect(close).toHaveBeenCalled();
+
+                });
+
+                test('calls postImage with correct props when updateExisting', async () => {
+                    const wrapper = getWrapper(
+                        {
+                            postImage,
+                            close,
+                            updateExisting:true,
+                            id: 1337,
+                            defaultName: {fi: 'image name'},
+                            altText: {fi: 'alt text'},
+                            defaultPhotographerName: 'Phil Photo',
+                            thumbnailUrl: defaultProps.thumbnailUrl,
+                            license: 'cc_by',
+                        });
+                    await wrapper.instance().handleImagePost();
+                    const imageToPost = {
+                        alt_text:{fi:'alt text'},
+                        name:{fi:'image name'},
+                        license: 'cc_by',
+                        photographer_name: 'Phil Photo',
+                    };
+
+                    expect(postImage).toHaveBeenCalledWith(imageToPost,defaultUser, 1337);
+                    expect(close).toHaveBeenCalled();
+
+                });
+            });
+        });
+
+        describe('getIsReadyToSubmit', () => {
+            let wrapper;
+
+
+
+            beforeEach(() => {
+                wrapper = getWrapper();
+                wrapper.instance().handleLicenseChange({target:{name:'permission'}});
+            })
+            test('returns boolean based on if some altText is too short', () => {
+
+                wrapper.instance().handleChange({target:{id:'name'}}, {fi:'finnishName', sv:'swedishName'});
+                wrapper.instance().handleChange({target:{id:'altText'}}, {fi:'finnishAlt', sv:'swed'});
+
+
+                expect(wrapper.instance().getNotReadyToSubmit()).toBe(true);
+                wrapper.instance().handleChange({target:{id:'altText'}}, {fi:'finnishAlt', sv:'swedis'});
+                expect(wrapper.instance().getNotReadyToSubmit()).toBe(false);
+            });
+
+            test('returns boolean based on if some altText is too long', () => {
+                wrapper.instance().handleChange({target:{id:'name'}}, {fi:'finnishName', sv:'swedishName'});
+                // max altText length is 320
+                const tooLongAlt = longString(322);
+
+                wrapper.instance().handleChange({target:{id:'altText'}}, {fi:'finnishAlt', sv:tooLongAlt});
+
+                expect(wrapper.instance().getNotReadyToSubmit()).toBe(true);
+                wrapper.instance().handleChange({target:{id:'altText'}}, {fi:'finnishAlt', sv:'this is short'});
+                expect(wrapper.instance().getNotReadyToSubmit()).toBe(false);
+            });
+
+            test('returns boolean based on if some name is too short', () => {
+                wrapper.instance().handleChange({target:{id:'name'}}, {fi:'', sv:'swedishName'});
+                wrapper.instance().handleChange({target:{id:'altText'}}, {fi:'finnishAlt', sv:'swedishAlt'});
+
+
+                expect(wrapper.instance().getNotReadyToSubmit()).toBe(true);
+                wrapper.instance().handleChange({target:{id:'name'}}, {fi:'finnishName', sv:'swedishName'});
+                expect(wrapper.instance().getNotReadyToSubmit()).toBe(false);
+            });
+
+            test('returns boolean based on if some name is too long', () => {
+                wrapper.instance().handleChange({target:{id:'altText'}}, {fi:'finnishAlt', sv:'swedishAlt'});
+                //max name length is 160
+                const tooLongName = longString(170);
+                wrapper.instance().handleChange({target:{id:'name'}}, {fi:tooLongName, sv:'swedishName'});
+
+                expect(wrapper.instance().getNotReadyToSubmit()).toBe(true);
+                wrapper.instance().handleChange({target:{id:'name'}}, {fi:'finnishName', sv:'swedishName'});
+                expect(wrapper.instance().getNotReadyToSubmit()).toBe(false);
+            });
+
+            test('return true if state.imagePermission is false', () => {
+                wrapper.instance().handleChange({target:{id:'name'}}, {fi:'finnishName', sv:'swedishName'});
+                wrapper.instance().handleChange({target:{id:'altText'}}, {fi:'finnishAlt', sv:'swedishAlt'});
+
+                expect(wrapper.instance().getNotReadyToSubmit()).toBe(false);
+                wrapper.instance().handleLicenseChange({target:{name:'permission'}});
+                expect(wrapper.instance().getNotReadyToSubmit()).toBe(true);
+            });
+        });
+    });
 
     describe('render', () => {
 
@@ -128,7 +317,7 @@ describe('ImageEdit', () => {
         })
 
 
-    })
+    });
 
-})
+});
 
