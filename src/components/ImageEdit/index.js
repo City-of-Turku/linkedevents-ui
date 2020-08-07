@@ -204,6 +204,7 @@ class ImageEdit extends React.Component {
                 <HelTextField
                     fullWidth
                     name='photographerName'
+                    required={true}
                     defaultValue={this.state.image.photographerName}
                     label={<FormattedMessage id={'photographer'}
                         values={{maxLength: this.state.validation.photographerMaxLength}}
@@ -270,16 +271,17 @@ class ImageEdit extends React.Component {
      * @returns {boolean}
      */
     getNotReadyToSubmit() {
-        const {altTextMinLength, altTextMaxLength, nameMaxLength} = this.state.validation;
-        const {name, altText} = this.state.image;
+        const {altTextMinLength, altTextMaxLength, nameMaxLength, photographerMaxLength} = this.state.validation;
+        const {name, altText, photographerName} = this.state.image;
         const {imagePermission} = this.state;
 
         const altTextTooShort = Object.values(altText).some(value => value.length < altTextMinLength);
         const altTextTooLong = Object.values(altText).some(value => value.length > altTextMaxLength);
         const nameTooShort = Object.values(name).some(value => value.length === 0);
         const nameTooLong = Object.values(name).some(value => value.length > nameMaxLength);
+        const photographerNameNotValid = photographerName.length === 0 || photographerName.length > photographerMaxLength;
 
-        return (altTextTooShort || altTextTooLong) || nameTooShort || nameTooLong || !imagePermission;
+        return (altTextTooShort || altTextTooLong) || nameTooShort || nameTooLong || photographerNameNotValid || !imagePermission;
     }
 
 

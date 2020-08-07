@@ -210,6 +210,7 @@ describe('ImageEdit', () => {
 
                 wrapper.instance().handleChange({target:{id:'name'}}, {fi:'finnishName', sv:'swedishName'});
                 wrapper.instance().handleChange({target:{id:'altText'}}, {fi:'finnishAlt', sv:'swed'});
+                wrapper.instance().handleChange({target:{id:'photographerName'}},'Phil Photo');
 
 
                 expect(wrapper.instance().getNotReadyToSubmit()).toBe(true);
@@ -219,6 +220,7 @@ describe('ImageEdit', () => {
 
             test('returns boolean based on if some altText is too long', () => {
                 wrapper.instance().handleChange({target:{id:'name'}}, {fi:'finnishName', sv:'swedishName'});
+                wrapper.instance().handleChange({target:{id:'photographerName'}},'Phil Photo');
                 // max altText length is 320
                 const tooLongAlt = longString(322);
 
@@ -232,6 +234,7 @@ describe('ImageEdit', () => {
             test('returns boolean based on if some name is too short', () => {
                 wrapper.instance().handleChange({target:{id:'name'}}, {fi:'', sv:'swedishName'});
                 wrapper.instance().handleChange({target:{id:'altText'}}, {fi:'finnishAlt', sv:'swedishAlt'});
+                wrapper.instance().handleChange({target:{id:'photographerName'}},'Phil Photo');
 
 
                 expect(wrapper.instance().getNotReadyToSubmit()).toBe(true);
@@ -241,6 +244,7 @@ describe('ImageEdit', () => {
 
             test('returns boolean based on if some name is too long', () => {
                 wrapper.instance().handleChange({target:{id:'altText'}}, {fi:'finnishAlt', sv:'swedishAlt'});
+                wrapper.instance().handleChange({target:{id:'photographerName'}},'Phil Photo');
                 //max name length is 160
                 const tooLongName = longString(170);
                 wrapper.instance().handleChange({target:{id:'name'}}, {fi:tooLongName, sv:'swedishName'});
@@ -250,9 +254,32 @@ describe('ImageEdit', () => {
                 expect(wrapper.instance().getNotReadyToSubmit()).toBe(false);
             });
 
+            test('returns boolean based on if photographerName exists', () => {
+                wrapper.instance().handleChange({target:{id:'name'}}, {fi:'finnishName', sv:'swedishName'});
+                wrapper.instance().handleChange({target:{id:'altText'}}, {fi:'finnishAlt', sv:'swedishAlt'});
+
+                expect(wrapper.instance().getNotReadyToSubmit()).toBe(true);
+                wrapper.instance().handleChange({target:{id: 'photographerName'}}, 'Phil Photo');
+                expect(wrapper.instance().getNotReadyToSubmit()).toBe(false);
+            });
+
+            test('returns boolean based on if photographerName is too long', () => {
+                wrapper.instance().handleChange({target:{id:'name'}}, {fi:'finnishName', sv:'swedishName'});
+                wrapper.instance().handleChange({target:{id:'altText'}}, {fi:'finnishAlt', sv:'swedishAlt'});
+
+                // max photographer name length is 160
+                const longName = longString(161);
+                expect(wrapper.instance().getNotReadyToSubmit()).toBe(true);
+                wrapper.instance().handleChange({target:{id: 'photographerName'}}, longName);
+                expect(wrapper.instance().getNotReadyToSubmit()).toBe(true);
+                wrapper.instance().handleChange({target:{id: 'photographerName'}}, 'Short Name');
+                expect(wrapper.instance().getNotReadyToSubmit()).toBe(false);
+            });
+
             test('return true if state.imagePermission is false', () => {
                 wrapper.instance().handleChange({target:{id:'name'}}, {fi:'finnishName', sv:'swedishName'});
                 wrapper.instance().handleChange({target:{id:'altText'}}, {fi:'finnishAlt', sv:'swedishAlt'});
+                wrapper.instance().handleChange({target:{id:'photographerName'}},'Phil Photo');
 
                 expect(wrapper.instance().getNotReadyToSubmit()).toBe(false);
                 wrapper.instance().handleLicenseChange({target:{name:'permission'}});
