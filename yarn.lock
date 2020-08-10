@@ -2427,6 +2427,7 @@ cipher-base@^1.0.0, cipher-base@^1.0.1, cipher-base@^1.0.3:
   resolved "https://registry.yarnpkg.com/city_theme/-/city_theme-0.6.5.tgz#c4c2ef4afdfab6fd8572a6f2fc0e97c609859ed2"
   integrity sha512-4iO77WN5rkA1OlMVpdvE2Gq4lCJM0f+IUFgc//Xxf+E6IRO/3cE+dolZblsp0FFH36RDE74Bf7spWb2JtBQb7w==
 
+
 class-utils@^0.3.5:
   version "0.3.6"
   resolved "https://registry.yarnpkg.com/class-utils/-/class-utils-0.3.6.tgz#f93369ae8b9a7ce02fd41faad0ca83033190c463"
