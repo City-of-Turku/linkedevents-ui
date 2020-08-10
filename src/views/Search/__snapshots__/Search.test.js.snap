@@ -178,6 +178,7 @@ exports[`Search Snapshot should render view correctly 1`] = `
       "event-video-alt_text": "Alt-teksti",
       "event-video-name": "Videon nimi",
       "event-video-url": "Video (url)",
+      "eventable-expand": "Laajenna tapahtuma",
       "events-management": "Tapahtumien hallinta",
       "events-management-description": "Selaa ja muokkaa oman organisaatiosi julkaistuja tapahtumia.",
       "events-management-description-regular-user": "Selaa ja muokkaa omia luonnoksiasi ja selaa julkaistuja tapahtumiasi. Julkaistuja tapahtumia ei voi muokata.",

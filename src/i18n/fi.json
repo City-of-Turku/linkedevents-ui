@@ -406,6 +406,8 @@
     "reportmodal-sent": "Raportti lähetetty, kiitoksia",
     "reportmodal-debugbutton": "Palaute",
 
+    "eventable-expand": "Laajenna tapahtuma",
+
 	"table-pagination-results": "Tapahtumat välillä {from} ja {to} / {count}",
 	"table-pagination-shortcut-link": "Siirry taulukon alkuun",
 	"table-pagination-next-page": "Seuraava sivu",

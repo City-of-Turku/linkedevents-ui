@@ -46,7 +46,8 @@ class NameCell extends React.Component {
             <td style={indentationStyle}>
                 <div className='nameCell'>
                     {isSuperEvent && hasSubEvents &&
-                    <span
+                    <button
+                        aria-label={this.context.intl.formatMessage({id:`eventable-expand`})}
                         className='sub-event-toggle tag-space'
                         onClick={toggleSubEvent}
                     >
@@ -55,7 +56,7 @@ class NameCell extends React.Component {
                             :
                             <span className='glyphicon glyphicon-chevron-right' />
                         }
-                    </span>
+                    </button>
                     }
                     {eventStatus.postponed && getBadge('postponed')}
                     {eventStatus.cancelled && getBadge('cancelled')}
@@ -81,5 +82,8 @@ NameCell.propTypes = {
     showSubEvents: PropTypes.bool,
     toggleSubEvent: PropTypes.func,
 };
+NameCell.contextTypes = {
+    intl: PropTypes.object,
+}
 
 export default NameCell;
