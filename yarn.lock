@@ -2423,9 +2423,9 @@ cipher-base@^1.0.0, cipher-base@^1.0.1, cipher-base@^1.0.3:
     safe-buffer "^5.0.1"
 
 city_theme@^0.x.x:
-  version "0.6.3"
-  resolved "https://registry.yarnpkg.com/city_theme/-/city_theme-0.6.3.tgz#e57c383d07370f8ea0af842b2057ac11fc2e2d36"
-  integrity sha512-0vY/dWudIQ03McgaoHnBaouUPXniUnSfNNSzTwDF/S2hIWfXjznHWf4RA1I6FCnyb+Hiay0xt5GIIgEVnO6T2A==
+  version "0.6.4"
+  resolved "https://registry.yarnpkg.com/city_theme/-/city_theme-0.6.4.tgz#08f33f25d9524cd569feb02a11f6a6dd33b63c43"
+  integrity sha512-UGZ1Ya0mxEUaSJ+YXzDpPyzIyvZx5ZgOXK2RJFnQJisLKb2b99V233ZvA5YI/0ksokfg1+WHH37gvx2KOdvN3A==
 
 class-utils@^0.3.5:
   version "0.3.6"
