@@ -4,14 +4,16 @@ import React from 'react'
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
+
 // Changing Helppages content based on current locale and fetching it from markdown-files
 function getContent(language) {
-    if (language === 'fi') { return require('./help-content.fi.md');}
-    if (language === 'en') { return require('./help-content.en.md');}
-    if (language === 'sv') { return require('./help-content.sv.md');}
-    return require('./help-content.fi.md')
+    if (language === 'fi') { 
+        return require('@city-assets/md/help-content.fi.md');}
+    if (language === 'en') { 
+        return require('@city-assets/md/help-content.en.md');}
+    if (language === 'sv') { 
+        return require('@city-assets/md/help-content.sv.md');}
 }
-
 class View extends React.Component {
     render() {
         const content = getContent(this.props.locale);
@@ -24,7 +26,7 @@ class View extends React.Component {
 View.propTypes = {
     locale: PropTypes.string,
 }
-
+/*
 const EventsHelp = () => {
     return (
         <div className="container help-page">
@@ -95,7 +97,7 @@ const EventsHelp = () => {
         </div>
     )
 }
-
+*/
 const CoursesHelp = () => {
     return (
         <div className="container help-page">
@@ -168,10 +170,6 @@ const mapStateToProps = (state) => ({
     locale: state.userLocale.locale,
 });
 
-const Help = 
-    appSettings.ui_mode === 'events' ? 
-        EventsHelp : connect(mapStateToProps)(View) || 
-        appSettings.ui_mode === 'courses' ? 
-            CoursesHelp : connect(mapStateToProps)(View)
+const Help = appSettings.ui_mode === 'courses' ? CoursesHelp : connect(mapStateToProps)(View)
 
 export default Help
