@@ -1,97 +1,96 @@
-
 # Linked Events lyhyesti
 
-Syötä tapahtumatiedot kerralla hyödynnettäväksi monessa paikassa.
+* Tapahtumatiedot näkyvät useissa eri sovelluksissa – myös muissa kuin kaupungin omissa.
+* Tapahtumia saa syöttää kaupungin luvalla. Niiden ei tarvitse olla kaupungin järjestämiä.
+* Tapahtumalle voi antaa useita päivämääriä. Tapahtumasarjalle luodaan automaattisesti ylätapahtuma.
+* Tapahtumia voi myös kopioida, perua ja poistaa.
+* Huolella syötetyt tiedot helpottavat tapahtuman löytämistä:
+    * Eri yhteyksissä ymmärrettävät otsikko, lyhyt kuvaus ja kuvaus.
+    * Lyhyt kuvaus näytetään vain listoissa, kuvaus taas tapahtuman omalla sivulla.
+    * Jos kohderyhmä on rajattu, kerro siitä kuvauskentässä.
+    * Verkkoon sopivaksi muokattu 3:2-vaakakuva, esim. 1200px X 800px.
+    * Ylätasoinen asiasanoitus ja luokittelu. Käytä aina joitain suosittuja asiasanoja.
 
-Linked Events on tapahtumatietokanta, joka perustuu avoimeen lähdekoodiin. Se ei itse ole tapahtumakalenteri, vaan tarjoaa tapahtumatiedot eri sovelluksille – myös muille kuin kaupungin omille. Tapahtumien ei siis tarvitse olla kaupungin järjestämiä.
+<a href="http://localhost:8080/terms" rel="noreferrer" target="__blank">Linked Events -tapahtumarajapinnan käyttöehdot</a>
 
-Lue lisää **https://www.databusiness.fi/fi/linked-events/**
+Kaupungin tapahtumakalenteri: <a href="http://www.hel.fi/tapahtumat" rel="noreferrer" target="__blank">hel.fi/tapahtumat</a>.
 
-## Linked Events -tapahtumarajapinnan käyttöehdot
-Kaupungin tapahtumakalenteri: kalenteri.turku.fi
-Linked Events -rajapinta:  **https://api.turku.fi/linkedevents/**
-Rajapinnan kehittäjäsivu: dev.hel.fi/projects/linked-events
-Rajapinnan kehityksestä Turussa vastaavat: projektipäällikkö Mira Koivumäki-Lindholm ja työnjohtaja Ville Eemilä.
+Linked Events -rajapinta: <a href="http://api.hel.fi/linkedevents" rel="noreferrer" target="__blank">api.hel.fi/linkedevents</a>.
 
-Linked Events -tapahtumatietokanta
+Rajapinnan kehittäjäsivu: <a href="https://dev.hel.fi/projects/linked-events/" rel="noreferrer" target="__blank">dev.hel.fi/projects/linked-events/</a>
 
-Huolella syötetyt tiedot helpottavat tapahtuman löytämistä ja tiedon käyttämistä eri sovelluksissa.
+Rajapinnan palvelupäällikkö on Aleksi Salonen (@hel.fi) ja tekninen kehityspäällikkö RIku Oja (@hel.fi)
 
------
+<hr>
 
-### A. Yleistä
+# Linked Events -tapahtumarajapinnan syöttökäyttöliittymä
 
-<br>
+### A. Yleistä 
 
-1. **Linked Events on Turun kaupungin tapahtumatietokanta**. Palveluun syötetyt tapahtumat siirtyvät automaattisesti kaupungin tapahtumakalenteriin, muille sivustoille ja muihin kuin kaupungin ylläpitämiin kalenterisovelluksiin. Tapahtuman kuvaus kannattaa siksi laatia helposti ymmärrettäväksi eri käyttöpaikoissa.
+1. **Linked Events on Helsingin kaupungin tapahtumarajapinta.** Rajapintaan syötetyt tapahtumat siirtyvät automaattisesti kaupungin tapahtumakalenteriin, palvelukartalle ja myös muihin kuin kaupungin ylläpitämiin kalenterisovelluksiin. Tapahtuman kuvaus kannattaa siksi laatia helposti ymmärrettäväksi eri käyttöpaikoissa.
 
-2. **Tapahtumien ilmoituslomake** on osoitteessa **https://testilinkedevents.turku.fi/**. Käyttöoikeuden saa kirjautumalla ensin palveluun ja lähettämällä tämän jälkeen oikeuksien vahvistuspyynnön. Ilmoituslomaketta voi käyttää missä vain, myös mobiililaitteilla. Muokkausoikeus on oman organisaation tapahtumille.
+2. **Rajapinnan syöttökäyttöliittymä** löytyy osoitteesta linkedevents.hel.fi. Käyttöoikeuden saa kirjautumalla ensin palveluun ja lähettämällä tämän jälkeen oikeuksien vahvistuspyynnön. Syöttöliittymää voi käyttää mistä vain ja myös mobiililaitteilla. Muokkausoikeus on oman organisaation tapahtumille.
 
-3. **Turun kaupunki mahdollistaa tapahtumien syöttämisen tietokantaan**. Tapahtumien ei tarvitse olla kaupungin järjestämiä eikä niiden tarvitse olla kaikille avoimia, mutta rajoitukset on kerrottava selkeästi tapahtuman kuvauksessa.
+3. **Rajapintaan saa syöttää tapahtumia** Helsingin kaupungin luvalla. Tapahtumien ei tarvitse olla kaikille avoimia, mutta rajoitukset on kerrottava selkeästi tapahtuman kuvauksessa.
 
-4. Palvelussa voi a) **hakea kaikista kaupungin tapahtumista**, b) **selata, muokata ja poistaa oman organisaation tapahtumia** ja c) **lisätä uusia tapahtumia**. Toistuvan tapahtuman kaikki päivät voi lisätä samalla kertaa.
+4. **Käyttöliittymässä voi** a) hakea kaikista kaupungin tapahtumista, b) selata ja muokata oman organisaation tapahtumia ja c) lisätä uusia tapahtumia. Toistuvan tapahtuman kaikki päivät voi lisätä samalla kertaa.
 
-### B. Tapahtuman lisääminen
+### B. Tapahtuman syöttö
 
-<br>
+5. **Lisää uusi tapahtuma:** Tapahtuman tiedot on syötettävä ainakin suomeksi. Ruotsin- ja englanninkieliset tiedot on syytä täyttää suurissa ja kielikohderyhmille sopivissa tapahtumissa.
 
-5. **Lisää uusi tapahtuma**: tapahtuman tiedot voi syöttää suomeksi, ruotsiksi ja englanniksi. Tiedot on hyvä täyttää eri kielillä varsinkin suurissa ja kielikohderyhmille sopivissa tapahtumissa.
+  5.1 **Täytä tiedot niin laajasti ja tarkasti kuin mahdollista.** Lomakkeen ohjetekstit avustavat täyttämisessä.
 
- 5.1 **Täytä tiedot niin laajasti ja tarkasti kuin**. Lomakkeen ohjetekstit avustavat täyttämisessä.
+  5.2 **Pyri aina löytämään tapahtumalle kuva.** Kuvalle voi merkitä käyttöoikeuden CC 4.0 BY <a href="https://creativecommons.org/licenses/by/4.0/" rel="noreferrer" target="__blank">(ks. selitys)</a> tai {`"käyttö vain tapahtuman yhteydessä"`}. Joitakin vapaasti käytettäviä kuvituskuvia löytyy osoitteesta <a href="http://www.hel.fi/tapahtumakuvat" rel="noreferrer" target="__blank">hel.fi/tapahtumakuvat</a>.
 
- 5.2 **Lisää kuva aina, kun mahdollista**. Katso tarkemmat ohjeet alempana.
+    **Muokkaa kuva ennen syöttöä verkkoon sopivaksi**ja 3:2-vaakakuvasuhteeseen, esim. 1200X800px. Olennaista on, että tiedostokoko pysyy kohtuullisena myös mobiilikäyttöön eli mieluiten alle 200 kilotavun (kt).
 
- 5.3 **Voit lisätä useana päivänä toistuvan tapahtuman**. Toistuvan tapahtuman lisäämiseksi on Lisää uusi ajankohta -valinta ja säännöllisesti toistuvalle tapahtumalle oma Toistuva tapahtuma -työkalu. Jos tapahtumalla on monta päivämäärää, sille luodaan automaattisesti ylätapahtuma.
+  5.3 **Useana päivänä toistuvan tapahtuman** lisäämiseksi on Lisää uusi ajankohta -nappi ja säännöllisesti toistuvalle tapahtumalle oma Toistuva tapahtuma -työkalu.
 
- 5.4 **Tapahtuman paikka valitaan kaupungin toimipisterekisterin paikoista**. Osoitetiedot haetaan automaattisesti, kun oikea paikka löytyy. Voit tarkentaa saapumisohjeita lisätiedot-kentässä.
+  5.4 **Tapahtuman paikka** valitaan kaupungin toimipisterekisterin paikoista. Osoite- ja muut tiedot haetaan siis automaattisesti, kun oikea paikka löytyy. Jos haluat lisätä uuden toimipisteen, ota yhteyttä <aleksi.salonen@hel.fi>
 
- 5.5 **Tapahtuman luokittelu asiasanoilla on tärkeää, jotta eri sovellusten käyttäjät löytävät tapahtuman**. Valitse muutama asiasana ja suosi niitä, joita on käytetty useissa tapahtumissa. Asiasanat (ks. YSO-sanasto **https://finto.fi/yso/fi**) löytyvät useimmiten monikkomuodossa, esim. kirjat, perheet, näytelmät ja maalaukset.
+  5.5 **Tapahtuman luokittelu asiasanoilla on tärkeää,** jotta eri sovellusten käyttäjät löytävät tapahtuman suuresta tapahtumamassasta. Valitse useampi asiasana ja suosi niitä, joita on käytetty useissa tapahtumissa. Asiasanat <a href="https://finto.fi/yso/fi" rel="noreferrer" target="__blank">ks. YSO-sanasto</a> löytyvät useimmiten monikkomuodossa, esim. kirjat, perheet, näytelmät ja maalaukset.
 
- 5.6 **Pääkategoriat ja kohderyhmät ovat ensijaisesti turku**.fi-sivustoa varten, mutta niitä saatetaan hyödyntää myös muissa tapahtumasovelluksissa.
+  5.6 **Pääkategoriat ja kohderyhmät** ovat ensijaisesti hel.fi-sivustoa varten, mutta ne näkyvät myös muille rajapinnan hyödyntäjille.
 
- 5.7 **Tallentamisessa voi kestää hetken, jos tapahtumalla on useita päivämääriä**. Julkaise tapahtuma -valinnan jälkeen odota hetki, jolloin lomakkeen pitäisi siirtyä seuraavaan näkymään. Jos saat virheilmoituksen, tarkasta virheelliset kentät.
+  5.7 **Jos tapahtumalla on useita päivämääräkertoja, voi tallentamisessa kestää hetken.** Jos et saa Julkaise tapahtuma -napin painamisen jälkeen virheilmoitusta, odota hetki, jolloin lomakkeen pitäisi siirtyä seuraavaan näkymään.
 
- 5.8 **Voit käyttää uuden tapahtuman pohjana myös vanhaa tapahtumaa**. Uuden tapahtuman tietojen pohjana voi käyttää vanhaa avaamalla tapahtuman ja valitsemalla "Kopioi uuden tapahtuman pohjaksi". Omat tapahtumat ovat Tapahtumien hallinnassa.
+### C. Muuta huomioitavaa
 
-### C. Virhetilanteet ja ehdotukset
+6. **Virhetilanteissa** voi lähettää raportin liittymän vasemmasta laidasta löytyvän ikonin kautta. Virheviestiä voi tehostaa lähettämällä sen erikseen myös osoitteeseen <aleksi.salonen@hel.fi> Jälkimmäiseen osoitteeseen voi lisäksi lähettää parannusideoita käyttöliittymään tai kysyä neuvoa.
 
-<br>
-
-6. Virhetilanteissa voit lähettää viestin lomakkeen vasemmasta laidasta löytyvän huutomerkki-ikonin kautta. Parannusideoita käyttöliittymään tai neuvoa voi kysyä osoitteesta **driveturku@turku.fi**.
+7. **Uuden tapahtuman tietojen pohjana voi käyttää vanhaa,** avaamalla tapahtuman ja valitsemalla "Kopioi uuden tapahtuman pohjaksi". Omat tapahtumat löytyvät helposti Tapahtumien hallinnasta ja niihin on muokkausoikeus.
 
 
-### D. Kuvien lisääminen rajapintaan
+<hr>
 
-<br>
 
-**Muokkaa kuva ennen lisäämistä verkkoon sopivaksi vaakakuvaksi**. Kuvan suhde on 3:2 eli esimerkiksi 1200 x 800 px. Tiedostokoko korkeintaan 2 Mt. Pidä tiedostokoko kuitenkin mahdollisimman pienenä mobiilikäyttö huomioiden. Sallitut tiedostotyypit ovat jpeg, gif ja png.
+## Kuvien lisääminen rajapintaan
 
-Alt-teksti eli kuvan sisällön sanallinen kuvaus
+### Alt-teksti eli kuvan sisällön sanallinen kuvaus
 
 Alt-teksti eli kuvan vaihtoehtoinen teksti on kuvan sanallinen kuvailu sellaisille henkilöille, jotka eivät syystä tai toisesta voi nähdä itse kuvaa. Alt-teksti on pakollinen kenttä.
 
-Kuvaile alt-tekstissä lyhyesti kuvan sisältö, esimerkiksi "Lapsia leikkimässä päiväkodin pihalla". Huomioi, että alt-teksti ei ole kuvateksti. **Alt-tekstissä ei siis saa kertoa sellaisia asioita, jotka eivät näy suoraan kuvassa.**
+Kuvaile alt-tekstissä lyhyesti kuvan sisältö, esimerkiksi "Lapsia leikkimässä päiväkodin pihalla". huomioi, että alt-teksti ei ole kuvateksti. Alt-tekstissä ei siis saa kertoa sellaisista asioita, jotka eivät näy suoraan kuvassa.
 
-**Alt-tekstin käyttö on pakollista EU:n laajuisen saavutettavuusdirektiivin vuoksi**.
+Alt-tekstin käyttöä säätelee EU:n laajuinen saavutettavuusdirektiivi. Direktiivistä seuraa, että alt-tekstin syöttäminen on pakollista jokaiselle kuvalle.
 
 ### Kuvateksti ja kuvaaja
 
-<br>
+Kuvateksti ja kuvaaja eivät ole pakollisia, mutta ne on hyvä täyttää. Kuvan lisenssissä (katso alta lisää) voidaan kuitenkin vaatia, että kuvaajan nimi mainitaan.
 
-Kuvatekstissä voit kertoa hyvin lyhyesti lisätietoja kuvasta ja tapahtumasta. Kuvaaja-kenttä on pakollinen. Jos kuvaaja ei ole tiedossa, voit lisätä kenttään kuvan oikeudenomistajan. Kuvaaja-tieto on pakollinen lisenssien vuoksi.
+On hyvä käytänöt syöttää kuvaajan nimi aina jos se on tiedossa.
 
 ### Lisenssi
 
-<br>
+Varmista aina, että sinulla tai edustamallasi taholla on oikeus käyttää kuvaa tapahtuman markkinoinnissa. Kuvan käyttöoikeuden varmistaminen on aina kuvan syöttäjän vastuulla.
 
-**Varmista aina, että sinulla tai edustamallasi taholla on oikeus käyttää kuvaa tapahtuman markkinoinnissa**. Kuvan käyttöoikeuden varmistaminen on aina kuvan syöttäjän vastuulla.
 Myös oikean lisenssin valinta on käyttäjän vastuulla.
 
-CC 4.0 BY = kuvaa saa jakaa ja käyttää vapaasti, kun tekijätiedot mainitaan (ks. lisätietoja **https://creativecommons.org/licenses/by/4.0/**)
-Käyttö rajattu tapahtuman yhteyteen = kuvaa saa käyttää ja jakaa vain tapahtumatiedon yhteydessä.
+Jos kuvaajan tai kuvan oikeudenomistajan kanssa ei ole erikseen muuta sovittu, valitse kuvalle lisenssi "Käyttö rajattu tapahtuman yhteyteen". Kuvaajan nimi ja/tai muu kuvan oikeudenomistaja pitää aina määritellä kohdassa Kuvaaja. <a href="https://api.hel.fi/linkedevents/v1/" rel="noreferrer" target="__blank">Event only -lisenssin määritelmä »</a>
 
-Jos kuvaajan tai kuvan oikeudenomistajan kanssa ei ole erikseen muuta sovittu, valitse kuvalle lisenssi "Käyttö rajattu tapahtuman yhteyteen".
+Jos käyttämälläsi kuvalla on laajempi <a href="https://creativecommons.org/licenses/by/4.0/deed.fi" rel="noreferrer" target="__blank">CC BY 4.0 -lisenssi</a> tai vastaava lisenssi, pitää kuvaajan nimi silti aina määritellä kohdassa Kuvaaja.
 
-Events only -lisenssin määritelmä: **https://api.hel.fi/linkedevents/v1/**
+### Kuvan tekniset vaatimukset
 
-<br>
+Käytä vaakakuvia, jotka ovat kuvasuhteessa 3:2. Suositeltu mitta kuville on 1200px X 800px. Yli 2 megatavun kokoisia kuvia ei voi syöttää rajapintaan.
