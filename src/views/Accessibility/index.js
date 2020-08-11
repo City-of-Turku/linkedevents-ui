@@ -1,31 +1,24 @@
 import './index.scss';
-
 import React from 'react';
+import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
 
 // Accessibility texts fetched from .md files.
 function getContent(language) {
-    if (language === 'fi') {
-        return require('./content.fi.md');
-    }
-    if (language === 'sv') {
-        return require('./content.sv.md');
-    }
-    if (language === 'en') {
-        return require('./content.en.md');
-    }
-    return require('./content.fi.md');
+    if (language === 'fi') { 
+        return require('@city-assets/md/accessibility-content.fi.md');}
+    if (language === 'en') { 
+        return require('@city-assets/md/accessibility-content.en.md');}
+    if (language === 'sv') { 
+        return require('@city-assets/md/accessibility-content.sv.md');}
 }
 
 class Accessibility extends React.Component {
     render() {
         const content = getContent(this.props.locale);
         return (
-            <div className='accessibility-page'>
-                <div className='accessibility-container' dangerouslySetInnerHTML={{__html: content}} />
-            </div>
-
+            <div className='container accessibility-page' dangerouslySetInnerHTML={{__html: content}}/>
         )
     }
 }
@@ -34,4 +27,8 @@ Accessibility.propTypes = {
     locale: PropTypes.string,
 };
 
-export default Accessibility;
+const mapStateToProps = (state) => ({
+    locale: state.userLocale.locale,
+});
+
+export default connect(mapStateToProps)(Accessibility)
