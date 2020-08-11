@@ -76,7 +76,7 @@ class ImageGalleryGrid extends React.Component {
         let imgs = this.props.images.items.map((img) => {
             let selected = selected_id == img.id
             return (
-                <ImageThumbnail selected={selected} key={img.id} url={img.url} data={img} />
+                <ImageThumbnail locale={this.props.locale} selected={selected} key={img.id} url={img.url} data={img} />
             )
         });
 
@@ -104,6 +104,7 @@ ImageGalleryGrid.propTypes = {
     user: PropTypes.object,
     editor: PropTypes.object,
     fetchUserImages: PropTypes.func,
+    locale: PropTypes.string,
 };
 
 const mapDispatchToProps = (dispatch) => ({

@@ -22,6 +22,9 @@
         background-repeat: no-repeat;
         background-position: 50% 50%;
         cursor: pointer;
+        &:focus, &:hover {
+            border: 4px solid $hel-coat;
+        }
     }
 
     .name {

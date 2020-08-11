@@ -8,6 +8,7 @@ import {connect} from 'react-redux'
 import {selectImage as selectImageAction} from 'src/actions/userImages'
 import ImageEdit from '../ImageEdit'
 import {getStringWithLocale} from 'src/utils/locale';
+import {Button} from 'reactstrap'
 
 class ImageThumbnail extends React.PureComponent {
 
@@ -25,6 +26,7 @@ class ImageThumbnail extends React.PureComponent {
     }
 
     render() {
+        let locale = this.props.locale;
         let classname = this.props.selected ? 'image-thumb selected' : 'image-thumb'
 
         if(this.props.empty) {
@@ -59,12 +61,12 @@ class ImageThumbnail extends React.PureComponent {
         return (
             <div className="col-md-3 col-xs-12" onClick={this.selectThis} id={this.props.data.id}>
                 <div className={classname}>
-                    <div className="thumbnail" style={bgStyle} />
+                    <Button aria-label={getStringWithLocale(this.props.data, 'name', locale)} className="thumbnail" style={bgStyle} />
                     <div className="name edit-image"
                         onClick={() => this.setState({edit: true})}
                     >
                         <span className={'image-title'}>
-                            {getStringWithLocale(this.props.data, 'name', 'fi') || <FormattedMessage id="edit-image"/>}
+                            {getStringWithLocale(this.props.data, 'name', locale) || <FormattedMessage id="edit-image"/>}
                         </span>
                         <span className="glyphicon glyphicon-wrench"></span>
                     </div>
@@ -80,6 +82,7 @@ ImageThumbnail.propTypes = {
     empty: PropTypes.bool,
     url: PropTypes.string,
     selectImage: PropTypes.func,
+    locale: PropTypes.string,
 }
 
 const mapDispatchToProps = (dispatch) => ({

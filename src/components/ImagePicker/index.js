@@ -301,6 +301,7 @@ export class ImagePicker extends Component {
                             editor={this.props.editor}
                             user={this.props.user}
                             images={this.props.images}
+                            locale={this.props.intl.locale}
                         />
                     </ModalBody>
                 </Modal>
@@ -327,6 +328,7 @@ ImagePicker.propTypes = {
     dispatch: PropTypes.func,
     loading: PropTypes.bool,
     intl: PropTypes.object,
+    locale: PropTypes.string,
 };
 
 ImagePicker.contextTypes = {
