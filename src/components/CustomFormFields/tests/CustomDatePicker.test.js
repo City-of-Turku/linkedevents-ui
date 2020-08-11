@@ -30,13 +30,28 @@ describe('CustomDatePicker', () => {
         return shallow(<CustomDatePicker {...defaultProps} {...props} />, {context: {intl}});
     }
     describe('renders', () => {
-        test('label with correct props', () => {
-            const wrapper = getWrapper();
-            const instance = wrapper.instance();
-            const label = getWrapper({}).find(Label)
-            expect(label).toHaveLength(1);
-            expect(label.prop('for')).toBe(defaultProps.id)
-            expect(label.prop('children')).toEqual(instance.getCorrectInputLabel(defaultProps.label))
+        describe('label', () => {
+            test('with correct props', () => {
+                const wrapper = getWrapper();
+                const instance = wrapper.instance();
+                const label = wrapper.find(Label)
+                expect(label).toHaveLength(1);
+                expect(label.prop('for')).toBe(defaultProps.id)
+            })
+            test('with correct text when field is required', () => {
+                const required = true
+                const wrapper = getWrapper({required});
+                const instance = wrapper.instance();
+                const label = wrapper.find(Label)
+                expect(label.prop('children')).toEqual([instance.getCorrectInputLabel(defaultProps.label), '*'])
+            })
+            test('with correct text when field is not required', () => {
+                const required = false
+                const wrapper = getWrapper({required});
+                const instance = wrapper.instance();
+                const label = wrapper.find(Label)
+                expect(label.prop('children')).toEqual([instance.getCorrectInputLabel(defaultProps.label), ''])
+            })
         })
 
         describe('Input', () => {
@@ -53,6 +68,7 @@ describe('CustomDatePicker', () => {
                 expect(input.prop('onBlur')).toBe(instance.handleInputBlur)
                 expect(input.prop('aria-describedby')).toBe(undefined)
                 expect(input.prop('disabled')).toBe(defaultProps.disabled)
+                expect(input.prop('required')).toBe(false)
             })
 
             test('prop value is not empty when state.inputValue is defined', () => {

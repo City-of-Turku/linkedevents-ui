@@ -44,6 +44,7 @@ const CustomDateTimeField = ({
     setDirtyState,
     minDate,
     maxDate,
+    required,
 }) => {
     const containerRef = useRef(null)
 
@@ -60,6 +61,7 @@ const CustomDateTimeField = ({
                 onChange={value => onChange(value, name, eventKey, updateSubEvent, setData, setDirtyState)}
                 minDate={minDate}
                 maxDate={maxDate}
+                required={required}
             />
             <ValidationPopover
                 anchor={containerRef.current}
@@ -85,6 +87,7 @@ CustomDateTimeField.propTypes = {
     ]),
     disabled: PropTypes.bool,
     disablePast: PropTypes.bool,
+    required: PropTypes.bool,
     minDate: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.object,

@@ -42,6 +42,7 @@ describe('CustomDateTimeField', () => {
             expect(datePicker.prop('onChange')).toBeDefined()
             expect(datePicker.prop('minDate')).toBe(defaultProps.minDate)
             expect(datePicker.prop('maxDate')).toBe(defaultProps.maxDate)
+            expect(datePicker.prop('required')).toBe(false)
         })
 
         test('ValidationPopover with correct props', () => {

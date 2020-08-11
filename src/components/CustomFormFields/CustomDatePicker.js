@@ -175,13 +175,13 @@ class CustomDatePicker extends React.Component {
     }
 
     render(){
-        const {label, name, id, defaultValue, minDate, maxDate, type, disabled} = this.props
+        const {label, name, id, defaultValue, minDate, maxDate, type, disabled, required} = this.props
         const inputValue = this.state.inputValue
         const inputErrorId = 'date-input-error__' + id
         return(
             <div className="custom-date-input">
                 <FormGroup>
-                    <Label for={id}>{this.getCorrectInputLabel(label)}</Label>
+                    <Label for={id}>{this.getCorrectInputLabel(label)}{required ? '*' : ''}</Label>
                     <div className="input-and-button">
                         <Input
                             aria-describedby={this.state.showValidationError ? inputErrorId : undefined}
@@ -193,6 +193,7 @@ class CustomDatePicker extends React.Component {
                             onChange={this.handleInputChange}
                             onBlur={this.handleInputBlur}
                             disabled={disabled}
+                            required={required}
                         />
                         <DatePicker
                             disabled={disabled}
@@ -231,6 +232,7 @@ CustomDatePicker.defaultProps = {
     type: 'date',
     disablePast: false,
     disabled: false,
+    required: false,
 }
 
 CustomDatePicker.propTypes = {
@@ -247,6 +249,7 @@ CustomDatePicker.propTypes = {
     type: PropTypes.oneOf(['date', 'time', 'date-time']),
     disablePast: PropTypes.bool,
     disabled: PropTypes.bool,
+    required: PropTypes.bool,
 };
 
 class DatePickerButton extends React.Component{

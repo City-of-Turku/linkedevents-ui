@@ -339,6 +339,7 @@ class FormFields extends React.Component {
                                     label={<FormattedMessage  id="event-starting-datetime" />}
                                     setDirtyState={this.props.setDirtyState}
                                     maxDate={values['end_time'] ? moment(values['end_time']) : undefined}
+                                    required={true}
                                 />
                             </div>
                             <div className="col-xs-12 col-sm-12">

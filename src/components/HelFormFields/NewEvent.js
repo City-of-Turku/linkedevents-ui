@@ -15,6 +15,7 @@ const NewEvent = ({event, eventKey, errors, deleteSubEvent}) => (
                 defaultValue={event.start_time}
                 eventKey={eventKey}
                 validationErrors={errors['start_time']}
+                required={true}
             />
             <CustomDateTimeField
                 disablePast
