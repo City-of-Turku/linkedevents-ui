@@ -125,6 +125,7 @@ exports[`Image add form ImagePicker component should render correctly with data 
       "event-creation-savepublic-success": "Julkaistun tapahtuman tallennus onnistui!",
       "event-creation-update-success": "Tapahtuma päivitettiin onnistuneesti!",
       "event-datetime-fields-header": "Tapahtuman ajankohdat",
+      "event-delete-recurring": "Poista tämä tapahtumakerta",
       "event-description": "Kuvaus",
       "event-description-fields-header": "Tapahtuman kuvaus",
       "event-ending-datetime": "Tapahtuma päättyy (pp.kk.vvvv tt.mm)",
