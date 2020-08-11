@@ -125,6 +125,7 @@
     "event-ending-datetime": "Event ends (dd.mm.yyyy hh.mm)",
     "event-add-new-occasion": "Add new occasion",
     "event-add-recurring": "Recurring event",
+    "event-delete-recurring": "Delete this occurrance",
     "event-add-price": "Add new price",
     "date": "Date",
     "time": "Time",

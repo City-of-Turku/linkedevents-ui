@@ -29,7 +29,7 @@ const NewEvent = ({event, eventKey, errors, deleteSubEvent, intl}) => (
         <button
             className="new-sub-event--delete"
             onClick={() => deleteSubEvent(eventKey)}
-            aria-label={intl.formatMessage({id: `delete`}) + ' ' + intl.formatMessage({id: 'event-add-recurring'})}
+            aria-label={intl.formatMessage({id: `event-delete-recurring`})}
         >
             <span className="glyphicon glyphicon-trash" aria-hidden="true"></span>
         </button>

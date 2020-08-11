@@ -127,6 +127,7 @@
     "event-ending-datetime": "Tapahtuma päättyy (pp.kk.vvvv tt.mm)",
     "event-add-new-occasion": "Lisää uusi ajankohta",
     "event-add-recurring": "Toistuva tapahtuma",
+    "event-delete-recurring": "Poista tämä tapahtumakerta",
     "event-add-price": "Lisää uusi hintatieto",
     "date": "Päivämäärä",
     "time": "Aika",

@@ -121,6 +121,7 @@
     "event-ending-datetime": "Händelsen slutar (dd.mm.åååå tt.mm)",
     "event-add-new-occasion": "Lägg till ny tidpunkt",
     "event-add-recurring": "Återkommande händelse",
+    "event-delete-recurring": "Radera denna förekomst av återkommande händelsen",
     "event-add-price": "Lägg till ny prisdetalj",
     "date": "Datumn",
     "time": "Tid",
