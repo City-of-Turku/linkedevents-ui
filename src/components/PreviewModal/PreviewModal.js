@@ -2,10 +2,10 @@ import './index.scss';
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import EventDetails from '../EventDetails'
+import EventDetails from '../EventDetails';
 import {injectIntl, intlShape, FormattedMessage} from 'react-intl';
 import {Button, Modal, ModalHeader, ModalBody, ModalFooter} from 'reactstrap';
-import {mapAPIDataToUIFormat} from 'src/utils/formDataMapping.js'
+import {mapAPIDataToUIFormat, mapUIDataToAPIFormat} from 'src/utils/formDataMapping.js';
 
 class PreviewModal extends React.Component {
 
@@ -36,7 +36,7 @@ class PreviewModal extends React.Component {
     render() {
         const closebtn = <Button onClick={this.props.toggle} aria-label={this.context.intl.formatMessage({id: `close`})}><span className="glyphicon glyphicon-remove"></span></Button>
         const {event,superEvent = null, publisher, editor, values} = this.props;
-        const formattedEvent = mapAPIDataToUIFormat(editor.values);
+        const formattedEvent = mapAPIDataToUIFormat(mapUIDataToAPIFormat(values));
         const keywordExists = editor.values.keywords && editor.values.keywords.length > 0;
         formattedEvent.in_language = this.getFormattedLanguages(editor);
         formattedEvent.audience = this.getFormattedAudience(editor);
