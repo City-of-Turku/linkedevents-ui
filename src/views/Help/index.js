@@ -13,6 +13,7 @@ function getContent(language) {
         return require('@city-assets/md/help-content.en.md');}
     if (language === 'sv') { 
         return require('@city-assets/md/help-content.sv.md');}
+    return require('src/assets/default/assets/md/help-content.fi.md');
 }
 class View extends React.Component {
     render() {
