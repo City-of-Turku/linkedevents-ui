@@ -144,7 +144,7 @@ class HeaderBar extends React.Component {
                     </div>
                 </Navbar>
 
-                <Navbar role='navigation' className='linked-events-bar' expand='lg'>
+                <Navbar role='navigation' className='linked-events-bar' expand='xl'>
                     <NavbarBrand
                         href='#'
                         className='linked-events-bar__logo'

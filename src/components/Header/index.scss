@@ -327,7 +327,7 @@ ul.user-dropdown {
 }
 
 //Mobile
-@media only screen and (max-width: 991px) {
+@media only screen and (max-width: 1200px) {
 	.main-navbar {
 		height: auto !important;
 		.navbar-brand {
@@ -391,5 +391,15 @@ ul.user-dropdown {
 				}
 			}
 		}
+	}
+}
+
+@media only screen and (min-width: 1200px) and (max-width: 1400px) {
+	.main-navbar .navbar-collapse {
+		min-inline-size: auto;
+	}
+	.main-navbar .linked-events-bar__links .nav-item .nav-link {
+		padding-top: 0.5rem;
+    	padding-bottom: 0.5rem;
 	}
 }
