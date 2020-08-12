@@ -1,6 +1,6 @@
 import './HelSelect.scss'
 
-import React, {Fragment, useRef} from 'react'
+import React, {Fragment, useRef, useEffect} from 'react'
 import PropTypes from 'prop-types';
 import AsyncSelect from 'react-select/async'
 import {createFilter} from 'react-select'
@@ -27,9 +27,19 @@ const HelSelect = ({
     customOnChangeHandler,
     optionalWrapperAttributes,
     currentLocale,
+    required,
 })  => {
     const labelRef = useRef(null)
+    const selectInputRef = useRef(null)
 
+    // react-select doesnt support attributes aria-required or required
+    // this is a workaround way to add aria-required to react-select
+    useEffect(() => {
+        if (required && selectInputRef.current) {
+            selectInputRef.current.select.select.inputRef.setAttribute('aria-required', 'true');
+        }
+    }, [selectInputRef.current, required])
+    
     const onChange = (value) => {
         // let the custom handler handle the change if given
         if (typeof customOnChangeHandler === 'function') {
@@ -178,7 +188,7 @@ const HelSelect = ({
     return (
         <div {...optionalWrapperAttributes}>
             <legend id={legend} ref={labelRef}>
-                {legend}
+                {legend}{required ? '*' : ''}
             </legend>
             <AsyncSelect
                 aria-labelledby={legend}
@@ -193,7 +203,7 @@ const HelSelect = ({
                 filterOption={filterOptions}
                 formatOptionLabel={formatOption}
                 aria-label={intl.formatMessage({id: placeholderId})}
-
+                ref={selectInputRef}
             />
             <div className='select-popover'>
                 <ValidationPopover
@@ -209,6 +219,7 @@ HelSelect.defaultProps = {
     placeholderId: 'select',
     isClearable: true,
     isMultiselect: false,
+    required: false,
 }
 
 HelSelect.propTypes = {
@@ -232,6 +243,7 @@ HelSelect.propTypes = {
     customOnChangeHandler: PropTypes.func,
     optionalWrapperAttributes: PropTypes.object,
     currentLocale: PropTypes.string,
+    required: PropTypes.bool,
 }
 
 const mapDispatchToProps = (dispatch) => ({

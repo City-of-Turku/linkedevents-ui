@@ -413,6 +413,7 @@ class FormFields extends React.Component {
                             setDirtyState={this.props.setDirtyState}
                             optionalWrapperAttributes={{className: 'location-select'}}
                             currentLocale={currentLocale}
+                            required={true}
                         />
                         <div className='map-button-container'>
                             <Button
