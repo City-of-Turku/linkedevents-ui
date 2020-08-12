@@ -403,6 +403,7 @@ exports[`Image add form ImagePicker component should render view by default 1`] 
     }
     centered={false}
     className="image-picker--dialog"
+    container="body"
     fade={true}
     id="dialog1"
     isOpen={false}
