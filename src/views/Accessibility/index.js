@@ -12,6 +12,7 @@ function getContent(language) {
         return require('@city-assets/md/accessibility-content.en.md');}
     if (language === 'sv') { 
         return require('@city-assets/md/accessibility-content.sv.md');}
+    return require('src/assets/default/assets/md/accessibility-content.fi.md');
 }
 
 class Accessibility extends React.Component {

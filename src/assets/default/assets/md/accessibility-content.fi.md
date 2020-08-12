@@ -1,4 +1,4 @@
- ## **Linked Events lyhyesti**
+ # **Linked Events lyhyesti**
 * Tapahtumatiedot näkyvät useissa eri sovelluksissa – myös muissa kuin kaupungin omissa.
     
 * Tapahtumia saa syöttää kaupungin luvalla. Niiden ei tarvitse olla kaupungin järjestämiä.
