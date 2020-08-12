@@ -614,6 +614,7 @@ exports[`Image add form ImagePicker component should render view by default 1`] 
           }
         }
         images={Object {}}
+        locale="fi"
         user={Object {}}
       />
     </ModalBody>

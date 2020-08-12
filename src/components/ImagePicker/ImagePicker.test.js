@@ -31,7 +31,7 @@ describe('Image add form', () => {
     let store;
 
     it('ImagePicker component should render view by default', () => {
-        const wrapper = shallow(<ImagePicker />,{context: {intl}});
+        const wrapper = shallow(<ImagePicker intl={intl}/>,{context: {intl}});
         expect(wrapper).toMatchSnapshot()
     })
 
@@ -51,6 +51,7 @@ const defaultProps = {
     validationErrors: [],
     formType: '',
     open: false,
+    intl,
 };
 
 describe('ImagePicker', () => {
