@@ -141,6 +141,7 @@ exports[`Image add form ImagePicker component should render correctly with data 
       "event-is-umbrella": "Tämä tapahtuma on kattotapahtuma.",
       "event-is-umbrella-tooltip": "Alatapahtuma ei voi olla kattotapahtuma.",
       "event-keywords": "Lisää muita asiasanoja",
+      "event-keywords-delete": "Poista asiasana",
       "event-location": "Paikka",
       "event-location-additional-info": "Paikan lisätiedot",
       "event-location-button": "Näytä kartalla",
@@ -403,7 +404,6 @@ exports[`Image add form ImagePicker component should render view by default 1`] 
     }
     centered={false}
     className="image-picker--dialog"
-    container="body"
     fade={true}
     id="dialog1"
     isOpen={false}

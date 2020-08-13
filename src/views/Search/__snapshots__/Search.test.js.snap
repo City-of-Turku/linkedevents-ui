@@ -141,6 +141,7 @@ exports[`Search Snapshot should render view correctly 1`] = `
       "event-is-umbrella": "Tämä tapahtuma on kattotapahtuma.",
       "event-is-umbrella-tooltip": "Alatapahtuma ei voi olla kattotapahtuma.",
       "event-keywords": "Lisää muita asiasanoja",
+      "event-keywords-delete": "Poista asiasana",
       "event-location": "Paikka",
       "event-location-additional-info": "Paikan lisätiedot",
       "event-location-button": "Näytä kartalla",
