@@ -178,7 +178,7 @@ exports[`Image add form ImagePicker component should render correctly with data 
       "event-video-add": "Lisää uusi video",
       "event-video-alt_text": "Alt-teksti",
       "event-video-name": "Videon nimi",
-      "event-video-url": "Video (url)",
+      "event-video-url": "Videon (URL)",
       "eventable-expand": "Laajenna tapahtuma",
       "events-management": "Tapahtumien hallinta",
       "events-management-description": "Selaa ja muokkaa oman organisaatiosi julkaistuja tapahtumia.",
