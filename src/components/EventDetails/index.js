@@ -223,7 +223,7 @@ const DateTime = (props) => {
     }
 }
 
-const FormHeader = props => <h1 tabIndex='0'>{props.children}</h1>
+const FormHeader = props => <h2 tabIndex='0'>{props.children}</h2>
 
 FormHeader.propTypes = {
     children: PropTypes.oneOfType([
