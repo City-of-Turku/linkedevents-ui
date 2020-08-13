@@ -1,16 +1,16 @@
 $select-input-border-radius: 0px;
 
 .hel-select {
-    legend,
-    .legend {
+    h3 {
         position: relative;
         margin-top: 1.5rem;
-
+        font-size: 1.25rem;
+    }
         .validation-error-popover.popover.small {
             top: 50%;
         }
-    }
 }
+
 .css-1wa3eu0-placeholder{
     color: #000000 !important;
 }

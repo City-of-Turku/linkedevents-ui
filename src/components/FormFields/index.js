@@ -35,7 +35,7 @@ import classNames from 'classnames';
 
 let FormHeader = (props) => (
     <div className="row">
-        <legend tabIndex='0'className="col-sm-12">{ props.children }</legend>
+        <h2 tabIndex='0' className="col-sm-12">{ props.children }</h2>
     </div>
 )
 
