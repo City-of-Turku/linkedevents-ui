@@ -41,11 +41,11 @@ const HelLabeledCheckboxGroup = (props) => {
     return (
         <Fragment>
             <fieldset className="col-sm-6 checkbox-group">
-                <h2>
+                <h3>
                     <legend ref={labelRef}>
                         {groupLabel}
                     </legend>
-                </h2>
+                </h3>
                 <div className='row'>
                     {options.map((item, index) => {
                         const checked = checkedOptions.includes(item.value)
