@@ -137,7 +137,7 @@ const TextValue = (props) => {
 
 const ImageValue = (props) => {
     if (props.value !== undefined && props.value instanceof Object) {
-        return <legend tabIndex='true'><img src={props.value.url} alt={getStringWithLocale(props.value, 'alt_text', props.locale)} className="event-image"/></legend>
+        return <h2><img src={props.value.url} alt={getStringWithLocale(props.value, 'alt_text', props.locale)} className="event-image"/></h2>
     }
     return (
         <FormHeader>
