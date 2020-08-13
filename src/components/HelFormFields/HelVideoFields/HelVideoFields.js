@@ -244,7 +244,7 @@ class HelVideoFields extends React.Component {
                                         key='url-video-field'
                                         required={required[index]}
                                         defaultValue={video.url}
-                                        label={<FormattedMessage id='event-video-url' />}
+                                        label={this.context.intl.formatMessage({id: `event-video-url`})}
                                         validations={[VALIDATION_RULES.IS_URL]}
                                         validationErrors={get(this.props.validationErrors,['videos', index, 'url'], {})}
                                         onChange={(e, v) => this.handleChange(e, v, 'url', index)}

@@ -2,7 +2,7 @@ import './UmbrellaCheckbox.scss'
 import PropTypes from 'prop-types'
 import React,{Fragment}  from 'react'
 //Replaced Material-ui CheckBox for a reactstrap implementation. - Turku
-import {Label, Input, UncontrolledTooltip} from 'reactstrap';
+import {UncontrolledTooltip} from 'reactstrap';
 
 
 const UmbrellaCheckbox = props => {

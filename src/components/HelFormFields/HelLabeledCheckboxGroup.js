@@ -53,6 +53,7 @@ const HelLabeledCheckboxGroup = (props) => {
                         return (
                             <Form key={`hel-checkbox-${index}`} className={(itemClassName || '')} >
                                 <Input
+                                    aria-label={item.label}
                                     className='checkboxes'
                                     type='checkbox'
                                     value={item.value}

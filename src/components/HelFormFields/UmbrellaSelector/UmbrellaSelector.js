@@ -4,7 +4,7 @@ import AsyncSelect from 'react-select/async'
 import {createFilter} from 'react-select'
 import client from '../../../api/client'
 import {setData} from '../../../actions/editor'
-import {FormattedMessage} from 'react-intl'
+import {FormattedMessage, injectIntl} from 'react-intl'
 import {SideField} from '../../FormFields'
 import {get, isNull, isUndefined} from 'lodash'
 import UmbrellaCheckbox from './UmbrellaCheckbox'
@@ -240,6 +240,7 @@ class UmbrellaSelector extends React.Component {
             <div className="row">
                 <div className="col-sm-6">
                     <UmbrellaCheckbox
+                        aria-label={this.context.intl.formatMessage({id: `event-is-umbrella`})}
                         intl={this.context.intl}
                         name="is_umbrella"
                         checked={isUmbrellaEvent}
@@ -250,6 +251,7 @@ class UmbrellaSelector extends React.Component {
                     </UmbrellaCheckbox>
 
                     <UmbrellaCheckbox
+                        aria-label={this.context.intl.formatMessage({id: `event-has-umbrella`})}
                         intl={this.context.intl}
                         name="has_umbrella"
                         checked={hasUmbrellaEvent}
@@ -328,4 +330,4 @@ UmbrellaSelector.contextTypes = {
     store: PropTypes.object,
 };
 
-export default UmbrellaSelector
+export default injectIntl(UmbrellaSelector)
