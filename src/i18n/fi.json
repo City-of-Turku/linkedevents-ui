@@ -175,6 +175,7 @@
 
     "event-categorization": "Tapahtuman luokittelu",
     "event-keywords": "Lisää muita asiasanoja",
+    "event-keywords-delete": "Poista asiasana",
 
     "event-umbrella": "Kattotapahtumat",
     "event-is-umbrella": "Tämä tapahtuma on kattotapahtuma.",

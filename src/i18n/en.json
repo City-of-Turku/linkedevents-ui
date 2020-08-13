@@ -173,6 +173,7 @@
 
     "event-categorization": "Categorization",
     "event-keywords": "Add other keywords",
+    "event-keywords-delete": "Delete keyword",
 
     "event-umbrella": "Umbrella events",
     "event-is-umbrella": "This event is an umbrella event.",

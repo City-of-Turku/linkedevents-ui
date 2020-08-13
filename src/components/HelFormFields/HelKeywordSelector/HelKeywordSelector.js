@@ -108,6 +108,7 @@ const HelKeywordSelector = ({intl, editor, setDirtyState, setData, currentLocale
                     selectedKeywords={keywords}
                     onDelete={(deletedItem) => handleKeywordDelete(deletedItem, keywords, setData)}
                     locale={currentLocale}
+                    intl={intl}
                 />
             </div>
 
