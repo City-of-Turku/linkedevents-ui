@@ -309,7 +309,11 @@ class FormFields extends React.Component {
                         />
                     </div>
                     <SideField className='ImagePickerField'>
-                        <label htmlFor='image'><FormattedMessage id="event-image"/></label>
+                        <label htmlFor='image'>
+                            <h3 className='imagePicker-heading'>
+                                <FormattedMessage id="event-image"/>
+                            </h3>
+                        </label>
                         <input id='image' type='hidden'/>
                         <ImagePickerForm label="image-preview" name="image" loading={this.props.loading} />
                     </SideField>
