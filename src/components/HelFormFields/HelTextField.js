@@ -194,6 +194,7 @@ class HelTextField extends Component {
                 <div className='event-input'>
                     <label htmlFor={label + this.props.id}>{label}{required ? '*' : ''}</label>
                     <Input
+                        aria-label={label}
                         id={label + this.props.id}
                         placeholder={placeholder}
                         type={type}
