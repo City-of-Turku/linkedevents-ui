@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import React from 'react'
 // Removed Material-Ui/core since it's no longer in use.
 import {Badge, Button} from 'reactstrap';
+import {getStringWithLocale} from '../../utils/locale';
 const SelectedKeywords = ({selectedKeywords,onDelete, locale, intl}) => {
     return(
         <div
@@ -17,7 +18,7 @@ const SelectedKeywords = ({selectedKeywords,onDelete, locale, intl}) => {
                     <Button
                         onClick={() => onDelete(keyword)}
                         className="badge badge-pill  badge-primary"
-                        aria-label={intl.formatMessage({id: 'event-keywords-delete'}) + ' ' + (keyword.label)}>
+                        aria-label={intl.formatMessage({id: 'event-keywords-delete'}) + ' ' + (getStringWithLocale(keyword,'name',locale, keyword.label))}>
                             &times;
                     </Button>
                 </Badge>
