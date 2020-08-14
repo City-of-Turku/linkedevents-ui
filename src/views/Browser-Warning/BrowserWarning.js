@@ -24,7 +24,7 @@ function BrowserWarning() {
 
             <p className='alert alert-warning'>
                 Linkedevents fungerar inte längre med Internet Explorer.
-                Var vänlig och använd någon annan browser (t.ex
+                Vänligen använd någon annan webbläsare (t.ex
                 <a href='https://www.google.com/intl/sv/chrome/'> Chrome</a>,
                 <a href='https://www.mozilla.org/sv-SE/firefox/new/'> Firefox</a> eller
                 <a href='https://www.microsoft.com/sv-se/edge'> Edge</a>
