@@ -9,7 +9,7 @@ function BrowserWarning() {
                 please use another browser (such as
                 <a href='https://www.google.com/chrome/'> Chrome</a>,
                 <a href='https://www.mozilla.org/en-US/firefox/new/'>Firefox</a> or
-                <a href='https://www.microsoft.com/en-us/windows/microsoft-edge'> Edge
+                <a href='https://www.microsoft.com/en-us/edge'> Edge
                 </a>
                 ).
             </p>
@@ -18,9 +18,9 @@ function BrowserWarning() {
                 Linkedevents ei tue Internet Explorer selainta tällä hetkellä.
                 Selvitämme ongelmaa sen ratkaisemiseksi. Sillä välin, käytä
                 toista selainta (kuten
-                <a href='https://www.google.com/chrome/'> Chrome</a>,
-                <a href='https://www.mozilla.org/en-US/firefox/new/'>Firefox</a> tai
-                <a href='https://www.microsoft.com/en-us/windows/microsoft-edge'> Edge</a>
+                <a href='https://www.google.com/intl/fi/chrome/'> Chrome</a>,
+                <a href='https://www.mozilla.org/fi/firefox/new/'>Firefox</a> tai
+                <a href='https://www.microsoft.com/fi-fi/edge'> Edge</a>
                 ).
             </p>
 
@@ -28,9 +28,9 @@ function BrowserWarning() {
                 Linkedevents fungerar inte längre med Internet Explorer. Vi arbetar
                 med att lösa problemet. Under tiden så var vänlig och använd
                 någon annan browser (t.ex
-                <a href='https://www.google.com/chrome/'> Chrome</a>,
-                <a href='https://www.mozilla.org/en-US/firefox/new/'>Firefox</a> eller
-                <a href='https://www.microsoft.com/en-us/windows/microsoft-edge'> Edge</a>
+                <a href='https://www.google.com/intl/sv/chrome/'> Chrome</a>,
+                <a href='https://www.mozilla.org/sv-SE/firefox/new/'>Firefox</a> eller
+                <a href='https://www.microsoft.com/sv-se/edge'> Edge</a>
                 ).
             </p>
         </div>
