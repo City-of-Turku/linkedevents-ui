@@ -62,6 +62,7 @@
     "react-cookie-consent": "^5.0.1",
     "react-copy-to-clipboard": "^5.0.1",
     "react-datepicker": "^2.16.0",
+    "react-device-detect": "^1.13.1",
     "react-dom": "^16.12.0",
     "react-helmet": "^5.2.1",
     "react-intl": "2.9.0",
@@ -135,8 +136,8 @@
     "moduleNameMapper": {
       "^.+\\.(css|styl|less|sass|scss|png|jpg|ttf|svg|woff|woff2)$": "identity-obj-proxy",
       "src/(.*)": "<rootDir>/src/$1",
-        "@city-i18n/(.*)": "<rootDir>/src/assets/default/i18n/$1",
-        "@city-assets/(.*)": "<rootDir>/src/assets/default/assets/$1"
+      "@city-i18n/(.*)": "<rootDir>/src/assets/default/i18n/$1",
+      "@city-assets/(.*)": "<rootDir>/src/assets/default/assets/$1"
     },
     "snapshotSerializers": [
       "enzyme-to-json/serializer"

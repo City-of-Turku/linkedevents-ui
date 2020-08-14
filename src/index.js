@@ -4,6 +4,7 @@ import {Route} from 'react-router'
 import {withRouter} from 'react-router-dom'
 import {Provider, connect} from 'react-redux'
 import {ConnectedRouter} from 'react-router-redux'
+import {isIE} from 'react-device-detect'
 
 // Views
 import App from './views/App'
@@ -17,6 +18,7 @@ import EventListingPage from './views/EventListing'
 import ModerationPage from './views/Moderation/Moderation'
 import DebugHelper from './components/helper/Helper'
 import Accessibility from './views/Accessibility'
+import BrowserWarning from './views/Browser-Warning/BrowserWarning'
 
 // Actors
 import Validator from './actors/validator'
@@ -24,13 +26,13 @@ import Validator from './actors/validator'
 // JA addition
 import Serializer from './actors/serializer';
 
-// translation
+// Translation
 import IntlProviderWrapper from './components/IntlProviderWrapper'
 import store, {history} from './store'
 import moment from 'moment'
 import * as momentTimezone from 'moment-timezone'
 
-// oidc
+// Authentication
 import userManager from './utils/userManager';
 import {OidcProvider, processSilentRenew} from 'redux-oidc';
 import LoginCallback from './views/Auth/LoginCallback'
@@ -53,28 +55,30 @@ if (window.location.pathname === '/silent-renew') {
     processSilentRenew();
 } else {
     ReactDOM.render(
-        <Provider store={store}>
-            <OidcProvider store={store} userManager={userManager}>
-                <IntlProviderWrapper>
-                    <ConnectedRouter history={history}>
-                        <LayoutContainer>
-                            <Route exact path="/" component={EventListingPage}/>
-                            <Route exact path="/event/:eventId" component={Event}/>
-                            <Route exact path="/event/:action/:eventId" component={Editor}/>
-                            <Route exact path="/event/done/:action/:eventId" component={EventCreated}/>
-                            <Route exact path="/search" component={Search}/>
-                            <Route exact path="/help" component={Help}/>
-                            <Route exact path="/terms" component={Terms}/>
-                            <Route exact path="/moderation" component={ModerationPage}/>
-                            <Route exact path="/accessibility" component={Accessibility}/>
-                            <Route path="/" component={DebugHelper}/>
-                            <Route exact path="/callback" component={LoginCallback}/>
-                            <Route exact path="/callback/logout" component={LogoutCallback}/>
-                        </LayoutContainer>
-                    </ConnectedRouter>
-                </IntlProviderWrapper>
-            </OidcProvider>
-        </Provider>,
-        document.getElementById('content')
+        isIE ? <BrowserWarning/> : (
+            <Provider store={store}>
+                <OidcProvider store={store} userManager={userManager}>
+                    <IntlProviderWrapper>
+                        <ConnectedRouter history={history}>
+                            <LayoutContainer>
+                                <Route exact path="/" component={EventListingPage}/>
+                                <Route exact path="/event/:eventId" component={Event}/>
+                                <Route exact path="/event/:action/:eventId" component={Editor}/>
+                                <Route exact path="/event/done/:action/:eventId" component={EventCreated}/>
+                                <Route exact path="/search" component={Search}/>
+                                <Route exact path="/help" component={Help}/>
+                                <Route exact path="/terms" component={Terms}/>
+                                <Route exact path="/moderation" component={ModerationPage}/>
+                                <Route exact path="/accessibility" component={Accessibility}/>
+                                <Route path="/" component={DebugHelper}/>
+                                <Route exact path="/callback" component={LoginCallback}/>
+                                <Route exact path="/callback/logout" component={LogoutCallback}/>
+                            </LayoutContainer>
+                        </ConnectedRouter>
+                    </IntlProviderWrapper>
+                </OidcProvider>
+            </Provider>,
+            document.getElementById('content')
+        )
     )
 }
