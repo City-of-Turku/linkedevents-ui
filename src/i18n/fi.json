@@ -339,6 +339,7 @@
     "moderation-page-published-description": "Jos julkaisit tapahtumaehdotuksen valmiin kattotapahtuman alle, sitä ei näytetä tässä näkymässä.",
 
     "table-events-per-page": "Tapahtumia per sivu",
+    "table-events-page-number": "Taulukon sivunumero",
 
     "draft-cancel": "Tapahtumaluonnoksia ei voi perua.",
     "draft-publish-subevent": "Sarjan alatapahtumia ei voi julkaista.",

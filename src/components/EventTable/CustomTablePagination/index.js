@@ -50,6 +50,7 @@ function CustomTablePagination({count, rowsPerPage, rowsPerPageOptions, page, on
                         className="visually-hidden"
                     >
                         {intl.formatMessage({id: 'table-pagination-results'}, {from, to, count})}
+                        {intl.formatMessage({id: 'table-events-page-number'}) + '' + (page + 1)}
                     </p>
                     <p aria-hidden>{labelDisplayedRows({from, to, count})}</p>
                     <PageChangeButtons

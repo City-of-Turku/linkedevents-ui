@@ -334,6 +334,7 @@
     "moderation-page-published-description": "Drafts published under an existing umbrella event will not be shown here.",
 
     "table-events-per-page": "Events per page",
+    "table-events-page-number": "Table page number",
 
     "draft-cancel": "Event drafts can't be cancelled.",
     "draft-publish-subevent": "A sub event of a series cannot be published.",
