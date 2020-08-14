@@ -55,7 +55,7 @@ if (window.location.pathname === '/silent-renew') {
     processSilentRenew();
 } else {
     ReactDOM.render(
-        isIE ? <BrowserWarning/> : (
+        isIE ? <BrowserWarning/> :
             <Provider store={store}>
                 <OidcProvider store={store} userManager={userManager}>
                     <IntlProviderWrapper>
@@ -78,7 +78,7 @@ if (window.location.pathname === '/silent-renew') {
                     </IntlProviderWrapper>
                 </OidcProvider>
             </Provider>,
-            document.getElementById('content')
-        )
+        document.getElementById('content')
     )
+    
 }
