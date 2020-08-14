@@ -12,12 +12,6 @@ html.no-js
             window.appSettings = !{configJson};
 
     body
-        <!--[if lte IE 8]>
-        p.browsehappy
-          | You are using an <strong>outdated</strong> browser.
-          | Please <a href="http://browsehappy.com/">upgrade your browser</a>
-          | to improve your experience.
-        <![endif]-->
         if APP_MODE == 'testing'
             #testingmessage
                 | Huom! Tämä on testiversio.

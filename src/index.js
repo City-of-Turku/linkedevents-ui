@@ -80,5 +80,4 @@ if (window.location.pathname === '/silent-renew') {
             </Provider>,
         document.getElementById('content')
     )
-    
 }
