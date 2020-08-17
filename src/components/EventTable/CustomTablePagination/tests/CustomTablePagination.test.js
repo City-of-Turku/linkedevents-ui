@@ -101,11 +101,13 @@ describe('CustomTablePagination', () => {
             })
         })
 
-        test('visually hidden table pagination results', () => {
+        test('visually hidden table pagination results & table page number', () => {
             const paginationResults = getWrapper().find('.visually-hidden')
+            const tableResults = intl.formatMessage({id:'table-pagination-results'}, {from: 1, to: 25, count: 35})
+            const tableNumber = intl.formatMessage({id:'table-events-page-number'}) + ' ' + (defaultProps.page + 1)
             expect(paginationResults.length).toBe(1)
             expect(paginationResults.prop('role')).toBe('status')
-            expect(paginationResults.text()).toEqual(intl.formatMessage({id: 'table-pagination-results'}, {from: 1, to: 25, count: 35}))
+            expect(paginationResults.text()).toEqual(tableResults + ' ' + tableNumber)
         })
 
         test('aria hidden displayed rows label', () => {
