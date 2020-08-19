@@ -1,7 +1,7 @@
 import {HelLabeledCheckboxGroup, HelSelect} from '../index'
 import {FormattedMessage} from 'react-intl'
 import SelectedKeywords from '../../SelectedKeywords/SelectedKeywords'
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import {SideField} from '../../FormFields'
 import {get, isNil, uniqBy} from 'lodash'
 import {mapKeywordSetToForm} from '../../../utils/apiDataMapping'
@@ -16,7 +16,6 @@ const handleKeywordChange = (checkedOptions, keywords, mainCategoryOptions, setD
     }
 
     let updatedKeywords
-
     if (Array.isArray(checkedOptions)) {
         const mainCategoryValues = mainCategoryOptions.map(item => item.value)
         const mappedMainCategoryKeywords = mainCategoryOptions.filter(item => checkedOptions.includes(item.value))
@@ -50,21 +49,47 @@ const getKeywordIds = (keywords) => keywords
     .join()
 
 const HelKeywordSelector = ({intl, editor, setDirtyState, setData, currentLocale}) => {
+    const [isRemoteEvent, toggleIsRemoteEvent] = useState(false);
     const {values, keywordSets, validationErrors} = editor
-    const keywords = get(values, 'keywords', [])
-    // Changed keywordSets to be compatible with Turku's backend.
+    let keywords = get(values, 'keywords', [])
     const mainCategoryOptions = mapKeywordSetToForm(keywordSets, 'turku:topics', currentLocale)
     const parsedMainCategoryOptions = mainCategoryOptions.map(item => ({label: item.label, value: item.value}))
-
-    // Internet location automatically implies "remote participation"
     const remoteParticipationKeyword = mainCategoryOptions.find(keyword => keyword['value'].includes('yso:p26626'))
+
+    /**
+     * if location is now virtual:public, push remoteParticipationKeyword onto keywords array and set isRemoteEvent to true.
+     */
     if (remoteParticipationKeyword
+        && !isRemoteEvent
         && values['location']
-        // Changed keywordSets to be compatible with Turku's backend.
-        && values['location']['id'] == 'virtual:public'
+        && values['location']['id'] === 'virtual:public'
         && !keywords.find(keyword => keyword['value'].includes('yso:p26626'))) {
-        keywords.push(remoteParticipationKeyword)
+        keywords.push(remoteParticipationKeyword) && toggleIsRemoteEvent(true)
     }
+
+    /**
+     * if location was previously virtual and now either event.location doesnt exist or the location.id is not virtual:public
+     * -> some other location was selected or location was removed
+     */
+    if (remoteParticipationKeyword && isRemoteEvent && (!values['location'] || values['location']['id'] !== 'virtual:public')) {
+        toggleIsRemoteEvent(false)
+    }
+
+    /**
+     * All values in keywords are set as checked, remoteParticipationKeyword is pushed to the array before this runs. see above.
+     */
+    const handleRemoteKeywordChange = () => {
+        if (remoteParticipationKeyword && values['location'] && values['location']['id'] === 'virtual:public') {
+            handleKeywordChange(keywords.map(key => key.value), keywords, mainCategoryOptions, setData)
+        }
+    }
+    /**
+     * handleRemoteKeywordChange is called if 'isRemoteEvent' changes.
+     */
+    useEffect(() => {
+        handleRemoteKeywordChange(isRemoteEvent)
+    },[isRemoteEvent])
+
 
     return (
         <React.Fragment>
@@ -81,7 +106,9 @@ const HelKeywordSelector = ({intl, editor, setDirtyState, setData, currentLocale
                 itemClassName="col-md-12 col-lg-6"
                 options={parsedMainCategoryOptions}
                 setDirtyState={setDirtyState}
-                customOnChangeHandler={(checkedOptions) => handleKeywordChange(checkedOptions, keywords, mainCategoryOptions, setData)}
+                customOnChangeHandler={(checkedOptions) => {
+                    handleKeywordChange(checkedOptions, keywords, mainCategoryOptions, setData)
+                }}
                 currentLocale={currentLocale}
             />
             <SideField>
@@ -95,7 +122,9 @@ const HelKeywordSelector = ({intl, editor, setDirtyState, setData, currentLocale
                     name="keywords"
                     resource="keyword"
                     setDirtyState={setDirtyState}
-                    customOnChangeHandler={(selectedOption) => handleKeywordChange(selectedOption, keywords, mainCategoryOptions, setData)}
+                    customOnChangeHandler={(selectedOption) =>
+                        handleKeywordChange(selectedOption, keywords, mainCategoryOptions, setData)
+                    }
                     currentLocale={currentLocale}
                 />
                 <CopyToClipboard text={values['keywords'] ? getKeywordIds(keywords) : ''}>
