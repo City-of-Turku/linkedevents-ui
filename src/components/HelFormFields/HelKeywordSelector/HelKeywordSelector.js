@@ -76,11 +76,12 @@ const HelKeywordSelector = ({intl, editor, setDirtyState, setData, currentLocale
     }
 
     /**
-     * All values in keywords are set as checked, remoteParticipationKeyword is pushed to the array before this runs. see above.
+     * If keywords exist -> they are used, otherwise remote participation is added specifically
      */
     const handleRemoteKeywordChange = () => {
         if (remoteParticipationKeyword && values['location'] && values['location']['id'] === 'virtual:public') {
-            handleKeywordChange(keywords.map(key => key.value), keywords, mainCategoryOptions, setData)
+            const checkedOptions = keywords.length !== 0 ? keywords.map(key => key.value) : [remoteParticipationKeyword.value];
+            handleKeywordChange(checkedOptions, keywords, mainCategoryOptions, setData)
         }
     }
     /**
