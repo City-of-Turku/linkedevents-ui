@@ -16,7 +16,7 @@ import {
     HelKeywordSelector,
 } from 'src/components/HelFormFields'
 import RecurringEvent from 'src/components/RecurringEvent'
-import {Button,Form, FormGroup, Label, Input} from 'reactstrap';
+import {Button,Form, FormGroup} from 'reactstrap';
 import {mapKeywordSetToForm, mapLanguagesSetToForm} from '../../utils/apiDataMapping'
 import {setEventData, setData} from '../../actions/editor'
 import {get, isNull, pickBy} from 'lodash'
@@ -44,7 +44,7 @@ FormHeader.propTypes = {
 }
 
 export const SideField = (props) => (
-    <div className={`side-field col-sm-5 col-sm-push-1 ${ props.className }`} aria-label='text'tabIndex='0'>
+    <div className={`side-field col-sm-5 col-sm-push-1 ${ props.className }`} aria-label='text' tabIndex='0'>
         { props.children }
     </div>
 )
@@ -227,7 +227,22 @@ class FormFields extends React.Component {
                     <FormattedMessage id="event-description-fields-header"/>
                 </FormHeader>
 
-                <div className="row">
+                <div className="row description-row">
+                    <SideField>
+                        <div className="tip">
+                            <p><FormattedMessage id="editor-tip-event-description"/></p>
+                            <FormattedMessage id="editor-tip-event-description1"/>
+                        </div>
+                        <div className='ImagePickerField'>
+                            <label htmlFor='image'>
+                                <h3 className='imagePicker-heading'>
+                                    <FormattedMessage id="event-image"/>
+                                </h3>
+                            </label>
+                            <input id='image' type='hidden'/>
+                            <ImagePickerForm label="image-preview" name="image" loading={this.props.loading} />
+                        </div>
+                    </SideField>
                     <div className="col-sm-6">
                         <MultiLanguageField
                             id='event-headline'
@@ -308,15 +323,6 @@ class FormFields extends React.Component {
                             onChange={this.handleOrganizationChange}
                         />
                     </div>
-                    <SideField className='ImagePickerField'>
-                        <label htmlFor='image'>
-                            <h3 className='imagePicker-heading'>
-                                <FormattedMessage id="event-image"/>
-                            </h3>
-                        </label>
-                        <input id='image' type='hidden'/>
-                        <ImagePickerForm label="image-preview" name="image" loading={this.props.loading} />
-                    </SideField>
                 </div>
 
                 <FormHeader>
@@ -682,7 +688,12 @@ class FormFields extends React.Component {
                         <FormHeader>
                             <FormattedMessage id="event-umbrella" />
                         </FormHeader>
-                        <UmbrellaSelector editor={this.props.editor} event={event} superEvent={superEvent}/>
+                        <div className='row umbrella-row'>
+                            <SideField className="side-field-umbrella"><div className="tip"><p><FormattedMessage id="editor-tip-umbrella-selection"/></p><p><FormattedMessage id="editor-tip-umbrella-selection1"/></p><FormattedMessage id="editor-tip-umbrella-selection2"/></div></SideField>
+                            <div className='col-sm-6'>
+                                <UmbrellaSelector editor={this.props.editor} event={event} superEvent={superEvent}/>
+                            </div>
+                        </div>
                     </React.Fragment>
                 }
             </div>

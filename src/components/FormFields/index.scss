@@ -41,11 +41,13 @@ textarea {
     }
 }
 .date-row,
+.description-row,
 .offers-row,
 .social-media-row,
 .keyword-row,
 .audience-row,
-.location-row {
+.location-row,
+.umbrella-row {
     flex-direction: row-reverse;
 }
 

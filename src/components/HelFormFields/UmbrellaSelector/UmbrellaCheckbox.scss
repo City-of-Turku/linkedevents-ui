@@ -4,6 +4,12 @@
     }
 }
 
+.editor-page {
+    .side-field-umbrella.highlighted-block {
+        padding: 20px;
+    }
+}
+
 @media (min-width: 575px) {
     .UmbrellaCheckbox {
         label {

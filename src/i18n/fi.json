@@ -414,5 +414,11 @@
 	"table-pagination-results": "Tapahtumat välillä {from} ja {to} / {count}",
 	"table-pagination-shortcut-link": "Siirry taulukon alkuun",
 	"table-pagination-next-page": "Seuraava sivu",
-	"table-pagination-previous-page": "Edellinen sivu"
+    "table-pagination-previous-page": "Edellinen sivu",
+
+    "editor-tip-umbrella-selection": "Kattotapahtuma valinnalla teet tapahtumaa, jonka alla on mahdollisesti muita tapahtumia. Esim. festivaali jonka alla festivaalin eri esitykset.",
+    "editor-tip-umbrella-selection1": "Jos tapahtuma on toisen tapahtuman alitapahtuma, valitse 'Tällä tapahtumalla on kattotapahtuma'.",
+    "editor-tip-umbrella-selection2": " ",
+    "editor-tip-event-description": "Kirjoita eri yhteyksissä ymmärrettävä otsikko, lyhyt kuvaus ja kuvaus.",
+    "editor-tip-event-description1": "Lyhyt kuvaus näytetään vain listoissa, kuvaus vain tapahtuman omalla sivulla. Jos kohderyhmä on rajattu, kerro siitä kuvaustekstissä."
 }
