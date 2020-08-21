@@ -102,7 +102,7 @@ class HelOffersField extends React.Component {
                     <FormattedMessage id="event-add-price" />
                 </Button>
                 {isOverLimit && 
-                    <p className='OffersLimit' role='alert'>
+                    <p className='offersLimit' role='alert'>
                         <FormattedMessage id="event-add-price-limit" values={{count:GENERATE_LIMIT.OFFER_LENGTH}}/>
                     </p>
                 }
