@@ -129,7 +129,7 @@
     "event-add-recurring": "Toistuva tapahtuma",
     "event-delete-recurring": "Poista tämä tapahtumakerta",
     "event-add-price": "Lisää uusi hintatieto",
-    "event-add-price-limit": "Hintatietoja voi olla enintään 20 kappaletta.",
+    "event-add-price-limit": "Hintatietoja voi olla enintään {count} kappaletta.",
     "date": "Päivämäärä",
     "time": "Aika",
     "monday": "maanantai",

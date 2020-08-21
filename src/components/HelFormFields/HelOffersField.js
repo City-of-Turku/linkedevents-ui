@@ -81,9 +81,11 @@ class HelOffersField extends React.Component {
     }
 
     render() {
+        const {values} = this.state;
         const offerDetails = this.generateOffers(this.props.defaultValue)
         //Change OFFER_LENGTH in constants to change maxium length of prices users can add, currently limited to 20
-        const isOverLimit = offerDetails.length >= GENERATE_LIMIT.OFFER_LENGTH
+        const isOverLimit = values && values.length >= GENERATE_LIMIT.OFFER_LENGTH
+        const disabled = isOverLimit || this.state.isFree
 
         return (
             <div className="offers-field">
@@ -94,14 +96,14 @@ class HelOffersField extends React.Component {
                 <Button
                     size='lg'block
                     variant="contained"
-                    disabled={this.state.isFree || isOverLimit}
+                    disabled={disabled}
                     onClick={() => this.addNewOffer()}
                 ><span aria-hidden className="glyphicon glyphicon-plus"></span>
                     <FormattedMessage id="event-add-price" />
                 </Button>
                 {isOverLimit && 
                     <p className='OffersLimit' role='alert'>
-                        <FormattedMessage id="event-add-price-limit"/>
+                        <FormattedMessage id="event-add-price-limit" values={{count:GENERATE_LIMIT.OFFER_LENGTH}}/>
                     </p>
                 }
             </div>
