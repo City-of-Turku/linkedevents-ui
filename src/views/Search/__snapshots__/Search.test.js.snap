@@ -112,7 +112,7 @@ exports[`Search Snapshot should render view correctly 1`] = `
       "event-action-save-new-active": "Julkaistaan tapahtumaa",
       "event-add-new-occasion": "Lisää uusi ajankohta",
       "event-add-price": "Lisää uusi hintatieto",
-      "event-add-price-limit": "Hintatietoja voi olla enintään 20 kappaletta.",
+      "event-add-price-limit": "Hintatietoja voi olla enintään {count} kappaletta.",
       "event-add-recurring": "Toistuva tapahtuma",
       "event-canceled": "Peruttuja tapahtumia ei voi muokata.",
       "event-categorization": "Tapahtuman luokittelu",
