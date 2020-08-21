@@ -5,11 +5,11 @@ import {FormattedMessage, injectIntl} from 'react-intl'
 import HelCheckbox from './HelCheckbox'
 import NewOffer from './NewOffer'
 import './HelOffersField.scss'
-
 import {Button} from 'reactstrap';
-
+import constants from '../../constants'
 import {addOffer, setOfferData, setFreeOffers} from 'src/actions/editor.js'
 
+const {GENERATE_LIMIT} = constants;
 class HelOffersField extends React.Component {
 
     static contextTypes = {
@@ -23,7 +23,6 @@ class HelOffersField extends React.Component {
         if (this.props.defaultValue && this.props.defaultValue.length > 0) {
             isFreeEvent = false //we have length in defaultvalue array so we have prices -> not a free event.
         }
-
         this.state = {
             values: this.props.defaultValue,
             isFree: isFreeEvent,
@@ -83,6 +82,8 @@ class HelOffersField extends React.Component {
 
     render() {
         const offerDetails = this.generateOffers(this.props.defaultValue)
+        //Change OFFER_LENGTH in constants to change maxium length of prices users can add, currently limited to 20
+        const isOverLimit = offerDetails.length >= GENERATE_LIMIT.OFFER_LENGTH
 
         return (
             <div className="offers-field">
@@ -93,12 +94,16 @@ class HelOffersField extends React.Component {
                 <Button
                     size='lg'block
                     variant="contained"
-                    disabled={this.state.isFree}
+                    disabled={this.state.isFree || isOverLimit}
                     onClick={() => this.addNewOffer()}
-                ><span  className="glyphicon glyphicon-plus"></span>
+                ><span aria-hidden className="glyphicon glyphicon-plus"></span>
                     <FormattedMessage id="event-add-price" />
-                    
                 </Button>
+                {isOverLimit && 
+                    <p className='OffersLimit' role='alert'>
+                        <FormattedMessage id="event-add-price-limit"/>
+                    </p>
+                }
             </div>
         )
     }

@@ -123,6 +123,7 @@
     "event-add-recurring": "Återkommande händelse",
     "event-delete-recurring": "Radera denna förekomst av återkommande händelsen",
     "event-add-price": "Lägg till ny prisdetalj",
+    "event-add-price-limit": "Prisinformation kan vara upp till 20 stycken.",
     "date": "Datumn",
     "time": "Tid",
     "monday": "måndag",

@@ -127,6 +127,7 @@
     "event-add-recurring": "Recurring event",
     "event-delete-recurring": "Delete this occurrance",
     "event-add-price": "Add new price",
+    "event-add-price-limit": "Price information can be up to 20 pieces.",
     "date": "Date",
     "time": "Time",
     "monday": "Monday",

@@ -149,6 +149,11 @@ const constants = {
         LONG_STRING: 5000,
     },
 
+    GENERATE_LIMIT: {
+        OFFER_LENGTH: 20,
+        EVENT_LENGTH: 65,
+    },
+
     USER_TYPE: {
         ADMIN: 'admin',
         REGULAR: 'regular',
