@@ -2,7 +2,6 @@ import './index.scss';
 
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
-import {report} from '../../utils/raven_reporter';
 import {Button, Modal, ModalBody, ModalHeader, Input} from 'reactstrap';
 import {FormattedMessage, injectIntl} from 'react-intl';
 
@@ -70,7 +69,12 @@ DebugReporterModal.propTypes = {
     close: PropTypes.func,
     intl: PropTypes.object.isRequired,
 };
-
+export default injectIntl(DebugReporterModal);
+/*
+//
+// DebugHelper moved to Footer
+// Hard to use in mobile & and has questionable accessability
+//
 class DebugHelper extends React.Component {
     constructor(props) {
         super(props);
@@ -145,3 +149,5 @@ DebugHelper.contextTypes = {
 };
 
 export default injectIntl(DebugHelper);
+*/
+

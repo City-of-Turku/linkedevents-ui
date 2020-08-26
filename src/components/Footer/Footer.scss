@@ -23,4 +23,27 @@
         background-repeat: no-repeat;
         display: inline-block;
     }
+    Button {
+        background-color: transparent;
+        border: 0px;
+        font-weight: bold;
+        font-size: 1em;
+        &:hover, &:focus, &:active {
+            background-color: transparent;
+            border-bottom: 2px solid white;
+        }
+    }
 }
+    .footerTooltip {
+    background-color: white !important;
+    span {
+    font-size: 1.25rem;
+    color: black;
+    }
+}
+.tooltip-inner {
+    max-width: 400px;
+}
+.tooltip.show {
+    opacity: 1;
+} 

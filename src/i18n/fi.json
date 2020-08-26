@@ -404,6 +404,7 @@
 
     "reportbutton-send": "Lähetä raportti",
     "reportmodal-title": "Raportoi virhetilanne",
+    "reportmodal-button": "Raportoi virhetilanteesta",
     "reportmodal-field": "Kuvaile ongelmaa",
     "reportmodal-version": "Sovelluksen versiotunniste:",
     "reportmodal-tooltip": "Jos tapahtumien hallinnassa tai syöttölomakkeen toiminnassa on virhe, klikkaa tästä raportoidaksesi virheestä, niin saamme virhetilanteesta tiedon ja voimme tutkia asiaa.",

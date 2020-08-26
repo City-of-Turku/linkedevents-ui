@@ -16,7 +16,6 @@ import Event from './views/Event'
 import EventCreated from './views/EventCreated'
 import EventListingPage from './views/EventListing'
 import ModerationPage from './views/Moderation/Moderation'
-import DebugHelper from './components/helper/Helper'
 import Accessibility from './views/Accessibility'
 import BrowserWarning from './views/Browser-Warning/BrowserWarning'
 
@@ -70,7 +69,6 @@ if (window.location.pathname === '/silent-renew') {
                                 <Route exact path="/terms" component={Terms}/>
                                 <Route exact path="/moderation" component={ModerationPage}/>
                                 <Route exact path="/accessibility" component={Accessibility}/>
-                                <Route path="/" component={DebugHelper}/>
                                 <Route exact path="/callback" component={LoginCallback}/>
                                 <Route exact path="/callback/logout" component={LogoutCallback}/>
                             </LayoutContainer>
