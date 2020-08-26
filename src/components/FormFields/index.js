@@ -337,19 +337,9 @@ class FormFields extends React.Component {
                         </div>
                     </SideField>
                     <div className="col-sm-6">
-                        <div className="row">
-                            <div className="col-xs-12 col-sm-12">
-                                {!isRegularUser &&
-                                    <React.Fragment>
-                                        <div className='row'>
-                                            <div className='col-sm-12'>
+                        {!isRegularUser &&
                                                 <UmbrellaSelector editor={this.props.editor} event={event} superEvent={superEvent}/>
-                                            </div>
-                                        </div>
-                                    </React.Fragment>
-                                }
-                            </div>
-                        </div>
+                        }
                     </div>
                 </div>
 
