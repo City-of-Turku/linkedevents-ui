@@ -73,7 +73,7 @@ export default injectIntl(DebugReporterModal);
 /*
 //
 // DebugHelper moved to Footer
-// Hard to use in mobile & and has questionable accessability
+// Hard to use in mobile & has questionable accessability
 //
 class DebugHelper extends React.Component {
     constructor(props) {

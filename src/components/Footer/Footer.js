@@ -68,7 +68,7 @@ class Footer extends React.Component {
 }
 
 Footer.propTypes = {
-    intl:PropTypes.object,
+    intl: PropTypes.object,
 }
 
 export default injectIntl(Footer);
