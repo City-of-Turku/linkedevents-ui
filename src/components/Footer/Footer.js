@@ -34,7 +34,7 @@ class Footer extends React.Component {
     render(){
 
         return (
-            <footer className='main-footer'>
+            <footer className='main-footer' aria-label='Footer'>
                 <div className='footer-logo'></div>
                 <div className='footer-list'>
                     <Link to='/accessibility' aria-label={this.props.intl.formatMessage({id:'footer-accessibility'})}>
