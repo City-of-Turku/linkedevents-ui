@@ -37,7 +37,7 @@ class Footer extends React.Component {
             <footer className='main-footer' aria-label='Footer'>
                 <div className='footer-logo'></div>
                 <div className='footer-list'>
-                    <Link to='/accessibility' aria-label={this.context.intl.formatMessage({id:'footer-accessibility'})}>
+                    <Link to='/accessibility' aria-label={this.props.intl.formatMessage({id:'footer-accessibility'})}>
                         <FormattedMessage id='footer-accessibility' />
                     </Link>
                     <div><FormattedMessage id={'footer-city'} /></div>
@@ -67,9 +67,6 @@ class Footer extends React.Component {
     }
 }
 
-Footer.contextTypes = {
-    intl: PropTypes.object,
-}
 Footer.propTypes = {
     intl:PropTypes.object,
 }
