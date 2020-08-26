@@ -281,6 +281,7 @@ exports[`Image add form ImagePicker component should render correctly with data 
       "repetition-interval-label": "Toistoväli",
       "repetition-start-time": "Tapahtumien alkuaika (tt.mm)",
       "reportbutton-send": "Lähetä raportti",
+      "reportmodal-button": "Raportoi virhetilanteesta",
       "reportmodal-debugbutton": "Palaute",
       "reportmodal-field": "Kuvaile ongelmaa",
       "reportmodal-sent": "Raportti lähetetty, kiitoksia",

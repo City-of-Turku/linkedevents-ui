@@ -386,6 +386,7 @@
     "reportbutton-send": "Send report",
     "reportmodal-title": "Report an error situation",
     "reportmodal-field": "Describe the problem",
+    "reportmodal-button": "Report an error situation",
     "reportmodal-version": "Application version identifier:",
     "reportmodal-tooltip": "If there is an error in event management or the operation of the input form, click here to report the error, and we will be informed of the error situation and can investigate.",
     "reportmodal-sent": "Report sent, thank you",
