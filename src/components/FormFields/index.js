@@ -192,7 +192,7 @@ class FormFields extends React.Component {
         const {values, validationErrors, contentLanguages} = editor
         const formType = this.props.action
         const isSuperEvent = values.super_event_type === CONSTANTS.SUPER_EVENT_TYPE_RECURRING
-
+        const isSuperEventDisable = values.super_event_type === CONSTANTS.SUPER_EVENT_TYPE_UMBRELLA
         const {VALIDATION_RULES, USER_TYPE} = CONSTANTS
         const addedEvents = pickBy(values.sub_events, event => !event['@id'])
         const newEvents = this.generateNewEventFields(addedEvents)
@@ -399,7 +399,7 @@ class FormFields extends React.Component {
                         <Button
                             size='lg'block
                             variant="contained"
-                            disabled={formType === 'update'}
+                            disabled={formType === 'update' || isSuperEventDisable}
                             onClick={() => this.addNewEventDialog()}
                         ><span aria-hidden='true' className="glyphicon glyphicon-plus"></span>
                             <FormattedMessage id="event-add-new-occasion" />
@@ -407,7 +407,7 @@ class FormFields extends React.Component {
                         <Button
                             size='lg' block
                             variant="contained"
-                            disabled={formType === 'update'}
+                            disabled={formType === 'update' || isSuperEventDisable}
                             onClick={() => this.showRecurringEventDialog()}
 
                         ><span aria-hidden='true' className="glyphicon glyphicon-refresh"></span>
