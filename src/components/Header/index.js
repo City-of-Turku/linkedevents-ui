@@ -22,6 +22,7 @@ import {get} from 'lodash';
 import moment from 'moment';
 import * as momentTimezone from 'moment-timezone';
 import userManager from '../../utils/userManager';
+import {saveLocaleToLocalStorage} from '../../utils/locale';   
 
 const {USER_TYPE, APPLICATION_SUPPORT_TRANSLATION} = constants;
 
@@ -71,6 +72,7 @@ class HeaderBar extends React.Component {
         this.props.setLocale(selectedOption.value);
         moment.locale(selectedOption.value);
         momentTimezone.locale(selectedOption.value);
+        saveLocaleToLocalStorage(selectedOption.value);
     };
 
     handleLoginClick = () => {
