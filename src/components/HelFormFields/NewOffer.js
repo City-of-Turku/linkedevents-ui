@@ -90,6 +90,19 @@ class NewOffer extends React.Component {
                     <span className="glyphicon glyphicon-trash" aria-hidden="true"><p hidden>trash</p></span>
     
                 </button>
+                <MultiLanguageField 
+                    id={'event-price-info' + this.props.offerKey}
+                    defaultValue={defaultValue.description} 
+                    disabled={isFree} 
+                    ref="description" 
+                    label="event-price-info" 
+                    languages={languages} 
+                    multiLine={true} 
+                    onBlur={e => this.onBlur(e)} 
+                    validationErrors={this.props.validationErrors['offer_description']} 
+                    index={this.props.offerKey} 
+                />
+
                 <MultiLanguageField
                     id={'event-price' + this.props.offerKey}
                     defaultValue={defaultValue.price} 
@@ -114,20 +127,6 @@ class NewOffer extends React.Component {
                     validationErrors={this.props.validationErrors['offer_info_url']}
                     index={this.props.offerKey}
                 />
-
-                <MultiLanguageField 
-                    id={'event-price-info' + this.props.offerKey}
-                    defaultValue={defaultValue.description} 
-                    disabled={isFree} 
-                    ref="description" 
-                    label="event-price-info" 
-                    languages={languages} 
-                    multiLine={true} 
-                    onBlur={e => this.onBlur(e)} 
-                    validationErrors={this.props.validationErrors['offer_description']} 
-                    index={this.props.offerKey} 
-                />
-               
             </div>
         )
     }

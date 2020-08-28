@@ -287,21 +287,7 @@ class FormFields extends React.Component {
                             setDirtyState={this.props.setDirtyState}
                             type='textarea'
                         />
-                        <MultiLanguageField
-                            id='event-info-url'
-                            required={false}
-                            multiLine={false}
-                            label="event-info-url"
-                            ref="info_url"
-                            name="info_url"
-                            validationErrors={validationErrors['info_url']}
-                            defaultValue={values['info_url']}
-                            languages={this.props.editor.contentLanguages}
-                            validations={[VALIDATION_RULES.IS_URL]}
-                            setDirtyState={this.props.setDirtyState}
-                            forceApplyToStore
-                            type='text'
-                        />
+
                         <MultiLanguageField
                             id='event-provider-input'
                             required={false}
@@ -530,6 +516,21 @@ class FormFields extends React.Component {
                     <SideField><p className="tip"><FormattedMessage id="editor-tip-social-media"/></p></SideField>
                     <div className="col-sm-6">
                         {/* Removed formatted message from label since it was causing accessibility issues */}
+                        <MultiLanguageField
+                            id='event-info-url'
+                            required={false}
+                            multiLine={false}
+                            label="event-info-url"
+                            ref="info_url"
+                            name="info_url"
+                            validationErrors={validationErrors['info_url']}
+                            defaultValue={values['info_url']}
+                            languages={this.props.editor.contentLanguages}
+                            validations={[VALIDATION_RULES.IS_URL]}
+                            setDirtyState={this.props.setDirtyState}
+                            forceApplyToStore
+                            type='text'
+                        />
                         <HelTextField
                             validations={[VALIDATION_RULES.IS_URL]}
                             id='extlink_facebook'
@@ -567,19 +568,7 @@ class FormFields extends React.Component {
                             type='text'
                         />
                     </div>
-
                 </div>
-
-                <FormHeader>
-                    <FormattedMessage id="event-video"/>
-                </FormHeader>
-                <HelVideoFields
-                    defaultValues={values['videos']}
-                    validationErrors={validationErrors}
-                    setDirtyState={this.props.setDirtyState}
-                    intl={this.context.intl}
-                    action={this.props.action}
-                />
 
                 <FormHeader>
                     <FormattedMessage id="event-categorization" />
@@ -617,6 +606,17 @@ class FormFields extends React.Component {
                     />
 
                 </div>
+
+                <FormHeader>
+                    <FormattedMessage id="event-video"/>
+                </FormHeader>
+                <HelVideoFields
+                    defaultValues={values['videos']}
+                    validationErrors={validationErrors}
+                    setDirtyState={this.props.setDirtyState}
+                    intl={this.context.intl}
+                    action={this.props.action}
+                />
 
                 {appSettings.ui_mode === 'courses' &&
                     <div>
