@@ -40,28 +40,28 @@ class Footer extends React.Component {
                     <Link to='/accessibility' aria-label={this.props.intl.formatMessage({id:'footer-accessibility'})}>
                         <FormattedMessage id='footer-accessibility' />
                     </Link>
+                    <DebugReporterModal
+                        showModal={this.state.reporting}
+                        close={this.closeReportForm}
+                        sendReport={this.serializeState}
+                        intl={this.props.intl}
+                    />
+                    <Button
+                        id='ReportTooltip'
+                        onClick={this.showReportForm}
+                        role='link'
+                        aria-describedby='footerTip'
+                    >
+                        <FormattedMessage id='reportmodal-button' />
+                    </Button>
+                    <UncontrolledTooltip id='footerTip' innerClassName='footerTooltip' placement="top" target="ReportTooltip">
+                        <FormattedMessage id="reportmodal-tooltip"/>
+                    </UncontrolledTooltip>
                     <div><FormattedMessage id={'footer-city'} /></div>
                     <div><FormattedMessage id={'footer-city1'} /></div>
                     <div><FormattedMessage id={'footer-city2'} /></div>
                 </div>
                 <a href='https://www.hel.fi/' rel="noopener noreferrer" target="_blank"><FormattedMessage id={'footer-city3'} /></a>
-                <DebugReporterModal
-                    showModal={this.state.reporting}
-                    close={this.closeReportForm}
-                    sendReport={this.serializeState}
-                    intl={this.props.intl}
-                />
-                <Button
-                    id='ReportTooltip'
-                    onClick={this.showReportForm}
-                    role='link'
-                    aria-describedby='footerTip'
-                >
-                    <FormattedMessage id='reportmodal-button' />
-                </Button>
-                <UncontrolledTooltip id='footerTip' innerClassName='footerTooltip' placement="top" target="ReportTooltip">
-                    <FormattedMessage id="reportmodal-tooltip"/>
-                </UncontrolledTooltip>
             </footer>
         );
     }
