@@ -47,16 +47,11 @@ class Footer extends React.Component {
                         intl={this.props.intl}
                     />
                     <Button
-                        id='ReportTooltip'
                         onClick={this.showReportForm}
                         role='link'
-                        aria-describedby='footerTip'
                     >
                         <FormattedMessage id='reportmodal-button' />
                     </Button>
-                    <UncontrolledTooltip id='footerTip' innerClassName='footerTooltip' placement="top" target="ReportTooltip">
-                        <FormattedMessage id="reportmodal-tooltip"/>
-                    </UncontrolledTooltip>
                     <div><FormattedMessage id={'footer-city'} /></div>
                     <div><FormattedMessage id={'footer-city1'} /></div>
                     <div><FormattedMessage id={'footer-city2'} /></div>

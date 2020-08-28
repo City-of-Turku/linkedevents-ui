@@ -34,6 +34,10 @@ const DebugReporterModal = ({showModal, close, sendReport,intl}) => {
                     <FormattedMessage id='reportmodal-title'/>
                 </ModalHeader>
                 <ModalBody>
+                    <p>
+                        <FormattedMessage id="reportmodal-tooltip"/>
+                    </p>
+                    <hr aria-hidden />
                     <label htmlFor='reportfield'><FormattedMessage id='reportmodal-field'/></label>
                     <Input
                         id='reportfield'
@@ -47,7 +51,7 @@ const DebugReporterModal = ({showModal, close, sendReport,intl}) => {
                     <Button onClick={() => sendReport(value)} style={{margin: '1rem 0 0'}}>
                         <FormattedMessage id='reportbutton-send'/>
                     </Button>
-                    <hr />
+                    <hr aria-hidden />
                     <small
                         style={{
                             display: 'block',
