@@ -7,16 +7,13 @@ let browserLanguage = (navigator.language || navigator.userLanguage).toLowerCase
 let defaultLocale = loadLocaleFromLocalStorage();
 
 if (typeof defaultLocale === 'undefined') {
+    defaultLocale = DEFAULT_LOCALE;
     for (const locale of APPLICATION_SUPPORT_TRANSLATION) {
         if (browserLanguage.includes(locale)) {
             defaultLocale = locale;
             break;
         }
     }
-}
-
-if (typeof defaultLocale === 'undefined') {
-    defaultLocale = DEFAULT_LOCALE;
 }
 
 const initialState = {
