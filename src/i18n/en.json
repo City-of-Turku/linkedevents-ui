@@ -336,6 +336,8 @@
 
     "table-events-per-page": "Events per page",
     "table-events-page-number": "Table page number",
+    "table-events-checkbox": "Select {name}",
+    "table-events-checkbox-all": "Select all events",
 
     "draft-cancel": "Event drafts can't be cancelled.",
     "draft-publish-subevent": "A sub event of a series cannot be published.",

@@ -14,6 +14,15 @@ $checkbox-column-width: 50px;
     text-transform: uppercase;
 }
 
+.visually-hidden {
+    position: absolute;
+    left: -10000px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
 .tag-space {
     margin-right: 4px;
     border: none;
