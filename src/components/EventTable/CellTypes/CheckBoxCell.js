@@ -21,10 +21,11 @@ class CheckBoxCell extends React.Component {
 
     render() {
         const {checked, disabled, event} = this.props;
+        const locale = this.context.intl.locale;
         return (
             <td className='checkbox'>
                 <label htmlFor={event.id} className='visually-hidden'>
-                    {this.context.intl.formatMessage({id: 'table-events-checkbox'}, {name: getEventName(event)})}
+                    {this.context.intl.formatMessage({id: 'table-events-checkbox'}, {name: getEventName(event, locale)})}
                 </label>
                 <Input
                     id={event.id}
