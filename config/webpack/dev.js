@@ -51,6 +51,7 @@ export default {
                     },
                 ],
             },
+            {test: /\.ico$/, loader: 'url-loader', options: {mimetype: 'image/x-icon'}},
             {test: /\.css$/, use: ['style-loader', 'css-loader']},
             {test: /\.md$/, loader: 'html-loader!markdown-loader'},
             {test: /\.(jade|pug)?$/, loader: 'pug-loader'},

@@ -2,7 +2,6 @@ import 'src/assets/additional_css/bootstrap.custom.min.css';
 import 'src/assets/main.scss';
 import '@city-assets/main.scss';
 
-
 import PropTypes from 'prop-types';
 
 import React from 'react'
@@ -20,7 +19,8 @@ import {fetchUser as fetchUserAction} from '../../actions/user'
 
 import {cancelAction, doAction} from 'src/actions/app'
 
-import Notifications from '../Notification'
+import Favicon from '../../assets/images/favicon'
+
 import MomentUtils from '@date-io/moment';
 import moment from 'moment'
 import {Button, Modal, ModalHeader, ModalBody, ModalFooter} from 'reactstrap';
@@ -142,6 +142,7 @@ class App extends React.Component {
                 </Helmet>
                 <SkipLink />
                 <header>
+                    <Favicon />
                     <Headerbar />
                 </header>
                 { this.props.location.pathname == '/' &&
