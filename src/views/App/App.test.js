@@ -4,6 +4,10 @@ import {shallow} from 'enzyme';
 import {UnconnectedApp} from './';
 import {mockUser} from '__mocks__/mockData';
 
+jest.mock('@city-images/favicon.ico', () => ({
+    eventsFavicon: 'favicon for the site',
+}),{virtual: true});
+
 describe('views/App/index', () => {
 
     function getWrapper(props) {
