@@ -5,20 +5,6 @@ language: node_js
 node_js:
   - 12
 
-# Environment variables needed for build to start
-env:
-  global: 
-    - local_storage_user_expiry_time=48
-    - nocache=true
-    - api_base=https://testilinkedevents.turku.fi:8001/v1
-    - raven_id=false
-    - client_id=dKCLWaUASYIg1NoRFlLqZ7mjx17Z3vRhEj3d
-    - openid_audience=https://auth.turku.fi/linkedevents
-    - openid_authority=https://testitunnistamo.turku.fi/openid
-    - local_storage_user_expiry_time=48
-    - city_theme=city_theme
-    - show_cookie_bar=true
-
 cache:
   yarn: true
   directories:
