@@ -20,11 +20,17 @@ env:
     - show_cookie_bar=true
 
 cache:
+  yarn: true
   directories:
     - node_modules
+
+addons:
+  chrome: stable
 
 install:
   - yarn
 
 script:
+  - yarn lint
+  - yarn test:ci
   - yarn testing
