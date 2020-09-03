@@ -14,6 +14,15 @@ $checkbox-column-width: 50px;
     text-transform: uppercase;
 }
 
+.visually-hidden {
+    position: absolute;
+    left: -10000px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
 .tag-space {
     margin-right: 4px;
     border: none;
@@ -31,6 +40,11 @@ $checkbox-column-width: 50px;
     }
 }
 .event-table {
+    tbody {
+        td {
+            vertical-align: middle;
+        }
+    }
     thead {
         th:not(.checkbox) {
 
@@ -194,9 +208,6 @@ tbody {
         td, th {
             display: block;
             margin-left: 20px;
-        }
-        td:first-child, th:first-child {
-         //   margin-top: 20px;
         }
     }
 }

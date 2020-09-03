@@ -35,8 +35,9 @@ class NameCell extends React.Component {
             showSubEvents,
             toggleSubEvent,
         } = this.props;
+        const locale = this.context.intl.locale;
         const eventStatus = this.getEventStatus();
-        const name = getEventName(event);
+        const name = getEventName(event, locale);
         const indentationStyle = {
             paddingLeft: `${nestLevel * 24}px`,
             fontWeight: nestLevel === 1 && isSuperEvent ? 'bold' : 'normal',

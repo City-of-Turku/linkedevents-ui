@@ -378,6 +378,8 @@ exports[`EventListing Snapshot should render view correctly 1`] = `
       "sunday": "sunnuntai",
       "super-event-of-series": "Tämä on tapahtumasarjan ylätapahtuma.",
       "super-event-of-umbrella": "Tämä tapahtuma on kattotapahtuma.",
+      "table-events-checkbox": "Valitse {name}",
+      "table-events-checkbox-all": "Valitse kaikki tapahtumat",
       "table-events-page-number": "Taulukon sivunumero",
       "table-events-per-page": "Tapahtumia per sivu",
       "table-pagination-next-page": "Seuraava sivu",

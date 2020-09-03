@@ -4,6 +4,7 @@ import constants from '../constants'
 import {get, isUndefined, set} from 'lodash'
 import {getFirstMultiLanguageFieldValue} from './helpers'
 import {eventIsEditable} from './checkEventEditability'
+import {getStringWithLocale} from './locale'
 
 const {PUBLICATION_STATUS, EVENT_STATUS} = constants
 
@@ -303,12 +304,13 @@ export const mapSubEventDataToSuperEvents = (eventData) => {
 
 /**
  * Returns the name of the event
- * @param event   Event date
+ * @param {object} event
+ * @param {string} locale
  * @returns {string|null}
  */
-export const getEventName = (event) => {
+export const getEventName = (event, locale = 'fi') => {
     if (event.name ) {
-        return getFirstMultiLanguageFieldValue(event.name)
+        return getStringWithLocale(event,'name',locale)
     }
     else if (event.headline) {
         return getFirstMultiLanguageFieldValue(event.headline)

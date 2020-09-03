@@ -40,7 +40,7 @@ const TableHeaderCell = ({
             </HeaderCell>
             }
             {name === 'validation' &&
-                <th className="validation-cell" />
+                <td className="validation-cell" />
             }
             {name !== 'checkbox' && name !== 'validation' &&
             <HeaderCell

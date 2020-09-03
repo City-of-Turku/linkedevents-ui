@@ -34,7 +34,10 @@ class HeaderCell extends React.Component {
             <React.Fragment>
                 {name === 'checkbox' &&
                 <th className='checkbox'>
-                    <Input checked={this.state.isChecked} type='checkbox' onChange={this.handleRow} />
+                    <label htmlFor='allchecked' className='visually-hidden'>
+                        {this.context.intl.formatMessage({id: 'table-events-checkbox-all'})}
+                    </label>
+                    <Input checked={this.state.isChecked} type='checkbox' id='allchecked' onChange={this.handleRow} />
                 </th>
                 }
                 {name !== 'checkbox' && name !== 'validation' &&
@@ -54,7 +57,9 @@ class HeaderCell extends React.Component {
         )
     }
 }
-
+HeaderCell.contextTypes = {
+    intl: PropTypes.object,
+};
 HeaderCell.propTypes = {
     fetchComplete: PropTypes.bool,
     children: PropTypes.element,
