@@ -20,3 +20,6 @@ script:
   - yarn lint
   - yarn test:ci
   - yarn testing
+
+after_success:
+  - codecov < coverage/lcov.info
