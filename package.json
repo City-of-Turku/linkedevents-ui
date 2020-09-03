@@ -10,7 +10,7 @@
     "build": "NODE_ENV=production webpack -p --config config/webpack/prod.js",
     "testing": "NODE_ENV=production APP_MODE=testing webpack -p --config config/webpack/prod.js",
     "test": "jest",
-    "test:ci": "node --icu-data-dir=node_modules/full-icu node_modules/jest/bin/jest.js",
+    "test:ci": "node --icu-data-dir=node_modules/full-icu node_modules/jest/bin/jest.js --collectCoverage",
     "lint:fix": "eslint -c .eslintrc src/**/**/*.{js,jsx}?\\(x\\) --fix",
     "lint": "eslint -c .eslintrc src/**/**/*.{js,jsx}?\\(x\\)"
   },
