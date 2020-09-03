@@ -22,4 +22,4 @@ script:
   - yarn testing
 
 after_success:
-  - codecov < coverage/lcov.info
+  - codecov
