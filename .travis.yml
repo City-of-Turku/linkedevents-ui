@@ -1,45 +1,22 @@
----
-sudo: required
-
-services:
-  - docker
+dist: bionic
+os: linux
 
 language: node_js
 node_js:
-  - "lts/*"
-  - "node"
-
-# Environment variables needed for build to start
-env:
-  global: 
-    - APP_MODE=testing
-    - LE_PRODUCTION_INSTANCE=https://linkedevents.hel.fi/
-    - local_storage_user_expiry_time=48
-    - export nocache=true
-    - api_base=https://api.hel.fi/linkedevents-test/v1
-    - export raven_id=https://xyz_im_not_real@sentry.example.com/infinity
+  - 12
 
 cache:
+  yarn: true
   directories:
     - node_modules
+
+addons:
+  chrome: stable
 
 install:
   - yarn
 
 script:
-  - yarn run lint
-  - yarn run test:ci
-  - yarn run build
-
-after_success:
-  - npm run codecov
-  - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
-  - ./deploy/containerize.sh
-
-notifications:
-  slack:
-    secure: Xv5QCurHshN0uFPj8hIveGCK0GbI84XsrW9UktnwZkIH81OJF0Jk7h7ec/dB6hWAuLRoGBd0Ye52Qt3igY0GpMXKEj0mluJA67v+Usw31y4plWdydRWxuQK8CeW3g2qy1c5H4W9rGq/nB3ufQGH/Tr1jLACigcsLhKJjSbzdBckHzaQRMExDHvT2TQGfpzsOcjfRBPWtm2l6y/KnHvP+tR7wSQwJCLFzRXOWvyFmEzZK9tucOgiD9gOj7+xCtwMBmTcfC+BXUI3JfuT6L3tRytUCdQdJl2b3pJxcnAA7Jk7KGA1CI8WUU3Z46HuE44o2h0hf9nvgcVJhAn2DS2DqRsp4etyftuH4Xboh1tKQjmk2ENjrxTrITz7DfQ29TlFGpxM5qWnZMisEcq/tK9K2hp55GAGUqsOgm07jSMzhgSKCe2xq1jgAe4cblSmazgZgE6htExck01ZwtNAo0D+tzjeMR4iNo42mGQmNrCd5mCVqMwK43ExvjDOMYA8vPifk9VKhk4u0AS1838RfkSvieA+Uorx1Gm+ZaUEDKKVcCDgj/yOA6CNbnzWf8I3QRy5LHCQ6s9UpSwEaDQ3LH6oZDrHPp/Cghuz0EjbG2zM1+EsDnXawyyuzcD9iy6AcWeIN39qQm1mCtOsSN56yoQTYeA5Od4aTeo0egh8VBLCfyPc=
-
-matrix:
-    allow_failures:
-        - node_js: node
+  - yarn lint
+  - yarn test:ci
+  - yarn testing
