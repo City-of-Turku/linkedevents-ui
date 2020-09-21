@@ -306,6 +306,7 @@ exports[`Image add form ImagePicker component should render correctly with data 
       "search-no-results": "Ei tuloksia",
       "search-results-count": "Hakutulosten määrä on {count}",
       "select": "Valitse...",
+      "select-from-default": "Tai valitse oletuskuvista",
       "series": "Sarja",
       "server-error": "Virhe palvelimella.",
       "skiplink-shortcut": "Siirry sisältöön",
@@ -328,6 +329,9 @@ exports[`Image add form ImagePicker component should render correctly with data 
       "terms-agree-link": "palvelun käyttöehdot",
       "terms-agree-text": "Hyväksyn",
       "terms-heading": "Linked Eventsin käyttöehdot",
+      "thumbnail-picture-delete": "Poista tämä kuva järjestelmästä",
+      "thumbnail-picture-edit": "Muokkaa tätä kuvaa",
+      "thumbnail-picture-select": "Valitse tapahtuman kuvaksi",
       "thursday": "torstai",
       "time": "Aika",
       "tuesday": "tiistai",
@@ -336,6 +340,9 @@ exports[`Image add form ImagePicker component should render correctly with data 
       "update-events": "Tallenna",
       "upload-image": "Lataa kuva kovalevyltäsi",
       "upload-image-from-url": "Tai syötä ulkoisen kuvan osoite (url)",
+      "upload-image-from-url-button": "Lataa osoitteesta",
+      "upload-image-select-bank": "Valitse kuvapankista",
+      "upload-new-image": "Lataa kuva",
       "uploaded-image-size-error": "Kuva on liian suuri. Kuvan koon on oltava alle 2 Mt.",
       "uploaded-image-size-tip": " Kuvan sallittu koko on maksimissaan 2 Mt.",
       "uploaded-image-size-tip2": "Muokkaa kuva ennen syöttöä verkkoon sopivaksi ja 3:2-vaakakuvasuhteeseen, esim. 1200X800px (leveys x korkeus).",
@@ -390,18 +397,8 @@ exports[`Image add form ImagePicker component should render correctly with data 
 
 exports[`Image add form ImagePicker component should render view by default 1`] = `
 <div
-  className="image-picker"
+  className="image-pickers"
 >
-  <Spinner
-    animation="border"
-    role="status"
-  >
-    <span
-      className="sr-only"
-    >
-      Loading...
-    </span>
-  </Spinner>
   <Modal
     aria-modal="true"
     autoFocus={true}
@@ -430,13 +427,11 @@ exports[`Image add form ImagePicker component should render view by default 1`] 
     role="dialog"
     scrollable={false}
     size="xl"
-    toggle={[Function]}
     unmountOnClose={true}
     zIndex={1050}
   >
     <ModalHeader
       charCode={215}
-      className="modalH1"
       close={
         <Button
           aria-label="Sulje"
@@ -465,106 +460,6 @@ exports[`Image add form ImagePicker component should render view by default 1`] 
         charCode={215}
         className="image-picker--dialog-title"
         closeAriaLabel="Close"
-        tag="h2"
-        wrapTag="div"
-      >
-        <FormattedMessage
-          id="new-image"
-          values={Object {}}
-        />
-      </ModalHeader>
-      <ModalHeader
-        charCode={215}
-        closeAriaLabel="Close"
-        tag="p"
-        wrapTag="div"
-      >
-        <FormattedMessage
-          id="uploaded-image-size-tip"
-          values={Object {}}
-        />
-        <br />
-        <FormattedMessage
-          id="uploaded-image-size-tip2"
-          values={Object {}}
-        />
-        <br />
-        <FormattedMessage
-          id="uploaded-image-size-tip3"
-          values={Object {}}
-        />
-      </ModalHeader>
-      <div
-        className="file-upload"
-      >
-        <div
-          className="file-upload--new"
-        >
-          <input
-            onChange={[Function]}
-            style={
-              Object {
-                "display": "none",
-              }
-            }
-            type="file"
-          />
-          <Button
-            className="upload-img"
-            color="secondary"
-            onClick={[Function]}
-            tag="button"
-            variant="contained"
-          >
-            <FormattedMessage
-              id="upload-image"
-              values={Object {}}
-            />
-          </Button>
-        </div>
-        <div
-          className="file-upload--external"
-        >
-          <Form
-            tag="form"
-          >
-            <FormGroup
-              tag="div"
-            >
-              <label
-                className="image-url"
-              >
-                <FormattedMessage
-                  id="upload-image-from-url"
-                  values={Object {}}
-                />
-                <input
-                  className="file-upload--external-input"
-                  onChange={[Function]}
-                />
-              </label>
-            </FormGroup>
-          </Form>
-          <Button
-            className="file-upload--external-button"
-            color="primary"
-            disabled={true}
-            onClick={[Function]}
-            tag="button"
-            variant="contained"
-          >
-            <FormattedMessage
-              id="attach-image-to-event"
-              values={Object {}}
-            />
-          </Button>
-        </div>
-      </div>
-      <hr />
-      <ModalHeader
-        charCode={215}
-        className="image-picker--dialog-title"
-        closeAriaLabel="Close"
         tag="h3"
         wrapTag="div"
       >
@@ -573,61 +468,10 @@ exports[`Image add form ImagePicker component should render view by default 1`] 
           values={Object {}}
         />
       </ModalHeader>
-      <div
-        className="button-row"
-      >
-        <Button
-          className="delete"
-          color="secondary"
-          disabled={true}
-          onClick={[Function]}
-          tag="button"
-          variant="contained"
-        >
-          <FormattedMessage
-            id="delete-from-filesystem"
-            values={Object {}}
-          />
-        </Button>
-        <div
-          className="wrapper-right"
-        >
-          <Button
-            className="edit"
-            color="secondary"
-            disabled={true}
-            onClick={[Function]}
-            tag="button"
-            variant="contained"
-          >
-            <FormattedMessage
-              id="edit-selected-image"
-              values={Object {}}
-            />
-          </Button>
-          <Button
-            className="attach"
-            color="primary"
-            onClick={[Function]}
-            tag="button"
-            variant="contained"
-          >
-            <FormattedMessage
-              id="attach-image-to-event"
-              values={Object {}}
-            />
-          </Button>
-        </div>
-      </div>
       <Connect(ImageGalleryGrid)
-        editor={
-          Object {
-            "values": Object {},
-          }
-        }
-        images={Object {}}
+        action={[Function]}
         locale="fi"
-        user={Object {}}
+        modal={true}
       />
     </ModalBody>
   </Modal>

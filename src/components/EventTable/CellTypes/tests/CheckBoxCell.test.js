@@ -10,6 +10,7 @@ import fiMessages from 'src/i18n/fi.json';
 const testMessages = mapValues(fiMessages, (value, key) => value);
 const intlProvider = new IntlProvider({locale: 'fi', messages: testMessages}, {});
 const {intl} = intlProvider.getChildContext();  
+
 const defaultProps = {
     checked: false,
     disabled: false,

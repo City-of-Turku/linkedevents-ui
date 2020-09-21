@@ -9,13 +9,14 @@ import constants from 'src/constants';
 import {Button, Modal, ModalHeader, ModalBody, Input, Label} from 'reactstrap';
 import update from 'immutability-helper';
 import {getStringWithLocale} from 'src/utils/locale';
-
+import validationFn from 'src/validation/validationRules'
 
 const {CHARACTER_LIMIT, VALIDATION_RULES} = constants;
 
 class ImageEdit extends React.Component {
     constructor(props) {
         super(props);
+        this.hiddenFileInput = React.createRef();
         this.state = {
             image: {
                 name: {},
@@ -30,12 +31,18 @@ class ImageEdit extends React.Component {
             },
             license: 'event_only',
             imagePermission: false,
+            edit: false,
+            imageFile: null,
+            thumbnailUrl: null,
+            urlError: false,
+            fileSizeError: false,
         };
 
         this.getCloseButton = this.getCloseButton.bind(this);
         this.handleImagePost = this.handleImagePost.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleLicenseChange = this.handleLicenseChange.bind(this);
+        this.handleInputBlur = this.handleInputBlur.bind(this);
     }
 
     componentDidMount() {
@@ -44,13 +51,85 @@ class ImageEdit extends React.Component {
                 {
                     image:
                         {
-                            name:this.props.defaultName,
-                            altText: this.props.altText,
-                            photographerName: this.props.defaultPhotographerName,
+                            name:this.props.defaultName || {},
+                            altText: this.props.altText || {},
+                            photographerName: this.props.defaultPhotographerName || '',
                         },
                     license: this.props.license,
                 });
         }
+    }
+
+
+    handleUpload(event) {
+        const file = event.target.files[0];
+        if (file && !this.validateFileSizes(file)) {
+            return;
+        }
+        const data = new FormData();
+
+        data.append('image', file);
+
+        if (file && (file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/gif')) {
+            this.setState({
+                edit: true,
+                imageFile: file,
+                thumbnailUrl: window.URL.createObjectURL(file),
+            });
+        }
+    }
+
+    validateFileSizes = (file) => {
+        const maxSizeInMB = 2;
+
+        const binaryFactor = 1024 * 1024;
+        const decimalFactor = 1000 * 1000;
+
+        const fileSizeInMB = parseInt(file.size) / decimalFactor;
+
+        if (fileSizeInMB > maxSizeInMB) {
+            this.setState({
+                fileSizeError: true,
+            });
+
+            return false;
+        } else {
+            if (this.state.fileSizeError) {
+                this.setState({
+                    fileSizeError: false,
+                });
+            }
+
+            return true;
+        }
+    };
+
+    handleInputBlur() {
+        const myData = document.getElementById('upload-external')
+        const formData = new FormData(myData);
+        const MyData = formData.get('externalUrl');
+        const url = MyData
+        if (!validationFn['isUrl'](undefined, url, undefined)) {
+            this.setState({urlError: true,
+            })
+            return false 
+        } else {
+            return true
+        }
+    }
+
+    handleExternalImageSave = () => {
+        event.preventDefault();
+        const foo = document.getElementById('upload-external')
+        const formData = new FormData(foo);
+        console.log(formData.get('externalUrl'));
+        const bar = formData.get('externalUrl');
+        this.setState({thumbnailUrl: bar});
+
+    }
+
+    clickHiddenUpload() {
+        this.hiddenFileInput.current.click();
     }
 
     /**
@@ -99,16 +178,15 @@ class ImageEdit extends React.Component {
             license: this.state.license,
         };
         if (!this.props.updateExisting) {
-
-            if (this.props.imageFile) {
-                let image64 = await this.imageToBase64(this.props.imageFile);
+            if (this.props.imageFile || this.state.imageFile) {
+                let image64 = await this.imageToBase64(this.state.imageFile);
                 imageToPost = update(imageToPost,{
                     image:{$set: image64},
-                    file_name:{$set: this.props.imageFile.name.split('.')[0]},
+                    file_name:{$set: this.state.imageFile.name.split('.')[0]},
                 });
             } else {
                 imageToPost = update(imageToPost,{
-                    url:{$set: this.props.thumbnailUrl},
+                    url:{$set: this.state.thumbnailUrl},
                 });
             }
             this.props.postImage(imageToPost, this.props.user, null);
@@ -257,9 +335,6 @@ class ImageEdit extends React.Component {
                 <div className='license-help-text tip'>
                     <FormattedMessage id={'image-modal-image-license-explanation-event-only'}/>
                     <FormattedHTMLMessage id={'image-modal-image-license-explanation-cc-by'} />
-
-
-
                 </div>
 
             </div>
@@ -287,13 +362,16 @@ class ImageEdit extends React.Component {
 
 
     render() {
-        const {close, thumbnailUrl} = this.props;
+        const {open, close} = this.props;
+        const {thumbnailUrl} = this.state;
+        const thumb = this.state.thumbnailUrl || this.props.thumbnailUrl;
+        const errorMessage = this.state.urlError ? 'validation-isUrl' : 'uploaded-image-size-error';
         return (
             <React.Fragment>
                 <Modal
                     className='image-edit-dialog'
                     size='xl'
-                    isOpen={true}
+                    isOpen={open}
                     toggle={close}
                 >
                     <ModalHeader tag='h1' close={this.getCloseButton()}>
@@ -302,20 +380,76 @@ class ImageEdit extends React.Component {
                     <ModalBody>
                         <div className='row'>
                             <div className='col-sm-8 image-edit-dialog--form'>
+                                {!this.props.updateExisting &&
+                                <div className='file-upload'>
+                                    <div className='tip'>
+                                        <p>
+                                            <FormattedMessage id='uploaded-image-size-tip'>{txt => txt}</FormattedMessage>
+                                            <br/>
+                                            <FormattedMessage id='uploaded-image-size-tip2'>{txt => txt}</FormattedMessage>
+                                            <br/>
+                                            <FormattedMessage id='uploaded-image-size-tip3'>{txt => txt}</FormattedMessage>
+                                        </p>
+                                    </div>
+                                    <div className='file-upload-buttons'>
+                                        <div className='file-upload--new'>
+                                            <input
+                                                onChange={(e) => this.handleUpload(e)}
+                                                style={{display: 'none'}}
+                                                type='file'
+                                                ref={this.hiddenFileInput}
+                                            />
+                                            <Button
+                                                size='xl' block
+                                                className='upload-img'
+                                                variant='contained'
+                                                onClick={() => this.clickHiddenUpload()}
+                                            >
+                                                <FormattedMessage id='upload-image' />
+                                            </Button>
+                                        </div>
+                                        <div className='file-upload--external'>
+                                            <form onSubmit={this.handleExternalImageSave} id='upload-external'>
+                                                <label className='image-url'>
+                                                    <FormattedMessage id='upload-image-from-url' />
+                                                    <input
+                                                        className='file-upload--external-input'
+                                                        onChange={this.handleExternalImage}
+                                                        name='externalUrl'
+                                                        onBlur={this.handleInputBlur}
+
+                                                    />
+                                                </label>
+                                                <Button
+                                                    size='xl' block
+                                                    className='file-upload--external-button'
+                                                    variant='contained'
+                                                    color='primary'
+                                                    type='submit'
+                                                >
+                                                    <FormattedMessage id='upload-image-from-url-button' />
+                                                </Button>
+                                                {(this.state.fileSizeError || this.state.urlError) && (
+                                                    <React.Fragment>
+                                                        <FormattedMessage id={errorMessage}>{txt => <p role="alert" className='image-error'>{txt}</p>}</FormattedMessage>
+                                                    </React.Fragment>
+                                                )}
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                }
+
                                 {this.getFields()}
-                                <div style={{marginTop: '16px'}}>
+                                <div className='help-license'>
                                     <FormattedMessage id='image-modal-image-license'>{txt => <h2>{txt}</h2>}</FormattedMessage>
                                 </div>
                                 {this.getLicense()}
-                                <div
-                                    className="image-edit-dialog--help-notice"
-                                    style={{marginTop: '10px'}}
-                                >
+                                <div className="help-notice">
                                     <FormattedHTMLMessage id={'image-modal-view-terms-paragraph-text'}/>
-
                                 </div>
                             </div>
-                            <img className="col-sm-4 image-edit-dialog--image" src={thumbnailUrl} alt={getStringWithLocale(this.state.image,'altText')} />
+                            <img className="col-sm-4 image-edit-dialog--image" src={thumb} alt={getStringWithLocale(this.state.image,'altText')} />
                             <div className="col-sm-12">
                                 <Button
                                     size="lg" block
@@ -349,6 +483,7 @@ ImageEdit.propTypes = {
     altText: PropTypes.object,
     defaultPhotographerName: PropTypes.string,
     license: PropTypes.string,
+    open: PropTypes.bool,
 };
 
 const mapStateToProps = (state) => ({
@@ -362,6 +497,6 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export {ImageEdit as UnconnectedImageEdit}
-export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(ImageEdit));
-
+// export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(ImageEdit));
+export default connect(mapStateToProps, mapDispatchToProps)(injectIntl(ImageEdit))
 

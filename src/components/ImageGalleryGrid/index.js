@@ -11,16 +11,16 @@ const ImagePagination = (props) => {
     if (props.responseMetadata === undefined) {
         return null;
     }
-    
+
     const pageAmount = Math.ceil(parseInt(props.responseMetadata.count) / 100);
     const currentPage = props.responseMetadata.currentPage;
-    
+
     let classes;
     const pages = [];
-    
+
     for (let i = 1; i < pageAmount + 1; i++) {
         classes = (props.responseMetadata.currentPage !== undefined && currentPage == i) ? 'page-item active' : 'page-item';
-        
+
         pages.push(<li className={classes} key={i}><a className='page-link' href='#' onClick={() => props.clickedPage(i)}>{i}</a></li>);
     }
 
@@ -35,19 +35,19 @@ class ImageGalleryGrid extends React.Component {
     constructor(props) {
         super(props)
     }
-    
+
     componentDidMount() {
         this.fetchImages();
     }
 
     componentDidUpdate() {
         const {fetchComplete, isFetching} = this.props.images;
-        
+
         if (fetchComplete || isFetching) {
             return;
         }
-        
-        this.fetchImages();
+
+        // this.fetchImages();
     }
 
     fetchImages = (user = this.props.user, pageSize = 100, pageNumber = null) => {
@@ -60,7 +60,12 @@ class ImageGalleryGrid extends React.Component {
     changeImagePage = (pageNumber) => {
         this.fetchImages(this.props.user, 100, pageNumber);
     };
-    
+
+    handleDelete() {
+        this.props.action();
+    }
+
+
     render() {
         // save the id of the selected image of this event (or editor values)
         let selected_id = getIfExists(this.props.editor.values, 'image.id', null);
@@ -72,39 +77,68 @@ class ImageGalleryGrid extends React.Component {
             return date_b - date_a
         });
 
+        let images = this.props.images.items.reduce((acc, cur, idx) => {
+            if (idx < 4) {
+                let selected = selected_id === cur.id;
+                acc.push(<ImageThumbnail
+                    locale={this.props.locale}
+                    selected={selected}
+                    key={cur.id}
+                    url={cur.url}
+                    data={cur}
+                    modal={this.props.modal}
+                />);
+            }
+            return acc;
+        }, []);
+
         // build the classes for the thumbnails
         let imgs = this.props.images.items.map((img) => {
             let selected = selected_id == img.id
             return (
-                <ImageThumbnail locale={this.props.locale} selected={selected} key={img.id} url={img.url} data={img} />
+                <ImageThumbnail
+                    locale={this.props.locale}
+                    selected={selected}
+                    key={img.id}
+                    url={img.url}
+                    data={img}
+                    modal={this.props.modal}
+                    close={this.props.close}
+                    user={this.props.user}
+                />
             )
         });
 
         // ...and finally check if there is no image for this event to be able to set the class
         let selected = selected_id == null;
-        
+
         // unsift == prepend
-        imgs.unshift(<ImageThumbnail selected={selected} key={0} empty={true} url="" data={{}}/>)
+        imgs.unshift(<ImageThumbnail selected={selected} key={0} empty={true} url="" data={{}} modal={this.props.modal} close={this.props.close}/>)
 
         return (
             <div className='image-grid container-fluid'>
                 <div className='row'>
-                    {imgs}
+                    {this.props.modal ? imgs : images}
                     <div className='clearfix' />
                 </div>
-    
-                <ImagePagination clickedPage={this.changeImagePage} responseMetadata={this.props.images.meta} />
+                {this.props.modal && (
+                    <ImagePagination clickedPage={this.changeImagePage} responseMetadata={this.props.images.meta} />
+                )}
+
             </div>
         )
     }
 }
 
 ImageGalleryGrid.propTypes = {
-    images: PropTypes.object,
+    images: PropTypes.any,
     user: PropTypes.object,
     editor: PropTypes.object,
     fetchUserImages: PropTypes.func,
     locale: PropTypes.string,
+    modal: PropTypes.bool,
+    action: PropTypes.func,
+    close: PropTypes.func,
 };
 
 const mapDispatchToProps = (dispatch) => ({

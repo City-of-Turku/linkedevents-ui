@@ -2,23 +2,10 @@ $bg-color: #f6f6f6;
 $modal-backdrop-opacity: 0.7;
 
 .image-picker {
-    align-items: center;
-    background-color: $bg-color;
-    border: 1px solid #525a65;
-    color: #525a65;
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
     height: 346px;
-    justify-content: center;
     margin: 15px 0;
-    overflow: hidden;
-    position: relative;
     text-align: center;
     transition: background 200ms ease-in-out;
-    &:hover {
-        background-color: darken($bg-color, 4%);
-    }
 
     &--preview {
         align-items: center;
@@ -32,111 +19,55 @@ $modal-backdrop-opacity: 0.7;
         width: 100%;
         background-color: #ebedf1;
         color:#525a65;
-        white-space: normal;
         label {
             font-size: 18px;
             max-width: 400px;
             padding-top: 20px;
         }
-        .glyphicon {
-            transform: rotate(180deg);
-            padding-right: 17px;
-            padding-left: 0px !important;
-        }
     }
 }
+
 .image-picker--dialog {
-    .modalH1 {
-        padding: 16px 24px !important;
-     }
-.modal-header {
-    border: none;
-    padding: 0px 0px;
-    .modal-title {
-        padding: 0px;
-        margin-top: 0px !important;
+    .modal-header {
+        padding: 16px 24px;
+        button {
+            align-self: center;
+            color: black;
+            background-color: transparent;
+            border: none;
+            &:focus {
+            outline: -webkit-focus-ring-color auto 5px;
+            }
+            &:hover &:active {
+                background-color: rgba(0, 0, 0, 0.08);
+            }
+        .glyphicon {
+            margin: 0px;
+            color:rgba(0, 0, 0, 0.54);
+        }
     }
-        h1 {
-            font-weight: 500;
-            font-size: 1.25rem;
+        .modal-title {
+            margin-top: 0px;
         }
-        h2 {
-            padding: 0 15px !important;
-            font-weight: 500;
-            font-size: 1.25rem;
+    }
+    .modal-body {
+        padding: 8px 24px;
+        .modal-header {
+            padding: 0 15px;
         }
-        h3 {
-            padding: 0 15px !important;
-            font-weight: 500;
-            font-size: 1.25rem;
-        }
-        p {
-            padding: 0 15px !important;
-            font-size: 16px;
-        }
-    button {
-        color: black;
-        background-color: transparent;
-        border: none;
-        &:focus {
-        outline: -webkit-focus-ring-color auto 5px;
-        }
-        &:hover &:active {
-            background-color: rgba(0, 0, 0, 0.08);
-        }
-    .glyphicon {
-        margin: 0px;
-        color:rgba(0, 0, 0, 0.54);
     }
 }
-}
-.modal-body {
-    padding: 8px 24px;
-    .file-upload {
-        .btn-secondary {
-            background-color: #0072c6;
-            border-radius: 2px;
-            font-size: 15.75px;
-            }
-        .file-upload--new {
-            align-items: center;
-            display: flex;
-            margin: 16px 15px 0px;
-            .image-error {
-                margin: 2vh;
-                color: #dc3545;
-            }
-            }
-        .file-upload--external {
-            align-items: center;
-            display: flex;
-            margin: 16px 15px;
-            .image-url {
-                flex: 1;
-            }
-            .file-upload--external-input {
-                border-bottom-width: 1px;
-                border-color:rgb(84,84,84);
-                border-top: 0px;
-                border-left: 0px;
-                border-right: 0px;
-                background: none;
-                width: 190%;
-                overflow: hidden;
-                padding: 2px 0 2px;
-                flex: 1;
-            }
-            .file-upload--external-button {
-                justify-content: flex-end;
-                margin-left: 40%;
+
+@media (min-width: 768px) and (max-width: 990px) {
+.image-grid {
+            .col-md-3 {
+                flex: 0 0 50%;
+                max-width: 50%;
+            
             }
         }
     }
-    .button-row {
-        margin: 1rem 0;
-    }
-}
-}
+
 
 //Mobile
 @media only screen and (max-width: 991px) {
@@ -144,29 +75,11 @@ $modal-backdrop-opacity: 0.7;
         .modal-body {
             text-align: center !important;
         }
-        .file-upload--new {
-            display: block !important;
-        }
-        .file-upload--external {
-            display: block !important;
-            &-input {
-                width: 100% !important;
-            }
-            &-button {
-                margin-left: 0px !important;
-            }
-        }
-        .button-row {
-            margin: 1rem 0;
-            display: block !important;
-            .btn {
-                margin: 10px 0px !important;
-                width: 100%;
-
-            }
-            .wrapper-right {
-                    display: block !important;
-        }
     }
+    .image-picker {
+        display: none;
+        &.background {
+            display: flex;
+        }
     }
 }

@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import React from 'react'
 import {FormattedMessage} from 'react-intl'
 import CopyToClipboard from 'react-copy-to-clipboard'
-import ImagePickerForm from '../ImagePicker'
 import {
     MultiLanguageField,
     HelTextField,
@@ -29,6 +28,7 @@ import HelVideoFields from '../HelFormFields/HelVideoFields/HelVideoFields'
 import CustomDateTimeField from '../CustomFormFields/CustomDateTimeField';
 import EventMap from '../Map/EventMap';
 import classNames from 'classnames';
+import ImageGallery from '../ImageGallery/ImageGallery';
 
 // Removed material-ui/icons because it was no longer used.
 //Added isOpen for RecurringEvents modal
@@ -227,20 +227,12 @@ class FormFields extends React.Component {
                     <FormattedMessage id="event-description-fields-header"/>
                 </FormHeader>
 
-                <div className="row description-row">
+
+                <div className="row event-row">
                     <SideField>
                         <div className="tip">
                             <p><FormattedMessage id="editor-tip-event-description"/></p>
                             <FormattedMessage id="editor-tip-event-description1"/>
-                        </div>
-                        <div className='ImagePickerField'>
-                            <label htmlFor='image'>
-                                <h3 className='imagePicker-heading'>
-                                    <FormattedMessage id="event-image"/>
-                                </h3>
-                            </label>
-                            <input id='image' type='hidden'/>
-                            <ImagePickerForm label="image-preview" name="image" loading={this.props.loading} />
                         </div>
                     </SideField>
                     <div className="col-sm-6">
@@ -310,7 +302,13 @@ class FormFields extends React.Component {
                         />
                     </div>
                 </div>
-
+                
+                <FormHeader>
+                    <FormattedMessage id="event-image-title"/>
+                </FormHeader>
+                <div className='row'>
+                    <ImageGallery locale={currentLocale}/>
+                </div>
                 <FormHeader>
                     <FormattedMessage id="event-umbrella" className=''/>
                 </FormHeader>
@@ -703,6 +701,7 @@ class FormFields extends React.Component {
         )
     }
 }
+
 
 FormFields.propTypes = {
     intl: PropTypes.object,

@@ -74,15 +74,39 @@
             }
         }
     }
+    .help-license {
+      margin-top: 16px;
+    }
 
+    .help-notice {
+      margin-top: 10px;
+    }
 
 }
 .file-upload {
+  .image-error {
+    margin: 1vh 0 1vh 0;
+    color: #dc3545;
+}
+
+&--new {
+  margin-bottom: 15px;
+}
+
+ .tip {
+   margin-top: 20px;
+   margin-bottom: 20px;
+   padding: 10px;
+   p {
+     margin: 0px;
+   }
+ }
   .btn {
-    padding: 16px 16px;
+    padding: 6px 6px;
     border-radius: 2px;
     font-size: 15.75px;
     background-color: #0072c6;
+    max-width: 453px;
   }
   .btn-primary.disabled:hover {
     background-color: #6c757d;

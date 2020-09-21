@@ -73,7 +73,7 @@ describe('ImagePicker', () => {
         }); */
         test('correct amount of FormattedMessages', () => {
             const element = getWrapper().find(FormattedMessage);
-            expect(element).toHaveLength(12);
+            expect(element).toHaveLength(2);
         })
     })
 })

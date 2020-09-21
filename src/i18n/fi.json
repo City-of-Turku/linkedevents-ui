@@ -355,12 +355,22 @@
     "return-to-events": "Palaa takaisin tapahtumiin",
 
     "format-select-count": " ({count} tapahtumaa)",
+
     "upload-image-from-url": "Tai syötä ulkoisen kuvan osoite (url)",
     "uploaded-image-size-error": "Kuva on liian suuri. Kuvan koon on oltava alle 2 Mt.",
     "uploaded-image-size-tip": " Kuvan sallittu koko on maksimissaan 2 Mt.",
     "uploaded-image-size-tip2": "Muokkaa kuva ennen syöttöä verkkoon sopivaksi ja 3:2-vaakakuvasuhteeseen, esim. 1200X800px (leveys x korkeus).",
     "uploaded-image-size-tip3": "Sallitut tiedostotyypit ovat jpeg, gif ja png.",
+    "upload-image-from-url-button": "Lataa osoitteesta",
+    "upload-image-select-bank": "Valitse kuvapankista",
+    "upload-new-image": "Lataa kuva",
+    "select-from-default": "Tai valitse oletuskuvista",
     "image-modal-image-info": "Kuvan tiedot",
+
+    "thumbnail-picture-edit": "Muokkaa tätä kuvaa",
+    "thumbnail-picture-select": "Valitse tapahtuman kuvaksi",
+    "thumbnail-picture-delete": "Poista tämä kuva järjestelmästä",
+
     "alt-text": "Alt-teksti eli kuvan sisällön sanallinen kuvaus (pituus vähintään 6 merkkiä)",
     "photographer": "Kuvaaja",
     "image-modal-license-restricted-to-event": "Käyttö rajattu tapahtuman yhteyteen",

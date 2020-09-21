@@ -143,6 +143,7 @@ describe('ImageEdit', () => {
 
                 test('calls postImage with correct props when !updateExisting', async () => {
                     const wrapper = getWrapper({postImage, close, imageFile});
+                    wrapper.setState({imageFile: imageFile});
                     jest.spyOn(wrapper.instance(),'imageToBase64');
                     wrapper.instance().handleChange({target:{id:'altText'}}, {fi:'finnishAlt'});
                     wrapper.instance().handleChange({target:{id:'name'}}, {fi:'finnishName'});
@@ -194,6 +195,34 @@ describe('ImageEdit', () => {
                     expect(close).toHaveBeenCalled();
 
                 });
+            });
+        });
+
+        describe('validateFileSize', () => {
+            test('if fileSize is over max size', () => {
+                const wrapper = getWrapper();
+                const instance = wrapper.instance();
+                instance.validateFileSizes({size: 2019 * 2020});
+                expect(wrapper.state('fileSizeError')).toBe(true)
+            });
+
+            test('fileSize is less than max size and fileSizeError is false', () => {
+                const wrapper = getWrapper();
+                const instance = wrapper.instance();
+                const returnValue = instance.validateFileSizes({size: 999 * 999});
+                expect(wrapper.state('fileSizeError')).toBe(false);
+                expect(returnValue).toBe(true);
+            });
+
+            test('fileSize is less than max size and fileSizeError is true', () => {
+                const wrapper = getWrapper();
+                const instance = wrapper.instance();
+                let returnValue = instance.validateFileSizes({size: 1999 * 1999});
+                expect(wrapper.state('fileSizeError')).toBe(true);
+                expect(returnValue).toBe(false);
+                returnValue = instance.validateFileSizes({size: 999 * 999});
+                expect(wrapper.state('fileSizeError')).toBe(false);
+                expect(returnValue).toBe(true);
             });
         });
 
@@ -339,6 +368,13 @@ describe('ImageEdit', () => {
                 expect(elements.at(1).prop('value')).toBe('event_only');
                 expect(elements.at(2).prop('value')).toBe('cc_by');
             });
+            test('two input components for uploading file via url or hard disk', () => {
+                const wrapper = getWrapper();
+                const elements = wrapper.find('input');
+                expect(elements).toHaveLength(2);
+                expect(elements.at(0).prop('type')).toBe('file');
+                expect(elements.at(1).prop('name')).toBe('externalUrl');
+            })
 
 
         })
