@@ -25,9 +25,6 @@ const SearchBar = ({intl, onFormSubmit}) => {
     return (
         <div className='search-bar'>
             <div className='search-bar--dates'>
-                <p className='search-bar--label'>
-                    <FormattedMessage id='pick-time-range' />
-                </p>
                 <CustomDatePicker
                     id="startTime"
                     name="startTime"
@@ -52,6 +49,7 @@ const SearchBar = ({intl, onFormSubmit}) => {
                     <FormGroup>
                         <label htmlFor='search'>{intl.formatMessage({id: 'event-name-or-place'})}</label>
                         <input
+                            aria-label={intl.formatMessage({id: 'event-search'}) + ' ' + intl.formatMessage({id: 'event-name-or-place'})}
                             id='search'
                             className='event-search-bar'
                             type='text'
