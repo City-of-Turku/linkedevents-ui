@@ -95,13 +95,13 @@ describe('Search', () => {
                 element = getWrapper();
             });
             test('when no results', () => {
-                const resultCount = element.find(FormattedMessage).at(2);
+                const resultCount = element.find(FormattedMessage).at(3);
                 const count = element.state('events');
                 expect(resultCount.prop('values')).toEqual({'count': count.length});
             });
             test('when results', () => {
                 element.setState({events:['Tammi','Koivu']});
-                const resultCount = element.find(FormattedMessage).at(2);
+                const resultCount = element.find(FormattedMessage).at(3);
                 const count = element.state('events');
                 expect(resultCount.prop('values')).toEqual({'count': count.length});
             });
