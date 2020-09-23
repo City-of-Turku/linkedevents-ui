@@ -168,6 +168,7 @@ exports[`Search Snapshot should render view correctly 1`] = `
       "event-publisher": "Tapahtuman julkaisija",
       "event-publisher-info": "Julkaisija: {publisher}",
       "event-purchase-link": "Linkki lipunmyyntiin/ilmoittautumiseen",
+      "event-search": "Hae",
       "event-short-description": "Lyhyt kuvaus",
       "event-social-media-fields-header": "Tapahtuma sosiaalisessa mediassa",
       "event-sort-date_published": "Hyväksytty",

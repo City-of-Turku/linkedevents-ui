@@ -33,13 +33,6 @@ describe('SearchBar', () => {
             const div = getWrapper().find('div.search-bar--dates')
             expect(div).toHaveLength(1)
         })
-        test('p search-bar--label', () => {
-            const paragraph = getWrapper().find('p.search-bar--label')
-            expect(paragraph).toHaveLength(1)
-            const msg = paragraph.find(FormattedMessage)
-            expect(msg).toHaveLength(1)
-            expect(msg.prop('id')).toBe('pick-time-range')
-        })
 
         describe('CustomDatePicker', () => {
             test('for both start and end time', () => {
@@ -91,6 +84,7 @@ describe('SearchBar', () => {
             const input = formGroup.find('input')
             expect(input).toHaveLength(1)
             expect(input.prop('id')).toBe('search')
+            expect(input.prop('aria-label')).toBeDefined()
             expect(input.prop('className')).toBe('event-search-bar')
             expect(input.prop('type')).toBe('text')
             expect(input.prop('onChange')).toBeDefined()

@@ -71,13 +71,13 @@ describe('Search', () => {
         describe('FormattedMessages', () => {
             test('default amount', () => {
                 const element = getWrapper().find(FormattedMessage);
-                expect(element).toHaveLength(3);
+                expect(element).toHaveLength(4);
             });
             test('correct amount when !events & searchExecuted', () => {
                 const element = getWrapper();
                 element.setState({searchExecuted: true});
                 const formattedMessages = element.find(FormattedMessage);
-                expect(formattedMessages).toHaveLength(4);
+                expect(formattedMessages).toHaveLength(5);
             });
             test('correct amount when events & searchExecuted', () => {
                 const element = getWrapper()
