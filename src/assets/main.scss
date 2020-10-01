@@ -59,28 +59,13 @@ h2,h3,legend,.legend {
 }
 
 a {
-    color: #0071EB;
+    color: #006CE0;
 }
 
-.legend {
-    position: relative;
-    display: inline-block;
-    margin-bottom: 0.5rem;
-}
-
-h1,
-h2 {
+h1 {
     font-weight: 300;
     margin-top: 60px;
     margin-bottom: 30px;
-}
-
-.pull-left {
-    float: left;
-}
-
-.pull-right {
-    float: right;
 }
 
 .padded {
@@ -187,27 +172,27 @@ h2 {
             padding: 0px;
             margin-top: 0px !important;
         }
-                    h1 {
-                        font-weight: 500;
-                        font-size: 1.25rem;
-                    }
-                button {
-                    color: black;
-                    background-color: transparent;
-                    border: none;
-                    &:focus {
-                    outline: -webkit-focus-ring-color auto 5px;
-                    }
-                    &:hover &:active {
-                        background-color: rgba(0, 0, 0, 0.08);
-                    }
-                .glyphicon {
-                    margin: 0px;
-                    color:rgba(0, 0, 0, 0.54);
-                }
+        h1 {
+            font-weight: 500;
+            font-size: 1.25rem;
+        }
+        button {
+            color: black;
+            background-color: transparent;
+            border: none;
+            &:focus {
+                outline: -webkit-focus-ring-color auto 5px;
             }
+            &:hover &:active {
+                background-color: rgba(0, 0, 0, 0.08);
+            }
+            .glyphicon {
+                margin: 0px;
+                color:rgba(0, 0, 0, 0.54);
             }
         }
+    }
+}
 
 .organization-missing-msg {
     margin: 3rem 1rem 0rem 1rem;
@@ -218,25 +203,24 @@ h2 {
     }
 }
 
+@media (max-width: 1200px) {
+    h1 {
+        margin-top: 0.5em;
+        margin-bottom: 0.5em;
+    }
+}
+
 @media (max-width: 991px) {
     .organization-missing-msg {
         margin: 1rem 1rem 0rem 1rem;
     }
+    .col-sm-6, .col-sm-5 {
+        max-width: 100% !important;
+        flex: none;
+    }
 }
 
 @media (max-width: 480px) {
-    h1 {
-        font-size: 37px;
-        padding-top: 20px;
-        padding-bottom: 20px;
-    }
-    h2 {
-        padding-top: 20px;
-        padding-bottom: 20px;
-    }
-    #debughelper {
-        bottom: 1em;
-    }
     .organization-missing-msg {
         h1 {
             margin-top: 0rem;

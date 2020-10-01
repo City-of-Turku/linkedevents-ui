@@ -251,14 +251,16 @@ export class EditorPage extends React.Component {
     showPreviewEventModal() {
         this.setState({showPreviewEventModal: !this.state.showPreviewEventModal})
     }
-    //Preview Modals button
+    // Preview Modals button
     getPreviewButton () {
+        const {intl} = this.props;
         return (
             <Button
+                className='check-form-info'
                 variant="contained"
                 onClick={() => this.showPreviewEventModal()}
             >
-                <FormattedMessage id="preview-event-button" />
+                {intl.formatMessage({id: 'preview-event-button'})}
             </Button>
         )
     }
@@ -300,14 +302,14 @@ export class EditorPage extends React.Component {
                         <h1>
                             <FormattedMessage id={headerTextId}/>
                         </h1>
-                        <span className="controls">
+                        <div className="controls">
                             {isAdminUser && isDraft &&
                                 <Button
                                     variant="contained"
                                     onClick={this.validateEvent}
                                     color="primary"
                                 >
-                                    <FormattedMessage id="validate-form"/>
+                                    {intl.formatMessage({id: 'validate-form'})}
                                 </Button>
                             }
                             {/* Commented out since we decided that we wouldn't need this button - Turku
@@ -320,7 +322,7 @@ export class EditorPage extends React.Component {
                             >
                                 <FormattedMessage id="clear-form"/>
                             </Button> */}
-                        </span>
+                        </div>
                         <PreviewModal
                             toggle={() => this.showPreviewEventModal()}
                             isOpen={this.state.showPreviewEventModal}
@@ -331,7 +333,7 @@ export class EditorPage extends React.Component {
                         />
                     </div>
 
-                    <div className="container">
+                    <div className="container container-background">
                         <FormFields
                             action={editMode}
                             editor={editor}
@@ -356,7 +358,7 @@ export class EditorPage extends React.Component {
                                     this.getActionButton('return', this.navigateToModeration, false)
                                 }
                                 {
-                                    //Button that opens a preview modal of the event
+                                    // Button that opens a preview modal of the event
                                     this.getPreviewButton(
                                     )
                                 }

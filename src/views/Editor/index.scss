@@ -15,17 +15,20 @@ $actionBtnHeight: 60px;
             }
         }
     }
-    h2,h3,legend,.legend {
-        font-family: "HelsinkiGrotesk", "Roboto", "Helvetica Neue", "Segoe UI", Calibri, sans-serif;
+    h2,
+    h3,
+    legend,
+    .legend {
+        font-family: 'HelsinkiGrotesk', 'Roboto', 'Helvetica Neue', 'Segoe UI', Calibri, sans-serif;
     }
-    h2,h3 {
+    h2,
+    h3 {
         margin-top: 55px;
     }
     .highlighted-block {
         display: block;
         background-color: #f6f6f6;
         padding: 20px;
-        //line-height: 72px;
         line-height: 1.5;
         color: #5a5959;
         label {
@@ -47,7 +50,7 @@ $actionBtnHeight: 60px;
             }
             .checkbox1 {
                 position: absolute;
-                height:1.5rem;
+                height: 1.5rem;
                 width: 1.5rem;
                 margin-top: 0.2rem;
                 margin-left: 1rem;
@@ -85,8 +88,7 @@ $actionBtnHeight: 60px;
     .hel-select {
         display: block;
         clear: both;
-        legend,
-        .legend {
+        legend {
             font-size: 24px;
             width: max-content;
         }
@@ -96,18 +98,16 @@ $actionBtnHeight: 60px;
         align-items: center;
         background-color: #f7f7f7;
         display: flex;
-        height: 120px;
+        min-height: 100px;
+        max-height: fit-content;
         justify-content: center;
         margin-top: 3rem;
-        padding-top: 2rem;
-        position: relative;
         .loading-spinner {
             position: absolute;
         }
         .buttons-group {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: flex-end;
+            display: contents;
+            justify-content: center;
             button {
                 height: $actionBtnHeight;
             }
@@ -115,7 +115,16 @@ $actionBtnHeight: 60px;
                 &:not(:first-child) {
                     margin-left: 15px;
                 }
+                &.editor-postpone-button {
+                    margin-left: auto;
+                }
                 &.editor-delete-button {
+                    margin-right: auto;
+                }
+                &.check-form-info {
+                    margin-left: auto;
+                }
+                &.editor-update-button {
                     margin-right: auto;
                 }
             }
@@ -139,82 +148,65 @@ $actionBtnHeight: 60px;
     }
 }
 
+// Mobile Styles
+@media (max-width: 1400px) {
+    .editor-page {
+        .editor-action-buttons {
+            .buttons-group {
+                display: grid;
+                justify-content: normal;
+                button {
+                    width: 100%;
+                    margin: 0.5vh 0 0.5vh 0;
+                    height: auto;
+                }
+                > * {
+                    &:not(:first-child) {
+                        margin-left: 0px;
+                    }
+                }
+            }
+        }
+        .highlighted-block {
+            .language-selection {
+                display: inline-block;
+                .checkbox1 {
+                    vertical-align: text-bottom;
+                    position: relative;
+                }
+            }
+        }
+    }
+}
 @media (max-width: 480px) {
-    legend,
-        .legend  {
+    legend {
         margin-top: 1rem !important;
     }
     .editor-page {
         .highlighted-block {
-        .language-selection{
-            display: inline-block;
-            .checkbox1 {
-                vertical-align: text-bottom;
-                position: relative !important;
-            }
-        }
-    }
-    .editor-action-buttons {
-        height: auto;
-        .buttons-group {
-            display: block;
-            .btn-secondary {
-                margin-top: 5px;
-                width: 100%;
-            }
-            > * {
-                &:not(:first-child) {
-                    margin-left: 0px;
+            .language-selection {
+                display: inline-block;
+                .checkbox1 {
+                    vertical-align: text-bottom;
+                    position: relative;
                 }
+            }
         }
-    }
-
-}}}
-@media (min-width: 480px) and (max-width: 780px) {
-    .editor-page {
         .editor-action-buttons {
             height: auto;
             .buttons-group {
-                display: grid;
-                justify-content: normal !important;
+                display: block;
                 button {
+                    height: auto;
+                    margin-top: 5px;
                     width: 100%;
-                    margin: 0.3vh;
                 }
-                            > * {
-                &:not(:first-child) {
-                    margin-left: 0px;
-                }
-        }
-    }
-    }
-        .highlighted-block {
-            .language-selection {
-                display: inline-block;
-                    .checkbox1 {
-                        vertical-align: text-bottom;
-                        position: relative !important;
+                > * {
+                    &:not(:first-child) {
+                        margin-left: 0px;
                     }
+                }
             }
         }
     }
-}
-@media (max-width: 1200px) and (min-width: 768px) {
-    .editor-page {
-    .editor-action-buttons{
-        height: auto;
-    .buttons-group {
-    display: grid !important;
-    text-align: center;
-    justify-content: normal !important;
-    *:not(:first-child) {
-        margin-left: 0px;
-    }
-    button {
-        width: 100%;
-        margin-bottom: 0.3vh;
-    }
-}
-    }
-}
 }

@@ -51,7 +51,7 @@ const HelLabeledCheckboxGroup = (props) => {
                         const checked = checkedOptions.includes(item.value)
 
                         return (
-                            <Form key={`hel-checkbox-${index}`} className={(itemClassName || '')} >
+                            <div key={`hel-checkbox-${index}`} className={(itemClassName || '')} >
                                 <Input
                                     aria-label={item.label}
                                     className='checkboxes'
@@ -64,7 +64,7 @@ const HelLabeledCheckboxGroup = (props) => {
                                     id={`checkBox-${item.value}`}
                                 />
                                 <Label htmlFor={`checkBox-${item.value}`} className='main-category-text'>{item.label}</Label>
-                            </Form>
+                            </div>
                         )
                     })}
                 </div>

@@ -322,7 +322,7 @@ class FormFields extends React.Component {
                     </SideField>
                     <div className="col-sm-6">
                         {!isRegularUser &&
-                                                <UmbrellaSelector editor={this.props.editor} event={event} superEvent={superEvent}/>
+                            <UmbrellaSelector editor={this.props.editor} event={event} superEvent={superEvent}/>
                         }
                     </div>
                 </div>

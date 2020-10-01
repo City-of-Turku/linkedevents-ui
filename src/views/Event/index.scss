@@ -1,32 +1,11 @@
 .event-page {
-
-    &.container {
-        background: rgba(255,255,255,0.9);
-    }
-
-    header {
-        padding-bottom: 40px;
-
-        h1 {
-            margin-top: 0;
-            padding-top: 60px;
-        }
-    }
-
-    pre {
-        margin: 2rem 0
-    }
-
     .highlighted-block {
         display: block;
         background-color: #fff;
-
         padding: 20px;
         min-height: 72px;
-
         color: #5a5959;
     }
-
     .published-information {
         text-align: right;
         margin: 20px 10px;
@@ -36,14 +15,6 @@
 .event-actions {
     display: flex;
     justify-content: space-evenly;
-
-    .cancel-delete-btn,
-    .edit-copy-btn {
-
-        > *:not(:last-child) {
-            margin-right: 8px;
-        }
-    }
 }
 
 .event-action-buttons {
@@ -52,7 +23,6 @@
     display: flex;
     height: 120px;
     margin: 3rem 0 0;
-
     .event-actions {
         width: 100%;
         padding-right: 15px;
@@ -69,45 +39,48 @@
     margin-right: 8px;
 }
 
-@media (max-width: 768px) {
-    .actions {
-        margin: 0;
-        padding: 0;
-        width: 100%;
-        button {
-            span {
-                word-break: break-all;
-                line-height: 1;
-            }
-        }
-    }
+// Mobile Styles
+@media (max-width: 1200px) {
     .event-action-buttons {
-        display: contents;
+        height: fit-content;
     }
     .event-actions {
-        display: grid !important;
-        .cancel-delete-btn,
-        .edit-copy-btn {
-    
-            > *:not(:last-child) {
-                margin-right: 0px;
-            }
+        font-size: 1em;
+        button {
+            width: 100%;
+            max-height: min-content;
         }
-
-    button {
-        margin-bottom: 10px;
-        line-height: 1.5;
-        padding: 12px;
-        width: 100%;
+        .cancel-delete-btn, .edit-copy-btn {
+            margin-left: 8px;
+            margin-right: 8px;
         }
     }
 }
 @media (min-width:768px) and (max-width:1200px) {
     .event-actions {
-        display: block !important;
-        text-align: center;
         button {
             margin: 10px;
+        }
+    }
+}
+@media (max-width: 664px) {
+    .event-actions {
+        display: block;
+        button {
+            font-size: 0.95rem;
+            width: 100%;
+            max-height: min-content;
+        }
+        .cancel-delete-btn, .edit-copy-btn {
+            margin-left: 8px;
+            margin-right: 8px;
+        }
+    }
+}
+@media (max-width: 370px) {
+    .event-actions {
+        button {
+            font-size: 0.8rem;
         }
     }
 }

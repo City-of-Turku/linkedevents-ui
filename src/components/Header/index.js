@@ -14,9 +14,8 @@ import LogoutDropdown from './LogoutDropdown';
 import {FormattedMessage} from 'react-intl';
 import constants from '../../constants';
 
-import {Collapse, Navbar, NavbarToggler, Nav, NavItem, NavLink, NavbarBrand, Button} from 'reactstrap';
-//Citylogo can now be used from scss
-//import cityOfHelsinkiLogo from '../../assets/images/helsinki-logo.svg'
+// Citylogo is now set from SCSS, className: bar__logo
+import {Collapse, Navbar, NavbarToggler, NavItem, NavLink, NavbarBrand, Button} from 'reactstrap';
 import {hasOrganizationWithRegularUsers} from '../../utils/user';
 import {get} from 'lodash';
 import moment from 'moment';
@@ -193,11 +192,11 @@ class HeaderBar extends React.Component {
                                     </NavLink>
                                 </NavItem>
                             )}
-                            <NavItem className='linked-events-bar__links__create-event  ml-auto'>
+                            <NavItem className='ml-auto'>
                                 <NavLink
                                     active={this.isActivePath('/event/create/new')}
                                     href='#'
-                                    className='linked-events-bar__links__create-events'
+                                    className='create-events-button'
                                     onClick={() => this.handleOnClick('/event/create/new')}>
                                     <span aria-hidden className='glyphicon glyphicon-plus'></span>
                                     <FormattedMessage id={`create-${appSettings.ui_mode}`} />

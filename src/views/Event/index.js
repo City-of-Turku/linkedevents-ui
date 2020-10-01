@@ -162,7 +162,7 @@ class EventPage extends React.Component {
         const cancelEventButton = this.getActionButton('cancel')
         const deleteEventButton = this.getActionButton('delete')
 
-        return  <div className="event-actions">
+        return <div className="event-actions">
             <div className="cancel-delete-btn">
                 {postponeEventButton}
                 {cancelEventButton}

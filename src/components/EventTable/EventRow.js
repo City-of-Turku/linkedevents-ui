@@ -128,7 +128,7 @@ class EventRow extends React.Component {
         return (
             <React.Fragment>
                 <tr
-                    className={classNames('MuiTableRow-root', {'Mui-selected': checked},{'sub-event-row': isSubEvent} )}
+                    className={classNames({'sub-event-row': isSubEvent} )}
                 >
                     {tableColumns.map((type, index) => {
                         if (type === 'checkbox') {
