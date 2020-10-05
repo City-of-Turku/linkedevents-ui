@@ -5,7 +5,6 @@ import {report} from '../../utils/raven_reporter';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import {FormattedMessage, injectIntl} from 'react-intl';
-import {Button, UncontrolledTooltip} from 'reactstrap';
 
 class Footer extends React.Component {
     constructor(props) {
@@ -46,12 +45,12 @@ class Footer extends React.Component {
                         sendReport={this.serializeState}
                         intl={this.props.intl}
                     />
-                    <Button
+                    <button
+                        aria-label={this.props.intl.formatMessage({id:'reportmodal-button'})}
                         onClick={this.showReportForm}
-                        role='link'
-                    >
-                        <FormattedMessage id='reportmodal-button' />
-                    </Button>
+                        role='link'>
+                        <FormattedMessage id='reportmodal-button'>{txt =>txt}</FormattedMessage>
+                    </button>
                     <div><FormattedMessage id={'footer-city'} /></div>
                     <div><FormattedMessage id={'footer-city1'} /></div>
                     <div><FormattedMessage id={'footer-city2'} /></div>

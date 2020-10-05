@@ -49,7 +49,7 @@ const DebugReporterModal = ({showModal, close, sendReport,intl}) => {
                         onChange={(event) => setValue(event.target.value)}
                     />
                     <Button onClick={() => sendReport(value)} style={{margin: '1rem 0 0'}}>
-                        <FormattedMessage id='reportbutton-send'/>
+                        <FormattedMessage id='reportbutton-send'>{txt =>txt}</FormattedMessage>
                     </Button>
                     <hr aria-hidden />
                     <small
