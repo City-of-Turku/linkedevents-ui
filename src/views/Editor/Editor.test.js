@@ -2,15 +2,14 @@ import configureStore from 'redux-mock-store'
 import React from 'react'
 import thunk from 'redux-thunk'
 import {shallow} from 'enzyme'
-import renderer from 'react-test-renderer'
 import {IntlProvider, FormattedMessage} from 'react-intl';
 import mapValues from 'lodash/mapValues';
 import fiMessages from 'src/i18n/fi.json';
+import {Button} from 'reactstrap'
 
 const testMessages = mapValues(fiMessages, (value, key) => value);
 const intlProvider = new IntlProvider({locale: 'fi', messages: testMessages}, {});
 const {intl} = intlProvider.getChildContext();
-import testReduxIntWrapper from '__mocks__/testReduxIntWrapper'
 
 // these 2 mocks are for the EventMap component
 jest.mock('@city-i18n/localization.json', () => ({
@@ -122,4 +121,11 @@ describe('Editor Snapshot', () => {
         const element = getWrapper().find(FormattedMessage);
         expect(element).toHaveLength(2);
     })
+    test('Button toggles showPreviewEventModal state', () => {
+        const wrapper = getWrapper();
+        const element = wrapper.find(Button)
+        expect(wrapper.state('showPreviewEventModal')).toBe(false);
+        element.simulate('click')
+        expect(wrapper.state('showPreviewEventModal')).toBe(true);
+    });
 })
