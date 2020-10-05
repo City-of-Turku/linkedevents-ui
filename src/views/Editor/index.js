@@ -260,7 +260,7 @@ export class EditorPage extends React.Component {
                 variant="contained"
                 onClick={() => this.showPreviewEventModal()}
             >
-                {intl.formatMessage({id: 'preview-event-button'})}
+                <FormattedMessage id='preview-event-button'>{txt =>txt}</FormattedMessage>
             </Button>
         )
     }

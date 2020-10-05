@@ -3,7 +3,13 @@ import React from 'react'
 import thunk from 'redux-thunk'
 import {shallow} from 'enzyme'
 import renderer from 'react-test-renderer'
+import {IntlProvider, FormattedMessage} from 'react-intl';
+import mapValues from 'lodash/mapValues';
+import fiMessages from 'src/i18n/fi.json';
 
+const testMessages = mapValues(fiMessages, (value, key) => value);
+const intlProvider = new IntlProvider({locale: 'fi', messages: testMessages}, {});
+const {intl} = intlProvider.getChildContext();
 import testReduxIntWrapper from '__mocks__/testReduxIntWrapper'
 
 // these 2 mocks are for the EventMap component
@@ -88,5 +94,32 @@ describe('Editor Snapshot', () => {
         } // Props which are added to component
         const wrapper = shallow(<EditorPage {...componentProps} />)
         expect(wrapper).toMatchSnapshot()
+    })
+
+    const defaultProps = {
+        intl,
+    }
+
+    function getWrapper(props) {
+        return shallow(<EditorPage {...defaultProps} {...componentProps} {...props}/>, {context: {intl}});
+    }
+    const componentProps = {
+        match: {
+            params: {
+                action: 'create',
+                eventId: 'new?_k=dn954b',
+            },
+        },
+        app: {
+            flashMsg: null,
+            confirmAction: null,
+        },
+        setFlashMsg: jest.fn(),
+        setEditorAuthFlashMsg: jest.fn(),
+        ...initialStoreExistingEvent,
+    }
+    test('correct amount of FormattedMessages', () => {
+        const element = getWrapper().find(FormattedMessage);
+        expect(element).toHaveLength(2);
     })
 })

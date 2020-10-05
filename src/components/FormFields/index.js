@@ -384,18 +384,20 @@ class FormFields extends React.Component {
                             size='lg'block
                             variant="contained"
                             disabled={formType === 'update' || isSuperEventDisable}
-                            onClick={() => this.addNewEventDialog()}
-                        ><span aria-hidden='true' className="glyphicon glyphicon-plus"></span>
-                            <FormattedMessage id="event-add-new-occasion" />
+                            onClick={() => this.addNewEventDialog()}>
+
+                            <span aria-hidden='true' className="glyphicon glyphicon-plus"/>
+                            <FormattedMessage id="event-add-new-occasion">{txt =>txt}</FormattedMessage>
                         </Button>
+
                         <Button
                             size='lg' block
                             variant="contained"
                             disabled={formType === 'update' || isSuperEventDisable}
-                            onClick={() => this.showRecurringEventDialog()}
+                            onClick={() => this.showRecurringEventDialog()}>
 
-                        ><span aria-hidden='true' className="glyphicon glyphicon-refresh"></span>
-                            <FormattedMessage id="event-add-recurring" />
+                            <span aria-hidden='true' className="glyphicon glyphicon-refresh"/>
+                            <FormattedMessage id="event-add-recurring">{txt =>txt}</FormattedMessage>
                         </Button>
                     </div>
                 </div>

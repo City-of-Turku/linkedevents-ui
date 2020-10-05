@@ -176,7 +176,7 @@ class EventPage extends React.Component {
                     disabled={loading}
                     onClick={() => this.openEventInEditor('copy')}
                 >
-                    <FormattedMessage id="copy-event-to-draft"/>
+                    <FormattedMessage id="copy-event-to-draft">{txt =>txt}</FormattedMessage>
                 </Button>
             </div>
         </div>

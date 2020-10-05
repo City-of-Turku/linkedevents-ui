@@ -14,7 +14,7 @@ exports[`Editor Snapshot should render view correctly when creating new event fr
           values={Object {}}
         />
       </h1>
-      <span
+      <div
         className="controls"
       />
       <InjectIntl(PreviewModal)
@@ -1072,7 +1072,7 @@ exports[`Editor Snapshot should render view correctly when creating new event fr
       />
     </div>
     <div
-      className="container"
+      className="container container-background"
     >
       <FormFields
         action="create"
@@ -2004,6 +2004,7 @@ exports[`Editor Snapshot should render view correctly when creating new event fr
         className="buttons-group container"
       >
         <Button
+          className="check-form-info"
           color="secondary"
           onClick={[Function]}
           tag="button"
@@ -2012,7 +2013,9 @@ exports[`Editor Snapshot should render view correctly when creating new event fr
           <FormattedMessage
             id="preview-event-button"
             values={Object {}}
-          />
+          >
+            <Component />
+          </FormattedMessage>
         </Button>
         <Connect(EventActionButton)
           action="update"
@@ -2046,7 +2049,7 @@ exports[`Editor Snapshot should render view correctly when editing existing even
           values={Object {}}
         />
       </h1>
-      <span
+      <div
         className="controls"
       />
       <InjectIntl(PreviewModal)
@@ -3104,7 +3107,7 @@ exports[`Editor Snapshot should render view correctly when editing existing even
       />
     </div>
     <div
-      className="container"
+      className="container container-background"
     >
       <FormFields
         action="update"
@@ -4064,7 +4067,7 @@ exports[`Editor Snapshot should render view correctly when new event 1`] = `
           values={Object {}}
         />
       </h1>
-      <span
+      <div
         className="controls"
       />
       <InjectIntl(PreviewModal)
@@ -4722,7 +4725,7 @@ exports[`Editor Snapshot should render view correctly when new event 1`] = `
       />
     </div>
     <div
-      className="container"
+      className="container container-background"
     >
       <FormFields
         action="create"
@@ -5408,6 +5411,7 @@ exports[`Editor Snapshot should render view correctly when new event 1`] = `
         className="buttons-group container"
       >
         <Button
+          className="check-form-info"
           color="secondary"
           onClick={[Function]}
           tag="button"
@@ -5416,7 +5420,9 @@ exports[`Editor Snapshot should render view correctly when new event 1`] = `
           <FormattedMessage
             id="preview-event-button"
             values={Object {}}
-          />
+          >
+            <Component />
+          </FormattedMessage>
         </Button>
         <Connect(EventActionButton)
           action="update"
