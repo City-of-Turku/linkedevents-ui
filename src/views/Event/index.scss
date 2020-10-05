@@ -15,6 +15,9 @@
 .event-actions {
     display: flex;
     justify-content: space-evenly;
+    .btn-secondary {
+        margin: 0.5vh;
+    }
 }
 
 .event-action-buttons {
