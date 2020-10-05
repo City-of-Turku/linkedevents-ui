@@ -130,10 +130,8 @@ $iconMarginLeft: 24px;
                     position: relative;
                     color: black;
 					font-size: 1rem;
-                    &:hover {
-                        background-color: rgba(0, 0, 0, 0.08);
-                    }
-                    &.active,&:hover, &:focus {
+                    &.active, &:hover, &:focus {
+						background-color: rgba(0, 0, 0, 0.08);
                         outline: solid 2px black;
                     }
                 }

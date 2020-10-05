@@ -99,7 +99,7 @@ $actionBtnHeight: 60px;
         background-color: #f7f7f7;
         display: flex;
         min-height: 100px;
-        max-height: fit-content;
+        max-height: min-content;
         justify-content: center;
         margin-top: 3rem;
         .loading-spinner {
@@ -107,7 +107,6 @@ $actionBtnHeight: 60px;
         }
         .buttons-group {
             display: contents;
-            justify-content: center;
             button {
                 height: $actionBtnHeight;
             }
