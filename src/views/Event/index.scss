@@ -42,8 +42,8 @@
     margin-right: 8px;
 }
 
-// Mobile Styles
-@media (max-width: 1200px) {
+// event-action Mobile Styles
+@media (max-width: 1350px) {
     .event-action-buttons {
         height: auto;
     }
@@ -59,14 +59,7 @@
         }
     }
 }
-@media (min-width:768px) and (max-width:1200px) {
-    .event-actions {
-        button {
-            margin: 10px;
-        }
-    }
-}
-@media (max-width: 664px) {
+@media (max-width: 990px) {
     .event-actions {
         display: block;
         button {

@@ -200,7 +200,7 @@ ul.language {
 			text-align: center;
 			padding-top: 0.375rem;
 			padding-bottom: 0.375rem;
-			z-index: 99999;
+			z-index: 101;
 			&.active {
 				background-color: lightgrey;
 			}
@@ -252,7 +252,7 @@ ul.user-dropdown {
 			display: block;
 			text-align: center;
 			padding: 0.5rem;
-			z-index: 99999;
+			z-index: 101;
 			&.active {
 				background-color: lightgrey;
 			}
@@ -278,7 +278,7 @@ ul.user-dropdown {
 }
 
 //Mobile
-@media only screen and (max-width: 1200px) {
+@media only screen and (max-width: 1199px) {
 	.main-navbar {
 		height: auto;
 		.bar {
