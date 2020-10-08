@@ -444,6 +444,7 @@ exports[`EventListing Snapshot should render view correctly 1`] = `
       "footer-city1": "PL 1  (Pohjoisesplanadi 11-13) 00099 ",
       "footer-city2": "HELSINGIN KAUPUNKI",
       "footer-city3": "www.hel.fi",
+      "footer-link": "https://www.hel.fi",
       "format-select-count": " ({count} tapahtumaa)",
       "friday": "perjantai",
       "hel-event-languages": "Tapahtuman kielet",

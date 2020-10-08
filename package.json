@@ -11,8 +11,8 @@
     "testing": "NODE_ENV=production APP_MODE=testing webpack -p --config config/webpack/prod.js",
     "test": "jest",
     "test:ci": "node --icu-data-dir=node_modules/full-icu node_modules/jest/bin/jest.js --collectCoverage",
-    "lint:fix": "eslint -c .eslintrc src/**/**/*.{js,jsx}?\\(x\\) --fix",
-    "lint": "eslint -c .eslintrc src/**/**/*.{js,jsx}?\\(x\\)"
+    "lint:fix": "eslint --ext .jsx --ext .js src/ --fix",
+    "lint": "eslint --ext .jsx --ext .js src/"
   },
   "engines": {
     "node": ">=8"

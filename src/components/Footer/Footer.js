@@ -16,6 +16,7 @@ class Footer extends React.Component {
         this.closeReportForm = this.closeReportForm.bind(this);
         this.serializeState = this.serializeState.bind(this);
     }
+    
     showReportForm() {
         this.setState({reporting: true});
     }
@@ -26,12 +27,10 @@ class Footer extends React.Component {
     serializeState(reportmsg) {
         this.closeReportForm();
         report(window.ARG, reportmsg, appSettings.commit_hash);
-
         window.setTimeout(() => alert(this.props.intl.formatMessage({id: `reportmodal-sent`})), 100);
     }
 
     render(){
-
         return (
             <footer className='main-footer'>
                 <div className='footer-logo'></div>
@@ -55,7 +54,7 @@ class Footer extends React.Component {
                     <div><FormattedMessage id={'footer-city1'} /></div>
                     <div><FormattedMessage id={'footer-city2'} /></div>
                 </div>
-                <a href='https://www.hel.fi/' rel="noopener noreferrer" target="_blank"><FormattedMessage id={'footer-city3'} /></a>
+                <a href={this.props.intl.formatMessage({id:'footer-link'})} rel="noopener noreferrer" target="_blank"><FormattedMessage id={'footer-city3'} /></a>
             </footer>
         );
     }
@@ -65,4 +64,5 @@ Footer.propTypes = {
     intl: PropTypes.object,
 }
 
+export {Footer as UnconnectedFooter}
 export default injectIntl(Footer);
