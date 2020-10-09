@@ -35,7 +35,7 @@ import ImageGallery from '../ImageGallery/ImageGallery';
 
 let FormHeader = (props) => (
     <div className="row">
-        <h2 tabIndex='0' className="col-sm-12">{ props.children }</h2>
+        <h2 className="col-sm-12">{ props.children }</h2>
     </div>
 )
 
@@ -44,7 +44,7 @@ FormHeader.propTypes = {
 }
 
 export const SideField = (props) => (
-    <div className={`side-field col-sm-5 col-sm-push-1 ${ props.className }`} aria-label='text' tabIndex='0'>
+    <div className={`side-field col-sm-5 col-sm-push-1 ${ props.className }`} aria-label='text'>
         { props.children }
     </div>
 )

@@ -102,12 +102,6 @@ class EventActionButton extends React.Component {
             <Fragment>
                 {showTermsCheckbox &&
                 <div className='terms-checkbox'>
-                    <Input
-                        type='checkbox'
-                        checked={this.state.agreedToTerms}
-                        onChange={this.handleChange}
-                        id='terms-agree'
-                    />
                     <label htmlFor='terms-agree'>
                         <FormattedMessage id={'terms-agree-text'}>{txt => txt}</FormattedMessage>
                         &nbsp;
@@ -115,6 +109,12 @@ class EventActionButton extends React.Component {
                             <FormattedMessage id={'terms-agree-link'}>{txt => txt}</FormattedMessage>
                         </Link>
                     </label>
+                    <Input
+                        type='checkbox'
+                        checked={this.state.agreedToTerms}
+                        onChange={this.handleChange}
+                        id='terms-agree'
+                    />
                 </div>
                 }
                 <Button
@@ -133,7 +133,6 @@ class EventActionButton extends React.Component {
                         <FormattedMessage id={explanationId}>{txt => txt}</FormattedMessage>
                     </UncontrolledTooltip>
                 }
-
             </Fragment>
         )
     }
