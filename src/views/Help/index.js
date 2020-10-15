@@ -182,5 +182,4 @@ const mapStateToProps = (state) => ({
 
 const Help = appSettings.ui_mode === 'courses' ? CoursesHelp : connect(mapStateToProps)(View)
 
-export {View as UnconnectedView}
 export default Help
