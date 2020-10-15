@@ -121,7 +121,7 @@ class HeaderBar extends React.Component {
         const {showModerationLink} = this.state;
 
         return (
-            <div className='main-navbar'>
+            <header className='main-navbar'>
                 <Navbar role='navigation' className='bar'>
                     <NavbarBrand className='bar__logo' href='#' onClick={this.onLinkToMainPage} aria-label={this.context.intl.formatMessage({id: `navbar.brand`})} />
                     <div className='bar__login-and-language'>
@@ -205,7 +205,7 @@ class HeaderBar extends React.Component {
                         </ul>
                     </Collapse>
                 </Navbar>
-            </div>
+            </header>
         );
     }
 }

@@ -5,6 +5,11 @@ exports[`Editor Snapshot should render view correctly when creating new event fr
   <div
     className="editor-page"
   >
+    <HelmetWrapper
+      defer={true}
+      encodeSpecialCharacters={true}
+      title="Linkedevents - undefined"
+    />
     <div
       className="container header"
     >
@@ -2023,6 +2028,34 @@ exports[`Editor Snapshot should render view correctly when creating new event fr
           customAction={[Function]}
           event={Object {}}
           eventIsPublished={false}
+          intl={
+            Object {
+              "formatMessage": [MockFunction] {
+                "calls": Array [
+                  Array [
+                    Object {
+                      "id": "create-events",
+                    },
+                  ],
+                  Array [
+                    Object {
+                      "id": "create-events",
+                    },
+                  ],
+                ],
+                "results": Array [
+                  Object {
+                    "isThrow": false,
+                    "value": undefined,
+                  },
+                  Object {
+                    "isThrow": false,
+                    "value": undefined,
+                  },
+                ],
+              },
+            }
+          }
           runAfterAction={[Function]}
           subEvents={Array []}
         />
@@ -2040,6 +2073,11 @@ exports[`Editor Snapshot should render view correctly when editing existing even
   <div
     className="editor-page"
   >
+    <HelmetWrapper
+      defer={true}
+      encodeSpecialCharacters={true}
+      title="Linkedevents - undefined"
+    />
     <div
       className="container header"
     >
@@ -4058,6 +4096,11 @@ exports[`Editor Snapshot should render view correctly when new event 1`] = `
   <div
     className="editor-page"
   >
+    <HelmetWrapper
+      defer={true}
+      encodeSpecialCharacters={true}
+      title="Linkedevents - undefined"
+    />
     <div
       className="container header"
     >
@@ -5430,6 +5473,34 @@ exports[`Editor Snapshot should render view correctly when new event 1`] = `
           customAction={[Function]}
           event={Object {}}
           eventIsPublished={false}
+          intl={
+            Object {
+              "formatMessage": [MockFunction] {
+                "calls": Array [
+                  Array [
+                    Object {
+                      "id": "create-events",
+                    },
+                  ],
+                  Array [
+                    Object {
+                      "id": "create-events",
+                    },
+                  ],
+                ],
+                "results": Array [
+                  Object {
+                    "isThrow": false,
+                    "value": undefined,
+                  },
+                  Object {
+                    "isThrow": false,
+                    "value": undefined,
+                  },
+                ],
+              },
+            }
+          }
           runAfterAction={[Function]}
           subEvents={Array []}
         />

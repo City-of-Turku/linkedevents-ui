@@ -2,6 +2,7 @@ require('./moderation.scss')
 import React from 'react'
 import PropTypes from 'prop-types'
 import {Button} from 'reactstrap';
+import {Helmet} from 'react-helmet';
 
 import {FormattedMessage, injectIntl} from 'react-intl'
 import EventTable from '../../components/EventTable/EventTable'
@@ -389,7 +390,10 @@ export class Moderation extends React.Component {
     render() {
         const {draftData, publishedData} = this.state
         const {user} = this.props
+        const {intl} = this.context;
         const draftActionButtons = ['delete', 'publish']
+        // Defined React Helmet title with intl
+        const pageTitle = `Linkedevents - ${intl.formatMessage({id: 'moderation-page'})}`
         const moderationTables = [
             {
                 name: 'draft',
@@ -403,6 +407,7 @@ export class Moderation extends React.Component {
 
         return (
             <div className="container">
+                <Helmet title={pageTitle}/>
                 <h1><FormattedMessage id="moderation-page"/></h1>
                 {!user &&
                     <p><FormattedMessage id="login" /> <FormattedMessage id="events-management-prompt" /></p>
@@ -454,6 +459,10 @@ Moderation.propTypes = {
     publishedData: TABLE_DATA_SHAPE,
 }
 
+Moderation.contextTypes = {
+    intl: PropTypes.object,
+}
+
 const mapStateToProps = (state) => ({
     user: state.user,
 })
@@ -464,4 +473,5 @@ const mapDispatchToProps = (dispatch) => ({
     setFlashMsg: (id, status) => dispatch(setFlashMsgAction(id, status)),
 })
 
+export {Moderation as UnconnectedModeration}
 export default connect(mapStateToProps, mapDispatchToProps)(injectIntl(Moderation));

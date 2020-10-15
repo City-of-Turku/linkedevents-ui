@@ -1,9 +1,8 @@
 import './index.scss'
-import {Link} from 'react-router-dom'
-import React from 'react'
+import React, {Fragment} from 'react'
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-
+import {Helmet} from 'react-helmet';
 
 // Changing Helppages content based on current locale and fetching it from markdown-files
 function getContent(language) {
@@ -18,8 +17,14 @@ function getContent(language) {
 class View extends React.Component {
     render() {
         const content = getContent(this.props.locale);
+        const {intl} = this.context;
+        // Defined React Helmet title with intl
+        const pageTitle = `Linkedevents - ${intl.formatMessage({id: 'more-info'})}`
         return (
-            <div className="container help-page" dangerouslySetInnerHTML={{__html: content}} />
+            <Fragment>
+                <Helmet title={pageTitle}/>
+                <div className="container help-page" dangerouslySetInnerHTML={{__html: content}}/>
+            </Fragment>
         )
     }
 }
@@ -27,6 +32,10 @@ class View extends React.Component {
 View.propTypes = {
     locale: PropTypes.string,
 }
+View.contextTypes = {
+    intl: PropTypes.object,
+}
+
 /*
 const EventsHelp = () => {
     return (
@@ -173,4 +182,5 @@ const mapStateToProps = (state) => ({
 
 const Help = appSettings.ui_mode === 'courses' ? CoursesHelp : connect(mapStateToProps)(View)
 
+export {View as UnconnectedView}
 export default Help

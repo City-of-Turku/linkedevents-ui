@@ -141,14 +141,12 @@ class App extends React.Component {
                     <html lang={this.props.intl.locale} />
                 </Helmet>
                 <SkipLink />
-                <header>
-                    <Favicon />
-                    <Headerbar />
-                </header>
-                { this.props.location.pathname == '/' &&
-                            <React.Fragment>
-                                {organization_missing_msg}
-                            </React.Fragment>
+                <Favicon />
+                <Headerbar />
+                {this.props.location.pathname == '/' &&
+                    <React.Fragment>
+                        {organization_missing_msg}
+                    </React.Fragment>
                 }
                 <main id="main-content" className="content">
                     {this.props.children}

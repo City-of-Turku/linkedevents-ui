@@ -4,6 +4,11 @@ exports[`EventListing Snapshot should render view by default 1`] = `
 <div
   className="container"
 >
+  <HelmetWrapper
+    defer={true}
+    encodeSpecialCharacters={true}
+    title="Linkedevents - Tapahtumien hallinta"
+  />
   <h1>
     <FormattedMessage
       id="events-management"

@@ -11,6 +11,7 @@ import {getSortDirection} from '../../utils/table'
 import EventTable from '../../components/EventTable/EventTable'
 import {getOrganizationMembershipIds} from '../../utils/user'
 
+import {Helmet} from 'react-helmet';
 import {Label, Input} from 'reactstrap';
 
 const {USER_TYPE, TABLE_DATA_SHAPE, PUBLICATION_STATUS} = constants
@@ -251,6 +252,7 @@ export class EventListing extends React.Component {
     
     render() {
         const {user} = this.props;
+        const {intl} = this.context;
         const {
             showCreatedByUser,
             tableData: {
@@ -264,21 +266,25 @@ export class EventListing extends React.Component {
             },
         } = this.state;
         const header = <h1><FormattedMessage id={`${appSettings.ui_mode}-management`}/></h1>
+        // Defined React Helmet title with intl
+        const pageTitle = `Linkedevents - ${intl.formatMessage({id: `${appSettings.ui_mode}-management`})}`
         const isRegularUser = get(user, 'userType') === USER_TYPE.REGULAR
 
         if (!user) {
             return (
                 <div className="container">
+                    <Helmet title={pageTitle}/>
                     {header}
                     <p>
                         <a style={{cursor: 'pointer'}} onClick={() => this.props.login()}>
                             <FormattedMessage id="login" />
                         </a>
-                        {' '}<FormattedMessage id="events-management-prompt" /></p>
+                        <FormattedMessage id="events-management-prompt" /></p>
                 </div>);
         }
         return (
             <div className="container">
+                <Helmet title={pageTitle} />
                 {header}
                 <p>
                     {isRegularUser
@@ -375,6 +381,10 @@ EventListing.propTypes = {
     login: PropTypes.func,
     showCreatedByUser: PropTypes.bool,
     tableData: TABLE_DATA_SHAPE,
+}
+
+EventListing.contextTypes = {
+    intl: PropTypes.object,
 }
 
 const mapStateToProps = (state) => ({

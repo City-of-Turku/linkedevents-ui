@@ -5,6 +5,7 @@ import moment from 'moment'
 import PropTypes from 'prop-types'
 import {FormattedMessage, injectIntl, intlShape} from 'react-intl'
 import {Button} from 'reactstrap';
+import {Helmet} from 'react-helmet';
 //Replaced Material-ui Spinner for a Bootstrap implementation. - Turku
 import Spinner from 'react-bootstrap/Spinner'
 import {push} from 'react-router-redux'
@@ -234,12 +235,15 @@ class EventPage extends React.Component {
         const isCancelled = event.event_status === EVENT_STATUS.CANCELLED
         const isPostponed = event.event_status === EVENT_STATUS.POSTPONED
         const publishedText = this.getPublishedText();
+        // Defined React Helmet title with event name
+        const pageTitle = `Linkedevents - ${getStringWithLocale(event, 'name')}`
 
         return (
             <Fragment>
                 <div className="event-page container">
+                    <Helmet title={pageTitle}/>
                     <header>
-                        <h1 tabIndex='0'>
+                        <h1>
                             {loading
                                 ? <Spinner animation="border" role="status">
                                     <span className="sr-only">Loading...</span>
@@ -248,7 +252,7 @@ class EventPage extends React.Component {
                             }
                         </h1>
                         {!loading &&
-                        <h2 tabIndex='0'>
+                        <h2>
                             {isPostponed && getBadge('postponed', 'medium')}
                             {isCancelled && getBadge('cancelled', 'medium')}
                             {isDraft && getBadge('draft', 'medium')}
@@ -302,4 +306,5 @@ const mapDispatchToProps = (dispatch) => ({
     confirm: (msg, style, actionButtonLabel, data) => dispatch(confirmAction(msg, style, actionButtonLabel, data)),
 })
 
+export {EventPage as UnconnectedEventPage}
 export default connect(mapStateToProps, mapDispatchToProps)(injectIntl(EventPage))

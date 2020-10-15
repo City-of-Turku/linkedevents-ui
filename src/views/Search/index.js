@@ -8,6 +8,7 @@ import SearchBar from '../../components/SearchBar'
 import {EventQueryParams, fetchEvents} from '../../utils/events'
 //Replaced Material-ui Spinner for a Bootstrap implementation. - Turku
 import Spinner from 'react-bootstrap/Spinner'
+import {Helmet} from 'react-helmet';
 
 class SearchPage extends React.Component {
 
@@ -50,9 +51,14 @@ class SearchPage extends React.Component {
 
     render() {
         const {loading} = this.state
+        const {intl} = this.context
+        // Defined React Helmet title with intl
+        const pageTitle = `Linkedevents - ${intl.formatMessage({id: `search-${appSettings.ui_mode}`})}`
+
         //Added P role=status for screenreaders and to display overall amount of found results
         return (
             <div className="container">
+                <Helmet title={pageTitle}/>
                 <h1 tabIndex='0'><FormattedMessage id={`search-${appSettings.ui_mode}`}/></h1>
                 <p tabIndex='0'><FormattedMessage id="search-events-description"/></p>
                 <p tabIndex='0'><FormattedMessage id='pick-time-range' /></p>
@@ -75,6 +81,9 @@ SearchPage.propTypes = {
     events: PropTypes.array,
     loading: PropTypes.bool,
     searchExecuted: PropTypes.bool,
+}
+SearchPage.contextTypes = {
+    intl: PropTypes.object,
 }
 
 export default SearchPage

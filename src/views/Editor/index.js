@@ -8,6 +8,7 @@ import PropTypes from 'prop-types'
 import {Button} from 'reactstrap';
 //Replaced Material-ui Spinner for a Bootstrap implementation. - Turku
 import Spinner from 'react-bootstrap/Spinner'
+import {Helmet} from 'react-helmet';
 
 import {
     executeSendRequest as executeSendRequestAction,
@@ -288,6 +289,8 @@ export class EditorPage extends React.Component {
         const headerTextId = editMode === 'update'
             ? 'edit-events'
             : 'create-events'
+            // Defined React Helmet title with intl
+        const pageTitle = `Linkedevents - ${intl.formatMessage({id: headerTextId})}`
 
         // TODO: fix flow for non-authorized users
         if (user && !user.organization && sentinel) {
@@ -298,6 +301,7 @@ export class EditorPage extends React.Component {
         return (
             <React.Fragment>
                 <div className="editor-page">
+                    <Helmet title={pageTitle}/>
                     <div className="container header">
                         <h1>
                             <FormattedMessage id={headerTextId}/>

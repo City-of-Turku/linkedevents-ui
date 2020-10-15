@@ -9,7 +9,14 @@ import EventGrid from 'src/components/EventGrid';
 import {mockUser} from '__mocks__/mockData';
 import {shallow} from 'enzyme'
 import Spinner from 'react-bootstrap/Spinner'
-import {FormattedMessage} from 'react-intl';
+import {IntlProvider, FormattedMessage} from 'react-intl';
+import fiMessages from 'src/i18n/fi.json';
+import mapValues from 'lodash/mapValues';
+import {Helmet} from 'react-helmet'
+
+const testMessages = mapValues(fiMessages, (value, key) => value);
+const intlProvider = new IntlProvider({locale: 'fi', messages: testMessages}, {});
+const {intl} = intlProvider.getChildContext();
 
 const mockStore = configureStore([thunk]);
 const initialStore = {
@@ -46,12 +53,14 @@ describe('Search Snapshot', () => {
 
     })
 })
-const defaultProps = {
 
+const defaultProps = {
+    intl,
 }
+
 describe('Search', () => {
     function getWrapper(props) {
-        return shallow(<Search {...defaultProps} {...props}/>);
+        return shallow(<Search {...defaultProps} {...props}/>, {context: {intl}});
     }
     describe('render', () => {
 
@@ -85,6 +94,15 @@ describe('Search', () => {
                 const grid = element.find(EventGrid)
                 expect(grid).toHaveLength(1);
                 expect(grid.prop('events')).toEqual(element.state('events'));
+            });
+        });
+
+        describe('react-helmet', () => {
+            test('react-helmet is defined and gets title prop', () => {
+                const wrapper = getWrapper().find(Helmet);
+                const pageTitle = wrapper.prop('title');
+                expect(wrapper).toBeDefined();
+                expect(pageTitle).toBe('Linkedevents - Etsi tapahtumia');
             });
         });
 

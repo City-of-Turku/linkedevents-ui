@@ -1,9 +1,9 @@
 jest.mock('../../utils/events', () => {
     const EventQueryParams = jest.requireActual('../../utils/events');
-    const eventAllLanguages = (num) => ({name:{fi:'suomi',sv:'svenska', en:'english'}, id: num});
-    const eventFinnishAndSwedish = (num) => ({name:{fi:'suomi',sv:'svenska'}, id: num});
-    const eventFinnishAndEnglish = (num) => ({name:{fi:'suomi',en:'english'}, id: num});
-    const eventSwedishAndEnglish = (num) => ({name:{sv:'svenska',en:'english'}, id: num});
+    const eventAllLanguages = (num) => ({name: {fi: 'suomi', sv: 'svenska', en: 'english'}, id: num});
+    const eventFinnishAndSwedish = (num) => ({name: {fi: 'suomi', sv: 'svenska'}, id: num});
+    const eventFinnishAndEnglish = (num) => ({name: {fi: 'suomi', en: 'english'}, id: num});
+    const eventSwedishAndEnglish = (num) => ({name: {sv: 'svenska', en: 'english'}, id: num});
     const eventsFinnishAndSwedish = [];
     const eventsFinnishAndEnglish = [];
     const eventsSwedishAndEnglish = [];
@@ -13,13 +13,13 @@ jest.mock('../../utils/events', () => {
         eventsFinnishAndSwedish.push(eventFinnishAndSwedish(i + 1));
     }
     for (let i = 0; i < 10; i++) {
-        eventsFinnishAndEnglish.push(eventFinnishAndEnglish(i  + 22))
+        eventsFinnishAndEnglish.push(eventFinnishAndEnglish(i + 22));
     }
     for (let i = 0; i < 10; i++) {
-        eventsSwedishAndEnglish.push(eventSwedishAndEnglish(i  + 44))
+        eventsSwedishAndEnglish.push(eventSwedishAndEnglish(i + 44));
     }
     for (let i = 0; i < 10; i++) {
-        eventsAll.push(eventAllLanguages(i + 66))
+        eventsAll.push(eventAllLanguages(i + 66));
     }
     return {
         __esModule: true,
@@ -36,11 +36,10 @@ jest.mock('../../utils/events', () => {
                 if (foo.language === 'en') {
                     events = events.concat(eventsFinnishAndEnglish, eventsSwedishAndEnglish);
                 }
-            }
-            else {
+            } else {
                 events = events.concat(eventsFinnishAndSwedish, eventsFinnishAndEnglish, eventsSwedishAndEnglish, eventsAll);
             }
-            return new Promise(((resolve, reject) => {
+            return new Promise((resolve, reject) => {
                 resolve({
                     data: {
                         data: events,
@@ -49,22 +48,26 @@ jest.mock('../../utils/events', () => {
                         },
                     },
                 });
-            }))})};
+            });
+        }),
+    };
 });
 
-import configureStore from 'redux-mock-store'
-import React from 'react'
-import thunk from 'redux-thunk'
-import {shallow} from 'enzyme'
+import configureStore from 'redux-mock-store';
+import React from 'react';
+import thunk from 'redux-thunk';
+import {shallow} from 'enzyme';
 import {IntlProvider, FormattedMessage} from 'react-intl';
 import {Input} from 'reactstrap';
-import testReduxIntWrapper from '../../../__mocks__/testReduxIntWrapper'
-import ConnectedEventListing, {EventListing} from './index'
+import testReduxIntWrapper from '../../../__mocks__/testReduxIntWrapper';
+import ConnectedEventListing, {EventListing} from './index';
 import {mockCurrentTime, resetMockDate} from '../../../__mocks__/testMocks';
 import {mockUserEvents, mockUser} from '../../../__mocks__/mockData';
+import fiMessages from 'src/i18n/fi.json';
+import mapValues from 'lodash/mapValues';
+import {Helmet} from 'react-helmet'
 
-
-const mockStore = configureStore([thunk])
+const mockStore = configureStore([thunk]);
 const initialStore = {
     user: {
         id: 'testuser',
@@ -80,8 +83,13 @@ const initialStore = {
 const mockUserAdmin = mockUser;
 mockUserAdmin.userType = 'admin';
 
+const testMessages = mapValues(fiMessages, (value, key) => value);
+const intlProvider = new IntlProvider({locale: 'fi', messages: testMessages}, {});
+const {intl} = intlProvider.getChildContext();
+
 const defaultProps = {
     user: mockUserAdmin,
+    intl,
 };
 
 const defaultTableData = {
@@ -98,49 +106,49 @@ describe('EventListing Snapshot', () => {
     let store;
 
     beforeEach(() => {
-        mockCurrentTime('2018-11-10T12:00:00z')
-    })
+        mockCurrentTime('2018-11-10T12:00:00z');
+    });
 
     afterEach(() => {
-        resetMockDate()
-    })
+        resetMockDate();
+    });
 
     it('should render view by default', () => {
         const componentProps = {
             login: jest.fn(),
             user: {},
         };
-        const wrapper = shallow(<EventListing {...componentProps} />);
+        const wrapper = shallow(<EventListing {...componentProps} />, {context: {intl}});
         expect(wrapper).toMatchSnapshot();
-    })
+    });
 
     it('should render view correctly', () => {
-        store = mockStore(initialStore)
+        store = mockStore(initialStore);
         const componentProps = {
             login: jest.fn(),
-        } // Props which are added to component
-        const wrapper = shallow(testReduxIntWrapper(store, <ConnectedEventListing {...componentProps} />))
-        expect(wrapper).toMatchSnapshot()
-    })
-})
+        }; // Props which are added to component
+        const wrapper = shallow(testReduxIntWrapper(store, <ConnectedEventListing {...componentProps} />));
+        expect(wrapper).toMatchSnapshot();
+    });
+});
 
 describe('EventListing', () => {
     function getWrapper(props) {
-        return shallow(<EventListing {...defaultProps} {...props}/>);
+        return shallow(<EventListing {...defaultProps} {...props} />, {context: {intl}});
     }
 
     describe('render when not logged in', () => {
-        const wrapper = getWrapper({user: null})
-        const inputElements = wrapper.find(Input)
-        const formattedMessages = wrapper.find(FormattedMessage)
+        const wrapper = getWrapper({user: null});
+        const inputElements = wrapper.find(Input);
+        const formattedMessages = wrapper.find(FormattedMessage);
 
         test('no radio-inputs without user permissions', () => {
             expect(inputElements).toHaveLength(0);
-        })
+        });
 
         test('correct amount of FormattedMessages without user permissions', () => {
             expect(formattedMessages).toHaveLength(3);
-        })
+        });
     });
 
     describe('render when logged in', () => {
@@ -150,7 +158,7 @@ describe('EventListing', () => {
 
         test('contains radio-inputs with correct props', () => {
             const inputElements = wrapper.find('.col-sm-12').find(Input);
-            const eventLanguages = ['all','fi', 'sv', 'en'];
+            const eventLanguages = ['all', 'fi', 'sv', 'en'];
             expect(inputElements).toHaveLength(4);
             inputElements.forEach((element, index) => {
                 expect(element.prop('value')).toBe(eventLanguages[index]);
@@ -167,14 +175,21 @@ describe('EventListing', () => {
             expect(userInputElement.prop('onChange')).toBe(instance.toggleUserEvents);
         });
 
-        test('correct amount of FormattedMessages', ()=> {
+        test('correct amount of FormattedMessages', () => {
             expect(formattedMessages).toHaveLength(11);
         });
     });
 
+    describe('react-helmet', () => {
+        const wrapper = getWrapper().find(Helmet);
+        const pageTitle = wrapper.prop('title');
+        test('react-helmet is defined and gets title prop', () => {
+            expect(wrapper).toBeDefined();
+            expect(pageTitle).toBe('Linkedevents - Tapahtumien hallinta');
+        });
+    });
 
     describe('methods', () => {
-
         describe('toggleUserEvents', () => {
             test('sets state for showCreatedByUser according to event.target.checked', () => {
                 const wrapper = getWrapper();
@@ -187,7 +202,6 @@ describe('EventListing', () => {
         });
 
         describe('toggleEventLanguages', () => {
-
             const event = (lang) => ({target: {value: lang}});
             describe('sets values to state', () => {
                 let wrapper;
@@ -196,7 +210,7 @@ describe('EventListing', () => {
                     wrapper = getWrapper();
                 });
 
-                test('sets value for state.showContentLanguage to "" (empty string) if event.target.value === all' , () => {
+                test('sets value for state.showContentLanguage to "" (empty string) if event.target.value === all', () => {
                     expect(wrapper.state('showContentLanguage')).toBe('');
                     wrapper.instance().toggleEventLanguages(event('all'));
                     expect(wrapper.state('showContentLanguage')).toBe('');
@@ -222,28 +236,27 @@ describe('EventListing', () => {
                     instance = wrapper.instance();
                 });
 
-                test('tableData.events have english content when showContentLanguage is set to en',  async () => {
+                test('tableData.events have english content when showContentLanguage is set to en', async () => {
                     instance.toggleEventLanguages(event('en'));
                     const stateEvents = wrapper.state('tableData').events;
                     stateEvents.forEach((event) => {
                         expect(Object.keys(event.name)).toContain('en');
                     });
                 });
-                test('tableData.events have swedish content when showContentLanguage is set to sv',  async () => {
+                test('tableData.events have swedish content when showContentLanguage is set to sv', async () => {
                     instance.toggleEventLanguages(event('sv'));
                     const stateEvents = wrapper.state('tableData').events;
                     stateEvents.forEach((event) => {
                         expect(Object.keys(event.name)).toContain('sv');
                     });
                 });
-                test('tableData.events have finnish content when showContentLanguage is set to fi',  async () => {
+                test('tableData.events have finnish content when showContentLanguage is set to fi', async () => {
                     instance.toggleEventLanguages(event('fi'));
                     const stateEvents = wrapper.state('tableData').events;
                     stateEvents.forEach((event) => {
                         expect(Object.keys(event.name)).toContain('fi');
                     });
                 });
-
             });
         });
 
@@ -263,9 +276,9 @@ describe('EventListing', () => {
                 const wrapper = getWrapper();
                 const instance = wrapper.instance();
                 expect(wrapper.state('tableData').paginationPage).toBe(0);
-                await instance.handlePageChange({},1);
+                await instance.handlePageChange({}, 1);
                 expect(wrapper.state('tableData').paginationPage).toBe(1);
-                await instance.handlePageChange({},2);
+                await instance.handlePageChange({}, 2);
                 expect(wrapper.state('tableData').paginationPage).toBe(2);
             });
         });
@@ -276,14 +289,11 @@ describe('EventListing', () => {
                 const wrapper = getWrapper();
                 const instance = wrapper.instance();
                 expect(wrapper.state('tableData').pageSize).toBe(25);
-                await instance.handlePageSizeChange(page(10))
+                await instance.handlePageSizeChange(page(10));
                 expect(wrapper.state('tableData').pageSize).toBe(10);
-                await instance.handlePageSizeChange(page(50))
+                await instance.handlePageSizeChange(page(50));
                 expect(wrapper.state('tableData').pageSize).toBe(50);
             });
         });
     });
 });
-
-
-
