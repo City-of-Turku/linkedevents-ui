@@ -101,7 +101,7 @@ class ImageGallery extends React.Component {
                                 images={defaultImages}
                                 locale={this.props.locale}
                             />
-                            <hr />
+                            <hr aria-hidden='true'/>
                         </React.Fragment>
                     }
 
@@ -136,7 +136,3 @@ const mapStateToProps = (state) => ({
 });
 export {ImageGallery as UnconnectedImageGallery}
 export default connect(mapStateToProps, mapDispatchToProps)(ImageGallery)
-
-
-
-
