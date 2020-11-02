@@ -46,7 +46,7 @@ export default {
                     {
                         loader: 'sass-loader',
                         options: {
-                            data: '$ui-mode: ' + ui_mode + ' !global;',
+                            data: '$ui-mode: ' + ui_mode + ';',
                         },
                     },
                 ],

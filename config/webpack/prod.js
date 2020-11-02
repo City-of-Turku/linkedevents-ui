@@ -54,7 +54,7 @@ const config = {
                 use: [
                     {loader: 'style-loader'},
                     {loader: 'css-loader'},
-                    {loader: 'sass-loader', options: {data: '$ui-mode: ' + ui_mode + ' !global;'}},
+                    {loader: 'sass-loader', options: {data: '$ui-mode: ' + ui_mode + ';'}},
                 ],
             },
             {test: /\.ico$/, loader: 'url-loader', options: {mimetype: 'image/x-icon'}},
