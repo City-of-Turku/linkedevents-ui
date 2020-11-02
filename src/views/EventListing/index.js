@@ -3,14 +3,13 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {FormattedMessage} from 'react-intl'
 import PropTypes from 'prop-types'
-import {login as loginAction} from 'src/actions/user.js'
 import {EventQueryParams, fetchEvents} from '../../utils/events'
-import {isNull, get, filter} from 'lodash'
+import {isNull, get} from 'lodash'
 import constants from '../../constants'
 import {getSortDirection} from '../../utils/table'
 import EventTable from '../../components/EventTable/EventTable'
 import {getOrganizationMembershipIds} from '../../utils/user'
-
+import userManager from '../../utils/userManager';
 import {Helmet} from 'react-helmet';
 import {Label, Input} from 'reactstrap';
 
@@ -250,6 +249,14 @@ export class EventListing extends React.Component {
         return queryParams
     }
     
+    handleLoginClick = () => {
+        userManager.signinRedirect({
+            data: {
+                redirectUrl: window.location.pathname,
+            },
+        });
+    };
+
     render() {
         const {user} = this.props;
         const {intl} = this.context;
@@ -276,9 +283,9 @@ export class EventListing extends React.Component {
                     <Helmet title={pageTitle}/>
                     {header}
                     <p>
-                        <a style={{cursor: 'pointer'}} onClick={() => this.props.login()}>
+                        <a className='underline' rel='external' style={{cursor: 'pointer'}} onClick={this.handleLoginClick}>
                             <FormattedMessage id="login" />
-                        </a>
+                        </a>{' '}
                         <FormattedMessage id="events-management-prompt" /></p>
                 </div>);
         }
@@ -378,7 +385,6 @@ export class EventListing extends React.Component {
 
 EventListing.propTypes = {
     user: PropTypes.object,
-    login: PropTypes.func,
     showCreatedByUser: PropTypes.bool,
     tableData: TABLE_DATA_SHAPE,
 }
@@ -391,8 +397,4 @@ const mapStateToProps = (state) => ({
     user: state.user,
 })
 
-const mapDispatchToProps = (dispatch) => ({
-    login: () => dispatch(loginAction()),
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(EventListing);
+export default connect(mapStateToProps)(EventListing);
