@@ -15,7 +15,7 @@ import {
     HelKeywordSelector,
 } from 'src/components/HelFormFields'
 import RecurringEvent from 'src/components/RecurringEvent'
-import {Button,Form, FormGroup} from 'reactstrap';
+import {Button,Form, FormGroup, Collapse} from 'reactstrap';
 import {mapKeywordSetToForm, mapLanguagesSetToForm} from '../../utils/apiDataMapping'
 import {setEventData, setData} from '../../actions/editor'
 import {get, isNull, pickBy} from 'lodash'
@@ -31,12 +31,13 @@ import EventMap from '../Map/EventMap';
 import classNames from 'classnames';
 import ImageGallery from '../ImageGallery/ImageGallery';
 
+
 // Removed material-ui/icons because it was no longer used.
 //Added isOpen for RecurringEvents modal
 
 let FormHeader = (props) => (
     <div className="row">
-        <h2 className="col-sm-12">{ props.children }</h2>
+        <h3 className="col-sm-12">{ props.children }</h3>
     </div>
 )
 
@@ -69,8 +70,19 @@ class FormFields extends React.Component {
             openMapContainer: false,
             availableLocales: [],
 
+            headerPrices: false,
+            headerSocials: false,
+            headerCategories: false,
+            headerInlanguage: false,
+            headerCourses: false,
+            headerDescription: false,
+            headerImage: false,
+
+
+
         }
         this.handleOrganizationChange = this.handleOrganizationChange.bind(this)
+        this.toggleHeader = this.toggleHeader.bind(this)
     }
 
     componentDidMount() {
@@ -183,6 +195,12 @@ class FormFields extends React.Component {
         }
     }
 
+    toggleHeader(e) {
+        if (e.target.id) {
+            this.setState({[e.target.id]: !this.state[e.target.id]})
+        }
+    }
+
     render() {
         // Changed keywordSets to be compatible with Turku's backend.
         const currentLocale = this.state.availableLocales.includes(this.context.intl.locale) ? this.context.intl.locale : 'fi';
@@ -207,25 +225,10 @@ class FormFields extends React.Component {
 
         const position = this.props.editor.values.location ? this.props.editor.values.location.position : null;
         return (
-            <div>
-                <div className="col-sm-12 highlighted-block">
-                    <div className="col-xl-4 col-sm-12">
-                        <label htmlFor='languages' tabIndex='0'>
-                            <FormattedMessage id="event-presented-in-languages"/>
-                        </label>
-                        <input id='languages' type='hidden'/>
-                    </div>
-                    <div className="col-xl-8 col-sm-12">
-                        <HelLanguageSelect
-                            options={API.eventInfoLanguages()}
-                            checked={contentLanguages}
-                        />
-                    </div>
+            <div className='collapses'>
+                <div className="row row-header">
+                    <FormattedMessage id='event-add-newInfo'>{txt => <h2>{txt}</h2>}</FormattedMessage>
                 </div>
-
-                <FormHeader>
-                    <FormattedMessage id="event-description-fields-header"/>
-                </FormHeader>
 
 
                 <div className="row event-row">
@@ -234,6 +237,27 @@ class FormFields extends React.Component {
                             <p><FormattedMessage id="editor-tip-event-description"/></p>
                             <FormattedMessage id="editor-tip-event-description1"/>
                         </div>
+                    </SideField>
+                    <div className="col-sm-6 highlighted-block">
+                        <label htmlFor='languages' tabIndex='0'>
+                            <FormattedMessage id="event-presented-in-languages"/>
+                        </label>
+                        <input id='languages' type='hidden'/>
+                        <HelLanguageSelect
+                            options={API.eventInfoLanguages()}
+                            checked={contentLanguages}
+                        />
+                    </div>
+                </div>
+                <FormHeader>
+                    <FormattedMessage id='event-name-shortdescription'/>
+                </FormHeader>
+                <div className="row event-row">
+                    <SideField>
+                        <div className="tip">
+                            <p><FormattedMessage id="editor-tip-event-description"/></p>
+                            <FormattedMessage id="editor-tip-event-description1"/>
+                        </div>                       
                     </SideField>
                     <div className="col-sm-6">
                         <MultiLanguageField
@@ -264,144 +288,8 @@ class FormFields extends React.Component {
                             forceApplyToStore
                             type='textarea'
                         />
-
-                        <MultiLanguageField
-                            id='event-description'
-                            required={true}
-                            multiLine={true}
-                            label="event-description"
-                            ref="description"
-                            name="description"
-                            validationErrors={validationErrors['description']}
-                            defaultValue={this.trimmedDescription()}
-                            languages={this.props.editor.contentLanguages}
-                            validations={[VALIDATION_RULES.LONG_STRING]}
-                            setDirtyState={this.props.setDirtyState}
-                            type='textarea'
-                        />
-
-                        <MultiLanguageField
-                            id='event-provider-input'
-                            required={false}
-                            multiLine={false}
-                            label="event-provider-input"
-                            ref="provider"
-                            name="provider"
-                            validationErrors={validationErrors['provider']}
-                            defaultValue={values['provider']}
-                            validations={[VALIDATION_RULES.SHORT_STRING]}
-                            languages={this.props.editor.contentLanguages}
-                            setDirtyState={this.props.setDirtyState}
-                            type='text'
-                        />
-                        <OrganizationSelector
-                            formType={formType}
-                            options={publisherOptions}
-                            selectedOption={selectedPublisher}
-                            onChange={this.handleOrganizationChange}
-                        />
                     </div>
                 </div>
-                
-                <FormHeader>
-                    <FormattedMessage id="event-image-title"/>
-                </FormHeader>
-                <div className='row'>
-                    <ImageGallery locale={currentLocale}/>
-                </div>
-                <FormHeader>
-                    <FormattedMessage id="event-umbrella" className=''/>
-                </FormHeader>
-                <div className="row umbrella-row">
-                    <SideField>
-                        <div className="tip">
-                            <p><FormattedMessage id="editor-tip-umbrella-selection"/></p>
-                            <p><FormattedMessage id="editor-tip-umbrella-selection1"/></p>
-                            <FormattedMessage id="editor-tip-umbrella-selection2"/>
-                        </div>
-                    </SideField>
-                    <div className="col-sm-6">
-                        {!isRegularUser &&
-                            <UmbrellaSelector editor={this.props.editor} event={event} superEvent={superEvent}/>
-                        }
-                    </div>
-                </div>
-
-                <FormHeader>
-                    <FormattedMessage id="event-datetime-fields-header" />
-                </FormHeader>
-                <div className='row date-row'>
-                    <SideField>
-                        <div className="tip">
-                            <p><FormattedMessage id="editor-tip-time-start-end"/></p>
-                            <p><FormattedMessage id="editor-tip-time-multi"/></p>
-                            <p><FormattedMessage id="editor-tip-time-delete"/></p>
-                        </div>
-                    </SideField>
-                    <div className='col-sm-6'>
-                        <div className='row'>
-                            <div className='col-xs-12 col-sm-12'>
-                                <CustomDateTime
-                                    id="start_time"
-                                    name="start_time"
-                                    labelDate={<FormattedMessage  id="event-starting-datelabel" />}
-                                    labelTime={<FormattedMessage  id="event-starting-timelabel" />}
-                                    defaultValue={values['start_time']}
-                                    setDirtyState={this.props.setDirtyState}
-                                    maxDate={values['end_time'] ? moment(values['end_time']) : undefined}
-                                    required={true}
-                                    disabled={formType === 'update' && isSuperEvent}
-                                    validationErrors={validationErrors['start_time']}
-                                />
-                                <CustomDateTime
-                                    id="end_time"
-                                    disablePast
-                                    disabled={formType === 'update' && isSuperEvent}
-                                    validationErrors={validationErrors['end_time']}
-                                    defaultValue={values['end_time']}
-                                    name="end_time"
-                                    labelDate={<FormattedMessage  id="event-ending-datelabel" />}
-                                    labelTime={<FormattedMessage  id="event-ending-timelabel" />}
-                                    setDirtyState={this.props.setDirtyState}
-                                    minDate={values['start_time'] ? moment(values['start_time']) : undefined}
-                                    required={true}
-                                />
-                            </div>
-                        </div>
-                        <div className={'new-events ' + (this.state.showNewEvents ? 'show' : 'hidden')}>
-                            { newEvents }
-                        </div>
-                        {this.state.showRecurringEvent &&
-                            <RecurringEvent
-                                toggle={() => this.showRecurringEventDialog()}
-                                isOpen={this.state.showRecurringEvent}
-                                validationErrors={validationErrors}
-                                values={values}
-                                formType={formType}
-                            />
-                        }
-                        <Button
-                            size='lg'block
-                            variant="contained"
-                            disabled={formType === 'update' || isSuperEventDisable}
-                            onClick={() => this.addNewEventDialog()}>
-
-                            <span aria-hidden='true' className="glyphicon glyphicon-plus"/>
-                            <FormattedMessage id="event-add-new-occasion">{txt =>txt}</FormattedMessage>
-                        </Button>
-
-                        <Button
-                            size='lg' block
-                            variant="contained"
-                            disabled={formType === 'update' || isSuperEventDisable}
-                            onClick={() => this.showRecurringEventDialog()}>
-
-                            <span aria-hidden='true' className="glyphicon glyphicon-refresh"/>
-                            <FormattedMessage id="event-add-recurring">{txt =>txt}</FormattedMessage>
-                        </Button>
-                    </div>
-                </div>
-
                 <FormHeader>
                     <FormattedMessage id="event-location-fields-header" />
                 </FormHeader>
@@ -485,219 +373,490 @@ class FormFields extends React.Component {
                     </div>
 
                 </div>
-
                 <FormHeader>
-                    <FormattedMessage id="event-price-fields-header" />
+                    <FormattedMessage id="event-datetime-fields-header" />
                 </FormHeader>
-                <div className="row offers-row">
+                <div className='row date-row'>
                     <SideField>
                         <div className="tip">
-                            <p><FormattedMessage id="editor-tip-price"/></p>
-                            <p><FormattedMessage id="editor-tip-price-multi"/></p>
+                            <p><FormattedMessage id="editor-tip-time-start-end"/></p>
+                            <p><FormattedMessage id="editor-tip-time-multi"/></p>
+                            <p><FormattedMessage id="editor-tip-time-delete"/></p>
                         </div>
                     </SideField>
-                    <div className="col-sm-6">
-                        <HelOffersField
-                            ref="offers"
-                            name="offers"
+                    <div className='col-sm-6'>
+                        <div className='row'>
+                            <div className='col-xs-12 col-sm-12'>
+                                <CustomDateTime
+                                    id="start_time"
+                                    name="start_time"
+                                    labelDate={<FormattedMessage  id="event-starting-datelabel" />}
+                                    labelTime={<FormattedMessage  id="event-starting-timelabel" />}
+                                    defaultValue={values['start_time']}
+                                    setDirtyState={this.props.setDirtyState}
+                                    maxDate={values['end_time'] ? moment(values['end_time']) : undefined}
+                                    required={true}
+                                    disabled={formType === 'update' && isSuperEvent}
+                                    validationErrors={validationErrors['start_time']}
+                                />
+                                <CustomDateTime
+                                    id="end_time"
+                                    disablePast
+                                    disabled={formType === 'update' && isSuperEvent}
+                                    validationErrors={validationErrors['end_time']}
+                                    defaultValue={values['end_time']}
+                                    name="end_time"
+                                    labelDate={<FormattedMessage  id="event-ending-datelabel" />}
+                                    labelTime={<FormattedMessage  id="event-ending-timelabel" />}
+                                    setDirtyState={this.props.setDirtyState}
+                                    minDate={values['start_time'] ? moment(values['start_time']) : undefined}
+                                    required={true}
+                                />
+                            </div>
+                        </div>
+                        <div className={'new-events ' + (this.state.showNewEvents ? 'show' : 'hidden')}>
+                            { newEvents }
+                        </div>
+                        {this.state.showRecurringEvent &&
+                            <RecurringEvent
+                                toggle={() => this.showRecurringEventDialog()}
+                                isOpen={this.state.showRecurringEvent}
+                                validationErrors={validationErrors}
+                                values={values}
+                                formType={formType}
+                            />
+                        }
+                        <Button
+                            size='lg'block
+                            variant="contained"
+                            disabled={formType === 'update' || isSuperEventDisable}
+                            onClick={() => this.addNewEventDialog()}>
+
+                            <span aria-hidden='true' className="glyphicon glyphicon-plus"/>
+                            <FormattedMessage id="event-add-new-occasion">{txt =>txt}</FormattedMessage>
+                        </Button>
+
+                        <Button
+                            size='lg' block
+                            variant="contained"
+                            disabled={formType === 'update' || isSuperEventDisable}
+                            onClick={() => this.showRecurringEventDialog()}>
+
+                            <span aria-hidden='true' className="glyphicon glyphicon-refresh"/>
+                            <FormattedMessage id="event-add-recurring">{txt =>txt}</FormattedMessage>
+                        </Button>
+                    </div>
+                </div>
+
+                <div>
+                    <h2>
+                        <Button
+                            color='collapse'
+                            onClick={this.toggleHeader}
+                            id='headerDescription'
+                            className={classNames('headerbutton', {'error': validationErrors['location'] || validationErrors['location_extra_info']})}
+                        >
+                            <FormattedMessage id='event-description-fields-header'/>
+                            {this.state.headerDescription ?
+                                <span className='glyphicon glyphicon-chevron-up' />
+                                :
+                                <span className='glyphicon glyphicon-chevron-down' />
+                            }
+                        </Button>
+                    </h2>
+                    <Collapse toggle={this.toggleHeader} isOpen={this.state.headerDescription}>
+                        <div className="row event-row">
+                            <SideField>
+                                <div className="tip">
+                                    <p><FormattedMessage id="editor-tip-event-description"/></p>
+                                    <FormattedMessage id="editor-tip-event-description1"/>
+                                </div>
+                            </SideField>
+                            <div className="col-sm-6">
+                                <MultiLanguageField
+                                    id='event-description'
+                                    multiLine={true}
+                                    label="event-description"
+                                    ref="description"
+                                    name="description"
+                                    validationErrors={validationErrors['description']}
+                                    defaultValue={this.trimmedDescription()}
+                                    languages={this.props.editor.contentLanguages}
+                                    validations={[VALIDATION_RULES.LONG_STRING]}
+                                    setDirtyState={this.props.setDirtyState}
+                                    type='textarea'
+                                />
+
+                                <MultiLanguageField
+                                    id='event-provider-input'
+                                    required={false}
+                                    multiLine={false}
+                                    label="event-provider-input"
+                                    ref="provider"
+                                    name="provider"
+                                    validationErrors={validationErrors['provider']}
+                                    defaultValue={values['provider']}
+                                    validations={[VALIDATION_RULES.SHORT_STRING]}
+                                    languages={this.props.editor.contentLanguages}
+                                    setDirtyState={this.props.setDirtyState}
+                                    type='text'
+                                />
+                                <OrganizationSelector
+                                    formType={formType}
+                                    options={publisherOptions}
+                                    selectedOption={selectedPublisher}
+                                    onChange={this.handleOrganizationChange}
+                                />
+                            </div>
+                        </div>
+                        <FormHeader>
+                            <FormattedMessage id="event-umbrella" className=''/>
+                        </FormHeader>
+                        <div className="row umbrella-row">
+                            <SideField>
+                                <div className="tip">
+                                    <p><FormattedMessage id="editor-tip-umbrella-selection"/></p>
+                                    <p><FormattedMessage id="editor-tip-umbrella-selection1"/></p>
+                                    <FormattedMessage id="editor-tip-umbrella-selection2"/>
+                                </div>
+                            </SideField>
+                            <div className="col-sm-6">
+                                {!isRegularUser &&
+                            <UmbrellaSelector editor={this.props.editor} event={event} superEvent={superEvent}/>
+                                }
+                            </div>
+                        </div>
+                    </Collapse>
+                </div>
+                <div>
+                    <h2>
+                        <Button
+                            onClick={this.toggleHeader}
+                            id='headerImage'
+                            className='headerbutton'
+                            color='collapse'
+                        >
+                            <FormattedMessage id='event-picture-header'/>
+                            {this.state.headerImage ?
+                                <span className='glyphicon glyphicon-chevron-up' />
+                                :
+                                <span className='glyphicon glyphicon-chevron-down' />
+                            }
+                        </Button>
+                    </h2>
+                    <Collapse toggle={this.toggleHeader} isOpen={this.state.headerImage}>
+                        <FormHeader>
+                            <FormattedMessage id="event-image-title"/>
+                        </FormHeader>
+                        <div className='row'>
+                            <ImageGallery locale={currentLocale}/>
+                        </div>
+                    </Collapse>
+                </div>
+                <div>
+                    <h2>
+                        <Button
+                            onClick={this.toggleHeader}
+                            id='headerCategories'
+                            className='headerbutton'
+                            color='collapse'
+                        >
+                            <FormattedMessage id='event-category-header' />
+                            {this.state.headerCategories ?
+                                <span className='glyphicon glyphicon-chevron-up' />
+                                :
+                                <span className='glyphicon glyphicon-chevron-down' />
+                            }
+                        </Button>
+                    </h2>
+                    <Collapse toggle={this.toggleHeader} isOpen={this.state.headerCategories}>
+                        <FormHeader>
+                            <FormattedMessage id="event-categorization" />
+                        </FormHeader>
+                        <div className="row keyword-row">
+                            <HelKeywordSelector
+                                editor={editor}
+                                intl={this.context.intl}
+                                setDirtyState={this.props.setDirtyState}
+                                currentLocale={currentLocale}
+                            />
+                        </div>
+                        <div className="row audience-row">
+                            <SideField><p className="tip"><FormattedMessage id="editor-tip-hel-target-group"/></p></SideField>
+                            <HelLabeledCheckboxGroup
+                                groupLabel={<FormattedMessage id="hel-target-groups"/>}
+                                selectedValues={values['audience']}
+                                ref="audience"
+                                name="audience"
+                                validationErrors={validationErrors['audience']}
+                                itemClassName="col-md-12 col-lg-6"
+                                options={helTargetOptions}
+                                setDirtyState={this.props.setDirtyState}
+                            />
+                        </div>
+                    </Collapse>
+                </div>
+                <div>
+                    <h2>
+                        <Button
+                            onClick={this.toggleHeader}
+                            id='headerPrices'
+                            className={classNames('headerbutton', {'error': validationErrors['hasPrice']})}
+                            color='collapse'
+                        >
+                            <FormattedMessage id='event-price-header'/>
+                            {this.state.headerPrices ?
+                                <span className='glyphicon glyphicon-chevron-up' />
+                                :
+                                <span className='glyphicon glyphicon-chevron-down' />
+                            }
+                        </Button>
+                    </h2>
+                    <Collapse toggle={this.toggleHeader} isOpen={this.state.headerPrices}>
+                        <FormHeader>
+                            <FormattedMessage id="event-price-fields-header" />
+                        </FormHeader>
+                        <div className="row offers-row">
+                            <SideField>
+                                <div className="tip">
+                                    <p><FormattedMessage id="editor-tip-price"/></p>
+                                    <p><FormattedMessage id="editor-tip-price-multi"/></p>
+                                </div>
+                            </SideField>
+                            <div className="col-sm-6">
+                                <HelOffersField
+                                    ref="offers"
+                                    name="offers"
+                                    validationErrors={validationErrors}
+                                    defaultValue={values['offers']}
+                                    languages={this.props.editor.contentLanguages}
+                                    setDirtyState={this.props.setDirtyState}
+                                />
+                            </div>
+
+                        </div>
+                    </Collapse>
+                </div>
+                <div>
+                    <h2>
+                        <Button
+                            onClick={this.toggleHeader}
+                            id='headerSocials'
+                            className='headerbutton'
+                            color='collapse'
+                        >
+                            <FormattedMessage id='event-social-header' />
+                            {this.state.headerSocials ?
+                                <span className='glyphicon glyphicon-chevron-up' />
+                                :
+                                <span className='glyphicon glyphicon-chevron-down' />
+                            }
+                        </Button>
+                    </h2>
+                    <Collapse toggle={this.toggleHeader} isOpen={this.state.headerSocials}>
+                        <FormHeader>
+                            <FormattedMessage id="event-social-media-fields-header" />
+                        </FormHeader>
+                        <div className="row social-media-row">
+                            <SideField><p className="tip"><FormattedMessage id="editor-tip-social-media"/></p></SideField>
+                            <div className="col-sm-6">
+                                {/* Removed formatted message from label since it was causing accessibility issues */}
+                                <MultiLanguageField
+                                    id='event-info-url'
+                                    required={false}
+                                    multiLine={false}
+                                    label="event-info-url"
+                                    ref="info_url"
+                                    name="info_url"
+                                    validationErrors={validationErrors['info_url']}
+                                    defaultValue={values['info_url']}
+                                    languages={this.props.editor.contentLanguages}
+                                    validations={[VALIDATION_RULES.IS_URL]}
+                                    setDirtyState={this.props.setDirtyState}
+                                    forceApplyToStore
+                                    type='text'
+                                />
+                                <HelTextField
+                                    validations={[VALIDATION_RULES.IS_URL]}
+                                    id='extlink_facebook'
+                                    ref="extlink_facebook"
+                                    name="extlink_facebook"
+                                    label='Facebook'
+                                    validationErrors={validationErrors['extlink_facebook']}
+                                    defaultValue={values['extlink_facebook']}
+                                    setDirtyState={this.props.setDirtyState}
+                                    forceApplyToStore
+                                    type='text'
+                                />
+                                <HelTextField
+                                    validations={[VALIDATION_RULES.IS_URL]}
+                                    id='extlink_twitter'
+                                    ref="extlink_twitter"
+                                    name="extlink_twitter"
+                                    label='Twitter'
+                                    validationErrors={validationErrors['extlink_twitter']}
+                                    defaultValue={values['extlink_twitter']}
+                                    setDirtyState={this.props.setDirtyState}
+                                    forceApplyToStore
+                                    type='text'
+                                />
+                                <HelTextField
+                                    validations={[VALIDATION_RULES.IS_URL]}
+                                    id='extlink_instagram'
+                                    ref="extlink_instagram"
+                                    name="extlink_instagram"
+                                    label='Instagram'
+                                    validationErrors={validationErrors['extlink_instagram']}
+                                    defaultValue={values['extlink_instagram']}
+                                    setDirtyState={this.props.setDirtyState}
+                                    forceApplyToStore
+                                    type='text'
+                                />
+                            </div>
+                        </div>
+                        <FormHeader>
+                            <FormattedMessage id="event-video"/>
+                        </FormHeader>
+                        <HelVideoFields
+                            defaultValues={values['videos']}
                             validationErrors={validationErrors}
-                            defaultValue={values['offers']}
-                            languages={this.props.editor.contentLanguages}
                             setDirtyState={this.props.setDirtyState}
+                            intl={this.context.intl}
+                            action={this.props.action}
                         />
-                    </div>
-
+                    </Collapse>
                 </div>
-
-                <FormHeader>
-                    <FormattedMessage id="event-social-media-fields-header" />
-                </FormHeader>
-                <div className="row social-media-row">
-                    <SideField><p className="tip"><FormattedMessage id="editor-tip-social-media"/></p></SideField>
-                    <div className="col-sm-6">
-                        {/* Removed formatted message from label since it was causing accessibility issues */}
-                        <MultiLanguageField
-                            id='event-info-url'
-                            required={false}
-                            multiLine={false}
-                            label="event-info-url"
-                            ref="info_url"
-                            name="info_url"
-                            validationErrors={validationErrors['info_url']}
-                            defaultValue={values['info_url']}
-                            languages={this.props.editor.contentLanguages}
-                            validations={[VALIDATION_RULES.IS_URL]}
-                            setDirtyState={this.props.setDirtyState}
-                            forceApplyToStore
-                            type='text'
-                        />
-                        <HelTextField
-                            validations={[VALIDATION_RULES.IS_URL]}
-                            id='extlink_facebook'
-                            ref="extlink_facebook"
-                            name="extlink_facebook"
-                            label='Facebook'
-                            validationErrors={validationErrors['extlink_facebook']}
-                            defaultValue={values['extlink_facebook']}
-                            setDirtyState={this.props.setDirtyState}
-                            forceApplyToStore
-                            type='text'
-                        />
-                        <HelTextField
-                            validations={[VALIDATION_RULES.IS_URL]}
-                            id='extlink_twitter'
-                            ref="extlink_twitter"
-                            name="extlink_twitter"
-                            label='Twitter'
-                            validationErrors={validationErrors['extlink_twitter']}
-                            defaultValue={values['extlink_twitter']}
-                            setDirtyState={this.props.setDirtyState}
-                            forceApplyToStore
-                            type='text'
-                        />
-                        <HelTextField
-                            validations={[VALIDATION_RULES.IS_URL]}
-                            id='extlink_instagram'
-                            ref="extlink_instagram"
-                            name="extlink_instagram"
-                            label='Instagram'
-                            validationErrors={validationErrors['extlink_instagram']}
-                            defaultValue={values['extlink_instagram']}
-                            setDirtyState={this.props.setDirtyState}
-                            forceApplyToStore
-                            type='text'
-                        />
-                    </div>
+                <div>
+                    <h2>
+                        <Button
+                            onClick={this.toggleHeader}
+                            id='headerInlanguage'
+                            className='headerbutton'
+                            color='collapse'
+                        >
+                            <FormattedMessage id='hel-event-languages'/>
+                            {this.state.headerInlanguage ?
+                                <span className='glyphicon glyphicon-chevron-up' />
+                                :
+                                <span className='glyphicon glyphicon-chevron-down' />
+                            }
+                        </Button>
+                    </h2>
+                    <Collapse toggle={this.toggleHeader} isOpen={this.state.headerInlanguage}>
+                        <div className="row inlanguage-row">
+                            <SideField><p className="tip"><FormattedMessage id="editor-tip-event-languages"/></p></SideField>
+                            <HelLabeledCheckboxGroup
+                                groupLabel={<FormattedMessage id="hel-event-languages"/>}
+                                selectedValues={values['in_language']}
+                                ref="in_language"
+                                name="in_language"
+                                validationErrors={validationErrors['in_language']}
+                                itemClassName="col-md-12 col-lg-6"
+                                options={helEventLangOptions}
+                                setDirtyState={this.props.setDirtyState}
+                            />
+                        </div>
+                    </Collapse>
                 </div>
-
-                <FormHeader>
-                    <FormattedMessage id="event-categorization" />
-                </FormHeader>
-                <div className="row keyword-row">
-                    <HelKeywordSelector
-                        editor={editor}
-                        intl={this.context.intl}
-                        setDirtyState={this.props.setDirtyState}
-                        currentLocale={currentLocale}
-                    />
-                </div>
-                <div className="row audience-row">
-                    <SideField><p className="tip"><FormattedMessage id="editor-tip-hel-target-group"/></p></SideField>
-                    <HelLabeledCheckboxGroup
-                        groupLabel={<FormattedMessage id="hel-target-groups"/>}
-                        selectedValues={values['audience']}
-                        ref="audience"
-                        name="audience"
-                        validationErrors={validationErrors['audience']}
-                        itemClassName="col-md-12 col-lg-6"
-                        options={helTargetOptions}
-                        setDirtyState={this.props.setDirtyState}
-                    />
-                    <SideField><p className="tip"><FormattedMessage id="editor-tip-event-languages"/></p></SideField>
-                    <HelLabeledCheckboxGroup
-                        groupLabel={<FormattedMessage id="hel-event-languages"/>}
-                        selectedValues={values['in_language']}
-                        ref="in_language"
-                        name="in_language"
-                        validationErrors={validationErrors['in_language']}
-                        itemClassName="col-md-12 col-lg-6"
-                        options={helEventLangOptions}
-                        setDirtyState={this.props.setDirtyState}
-                    />
-
-                </div>
-
-                <FormHeader>
-                    <FormattedMessage id="event-video"/>
-                </FormHeader>
-                <HelVideoFields
-                    defaultValues={values['videos']}
-                    validationErrors={validationErrors}
-                    setDirtyState={this.props.setDirtyState}
-                    intl={this.context.intl}
-                    action={this.props.action}
-                />
-
                 {appSettings.ui_mode === 'courses' &&
-                    <div>
-                        <FormHeader>
-                            <FormattedMessage id="audience-age-restrictions"/>
-                        </FormHeader>
-                        <div className="row">
-                            <div className="col-xs-12 col-sm-6">
-                                <HelTextField
-                                    ref="audience_min_age"
-                                    name="audience_min_age"
-                                    label={<FormattedMessage id="audience-min-age"/>}
-                                    validationErrors={validationErrors['audience_min_age']}
-                                    defaultValue={values['audience_min_age']}
-                                    setDirtyState={this.props.setDirtyState}
-                                    type='text'
-                                />
+                <div>
+                    <h2>
+                        <Button
+                            onClick={this.toggleHeader}
+                            id='headerCourses'
+                            className='headerbutton'
+                            color='collapse'
+                        >
+                            <FormattedMessage id='create-courses'/>
+                            {this.state.headerCourses ?
+                                <span className='glyphicon glyphicon-chevron-up' />
+                                :
+                                <span className='glyphicon glyphicon-chevron-down' />
+                            }
+                        </Button>
+                    </h2>
+                    <Collapse toggle={this.toggleHeader} isOpen={this.state.headerCourses}>
+                        <div>
+                            <FormHeader>
+                                <FormattedMessage id="audience-age-restrictions"/>
+                            </FormHeader>
+                            <div className="row">
+                                <div className="col-xs-12 col-sm-6">
+                                    <HelTextField
+                                        ref="audience_min_age"
+                                        name="audience_min_age"
+                                        label={<FormattedMessage id="audience-min-age"/>}
+                                        validationErrors={validationErrors['audience_min_age']}
+                                        defaultValue={values['audience_min_age']}
+                                        setDirtyState={this.props.setDirtyState}
+                                        type='text'
+                                    />
 
-                                <HelTextField
-                                    ref="audience_max_age"
-                                    name="audience_max_age"
-                                    label={<FormattedMessage id="audience-max-age"/>}
-                                    validationErrors={validationErrors['audience_max_age']}
-                                    defaultValue={values['audience_max_age']}
-                                    setDirtyState={this.props.setDirtyState}
-                                    type='text'
-                                />
+                                    <HelTextField
+                                        ref="audience_max_age"
+                                        name="audience_max_age"
+                                        label={<FormattedMessage id="audience-max-age"/>}
+                                        validationErrors={validationErrors['audience_max_age']}
+                                        defaultValue={values['audience_max_age']}
+                                        setDirtyState={this.props.setDirtyState}
+                                        type='text'
+                                    />
+                                </div>
+                            </div>
+
+                            <FormHeader>
+                                <FormattedMessage id="enrolment-time"/>
+                            </FormHeader>
+                            <div className="row">
+                                <div className="col-xs-12 col-sm-6">
+                                    <CustomDateTimeField
+                                        validationErrors={validationErrors['enrolment_start_time']}
+                                        defaultValue={values['enrolment_start_time']}
+                                        name="enrolment_start_time"
+                                        id="enrolment_start_time"
+                                        label="enrolment-start-time"
+                                        setDirtyState={this.props.setDirtyState}
+                                    />
+                                    <CustomDateTimeField
+                                        validationErrors={validationErrors['enrolment_end_time']}
+                                        defaultValue={values['enrolment_end_time']}
+                                        name="enrolment_end_time"
+                                        id="enrolment_end_time"
+                                        label="enrolment-end-time"
+                                        setDirtyState={this.props.setDirtyState}
+                                    />
+                                </div>
+                            </div>
+
+                            <FormHeader>
+                                <FormattedMessage id="attendee-capacity"/>
+                            </FormHeader>
+                            <div className="row">
+                                <div className="col-xs-12 col-sm-6">
+                                    <HelTextField
+                                        ref="minimum_attendee_capacity"
+                                        name="minimum_attendee_capacity"
+                                        label={<FormattedMessage id="minimum-attendee-capacity"/>}
+                                        validationErrors={validationErrors['minimum_attendee_capacity']}
+                                        defaultValue={values['minimum_attendee_capacity']}
+                                        setDirtyState={this.props.setDirtyState}
+                                        type='text'
+                                    />
+
+                                    <HelTextField
+                                        ref="maximum_attendee_capacity"
+                                        name="maximum_attendee_capacity"
+                                        label={<FormattedMessage id="maximum-attendee-capacity"/>}
+                                        validationErrors={validationErrors['maximum_attendee_capacity']}
+                                        defaultValue={values['maximum_attendee_capacity']}
+                                        setDirtyState={this.props.setDirtyState}
+                                        type='text'
+                                    />
+                                </div>
                             </div>
                         </div>
-
-                        <FormHeader>
-                            <FormattedMessage id="enrolment-time"/>
-                        </FormHeader>
-                        <div className="row">
-                            <div className="col-xs-12 col-sm-6">
-                                <CustomDateTimeField
-                                    validationErrors={validationErrors['enrolment_start_time']}
-                                    defaultValue={values['enrolment_start_time']}
-                                    name="enrolment_start_time"
-                                    id="enrolment_start_time"
-                                    label="enrolment-start-time"
-                                    setDirtyState={this.props.setDirtyState}
-                                />
-                                <CustomDateTimeField
-                                    validationErrors={validationErrors['enrolment_end_time']}
-                                    defaultValue={values['enrolment_end_time']}
-                                    name="enrolment_end_time"
-                                    id="enrolment_end_time"
-                                    label="enrolment-end-time"
-                                    setDirtyState={this.props.setDirtyState}
-                                />
-                            </div>
-                        </div>
-
-                        <FormHeader>
-                            <FormattedMessage id="attendee-capacity"/>
-                        </FormHeader>
-                        <div className="row">
-                            <div className="col-xs-12 col-sm-6">
-                                <HelTextField
-                                    ref="minimum_attendee_capacity"
-                                    name="minimum_attendee_capacity"
-                                    label={<FormattedMessage id="minimum-attendee-capacity"/>}
-                                    validationErrors={validationErrors['minimum_attendee_capacity']}
-                                    defaultValue={values['minimum_attendee_capacity']}
-                                    setDirtyState={this.props.setDirtyState}
-                                    type='text'
-                                />
-
-                                <HelTextField
-                                    ref="maximum_attendee_capacity"
-                                    name="maximum_attendee_capacity"
-                                    label={<FormattedMessage id="maximum-attendee-capacity"/>}
-                                    validationErrors={validationErrors['maximum_attendee_capacity']}
-                                    defaultValue={values['maximum_attendee_capacity']}
-                                    setDirtyState={this.props.setDirtyState}
-                                    type='text'
-                                />
-                            </div>
-                        </div>
-                    </div>
+                    </Collapse>
+                </div>
                 }
             </div>
         )

@@ -1,10 +1,10 @@
 $select-input-border-radius: 0px;
 
 .hel-select {
-    h3 {
+    label {
         position: relative;
-        margin-top: 1.5rem;
-        font-size: 1.25rem;
+        font-size: 1.2em;
+        padding-top: 2vh;
     }
         .validation-error-popover.popover.small {
             top: 50%;

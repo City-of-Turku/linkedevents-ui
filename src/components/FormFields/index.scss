@@ -1,5 +1,18 @@
-.container > div > .row {
+.container  > div  > .row {
     justify-content: space-between;
+    margin-right: 0px;
+    margin-left: 0px;
+    .glyphicon:not(.custom-date-input__button) {
+        font-size: 22px;
+        padding-left: 15px;
+        padding-top: 1px;
+        margin-right: 20px;
+    }
+}
+.container  > div > div > div > .row {
+    justify-content: space-between;
+    margin-right: 0px;
+    margin-left: 0px;
     .glyphicon:not(.custom-date-input__button) {
         font-size: 22px;
         padding-left: 15px;
@@ -48,6 +61,7 @@ textarea {
 .audience-row,
 .event-row,
 .location-row,
+.inlanguage-row,
 .umbrella-row {
     flex-direction: row-reverse;
 }
@@ -215,5 +229,44 @@ textarea {
 
             }
         }
+    }
+}
+
+.headerbutton {
+    width: 100%;
+    font-size: inherit;
+    font-weight: bold;
+    text-align: start;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    border-bottom: solid;
+    white-space: normal;
+    span {
+        pointer-events: none;
+    }
+    .glyphicon {
+        float: right;
+    }
+    &.error {
+        border-bottom-color: red;
+    }
+}
+.show {
+    background-color: white;
+}
+.collapses {
+        background-color: white;
+}
+.row-header {
+    width: 100%;
+    text-align: start;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    border-bottom: solid;
+    padding: 0.375rem 0.75rem;
+    h2 {
+        font-weight: bold;
     }
 }

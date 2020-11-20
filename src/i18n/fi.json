@@ -87,7 +87,13 @@
 
     "no-value": "-kenttää ei ole täytetty.",
 
+    "event-add-newInfo": "Täytä tapahtuman tiedot",
+    "event-name-shortdescription": "Tapahtuman nimi ja lyhyt kuvaus",
+    "event-picture-header": "Tapahtuman kuva",
     "event-description-fields-header": "Tapahtuman kuvaus",
+    "event-category-header": "Tapahtuman luokittelu ja kohderyhmät",
+    "event-price-header": "Tapahtuman hintatiedot",
+    "event-social-header": "Tapahtuman kanavat",
     "event-headline": "Otsikko",
     "event-short-description": "Lyhyt kuvaus",
     "event-description": "Kuvaus",

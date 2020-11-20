@@ -3,7 +3,8 @@ $actionBtnHeight: 60px;
 @import '~leaflet/dist/leaflet.css';
 .editor-page {
     font-weight: 300;
-    background-color: #ffffff;
+    background-image: url(https://i.imgur.com/s9iE032.jpg);
+    background-size: 100%;
     .header {
         align-items: baseline;
         display: flex;
@@ -22,14 +23,14 @@ $actionBtnHeight: 60px;
         margin-top: 55px;
     }
     .highlighted-block {
-        display: block;
-        background-color: #f6f6f6;
+        display: grid;
         padding: 20px;
         line-height: 1.5;
         color: #5a5959;
-        label {
+        label:first-child {
             font-size: 24px;
             line-height: 1.5;
+            font-weight: bold;
         }
         .language-selection {
             height: 0.1%;
@@ -37,7 +38,8 @@ $actionBtnHeight: 60px;
             justify-content: space-evenly;
             text-transform: capitalize;
             font-size: 20px;
-            margin-left: -0.5rem;
+            margin-left: 1rem;
+            margin-right: 2rem;
             flex-wrap: wrap;
             & > * {
                 flex: 0 1 33%;
@@ -49,7 +51,7 @@ $actionBtnHeight: 60px;
                 height: 1.5rem;
                 width: 1.5rem;
                 margin-top: 0.2rem;
-                margin-left: 1rem;
+                margin-left: -1.25rem;
             }
         }
     }

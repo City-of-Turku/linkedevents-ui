@@ -42,6 +42,7 @@ html, body {
 
 h1,h2,h3 {
     font-family: "HelsinkiGrotesk", "Roboto", "Helvetica Neue", "Segoe UI", Calibri, sans-serif;
+    font-weight: bold;
 }
 
 h1 {
@@ -76,9 +77,9 @@ h1 {
 }
 
 .tip {
-    margin-top: 28px;
+    margin-top: 0px;
     background-color: #f6f6f6;
-    padding: 20px;
+    padding: 10px;
 }
 
 .badge {

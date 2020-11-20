@@ -187,9 +187,9 @@ const HelSelect = ({
 
     return (
         <div {...optionalWrapperAttributes}>
-            <h3 id={legend} ref={labelRef}>
+            <label id={legend} ref={labelRef}>
                 {legend}{required ? '*' : ''}
-            </h3>
+            </label>
             <AsyncSelect
                 aria-labelledby={legend}
                 isClearable={isClearable}

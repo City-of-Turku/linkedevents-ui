@@ -20,7 +20,7 @@ import {
 } from '../../actions/editor'
 import {confirmAction, clearFlashMsg as clearFlashMsgAction, setFlashMsg as setFlashMsgAction} from '../../actions/app'
 import constants from '../../constants'
-import FormFields from '../../components/FormFields'
+import FormFields from '../../components/FormFields/'
 import {EventQueryParams, fetchEvent} from '../../utils/events'
 import {push} from 'react-router-redux'
 import moment from 'moment'
