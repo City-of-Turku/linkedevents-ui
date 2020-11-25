@@ -48,7 +48,7 @@
     "loose-envify": "^1.4.0",
     "moment": "^2.24.0",
     "moment-timezone": "^0.5.27",
-    "nconf": "^0.10.0",
+    "nconf": "^0.11.0",
     "object-assign": "^4.1.1",
     "oidc-client": "^1.10.1",
     "progress": "^1.1.8",
