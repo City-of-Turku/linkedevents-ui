@@ -25,6 +25,7 @@ import MomentUtils from '@date-io/moment';
 import moment from 'moment'
 import {Button, Modal, ModalHeader, ModalBody, ModalFooter} from 'reactstrap';
 import CookieBar from '../../components/CookieBar/CookieBar';
+import {checkCookieConsent} from '../../utils/cookieUtils';
 
 // localized moment utils
 class LocalizedUtils extends MomentUtils {
@@ -63,6 +64,9 @@ class App extends React.Component {
 
         // Prefetch editor related hel.fi categories
         this.props.fetchKeywordSets()
+
+        // Check if CookieConsent is given
+        checkCookieConsent()
     }
 
     componentDidUpdate(prevProps) {

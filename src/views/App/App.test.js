@@ -1,6 +1,7 @@
 import React from 'react';
 import {shallow} from 'enzyme';
-
+import {checkCookieConsent} from '../../utils/cookieUtils';
+jest.mock('../../utils/cookieUtils');
 import {UnconnectedApp} from './';
 import {mockUser} from '__mocks__/mockData';
 
@@ -24,6 +25,24 @@ describe('views/App/index', () => {
         }
         return shallow(<UnconnectedApp {...defaultProps} {...props}/>)
     }
+
+    describe('componentWillMount', () => {
+        const fetchLanguagesMock = jest.fn();
+        const fetchKeywordSetsMock = jest.fn();
+        test('fetchLanguages is called', () => {
+            const wrapper = getWrapper({fetchLanguages: fetchLanguagesMock});
+            expect(fetchLanguagesMock).toHaveBeenCalled();
+        });
+        test('fetchKeywordSets is called', () => {
+
+            const wrapper = getWrapper({fetchKeywordSets: fetchKeywordSetsMock});
+            expect(fetchKeywordSetsMock).toHaveBeenCalled();
+        });
+        test('checkCookieConsent is called', () => {
+            const wrapper = getWrapper();
+            expect(checkCookieConsent).toHaveBeenCalled();
+        });
+    });
 
     describe('componentDidUpdate', () => {
         describe('calls fetchUser', () => {

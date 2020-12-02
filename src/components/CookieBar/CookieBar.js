@@ -1,6 +1,7 @@
 import React from 'react'
 import CookieConsent from 'react-cookie-consent'
 import {injectIntl, intlShape} from 'react-intl'
+import {addCookieScript} from '../../utils/cookieUtils';
 import './CookieBar.scss'
 
 function CookieBar(props) {
@@ -16,8 +17,8 @@ function CookieBar(props) {
             disableStyles
             enableDeclineButton
             expires={90}
-            onDecline={() => { window.location.replace(intl.formatMessage({id: 'cookieBar.decline.url'}))}}
-            setDeclineCookie={false}
+            onAccept={addCookieScript}
+            setDeclineCookie
             flipButtons
         >
             {intl.formatMessage({id: 'cookieBar.description'})}
