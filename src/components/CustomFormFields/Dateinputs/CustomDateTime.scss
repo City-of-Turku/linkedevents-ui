@@ -18,23 +18,20 @@
         padding-top: 2vh;
     }
     input {
-        border: none;
-        border-bottom: solid 2px;
         background: none;
-        border-radius: 0;
+        border: solid 2px;
+        border-radius: 0.25rem;
         &:hover,
         &:focus,
         &:active {
-            box-shadow: none;
-            border-bottom: solid 3px;
-            border-color: #0072c6;
             background: none;
+
         }
     }
 
     &__button {
         color: #fff;
-        background-color:#0072c6;
+        background-color: var(--main-color);
         border-radius: 2px;
 
         &.glyphicon, .glyphicon-calendar {

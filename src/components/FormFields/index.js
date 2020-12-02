@@ -105,6 +105,9 @@ class FormFields extends React.Component {
         if (prevProps.editor.values.location !== null && this.props.editor.values.location === null) {
             this.setState({openMapContainer: false});
         }
+        if ((Object.keys(prevProps.editor.validationErrors).length === 0) && (Object.keys(this.props.editor.validationErrors).length > 0)) {
+            this.setState({headerPrices: true, headerSocials: true, headerCategories: true, headerInlanguage: true, headerDescription: true, headerImage: true});
+        }
     }
 
     handleSetMapContainer = (mapContainer) => {
@@ -224,25 +227,27 @@ class FormFields extends React.Component {
         const selectedPublisher = publisherOptions.find(option => option.value === values['organization']) || {};
 
         const position = this.props.editor.values.location ? this.props.editor.values.location.position : null;
+        const headerTextId = formType === 'update'
+            ? 'edit-events'
+            : 'create-events'
         return (
             <div className='collapses'>
+                <div className='row row-mainheader'>
+                    <FormattedMessage id={headerTextId}>{txt => <h1>{txt}</h1>}</FormattedMessage>
+                </div>
                 <div className="row row-header">
                     <FormattedMessage id='event-add-newInfo'>{txt => <h2>{txt}</h2>}</FormattedMessage>
                 </div>
-
-
+                <FormHeader>
+                    <FormattedMessage id="event-presented-in-languages"/>
+                </FormHeader>
                 <div className="row event-row">
                     <SideField>
                         <div className="tip">
-                            <p><FormattedMessage id="editor-tip-event-description"/></p>
-                            <FormattedMessage id="editor-tip-event-description1"/>
+                            <FormattedMessage id="editor-tip-formlanguages"/>
                         </div>
                     </SideField>
                     <div className="col-sm-6 highlighted-block">
-                        <label htmlFor='languages' tabIndex='0'>
-                            <FormattedMessage id="event-presented-in-languages"/>
-                        </label>
-                        <input id='languages' type='hidden'/>
                         <HelLanguageSelect
                             options={API.eventInfoLanguages()}
                             checked={contentLanguages}
@@ -255,8 +260,9 @@ class FormFields extends React.Component {
                 <div className="row event-row">
                     <SideField>
                         <div className="tip">
-                            <p><FormattedMessage id="editor-tip-event-description"/></p>
-                            <FormattedMessage id="editor-tip-event-description1"/>
+                            <FormattedMessage id='editor-tip-required'>{txt => <small>{txt}</small>}</FormattedMessage>
+                            <FormattedMessage id="editor-tip-namedescription">{txt => <p>{txt}</p>}</FormattedMessage>
+                            <FormattedMessage id="editor-tip-namedescription2"/>
                         </div>                       
                     </SideField>
                     <div className="col-sm-6">
@@ -454,22 +460,25 @@ class FormFields extends React.Component {
                             color='collapse'
                             onClick={this.toggleHeader}
                             id='headerDescription'
-                            className={classNames('headerbutton', {'error': validationErrors['location'] || validationErrors['location_extra_info']})}
+                            className={classNames('headerbutton', {'error': validationErrors['description'] || validationErrors['provider']})}
+                            aria-label={this.context.intl.formatMessage({id: 'editor-expand-headerbutton'}) + ' ' + this.context.intl.formatMessage({id: 'event-description-fields-header'})}
                         >
                             <FormattedMessage id='event-description-fields-header'/>
                             {this.state.headerDescription ?
-                                <span className='glyphicon glyphicon-chevron-up' />
+                                <span aria-hidden className='glyphicon glyphicon-chevron-up' />
                                 :
-                                <span className='glyphicon glyphicon-chevron-down' />
+                                <span aria-hidden className='glyphicon glyphicon-chevron-down' />
                             }
                         </Button>
                     </h2>
                     <Collapse toggle={this.toggleHeader} isOpen={this.state.headerDescription}>
+                        <FormHeader>
+                            <FormattedMessage id='event-description-fields-header'/>
+                        </FormHeader>
                         <div className="row event-row">
                             <SideField>
                                 <div className="tip">
-                                    <p><FormattedMessage id="editor-tip-event-description"/></p>
-                                    <FormattedMessage id="editor-tip-event-description1"/>
+                                    <FormattedMessage id="editor-tip-longdescription"/>
                                 </div>
                             </SideField>
                             <div className="col-sm-6">
@@ -535,12 +544,13 @@ class FormFields extends React.Component {
                             id='headerImage'
                             className='headerbutton'
                             color='collapse'
+                            aria-label={this.context.intl.formatMessage({id: 'editor-expand-headerbutton'}) + ' ' + this.context.intl.formatMessage({id: 'event-picture-header'})}
                         >
                             <FormattedMessage id='event-picture-header'/>
                             {this.state.headerImage ?
-                                <span className='glyphicon glyphicon-chevron-up' />
+                                <span aria-hidden className='glyphicon glyphicon-chevron-up' />
                                 :
-                                <span className='glyphicon glyphicon-chevron-down' />
+                                <span aria-hidden className='glyphicon glyphicon-chevron-down' />
                             }
                         </Button>
                     </h2>
@@ -558,14 +568,15 @@ class FormFields extends React.Component {
                         <Button
                             onClick={this.toggleHeader}
                             id='headerCategories'
-                            className='headerbutton'
+                            className={classNames('headerbutton', {'error': validationErrors['keywords'] || validationErrors['audience']})}
                             color='collapse'
+                            aria-label={this.context.intl.formatMessage({id: 'editor-expand-headerbutton'})  + ' ' + this.context.intl.formatMessage({id: 'event-category-header'}) + '.' + this.context.intl.formatMessage({id: 'editor-expand-required'})}
                         >
                             <FormattedMessage id='event-category-header' />
                             {this.state.headerCategories ?
-                                <span className='glyphicon glyphicon-chevron-up' />
+                                <span aria-hidden className='glyphicon glyphicon-chevron-up' />
                                 :
-                                <span className='glyphicon glyphicon-chevron-down' />
+                                <span aria-hidden className='glyphicon glyphicon-chevron-down' />
                             }
                         </Button>
                     </h2>
@@ -582,7 +593,11 @@ class FormFields extends React.Component {
                             />
                         </div>
                         <div className="row audience-row">
-                            <SideField><p className="tip"><FormattedMessage id="editor-tip-hel-target-group"/></p></SideField>
+                            <SideField>
+                                <div className="tip">
+                                    <FormattedMessage id="editor-tip-hel-target-group"/>
+                                </div>
+                            </SideField>
                             <HelLabeledCheckboxGroup
                                 groupLabel={<FormattedMessage id="hel-target-groups"/>}
                                 selectedValues={values['audience']}
@@ -601,14 +616,15 @@ class FormFields extends React.Component {
                         <Button
                             onClick={this.toggleHeader}
                             id='headerPrices'
-                            className={classNames('headerbutton', {'error': validationErrors['hasPrice']})}
+                            className={classNames('headerbutton', {'error': validationErrors['price'] || validationErrors['offer_info_url']})}
                             color='collapse'
+                            aria-label={this.context.intl.formatMessage({id: 'editor-expand-headerbutton'}) + ' ' + this.context.intl.formatMessage({id: 'event-price-header'})}
                         >
                             <FormattedMessage id='event-price-header'/>
                             {this.state.headerPrices ?
-                                <span className='glyphicon glyphicon-chevron-up' />
+                                <span aria-hidden className='glyphicon glyphicon-chevron-up' />
                                 :
-                                <span className='glyphicon glyphicon-chevron-down' />
+                                <span aria-hidden className='glyphicon glyphicon-chevron-down' />
                             }
                         </Button>
                     </h2>
@@ -642,14 +658,15 @@ class FormFields extends React.Component {
                         <Button
                             onClick={this.toggleHeader}
                             id='headerSocials'
-                            className='headerbutton'
+                            className={classNames('headerbutton', {'error': validationErrors['info_url'] || validationErrors['extlink_facebook'] || validationErrors['extlink_twitter'] || validationErrors['extlink_instagram']})}
                             color='collapse'
+                            aria-label={this.context.intl.formatMessage({id: 'editor-expand-headerbutton'}) + ' ' + this.context.intl.formatMessage({id: 'event-social-header'})}
                         >
                             <FormattedMessage id='event-social-header' />
                             {this.state.headerSocials ?
-                                <span className='glyphicon glyphicon-chevron-up' />
+                                <span aria-hidden className='glyphicon glyphicon-chevron-up' />
                                 :
-                                <span className='glyphicon glyphicon-chevron-down' />
+                                <span aria-hidden className='glyphicon glyphicon-chevron-down' />
                             }
                         </Button>
                     </h2>
@@ -731,20 +748,25 @@ class FormFields extends React.Component {
                         <Button
                             onClick={this.toggleHeader}
                             id='headerInlanguage'
-                            className='headerbutton'
+                            className={classNames('headerbutton', {'error': validationErrors['in_language']})}
                             color='collapse'
+                            aria-label={this.context.intl.formatMessage({id: 'editor-expand-headerbutton'}) + ' ' + this.context.intl.formatMessage({id: 'hel-event-languages'})}
                         >
                             <FormattedMessage id='hel-event-languages'/>
                             {this.state.headerInlanguage ?
-                                <span className='glyphicon glyphicon-chevron-up' />
+                                <span aria-hidden className='glyphicon glyphicon-chevron-up' />
                                 :
-                                <span className='glyphicon glyphicon-chevron-down' />
+                                <span aria-hidden className='glyphicon glyphicon-chevron-down' />
                             }
                         </Button>
                     </h2>
                     <Collapse toggle={this.toggleHeader} isOpen={this.state.headerInlanguage}>
                         <div className="row inlanguage-row">
-                            <SideField><p className="tip"><FormattedMessage id="editor-tip-event-languages"/></p></SideField>
+                            <SideField>
+                                <p className="tip">
+                                    <FormattedMessage id="editor-tip-event-languages"/>
+                                </p>
+                            </SideField>
                             <HelLabeledCheckboxGroup
                                 groupLabel={<FormattedMessage id="hel-event-languages"/>}
                                 selectedValues={values['in_language']}
@@ -769,9 +791,9 @@ class FormFields extends React.Component {
                         >
                             <FormattedMessage id='create-courses'/>
                             {this.state.headerCourses ?
-                                <span className='glyphicon glyphicon-chevron-up' />
+                                <span aria-hidden className='glyphicon glyphicon-chevron-up' />
                                 :
-                                <span className='glyphicon glyphicon-chevron-down' />
+                                <span aria-hidden className='glyphicon glyphicon-chevron-down' />
                             }
                         </Button>
                     </h2>

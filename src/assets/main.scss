@@ -101,46 +101,34 @@ h1 {
     }
 }
 
-#debughelper {
-    position: fixed;
-    bottom: 5em;
-    left: 0;
+//Global coloring rules for checkboxes
+input[type='checkbox'] {
+    color: var(--light-color);
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
 }
-
-#debughelper_container {
-    position: relative;
-    z-index: 100;
-    height: 3em;
-    width: 1em;
-    font-size: 200%;
-    margin-left: -0.3em;
+input[type='checkbox']:after {
+    background-color: var(--light-color);
+    color: var(--main-color);
+    border-color: var(--main-color);
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
 }
-
-#slide {
-    position: absolute;
-    z-index: 99;
-    left: -33em;
-    width: 33em;
-    height: 4em;
-    transition: 1s;
-    background-color: white;
-    border: 1px solid black;
-    border-left: none;
-    top: 0;
-    margin-top: -0.5em;
-    padding: 0.2em 0.3em 0.2em 3.3em;
-    &.show-me{
-        transition: 0.5s;
-        left: 0;
+input[type='checkbox']:checked:after {
+    background-color: var(--main-color);
+}
+//All text-inputs globally used in project
+input, .custom-date-time-input > input, .event-input > input textarea, .form-control {
+    border-color: var(--black-color);
+    &:hover,
+    &:focus,
+    &:active {
+        box-shadow: none;
+        border-color: var(--main-color);
     }
 }
-
-
-#debughelper:hover #slide {
-    transition: 0.5s;
-    left: 0;
-}
-
 
 #testingmessage {
     background: #EB0000;

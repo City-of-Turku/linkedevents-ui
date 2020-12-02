@@ -78,6 +78,7 @@ class ImageGallery extends React.Component {
                         block
                         onClick={this.toggleEditModal}
                     >
+                        <span aria-hidden className="glyphicon glyphicon-plus"></span>
                         <FormattedMessage id='upload-new-image' />
                     </Button>
                     <Button
@@ -86,6 +87,7 @@ class ImageGallery extends React.Component {
                         block
                         onClick={this.toggleOrgModal}
                     >
+                        <span aria-hidden className="glyphicon glyphicon-plus"></span>
                         <FormattedMessage id='upload-image-select-bank' />
                     </Button>
                     <ImageEdit open={this.state.openEditModal} close={this.toggleEditModal}/>

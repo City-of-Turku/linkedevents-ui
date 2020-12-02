@@ -13,12 +13,6 @@ exports[`Editor Snapshot should render view correctly when creating new event fr
     <div
       className="container header"
     >
-      <h1>
-        <FormattedMessage
-          id="create-events"
-          values={Object {}}
-        />
-      </h1>
       <div
         className="controls"
       />
@@ -2081,12 +2075,6 @@ exports[`Editor Snapshot should render view correctly when editing existing even
     <div
       className="container header"
     >
-      <h1>
-        <FormattedMessage
-          id="edit-events"
-          values={Object {}}
-        />
-      </h1>
       <div
         className="controls"
       />
@@ -4104,12 +4092,6 @@ exports[`Editor Snapshot should render view correctly when new event 1`] = `
     <div
       className="container header"
     >
-      <h1>
-        <FormattedMessage
-          id="create-events"
-          values={Object {}}
-        />
-      </h1>
       <div
         className="controls"
       />

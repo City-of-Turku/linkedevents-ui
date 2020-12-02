@@ -87,14 +87,15 @@
 
     "no-value": "-kenttää ei ole täytetty.",
 
-    "event-add-newInfo": "Täytä tapahtuman tiedot",
-    "event-name-shortdescription": "Tapahtuman nimi ja lyhyt kuvaus",
     "event-picture-header": "Tapahtuman kuva",
     "event-description-fields-header": "Tapahtuman kuvaus",
-    "event-category-header": "Tapahtuman luokittelu ja kohderyhmät",
+    "event-category-header": "Tapahtuman luokittelu ja kohderyhmät*",
     "event-price-header": "Tapahtuman hintatiedot",
     "event-social-header": "Tapahtuman kanavat",
+
+    "event-add-newInfo": "Täytä tapahtuman tiedot",
     "event-headline": "Otsikko",
+    "event-name-shortdescription": "Tapahtuman nimi ja lyhyt kuvaus",
     "event-short-description": "Lyhyt kuvaus",
     "event-description": "Kuvaus",
     "event-info-url": "Kotisivu",
@@ -331,6 +332,14 @@
     "editor-tip-event-languages": "Kielet, joita tapahtumassa käytetään.",
     "editor-tip-umbrella-sub-event": "Jos haluat lisätä tämän tapahtuman osaksi kattotapahtumaa, tee se ",
     "editor-tip-umbrella-sub-event-link": "sarjan ylätapahtumasta",
+    "editor-tip-formlanguages": "Valitse tapahtuman syöttökielet. Jokaisella tapahtumalla on vähintään yksi kieli. Monikielisille tapahtumille suosittelemme syöttämään tiedot usealla kielellä.",
+    "editor-tip-namedescription": "Kirjoita eri yhteyksissä ymmärrettävä otsikko sekä lyhyt kuvaus tapahtumasta. Voit myös syöttää valinnaisen pidemmän kuvauksen.",
+    "editor-tip-namedescription2": "Lyhyt kuvaus näytetään vain tapahtumalistoissa. Jos kohderyhmä on rajattu, kerro siitä pidemmässä kuvaustekstissä.",
+    "editor-tip-longdescription": "Kirjoita valinnainen pidempi kuvaus tapahtumasta joka näytetään tapahtuman omalla sivulla. Vältä lyhenteitä ja HUUTAMISTA.",
+    "editor-tip-required": "Tähdellä (*) merkityt kentät ovat pakollisia.",
+
+    "editor-expand-headerbutton": "Klikkaa laajentaaksesi osio ",
+    "editor-expand-required": "Tämä osio on pakollinen.",
 
     "add-more": "Lisää kerrat",
     "play-date-label": "Toistopäivät",

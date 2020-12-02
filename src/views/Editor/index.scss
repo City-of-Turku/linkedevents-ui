@@ -3,7 +3,7 @@ $actionBtnHeight: 60px;
 @import '~leaflet/dist/leaflet.css';
 .editor-page {
     font-weight: 300;
-    background-image: url(https://i.imgur.com/s9iE032.jpg);
+    background-image: url(../../assets/images/Linked-event-background.jpg);
     background-size: 100%;
     .header {
         align-items: baseline;
@@ -23,6 +23,7 @@ $actionBtnHeight: 60px;
         margin-top: 55px;
     }
     .highlighted-block {
+        align-content: center;
         display: grid;
         padding: 20px;
         line-height: 1.5;
@@ -56,10 +57,10 @@ $actionBtnHeight: 60px;
         }
     }
     .side-field {
-        padding-top: 36px;
+        padding-top: 24px;
         @media (max-width: 768px) {
-            padding-top: 0;
-            padding-bottom: 36px;
+            padding-top: 15px;
+            padding-bottom: 15px;
             &.ImagePickerField {
                 margin-top: 25px;
             }
@@ -67,7 +68,6 @@ $actionBtnHeight: 60px;
         p {
             font-size: 18px;
             font-weight: 300;
-            color: #373a3c;
         }
         strong {
             font-weight: bold;

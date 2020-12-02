@@ -1,38 +1,26 @@
 .price-label {
     margin-top: 0.5rem;
 }
+//Coloring rules can be found in main.scss as they're global variables
 input[type='checkbox'] {
     width: 1em;
     height: 1em;
     margin-right: 1em;
     cursor: pointer;
     font-size: 20px;
-    color: #ffffff;
-    -webkit-box-shadow: 0px 0px 0px 1px rgb(10, 10, 10);
-    -moz-box-shadow: 0px 0px 0px 1px rgb(3, 3, 3);
-    box-shadow: 0px 0px 0px 1px rgb(5, 5, 5);
 }
-
 input[type='checkbox']:after {
     content: ' ';
     width: 1.5rem;
     height: 1.5rem;
-    background-color: #ffffff;
     visibility: visible;
     display: inline-block;
-    color: #000000;
-    border: solid 1px;
+    border: solid 2px;
     text-align: center;
-    border-color: #0062ae;
-    -webkit-box-shadow: 0px 0px 0px 1px rgb(10, 10, 10);
-    -moz-box-shadow: 0px 0px 0px 1px rgb(3, 3, 3);
-    box-shadow: 0px 0px 0px 1px rgb(5, 5, 5);
 }
-
 input[type='checkbox']:checked:after {
     content: '';
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     width: 1.5rem;
     height: 1.5rem;
-    background-color: #0062ae;
 }

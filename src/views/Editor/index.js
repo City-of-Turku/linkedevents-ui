@@ -303,9 +303,6 @@ export class EditorPage extends React.Component {
                 <div className="editor-page">
                     <Helmet title={pageTitle}/>
                     <div className="container header">
-                        <h1>
-                            <FormattedMessage id={headerTextId}/>
-                        </h1>
                         <div className="controls">
                             {isAdminUser && isDraft &&
                                 <Button

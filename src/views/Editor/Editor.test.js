@@ -139,7 +139,7 @@ describe('Editor Snapshot', () => {
     };
     test('correct amount of FormattedMessages', () => {
         const element = getWrapper().find(FormattedMessage);
-        expect(element).toHaveLength(2);
+        expect(element).toHaveLength(1);
     });
     test('react-helmet is defined and gets title prop', () => {
         const wrapper = getWrapper().find(Helmet);

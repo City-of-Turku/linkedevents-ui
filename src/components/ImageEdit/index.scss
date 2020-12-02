@@ -50,7 +50,7 @@
 					.file-upload--external {
 						#upload-external {
 							input {
-								border-width: 0px 0px 2px 0px;
+								border-width: 2px;
 								border-style: solid;
 							}
 							.image-url {
@@ -64,11 +64,6 @@
 							label {
 								display: inline-flex;
 								margin-bottom: 0px;
-								input[type="checkbox"]::after {
-									border: 0;
-									width: 1em;
-									height: 1em;
-								}
 							}
 						}
 					}
@@ -86,17 +81,33 @@
 				font-size: inherit;
 			}
 
-			input[type="checkbox"]::after {
-				border: 0;
+			input[type='checkbox'] {
 				width: 1em;
 				height: 1em;
+				margin-right: 1em;
+				cursor: pointer;
+				font-size: 20px;
 			}
-			input[type="checkbox"]:checked::before {
-				/* Use `visibility` instead of `display` to avoid recalculating layout */
+			input[type='checkbox']:after {
+				content: ' ';
+				width: 1.5rem;
+				height: 1.5rem;
+				visibility: visible;
+				display: inline-block;
+				border: solid 2px;
+				text-align: center;
+			}
+			input[type='checkbox']:checked::before {
+				content: '';
+				font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+				width: 1.5rem;
+				height: 1.5rem;
 				visibility: visible;
 			}
 			input[type="radio"] {
 				margin-right: 1em;
+				width: 1.5rem;
+				height: 1.5rem;
 			}
 		}
 		.license-help-text {
