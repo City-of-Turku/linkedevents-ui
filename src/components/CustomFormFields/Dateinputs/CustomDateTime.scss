@@ -21,6 +21,10 @@
         padding-top: 2vh;
     }
     input {
+        width: 195px;
+        @media only screen and (max-width: 1200px) {
+            width: 100%;
+    }
         background: none;
         border: solid 2px;
         border-radius: 0.25rem;
