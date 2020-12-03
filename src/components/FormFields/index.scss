@@ -257,15 +257,16 @@ textarea {
         }
     }
 }
-
+.collapses {
+    background-color: white;
+    .show {
+        background-color: white;
+    }
 .headerbutton {
     width: 100%;
     font-size: inherit;
     font-weight: bold;
     text-align: start;
-    border-top: none;
-    border-right: none;
-    border-left: none;
     border-bottom: solid;
     white-space: normal;
     span {
@@ -277,11 +278,12 @@ textarea {
     &.error {
         border-bottom-color: red;
     }
-}
-.collapses {
-        background-color: white;
-        .show {
-            background-color: white;
+    @media (min-width: 320px) and (max-width: 768px) {
+        display: grid;
+        span {
+            text-align: center;
         }
+    }
+    }
 }
 
