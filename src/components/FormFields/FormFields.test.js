@@ -431,11 +431,6 @@ describe('FormField', () => {
                 test('correct amount of Collapses', () => {
                     expect(collapse).toHaveLength(6)
                 })
-                test('default prop for Collapses',() => {
-                    collapse.forEach((element)=> {
-                        expect(element.prop('toggle')).toBe(instance.toggleHeader)
-                    })
-                })
                 test('correct states for Collapses', () => {
                     expect(collapse.at(0).prop('isOpen')).toBe(instance.state.headerDescription)
                     expect(collapse.at(1).prop('isOpen')).toBe(instance.state.headerImage)

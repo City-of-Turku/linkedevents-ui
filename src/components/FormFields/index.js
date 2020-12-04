@@ -471,7 +471,7 @@ class FormFields extends React.Component {
                             }
                         </Button>
                     </h2>
-                    <Collapse toggle={this.toggleHeader} isOpen={this.state.headerDescription}>
+                    <Collapse isOpen={this.state.headerDescription}>
                         <FormHeader>
                             <FormattedMessage id='event-description-fields-header'/>
                         </FormHeader>
@@ -554,7 +554,7 @@ class FormFields extends React.Component {
                             }
                         </Button>
                     </h2>
-                    <Collapse toggle={this.toggleHeader} isOpen={this.state.headerImage}>
+                    <Collapse isOpen={this.state.headerImage}>
                         <FormHeader>
                             <FormattedMessage id="event-image-title"/>
                         </FormHeader>
@@ -580,7 +580,7 @@ class FormFields extends React.Component {
                             }
                         </Button>
                     </h2>
-                    <Collapse toggle={this.toggleHeader} isOpen={this.state.headerCategories}>
+                    <Collapse isOpen={this.state.headerCategories}>
                         <FormHeader>
                             <FormattedMessage id="event-categorization" />
                         </FormHeader>
@@ -628,7 +628,7 @@ class FormFields extends React.Component {
                             }
                         </Button>
                     </h2>
-                    <Collapse toggle={this.toggleHeader} isOpen={this.state.headerPrices}>
+                    <Collapse isOpen={this.state.headerPrices}>
                         <FormHeader>
                             <FormattedMessage id="event-price-fields-header" />
                         </FormHeader>
@@ -670,7 +670,7 @@ class FormFields extends React.Component {
                             }
                         </Button>
                     </h2>
-                    <Collapse toggle={this.toggleHeader} isOpen={this.state.headerSocials}>
+                    <Collapse isOpen={this.state.headerSocials}>
                         <FormHeader>
                             <FormattedMessage id="event-social-media-fields-header" />
                         </FormHeader>
@@ -760,7 +760,7 @@ class FormFields extends React.Component {
                             }
                         </Button>
                     </h2>
-                    <Collapse toggle={this.toggleHeader} isOpen={this.state.headerInlanguage}>
+                    <Collapse isOpen={this.state.headerInlanguage}>
                         <div className="row inlanguage-row">
                             <SideField>
                                 <p className="tip">
@@ -797,7 +797,7 @@ class FormFields extends React.Component {
                             }
                         </Button>
                     </h2>
-                    <Collapse toggle={this.toggleHeader} isOpen={this.state.headerCourses}>
+                    <Collapse isOpen={this.state.headerCourses}>
                         <div>
                             <FormHeader>
                                 <FormattedMessage id="audience-age-restrictions"/>
