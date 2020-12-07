@@ -21,7 +21,9 @@ export default (store) => {
             fn: () => {
                 let top = (window.scrollY || window.pageYOffset)
                 let popovers = document.getElementsByClassName('validation-popper')[0].parentElement.children[1].focus();
-                if(popovers[0]) { window.scrollTo(0, top + popovers[0].getBoundingClientRect().top - 16) }
+                if(popovers) {
+                    window.scrollTo(0, top + popovers.getBoundingClientRect().top - 16);
+                }
             },
         }
 

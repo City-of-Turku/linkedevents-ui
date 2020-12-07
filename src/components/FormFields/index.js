@@ -77,10 +77,8 @@ class FormFields extends React.Component {
             headerCourses: false,
             headerDescription: false,
             headerImage: false,
-
-
-
         }
+        
         this.handleOrganizationChange = this.handleOrganizationChange.bind(this)
         this.toggleHeader = this.toggleHeader.bind(this)
     }

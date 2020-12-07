@@ -243,7 +243,7 @@ describe('FormField', () => {
                     expect(twitterHelText.prop('validationErrors')).toBe(defaultProps.editor.validationErrors.extlink_twitter)
                     expect(twitterHelText.prop('defaultValue')).toBe(defaultProps.editor.values.extlink_twitter)
                 })
-                test('correct props for event twitter field', () => {
+                test('correct props for event instagram field', () => {
                     const instaHelText = helfields.at(2)
                     expect(instaHelText.prop('validations')).toEqual([VALIDATION_RULES.IS_URL])
                     expect(instaHelText.prop('id')).toBe('extlink_instagram')
@@ -319,7 +319,7 @@ describe('FormField', () => {
             describe('HelKeywordSelector', () => {
                 const wrapper = getWrapper()
                 const helkeywords = wrapper.find(HelKeywordSelector)
-                test('correct pros for HelKeywordSelector', () => {
+                test('correct props for HelKeywordSelector', () => {
                     expect(helkeywords.prop('editor')).toBe(defaultProps.editor)
                     expect(helkeywords.prop('intl')).toBe(intl)
                     expect(helkeywords.prop('setDirtyState')).toBe(defaultProps.setDirtyState)
@@ -340,7 +340,7 @@ describe('FormField', () => {
                     expect(recurring.prop('formType')).toBe(defaultProps.action)
                 })
             })
-            //Ongelmallinen kohta
+
             describe('OrganizationSelector', () => {
                 const wrapper = getWrapper()
                 const instance = wrapper.instance();

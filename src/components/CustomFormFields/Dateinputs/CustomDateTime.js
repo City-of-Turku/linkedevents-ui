@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useRef} from 'react'
 import DatePicker, {registerLocale} from 'react-datepicker'
 import PropTypes from 'prop-types'
 import {FormGroup, Label, Input} from 'reactstrap'
@@ -12,6 +12,7 @@ import sv from 'date-fns/locale/sv'
 import {connect} from 'react-redux'
 import {setData as setDataAction, updateSubEvent as updateSubEventAction} from 'src/actions/editor'
 import {roundDateToCorrectUnit, getCorrectInputLabel, getCorrectMinDate, getDatePickerOpenDate, convertDateToLocaleString, getDateFormat} from './utils/datetime'
+import ValidationPopover from 'src/components/ValidationPopover'
 
 
 class CustomDateTime extends React.Component {
@@ -125,10 +126,9 @@ class CustomDateTime extends React.Component {
 
 
     render() {
-        const {labelDate, labelTime, name, id, defaultValue, minDate, maxDate, disabled, required, intl} = this.props
+        const {labelDate, labelTime, name, id, defaultValue, minDate, maxDate, disabled, required, intl, validationErrors} = this.props
         const {dateInputValue, timeInputValue, showValidationError, validationErrorText} = this.state
         const inputErrorId = 'date-input-error__' + id
-
         const dateFieldId = `${id}-date-field`
         const timeFieldId = `${id}-time-field`
 
@@ -137,19 +137,7 @@ class CustomDateTime extends React.Component {
                 <div className="custom-date-time-input">
                     <FormGroup>
                         <Label for={dateFieldId}>{getCorrectInputLabel(labelDate)}{required ? '*' : ''}</Label>
-                        <div className="input-and-button">
-                            <Input
-                                aria-describedby={showValidationError ? inputErrorId : undefined}
-                                aria-invalid={showValidationError}
-                                type="text"
-                                name={name}
-                                id={dateFieldId}
-                                value={dateInputValue ? dateInputValue : ''}
-                                onChange={this.handleInputChangeDate}
-                                onBlur={this.handleInputBlur}
-                                disabled={disabled}
-                                required={required}
-                            />
+                        <div className="input-and-button"  ref={ref => this.containerRef = ref}>
                             <DatePicker
                                 disabled={disabled}
                                 onChange={(value) => this.handleDateTimePickerChange(value, 'date')}
@@ -168,23 +156,28 @@ class CustomDateTime extends React.Component {
                                     },
                                 }}
                             />
-                        </div>
-                    </FormGroup>
-                    <FormGroup>
-                        <Label for={timeFieldId}>{getCorrectInputLabel(labelTime)}{required ? '*' : ''}</Label>
-                        <div className="input-and-button">
                             <Input
                                 aria-describedby={showValidationError ? inputErrorId : undefined}
                                 aria-invalid={showValidationError}
                                 type="text"
                                 name={name}
-                                id={timeFieldId}
-                                value={timeInputValue ? timeInputValue : ''}
-                                onChange={this.handleInputChangeTime}
+                                id={dateFieldId}
+                                value={dateInputValue ? dateInputValue : ''}
+                                onChange={this.handleInputChangeDate}
                                 onBlur={this.handleInputBlur}
                                 disabled={disabled}
                                 required={required}
                             />
+                            <ValidationPopover
+                                anchor={this.containerRef}
+                                placement={'right'}
+                                validationErrors={validationErrors}
+                            />
+                        </div>
+                    </FormGroup>
+                    <FormGroup>
+                        <Label for={timeFieldId}>{getCorrectInputLabel(labelTime)}{required ? '*' : ''}</Label>
+                        <div className="input-and-button"  ref={ref => this.containerRef = ref}>
                             <DatePicker
                                 disabled={disabled}
                                 onChange={(value) => this.handleDateTimePickerChange(value, 'time')}
@@ -204,7 +197,24 @@ class CustomDateTime extends React.Component {
                                         boundariesElement: 'viewport',
                                     },
                                 }}
-                            />                  
+                            />
+                            <Input
+                                aria-describedby={showValidationError ? inputErrorId : undefined}
+                                aria-invalid={showValidationError}
+                                type="text"
+                                name={name}
+                                id={timeFieldId}
+                                value={timeInputValue ? timeInputValue : ''}
+                                onChange={this.handleInputChangeTime}
+                                onBlur={this.handleInputBlur}
+                                disabled={disabled}
+                                required={required}
+                            />
+                            <ValidationPopover
+                                anchor={this.containerRef}
+                                placement={'right'}
+                                validationErrors={validationErrors}
+                            />           
                         </div>
                     </FormGroup>
                 </div>
@@ -235,6 +245,10 @@ CustomDateTime.propTypes = {
     updateSubEvent: PropTypes.func,
     eventKey: PropTypes.string,
     intl: PropTypes.object,
+    validationErrors: PropTypes.oneOfType([
+        PropTypes.array,
+        PropTypes.object,
+    ]),
 };
 
 const mapDispatchToProps = (dispatch) => ({
