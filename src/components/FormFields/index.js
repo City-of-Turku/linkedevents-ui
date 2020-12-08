@@ -229,7 +229,7 @@ class FormFields extends React.Component {
             ? 'edit-events'
             : 'create-events'
         return (
-            <div className='collapses'>
+            <div className='mainwrapper'>
                 <div className='row row-mainheader'>
                     <FormattedMessage id={headerTextId}>{txt => <h1>{txt}</h1>}</FormattedMessage>
                 </div>

@@ -1,4 +1,4 @@
-import React, {useRef} from 'react'
+import React from 'react'
 import DatePicker, {registerLocale} from 'react-datepicker'
 import PropTypes from 'prop-types'
 import {FormGroup, Label, Input} from 'reactstrap'
