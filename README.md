@@ -14,11 +14,16 @@ Linked Events API. It exposes many capabilities of the API including:
 # Prerequisites
 * Yarn
 * Node v8 LTS 
-* Python 2 (due to node-sass using node-gyp)
+
+# Theming
+
+Linkedevents project supports theming. 
+If there's a need to style components differently to match a certain city's branding,
+a theme npm package will be used to override any default styles.
+
+Here's a link to a city theme example with a README on how to start using it: https://github.com/codepointtku/linkedevents-ui-theme
 
 # Development Installation
-
-## Configuration
 
 Copy the contents of `config_dev.json.example` to `config_dev.json`.
 
@@ -41,22 +46,20 @@ Then point your browser to the webpack dev server at http://localhost:8080/.
 
 # Production installation
 
-## Configuration
-
 For production builds, all configuration is done using environment
 variables. This way, no errant configuration files should cause mysterious
 build failures or, worse, dormant configuration errors. The environment variables
 are named exactly the same as the ones in `config_dev.json`. For example,
 if you'd like to change the base address for Linkedevents API, you would:
 ```
-export api_base="https://api.hel.fi/linkedevents/v1"
+export api_base="https://testilinkedevents.turku.fi:8001/v1/"
 ```
 
 Most if not all build automation tools provide for setting environment
 variables. Check the documentation for the one you are using. If you are
 testing locally you can `source config_build_example.sh` to get started.
 
-### Building
+## Building
 
 After setting the config you can build install dependencies and build the
 static files:
