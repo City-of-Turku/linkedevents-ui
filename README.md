@@ -16,7 +16,6 @@ Linked Events API. It exposes many capabilities of the API including:
 * Node v14 LTS 
 
 # Theming
-
 Linkedevents project supports theming. 
 If there's a need to style components differently to match a certain city's branding,
 a theme npm package will be used to override any default styles.
@@ -24,7 +23,6 @@ a theme npm package will be used to override any default styles.
 Here's a link to a city theme example with a README on how to start using it: https://github.com/codepointtku/linkedevents-ui-theme
 
 # Development Installation
-
 Copy the contents of `config_dev.json.example` to `config_dev.json`.
 
 `config_dev.json` contains partially working settings giving you read only
@@ -36,7 +34,6 @@ If you wish to include the extra fields specified in the `courses` extension,
 please change the `ui_mode` setting from `events` to `courses`.
 
 ## Running development server
-
 ```
 $ yarn
 $ yarn start
@@ -45,7 +42,6 @@ $ yarn start
 Then point your browser to the webpack dev server at http://localhost:8080/.
 
 # Production installation
-
 For production builds, all configuration is done using environment
 variables. This way, no errant configuration files should cause mysterious
 build failures or, worse, dormant configuration errors. The environment variables
@@ -56,7 +52,6 @@ export api_base="https://testilinkedevents.turku.fi:8001/v1/"
 ```
 
 ## Building
-
 After setting the config you can build install dependencies and build the
 static files:
 ```
@@ -69,7 +64,6 @@ You should now have the bundled javascript + some non-bundled assets in
 address suits your fancy.
 
 # Building with Docker
-
 In order to build linkedevents successfully, make sure you have Docker setup correctly for your operating system:(https://docs.docker.com/get-docker/)
 As well as your config file: `config_dev.json`
 
