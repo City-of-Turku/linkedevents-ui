@@ -13,7 +13,7 @@ Linked Events API. It exposes many capabilities of the API including:
 
 # Prerequisites
 * Yarn
-* Node v8 LTS 
+* Node v14 LTS 
 
 # Theming
 
@@ -71,3 +71,15 @@ $ yarn build
 You should now have the bundled javascript + some non-bundled assets in
 `dist`. You can serve these using your favorite web server at whatever
 address suits your fancy.
+
+# Building with Docker
+
+In order to build linkedevents successfully, make sure you have Docker setup correctly for your operating system:(https://docs.docker.com/get-docker/)
+As well as your config file: `config_dev.json`
+
+Once you have everything setup, you can run the build command in the directory:
+`docker build -t linkedevents-ui .`
+
+## Running with Docker
+You can use Desktop Docker to run the container or you can run it manually by using the command:
+`docker run -dp 8080:8080 linkedevents-ui`
