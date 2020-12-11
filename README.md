@@ -55,10 +55,6 @@ if you'd like to change the base address for Linkedevents API, you would:
 export api_base="https://testilinkedevents.turku.fi:8001/v1/"
 ```
 
-Most if not all build automation tools provide for setting environment
-variables. Check the documentation for the one you are using. If you are
-testing locally you can `source config_build_example.sh` to get started.
-
 ## Building
 
 After setting the config you can build install dependencies and build the
