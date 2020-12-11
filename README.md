@@ -79,7 +79,7 @@ docker build -t linkedevents-ui .
 ```
 
 ## Running with Docker
-You can use Desktop Docker to run the container or you can run it manually by using the command:
+You can use Desktop Docker to run the container or run it manually by using the command:
 ```
 docker run -dp 8080:8080 linkedevents-ui
 ```
