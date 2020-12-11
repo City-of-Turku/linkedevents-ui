@@ -78,8 +78,12 @@ In order to build linkedevents successfully, make sure you have Docker setup cor
 As well as your config file: `config_dev.json`
 
 Once you have everything setup, you can run the build command in the directory:
-`docker build -t linkedevents-ui .`
+```
+docker build -t linkedevents-ui .
+```
 
 ## Running with Docker
 You can use Desktop Docker to run the container or you can run it manually by using the command:
-`docker run -dp 8080:8080 linkedevents-ui`
+```
+docker run -dp 8080:8080 linkedevents-ui
+```
