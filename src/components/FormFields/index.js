@@ -46,12 +46,15 @@ FormHeader.propTypes = {
 }
 
 export const SideField = (props) => (
-    <div className={`side-field col-sm-5 col-sm-push-1 ${ props.className }`} aria-label='text'>
-        { props.children }
+    <div className='side-field col-sm-5'>
+        <div className='tip' aria-label={props.label}>
+            {props.children}
+        </div>
     </div>
 )
 
 SideField.propTypes = {
+    label: PropTypes.string,
     className: PropTypes.string,
     children: PropTypes.oneOfType([
         PropTypes.array,
@@ -240,10 +243,8 @@ class FormFields extends React.Component {
                     <FormattedMessage id="event-presented-in-languages"/>
                 </FormHeader>
                 <div className="row event-row">
-                    <SideField>
-                        <div className="tip">
-                            <FormattedMessage id="editor-tip-formlanguages"/>
-                        </div>
+                    <SideField label={this.context.intl.formatMessage({id: 'event-presented-in-languages-help'})}>
+                        <FormattedMessage id="editor-tip-formlanguages"/>
                     </SideField>
                     <div className="col-sm-6 highlighted-block">
                         <HelLanguageSelect
@@ -256,12 +257,10 @@ class FormFields extends React.Component {
                     <FormattedMessage id='event-name-shortdescription'/>
                 </FormHeader>
                 <div className="row event-row">
-                    <SideField>
-                        <div className="tip">
-                            <FormattedMessage id='editor-tip-required'>{txt => <small>{txt}</small>}</FormattedMessage>
-                            <FormattedMessage id="editor-tip-namedescription">{txt => <p>{txt}</p>}</FormattedMessage>
-                            <FormattedMessage id="editor-tip-namedescription2"/>
-                        </div>                       
+                    <SideField label={this.context.intl.formatMessage({id: 'event-name-shortdescription-help'})}>
+                        <FormattedMessage id='editor-tip-required'>{txt => <small>{txt}</small>}</FormattedMessage>
+                        <FormattedMessage id="editor-tip-namedescription">{txt => <p>{txt}</p>}</FormattedMessage>
+                        <FormattedMessage id="editor-tip-namedescription2"/>     
                     </SideField>
                     <div className="col-sm-6">
                         <MultiLanguageField
@@ -298,13 +297,11 @@ class FormFields extends React.Component {
                     <FormattedMessage id="event-location-fields-header" />
                 </FormHeader>
                 <div className="row location-row">
-                    <SideField>
-                        <div className="tip">
-                            <p><FormattedMessage id="editor-tip-location"/></p>
-                            <p><strong><FormattedMessage id="editor-tip-location-internet"/></strong></p>
-                            <p><FormattedMessage id="editor-tip-location-extra"/></p>
-                            <p><FormattedMessage id="editor-tip-location-not-found"/></p>
-                        </div>
+                    <SideField label={this.context.intl.formatMessage({id: 'event-location-fields-header-help'})}>
+                        <p><FormattedMessage id="editor-tip-location"/></p>
+                        <p><strong><FormattedMessage id="editor-tip-location-internet"/></strong></p>
+                        <p><FormattedMessage id="editor-tip-location-extra"/></p>
+                        <p><FormattedMessage id="editor-tip-location-not-found"/></p>
                     </SideField>
                     <div className="col-sm-6 hel-select">
 
@@ -381,12 +378,10 @@ class FormFields extends React.Component {
                     <FormattedMessage id="event-datetime-fields-header" />
                 </FormHeader>
                 <div className='row date-row'>
-                    <SideField>
-                        <div className="tip">
-                            <p><FormattedMessage id="editor-tip-time-start-end"/></p>
-                            <p><FormattedMessage id="editor-tip-time-multi"/></p>
-                            <p><FormattedMessage id="editor-tip-time-delete"/></p>
-                        </div>
+                    <SideField label={this.context.intl.formatMessage({id: 'event-datetime-fields-header-help'})}>
+                        <p><FormattedMessage id="editor-tip-time-start-end"/></p>
+                        <p><FormattedMessage id="editor-tip-time-multi"/></p>
+                        <p><FormattedMessage id="editor-tip-time-delete"/></p>
                     </SideField>
                     <div className='col-sm-6'>
                         <div className='row'>
@@ -474,10 +469,8 @@ class FormFields extends React.Component {
                             <FormattedMessage id='event-description-fields-header'/>
                         </FormHeader>
                         <div className="row event-row">
-                            <SideField>
-                                <div className="tip">
-                                    <FormattedMessage id="editor-tip-longdescription"/>
-                                </div>
+                            <SideField label={this.context.intl.formatMessage({id: 'event-description-fields-header-help'})}>
+                                <FormattedMessage id="editor-tip-longdescription"/>
                             </SideField>
                             <div className="col-sm-6">
                                 <MultiLanguageField
@@ -520,12 +513,10 @@ class FormFields extends React.Component {
                             <FormattedMessage id="event-umbrella" className=''/>
                         </FormHeader>
                         <div className="row umbrella-row">
-                            <SideField>
-                                <div className="tip">
-                                    <p><FormattedMessage id="editor-tip-umbrella-selection"/></p>
-                                    <p><FormattedMessage id="editor-tip-umbrella-selection1"/></p>
-                                    <FormattedMessage id="editor-tip-umbrella-selection2"/>
-                                </div>
+                            <SideField label={this.context.intl.formatMessage({id: 'event-umbrella-help'})}>
+                                <p><FormattedMessage id="editor-tip-umbrella-selection"/></p>
+                                <p><FormattedMessage id="editor-tip-umbrella-selection1"/></p>
+                                <FormattedMessage id="editor-tip-umbrella-selection2"/>
                             </SideField>
                             <div className="col-sm-6">
                                 {!isRegularUser &&
@@ -591,10 +582,8 @@ class FormFields extends React.Component {
                             />
                         </div>
                         <div className="row audience-row">
-                            <SideField>
-                                <div className="tip">
-                                    <FormattedMessage id="editor-tip-hel-target-group"/>
-                                </div>
+                            <SideField label={this.context.intl.formatMessage({id: 'editor-tip-target-group-help'})}>
+                                <FormattedMessage id="editor-tip-target-group"/>
                             </SideField>
                             <HelLabeledCheckboxGroup
                                 groupLabel={<FormattedMessage id="hel-target-groups"/>}
@@ -631,11 +620,9 @@ class FormFields extends React.Component {
                             <FormattedMessage id="event-price-fields-header" />
                         </FormHeader>
                         <div className="row offers-row">
-                            <SideField>
-                                <div className="tip">
-                                    <p><FormattedMessage id="editor-tip-price"/></p>
-                                    <p><FormattedMessage id="editor-tip-price-multi"/></p>
-                                </div>
+                            <SideField label={this.context.intl.formatMessage({id: 'event-price-fields-header-help'})}>
+                                <p><FormattedMessage id="editor-tip-price"/></p>
+                                <p><FormattedMessage id="editor-tip-price-multi"/></p>
                             </SideField>
                             <div className="col-sm-6">
                                 <HelOffersField
@@ -673,9 +660,10 @@ class FormFields extends React.Component {
                             <FormattedMessage id="event-social-media-fields-header" />
                         </FormHeader>
                         <div className="row social-media-row">
-                            <SideField><p className="tip"><FormattedMessage id="editor-tip-social-media"/></p></SideField>
+                            <SideField label={this.context.intl.formatMessage({id: 'event-social-media-fields-header-help'})}>
+                                <FormattedMessage id="editor-tip-social-media"/>
+                            </SideField>
                             <div className="col-sm-6">
-                                {/* Removed formatted message from label since it was causing accessibility issues */}
                                 <MultiLanguageField
                                     id='event-info-url'
                                     required={false}
@@ -760,10 +748,8 @@ class FormFields extends React.Component {
                     </h2>
                     <Collapse isOpen={this.state.headerInlanguage}>
                         <div className="row inlanguage-row">
-                            <SideField>
-                                <p className="tip">
-                                    <FormattedMessage id="editor-tip-event-languages"/>
-                                </p>
+                            <SideField label={this.context.intl.formatMessage({id: 'editor-tip-event-languages-help'})}>
+                                <FormattedMessage id="editor-tip-event-languages"/>
                             </SideField>
                             <HelLabeledCheckboxGroup
                                 groupLabel={<FormattedMessage id="hel-event-languages"/>}

@@ -329,8 +329,8 @@
     "editor-tip-video": "Jos tapahtumaan liittyy video, voit lisätä sen osoitteen tässä.",
     "editor-tip-video-fields": "Anna videolle nimi ja kuvaa lyhyesti mitä siinä tapahtuu.",
     "editor-tip-keywords": "Liitä tapahtumaan vähintään yksi asiasana, joka kuvaa tapahtuman teemaa. Aloita kirjoittamaan asiasanaa ja valitse lisättävä asiasana alle ilmestyvästä listasta.",
-    "editor-tip-hel-main-category": "Valitse vähintään yksi pääkategoria.",
-    "editor-tip-hel-target-group": "Jos tapahtumalla ei ole erityistä kohderyhmää, älä valitse mitään.",
+    "editor-tip-main-category": "Valitse vähintään yksi pääkategoria.",
+    "editor-tip-target-group": "Jos tapahtumalla ei ole erityistä kohderyhmää, älä valitse mitään.",
     "editor-tip-event-languages": "Kielet, joita tapahtumassa käytetään.",
     "editor-tip-umbrella-sub-event": "Jos haluat lisätä tämän tapahtuman osaksi kattotapahtumaa, tee se ",
     "editor-tip-umbrella-sub-event-link": "sarjan ylätapahtumasta",
@@ -485,5 +485,22 @@
 
     "filter-event-fi-mobile": "FI",
     "filter-event-sv-mobile": "SV",
-    "filter-event-en-mobile": "EN"
+    "filter-event-en-mobile": "EN",
+
+    "event-presented-in-languages-help": "Syöttökielen ohje",
+    "event-name-shortdescription-help": "Nimi ja kuvaus ohje",
+    "event-location-fields-header-help": "Paikkatieto ohje",
+    "event-datetime-fields-header-help": "Ajankohta ohje",
+    "event-description-fields-header-help": "Kuvaus ohje",
+    "event-umbrella-help": "Kattotapahtuma ohje",
+    "event-categorization-help": "Pääkategoria ohje",
+    "editor-tip-keywords-help": "Asiasana ohje",
+    "editor-tip-target-group-help": "Kohderyhmä ohje",
+    "event-price-fields-header-help": "Hintatieto ohje",
+    "event-social-media-fields-header-help": "Linkki ohje",
+    "event-video-help": "Video ohje",
+    "editor-tip-event-languages-help": "Kieli ohje",
+    "image-upload-help": "Kuvan lisäämisen ohje",
+    "uploaded-image-alt-tip-help": "Kuvan alt-teksti ohje",
+    "license-help-text": "Lisenssi ohje"
 }

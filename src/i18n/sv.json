@@ -325,7 +325,7 @@
     "editor-tip-video": "Om evenemanget har en video, kan du mata in adressen här.",
     "editor-tip-video-fields": "Namnge videon och beskriv kort vad som händer i den.",
     "editor-tip-keywords": "Lägg till evenemanget åtminstone ett ämnesord som beskriver evenemangets tema. Börja skriva ämnesordet och välj ämnesordet som skall tilläggas från listan som uppenbarar sig nedanför.",
-    "editor-tip-hel-main-category": "Välj åtminstone en huvudkategori",
+    "editor-tip-main-category": "Välj åtminstone en huvudkategori",
     "editor-tip-hel-target-group": "Om evenemanget inte har någon speciell målgrupp, välj ingenting.",
     "editor-tip-event-languages": "Språk som används i evenemanget.",
     "editor-tip-event-description": "Skriv i olika sammanhang en begriplig rubrik, en sammanfatning och en beskrivning.",
