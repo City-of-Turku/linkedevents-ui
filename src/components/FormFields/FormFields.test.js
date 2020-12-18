@@ -126,6 +126,11 @@ describe('FormField', () => {
                         expect(element.find(FormattedMessage))
                     })
                 })
+                test('first sidefield with correct props', () => {
+                    expect(Sidefields.at(0).prop('label')).toBe('Syöttökielen ohje')
+                    expect(Sidefields.at(0).prop('children')).toEqual(<FormattedMessage id="editor-tip-formlanguages"/>)
+                    
+                })
             })
             describe('MultiLanguageField', () => {
                 const wrapper = getWrapper()

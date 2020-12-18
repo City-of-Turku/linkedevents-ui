@@ -442,5 +442,22 @@
     "footer-city1": "Pohjoisesplanadi 11-13, P.O. Box 1 00099 ",
     "footer-city2": "CITY OF HELSINKI",
     "footer-city3": "www.hel.fi",
-    "footer-link": "https://www.hel.fi"
+    "footer-link": "https://www.hel.fi",
+
+    "event-presented-in-languages-help": "Input language instructions",
+    "event-name-shortdescription-help": "Instructions for name and description fields",
+    "event-location-fields-header-help": "Instructions for location field",
+    "event-datetime-fields-header-help": "Instructions for date and time fields",
+    "event-description-fields-header-help": "Instructions for description fields",
+    "event-umbrella-help": "Instructions for umbrella event selection",
+    "event-categorization-help": "Instructions for main category selection",
+    "editor-tip-keywords-help": "Keyword information",
+    "editor-tip-target-group-help": "Instructions for target group selection",
+    "event-price-fields-header-help": "Price information Instructions",
+    "event-social-media-fields-header-help": "Social media / link fields instructions",
+    "event-video-help": "Video field information",
+    "editor-tip-event-languages-help": "Language selection information",
+    "image-upload-help": "Instructions for adding an image",
+    "uploaded-image-alt-tip-help": "Instructions for image alt text",
+    "license-help-text": "Licence information"
 }

@@ -72,7 +72,6 @@ class FormFields extends React.Component {
             mapContainer: null,
             openMapContainer: false,
             availableLocales: [],
-
             headerPrices: false,
             headerSocials: false,
             headerCategories: false,
