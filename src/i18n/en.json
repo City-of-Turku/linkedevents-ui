@@ -1,4 +1,5 @@
 {
+    "user": "User, ",
     "login": "Login",
     "logout": "Logout",
     "linked-events": "Linked Events",
@@ -459,5 +460,6 @@
     "editor-tip-event-languages-help": "Language selection information",
     "image-upload-help": "Instructions for adding an image",
     "uploaded-image-alt-tip-help": "Instructions for image alt text",
-    "license-help-text": "Licence information"
+    "license-help-text": "Licence information",
+    "profile-menu": " Menu"
 }

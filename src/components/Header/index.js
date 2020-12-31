@@ -117,13 +117,13 @@ class HeaderBar extends React.Component {
     }
 
     render() {
-        const {user, userLocale, routerPush, location} = this.props;
+        const {user, userLocale} = this.props;
         const {showModerationLink} = this.state;
 
         return (
             <header className='main-navbar'>
-                <Navbar role='navigation' className='bar'>
-                    <NavbarBrand className='bar__logo' href='#' onClick={this.onLinkToMainPage} aria-label={this.context.intl.formatMessage({id: `navbar.brand`})} />
+                <div className='bar'>
+                    <a className='bar__logo' href='#' onClick={this.onLinkToMainPage} aria-label={this.context.intl.formatMessage({id: `navbar.brand`})} />
                     <div className='bar__login-and-language'>
                         <div className='language-selector'>
                             <LanguageSelector
@@ -143,7 +143,7 @@ class HeaderBar extends React.Component {
                             </Button>
                         )}
                     </div>
-                </Navbar>
+                </div>
 
                 <Navbar role='navigation' className='linked-events-bar' expand='xl'>
                     <NavbarToggler onClick={this.toggle} />

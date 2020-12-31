@@ -1,4 +1,5 @@
 {
+    "user": "Användare, ",
     "login": "Logga in",
     "logout": "Logga ut",
     "linked-events": "Linked Events",
@@ -441,5 +442,6 @@
     "close-recurring-modal": "Stäng dialogrutan för återkommande händelser",
     "close-preview-modal": "Stäng förhandsvisning",
     "close-image-gallery-modal": "Stäng bildgalleridialogen",
-    "close-image-edit-modal": "Stäng dialogrutan Lägg till / redigera bild"
+    "close-image-edit-modal": "Stäng dialogrutan Lägg till / redigera bild",
+    "profile-menu": " Meny"
 }

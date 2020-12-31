@@ -1,4 +1,5 @@
 {
+    "user": "Käyttäjä, ",
     "login": "Kirjaudu sisään",
     "logout": "Kirjaudu ulos",
     "linked-events": "Linked Events",
@@ -502,5 +503,6 @@
     "editor-tip-event-languages-help": "Kieli ohje",
     "image-upload-help": "Kuvan lisäämisen ohje",
     "uploaded-image-alt-tip-help": "Kuvan alt-teksti ohje",
-    "license-help-text": "Lisenssi ohje"
+    "license-help-text": "Lisenssi ohje",
+    "profile-menu": " Valikko"
 }

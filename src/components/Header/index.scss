@@ -13,10 +13,6 @@ $iconMarginLeft: 24px;
 
 .main-navbar {
 	height: $headerBarHeight;
-	.navbar-brand {
-		padding: 0px 32px 0px 0px;
-		font-size: unset;
-	}
 	button {
 		font-weight: bold;
 		font-size: $linkFontSize;
@@ -36,21 +32,20 @@ $iconMarginLeft: 24px;
 		height: $helsinkiBarHeight;
 		width: 100%;
 		background: $hel-theme;
-		padding-left: 24px;
-		padding-right: 24px;
-		padding-top: 0px;
-		padding-bottom: 0px;
+		padding: 12px 24px 12px 24px;
+		display: inline-flex;
+		justify-content: space-between;
 		&__logo {
 			height: $helsinkiLogoHeight;
 			width: 100px;
-			white-space: nowrap;
 			background-image: url('../../assets/images/helsinki-logo.svg');
 			background-size: contain;
 			background-repeat: no-repeat;
 			cursor: pointer;
 		}
 		&__login-and-language {
-			display: flex;
+			display: inline-flex;
+			align-items: center;
 			.btn-secondary {
 				&:hover {
 					background-color: rgba(0, 0, 0, 0.08);
@@ -67,10 +62,7 @@ $iconMarginLeft: 24px;
 			}
 		}
 		.language-selector {
-			display: flex;
-			align-items: center;
 			margin-right: $languageMarginRight;
-			z-index: 2;
 			.language-icon {
 				color: white;
 				margin-right: $languageMarginRight;
@@ -83,12 +75,6 @@ $iconMarginLeft: 24px;
 					display: none;
 				}
 			}
-		}
-		.logoutdropdown-selector {
-			display: flex;
-			align-items: center;
-			margin-right: $languageMarginRight;
-			z-index: 2;
 		}
 	}
 
@@ -158,30 +144,26 @@ $iconMarginLeft: 24px;
 // LanguageSelector
 .LanguageMain {
 	display: flex;
-	flex-direction: row;
 	color: white;
 	font-weight: bold;
 	padding: .375rem .75rem;
 	align-items: center;
 	cursor: pointer;
-	user-select: none;
 	.currentLanguage {
 		padding: 0.375rem 0 0.375rem 0;
+		width: max-content;
 	}
 }
 
 ul.language {
+	position: absolute;
 	color: black;
 	padding-left: 0;
 	width: 80px;
-	position: absolute;
-	top: 100%;
-	z-index: 1;
+	z-index: 2;
 	cursor: pointer;
-	user-select: none;
 	li {
 		display: none;
-		position: relative;
 	}
 	&.open {
 		border: 1px solid black;
@@ -202,39 +184,26 @@ ul.language {
 // Logout Dropdown
 .Logoutdrop {
 	display: flex;
-	flex-direction: row;
 	color: white;
 	font-weight: bold;
 	padding: .375rem .75rem;
 	align-items: center;
 	cursor: pointer;
-	user-select: none;
-	.logout {
-		padding: 0.375rem 0 0.375rem 0;
-	}
-}
-
-.logout-component {
-	display: flex;
-	justify-content: center;
 }
 
 ul.user-dropdown {
+	position: absolute;
 	color: black;
 	padding-left: 0;
-	position: absolute;
-	top: 100%;
-	z-index: 1;
+	width: 180px;
+	z-index: 2;
+	right: 0;
 	cursor: pointer;
-	user-select: none;
-	min-width: 180px;
 	@media (max-width: 500px) {
-		right: 0;
 		min-width: 180px;
 	}
 	li {
 		display: none;
-		position: relative;
 	}
 	&.open {
 		border: 1px solid black;
@@ -243,7 +212,7 @@ ul.user-dropdown {
 			display: block;
 			text-align: center;
 			padding: 0.5rem;
-			z-index: 101;
+			z-index: 3;
 			&.active {
 				background-color: lightgrey;
 			}
@@ -275,9 +244,6 @@ ul.user-dropdown {
 		.bar {
 			height: auto;
 			flex-wrap: nowrap;
-			.language-selector {
-				white-space: nowrap;
-			}
 			&__login-and-language {
 				.btn {
 					white-space: normal;
