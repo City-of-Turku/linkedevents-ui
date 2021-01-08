@@ -77,7 +77,7 @@
     "clear-form": "Tyhjennä kentät",
     "validate-form": "Tarkista puuttuvat tiedot",
 
-    "event-presented-in-languages": "Tapahtumatiedot syötetään",
+    "event-presented-in-languages": "Tapahtuman syöttökielet",
 
     "in-fi": "suomeksi",
     "in-en": "englanniksi",
@@ -88,15 +88,15 @@
 
     "no-value": "-kenttää ei ole täytetty.",
 
-    "event-picture-header": "Tapahtuman kuva",
-    "event-description-fields-header": "Tapahtuman kuvaus",
-    "event-category-header": "Tapahtuman luokittelu ja kohderyhmät*",
-    "event-price-header": "Tapahtuman hintatiedot",
-    "event-social-header": "Tapahtuman kanavat",
+    "event-picture-header": "Määritä kuva",
+    "event-description-fields-header": "Syötä kuvaukset",
+    "event-category-header": "Luokittele ja määritä kohderyhmät*",
+    "event-price-header": "Syötä hintatiedot",
+    "event-social-header": "Määritä sosiaaliset mediat",
 
     "event-add-newInfo": "Täytä tapahtuman tiedot",
     "event-headline": "Otsikko",
-    "event-name-shortdescription": "Tapahtuman nimi ja lyhyt kuvaus",
+    "event-name-shortdescription": "Syötä otsikko ja lyhyt kuvaus",
     "event-short-description": "Lyhyt kuvaus",
     "event-description": "Kuvaus",
     "event-info-url": "Kotisivu",
@@ -134,7 +134,7 @@
     "use-existing-image": "Käytä järjestelmässä olemassaolevaa kuvaa",
     "no-image": "Tapahtumalla ei ole kuvaa",
 
-    "event-datetime-fields-header": "Tapahtuman ajankohdat",
+    "event-datetime-fields-header": "Määritä ajankohdat",
     "event-starting-datetime": "Tapahtuma alkaa (pp.kk.vvvv tt.mm)",
     "event-starting-datelabel": "Tapahtuma alkaa (pp.kk.vvvv)",
     "event-starting-timelabel": "Alkuaika (tt.mm)",
@@ -164,7 +164,7 @@
     "repetition-start-time": "Tapahtumien alkuaika (tt.mm)",
     "repetition-end-time": "Tapahtumien loppuaika (tt.mm)",
 
-    "event-location-fields-header": "Tapahtumapaikka",
+    "event-location-fields-header": "Valitse paikka",
     "event-location": "Paikka",
     "event-location-id": "Paikan ID",
     "event-location-additional-info": "Paikan lisätiedot",
@@ -190,8 +190,8 @@
     "twitter-url": "Twitter (URL)",
     "instagram-url": "Instagram (URL)",
 
-    "event-categorization": "Tapahtuman luokittelu",
-    "event-keywords": "Lisää muita asiasanoja",
+    "event-categorization": "Määritä luokat",
+    "event-keywords": "Lisää asiasanoja",
     "event-keywords-delete": "Poista asiasana",
 
     "event-umbrella": "Kattotapahtumat",
@@ -201,7 +201,7 @@
     "event-has-umbrella-tooltip": "Kattotapahtumalla ei voi olla kattotapahtumaa.",
     "event-has-umbrella-select-tip": "Huom. Kattotapahtuma täytyy luoda ennen kuin voit lisätä sille alatapahtumia.",
 
-    "hel-event-languages": "Tapahtuman kielet",
+    "hel-event-languages": "Käytetyt kielet",
 
     "audience-age-restrictions": "Ikärajoitukset",
     "audience-min-age": "Alaikäraja",
@@ -288,7 +288,7 @@
 
     "hel-target-groups": "Kohderyhmät",
     "additional-keywords": "Muut avainsanat",
-    "main-categories": "Pääkategoriat",
+    "main-categories": "Luokittelu",
 
     "editor-publish-draft-warning": "HUOM. Tämä toiminto julkaisee tapahtuman Internetiin. Tapahtumaehdotuksen alkuperäinen tekijä ei voi enää muokata tapahtumaa.",
     "editor-publish-draft-extra-warning": "Seuraavat tapahtumat julkaistaan:",
