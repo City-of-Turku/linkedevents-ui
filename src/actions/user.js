@@ -63,7 +63,7 @@ export const fetchUser = (id) => async (dispatch) => {
             organization: get(userData, 'organization', null),
             adminOrganizations: get(userData, 'admin_organizations', null),
             organizationMemberships: get(userData, 'organization_memberships', null),
-            publicOrganizations: get(userData, 'public_memberships', null),
+            publicMemberships: get(userData, 'public_memberships', null),
             permissions,
             userType: getUserType(permissions),
         }
