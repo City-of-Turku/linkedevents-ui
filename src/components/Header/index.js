@@ -146,7 +146,7 @@ class HeaderBar extends React.Component {
                 </div>
 
                 <Navbar role='navigation' className='linked-events-bar' expand='xl'>
-                    <NavbarToggler onClick={this.toggle} />
+                    <NavbarToggler onClick={this.toggle} aria-label={this.context.intl.formatMessage({id: 'navigation-toggle'})}/>
                     <Collapse isOpen={this.state.isOpen} navbar>
                         <ul className='linked-events-bar__links'>
                             <NavItem>

@@ -306,6 +306,7 @@ exports[`Image add form ImagePicker component should render correctly with data 
       "navbar.en": "Valitse kieleksi Englanti",
       "navbar.fi": "Valitse kieleksi Suomi",
       "navbar.sv": "Valitse kieleksi Ruotsi",
+      "navigation-toggle": "Navigaatio",
       "new-image": "Lisää uusi kuva",
       "no-connection": "Ei yhteyttä palvelimelle!",
       "no-events": "Ei tapahtumia mitä näyttää.",
