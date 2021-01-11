@@ -55,7 +55,8 @@ export const getRegularOrganizations = user =>
 export const hasOrganizationWithRegularUsers = user =>
     get(user, 'organizationsWithRegularUsers', []).length > 0
 
-
+export const hasOrganizationWithPublicUsers = user =>
+    get(user, 'publicMemberships', []).length > 0
 /**
  * Returns the ID's of the organizations that the user is part of depending on user type
  * @param user  User data
@@ -69,5 +70,8 @@ export const getOrganizationMembershipIds = user => {
     }
     if (user.userType === USER_TYPE.REGULAR) {
         return user.organizationMemberships
+    }
+    if (user.userType === USER_TYPE.PUBLIC) {
+        return user.publicMemberships
     }
 }

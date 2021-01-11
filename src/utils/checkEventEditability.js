@@ -11,6 +11,7 @@ const {PUBLICATION_STATUS, EVENT_STATUS, USER_TYPE, SUPER_EVENT_TYPE_UMBRELLA} =
 export const userMayEdit = (user, event) => {
     const adminOrganizations = get(user, 'adminOrganizations')
     const userOrganization = get(user, 'organization')
+    const publicOrganizations = get(user, 'publicMemberships')
     const eventOrganization = get(event, 'publisher')
     const eventOrganizationAncestors = get(event, 'publisherAncestors')
     const organizationMemberships = get(user, 'organizationMemberships')
@@ -46,7 +47,10 @@ export const userMayEdit = (user, event) => {
     // disallowed for everybody else. event organization is set by the API when POSTing.
         userMayEdit = true
     }
-
+    if (USER_TYPE.PUBLIC) {
+        console.log('dsaadsads')
+        userMayEdit = true
+    }
     return userMayEdit
 }
 

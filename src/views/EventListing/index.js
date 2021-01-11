@@ -232,7 +232,7 @@ export class EventListing extends React.Component {
         const publisher = userType === USER_TYPE.ADMIN && !showCreatedByUser
             ? getOrganizationMembershipIds(user)
             : null
-        const useCreatedBy = userType === USER_TYPE.REGULAR || showCreatedByUser
+        const useCreatedBy = userType === USER_TYPE.REGULAR && USER_TYPE.PUBLIC || showCreatedByUser
 
         const queryParams = new EventQueryParams()
         queryParams.super_event = 'none'
@@ -240,7 +240,7 @@ export class EventListing extends React.Component {
         queryParams.setPublisher(publisher)
         queryParams.page_size = pageSize
         queryParams.setSort(sortBy, sortDirection)
-        queryParams.show_all = userType === USER_TYPE.REGULAR ? true : null
+        queryParams.show_all = userType === USER_TYPE.REGULAR && USER_TYPE.PRIVATE ? true : null
         queryParams.admin_user = userType === USER_TYPE.ADMIN ? true : null
         queryParams.created_by = useCreatedBy ? 'me' : null
         if (this.state.showContentLanguage) {
@@ -275,7 +275,7 @@ export class EventListing extends React.Component {
         const header = <h1><FormattedMessage id={`${appSettings.ui_mode}-management`}/></h1>
         // Defined React Helmet title with intl
         const pageTitle = `Linkedevents - ${intl.formatMessage({id: `${appSettings.ui_mode}-management`})}`
-        const isRegularUser = get(user, 'userType') === USER_TYPE.REGULAR
+        const isRegularUser = get(user, 'userType') === USER_TYPE.REGULAR && USER_TYPE.PRIVATE
 
         if (!user) {
             return (

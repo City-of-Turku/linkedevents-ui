@@ -157,6 +157,7 @@ const constants = {
     USER_TYPE: {
         ADMIN: 'admin',
         REGULAR: 'regular',
+        PUBLIC: 'public',
     },
 
     TABLE_COLUMNS: TABLE_COLUMNS,

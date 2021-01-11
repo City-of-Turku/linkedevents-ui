@@ -173,7 +173,7 @@ class EventActionButton extends React.Component {
         let disabled = !editable || loading || (showTermsCheckbox && !this.state.agreedToTerms);
 
 
-        const buttonLabel = customButtonLabel || getButtonLabel(action, isRegularUser, isDraft, eventIsPublished, formHasSubEvents);
+        const buttonLabel = customButtonLabel || getButtonLabel(action, isRegularUser,  isDraft, eventIsPublished, formHasSubEvents);
 
         if (action === 'postpone' && isPostponed) {
             disabled = true;

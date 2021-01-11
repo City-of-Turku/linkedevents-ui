@@ -19,7 +19,7 @@ async function makeImageRequest(user = {}, pageSize, pageNumber = null) {
         page_size: pageSize,
         page: pageNumber,
         publisher: user.organization && user.userType === constants.USER_TYPE.ADMIN ? user.organization : null,
-        created_by: user.userType === constants.USER_TYPE.REGULAR ? 'me' : null,
+        created_by: user.userType === constants.USER_TYPE.REGULAR ? 'me' : null || user.userType === constants.USER_TYPE.PUBLIC ? 'me' : null,
     }
 
     const result = await client.get('image', params);
@@ -37,7 +37,7 @@ async function makeImageRequestDefault(user = {}, pageSize, pageNumber = null, p
         page_size: pageSize,
         page: pageNumber,
         publisher: publisher,
-        created_by: user.userType === constants.USER_TYPE.REGULAR ? 'me' : null,
+        created_by: user.userType === constants.USER_TYPE.REGULAR ? 'me' : null || user.userType === constants.USER_TYPE.PUBLIC ? 'me' : null,
     }
 
     const result = await client.get('image', params);
