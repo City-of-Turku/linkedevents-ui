@@ -49,7 +49,6 @@ export const userMayEdit = (user, event) => {
         userMayEdit = true
     }
     if (publicMembership && !userMayEdit) {
-        console.log('dsaadsads')
         userMayEdit = eventOwner === true
     }
     return userMayEdit
