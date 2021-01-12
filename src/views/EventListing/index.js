@@ -240,7 +240,7 @@ export class EventListing extends React.Component {
         queryParams.setPublisher(publisher)
         queryParams.page_size = pageSize
         queryParams.setSort(sortBy, sortDirection)
-        queryParams.show_all = userType === USER_TYPE.REGULAR && USER_TYPE.PRIVATE ? true : null
+        queryParams.show_all = userType === USER_TYPE.REGULAR && USER_TYPE.PUBLIC ? false : null
         queryParams.admin_user = userType === USER_TYPE.ADMIN ? true : null
         queryParams.created_by = useCreatedBy ? 'me' : null
         if (this.state.showContentLanguage) {
