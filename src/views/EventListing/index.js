@@ -283,9 +283,9 @@ export class EventListing extends React.Component {
                     <Helmet title={pageTitle}/>
                     {header}
                     <p>
-                        <a className='underline' rel='external' style={{cursor: 'pointer'}} onClick={this.handleLoginClick}>
+                        <button className='btn-link underline' rel='external' role='link' onClick={this.handleLoginClick}>
                             <FormattedMessage id="login" />
-                        </a>{' '}
+                        </button>
                         <FormattedMessage id="events-management-prompt" /></p>
                 </div>);
         }
