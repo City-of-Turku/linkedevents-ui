@@ -163,6 +163,9 @@ class FormFields extends React.Component {
         const subEventErrors = validationErrors.sub_events || {}
 
         let newEvents = []
+        const keys = Object.keys(events)
+        const lastKey = keys[keys.length - 1]
+
         for (const key in events) {
             if (events.hasOwnProperty(key)) {
                 newEvents.push(
@@ -171,6 +174,7 @@ class FormFields extends React.Component {
                         eventKey={key}
                         event={events[key]}
                         errors={subEventErrors[key] || {}}
+                        setInitialFocus={key === lastKey ? true : false}
                     />
                 )
             }

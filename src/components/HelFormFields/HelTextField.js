@@ -27,6 +27,10 @@ class HelTextField extends Component {
 
     componentDidMount() {
         this.setValidationErrorsToState();
+
+        if(this.props.setInitialFocus){
+            this.inputRef.focus()
+        }
     }
 
     UNSAFE_componentWillReceiveProps(nextProps) {
@@ -249,6 +253,7 @@ HelTextField.propTypes = {
         PropTypes.string,
         PropTypes.number,
     ]),
+    setInitialFocus: PropTypes.bool,
 }
 
 HelTextField.defaultProps = {
