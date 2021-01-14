@@ -174,7 +174,7 @@ class CustomDateTime extends React.Component {
                                 onChange={this.handleInputChangeDate}
                                 onBlur={this.handleInputBlur}
                                 disabled={disabled}
-                                required={required}
+                                aria-required={required}
                                 innerRef={this.firstInput}
                             />
                             <ValidationPopover
@@ -217,7 +217,7 @@ class CustomDateTime extends React.Component {
                                 onChange={this.handleInputChangeTime}
                                 onBlur={this.handleInputBlur}
                                 disabled={disabled}
-                                required={required}
+                                aria-required={required}
                             />
                             <ValidationPopover
                                 anchor={this.containerRef}

@@ -70,7 +70,7 @@ describe('HelTextField', () => {
             expect(inputComponent.prop('type')).toBe(defaultProps.type)
             expect(inputComponent.prop('name')).toBe(defaultProps.name)
             expect(inputComponent.prop('value')).toBe(defaultProps.defaultValue)
-            expect(inputComponent.prop('required')).toBe(defaultProps.required)
+            expect(inputComponent.prop('aria-required')).toBe(defaultProps.required)
             expect(inputComponent.prop('onChange')).toBe(instance.handleChange)
             expect(inputComponent.prop('onBlur')).toBe(instance.handleBlur)
             expect(inputComponent.prop('innerRef')).toBeDefined()

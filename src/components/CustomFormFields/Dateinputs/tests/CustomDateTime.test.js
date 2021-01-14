@@ -77,7 +77,7 @@ describe('renders', () => {
                 expect(element.prop('onBlur')).toBe(instance.handleInputBlur)
                 expect(element.prop('aria-describedby')).toBe(undefined)
                 expect(element.prop('disabled')).toBe(defaultProps.disabled)
-                expect(element.prop('required')).toBe(defaultProps.required)
+                expect(element.prop('aria-required')).toBe(defaultProps.required)
                 expect(element.prop('id')).toBe(defaultProps.id + typeFieldId[index])
             });
             expect(input.at(0).prop('value')).toBe(instance.state.dateInputValue)

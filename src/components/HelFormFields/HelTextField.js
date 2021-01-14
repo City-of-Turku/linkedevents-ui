@@ -204,7 +204,7 @@ class HelTextField extends Component {
                         type={type}
                         name={name}
                         value={value}
-                        required={required}
+                        aria-required={required}
                         onChange={this.handleChange}
                         onBlur={this.handleBlur}
                         innerRef={ref => this.inputRef = ref}
