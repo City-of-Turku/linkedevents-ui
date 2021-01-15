@@ -324,7 +324,7 @@ class FormFields extends React.Component {
                             <Button
                                 title={position ? null : this.context.intl.formatMessage({id: 'event-location-button-tooltip'})}
                                 aria-pressed={this.state.openMapContainer}
-                                aria-disabled={position ? false : true}
+                                aria-disabled={!position}
                                 id='map-button'
                                 className={classNames('btn btn-link', {disabled: !position})}
                                 onClick={() => this.toggleMapContainer()}
