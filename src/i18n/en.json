@@ -325,6 +325,10 @@
     "editor-tip-umbrella-sub-event": "If you wish to add this event under an umbrella event, you may do so from the associated ",
     "editor-tip-umbrella-sub-event-link": "top level event",
 
+    "editor-headerbutton-collapse": "Click to close section",
+    "editor-headerbutton-expand": "Click to expand section",
+    "editor-expand-required": "This section is required",
+
     "add-more": "Add more",
     "play-date-label": "Play date",
     "linked-courses": "Linked Courses",

@@ -32,6 +32,7 @@ import EventMap from '../Map/EventMap';
 import classNames from 'classnames';
 import ImageGallery from '../ImageGallery/ImageGallery';
 import {mockKeywordSets, mockLanguages, mockUser, mockUserEvents} from '__mocks__/mockData';
+import CollapseButton from './CollapseButton/CollapseButton';
 
 
 const testMessages = mapValues(fiMessages, (value, key) => value);
@@ -112,7 +113,7 @@ describe('FormField', () => {
                 test('amount of formattedmessages', () => {
                     const wrapper = getWrapper()
                     const messages = wrapper.find(FormattedMessage)
-                    expect(messages).toHaveLength(42)
+                    expect(messages).toHaveLength(36)
                 })
             })
             describe('SideField', () => {
@@ -509,26 +510,25 @@ describe('FormField', () => {
                     expect(collapse.at(5).prop('isOpen')).toBe(instance.state.headerInlanguage)
                 })
             })
-            describe('Buttons for collapses', () => {
+            describe('CollapseButtons', () => { // päivitä
                 const wrapper = getWrapper()
                 const instance = wrapper.instance();
-                const button = wrapper.find(Button).find('.headerbutton')
+                const buttons = wrapper.find(CollapseButton)
                 test('amount of collapse buttons', () => {
-                    expect(button).toHaveLength(6)
+                    expect(buttons).toHaveLength(6)
                 })
                 test('default props for collapse Buttons', () => {
-                    button.forEach((element) => {
-                        expect(element.prop('color')).toBe('collapse')
-                        expect(element.prop('onClick')).toBe(instance.toggleHeader)
+                    buttons.forEach((button) => {
+                        expect(button.prop('toggleHeader')).toBe(instance.toggleHeader)
                     })
                 })
                 test('correct ids for Buttons', () => {
-                    expect(button.at(0).prop('id')).toBe('headerDescription')
-                    expect(button.at(1).prop('id')).toBe('headerImage')
-                    expect(button.at(2).prop('id')).toBe('headerCategories')
-                    expect(button.at(3).prop('id')).toBe('headerPrices')
-                    expect(button.at(4).prop('id')).toBe('headerSocials')
-                    expect(button.at(5).prop('id')).toBe('headerInlanguage')
+                    expect(buttons.at(0).prop('id')).toBe('headerDescription')
+                    expect(buttons.at(1).prop('id')).toBe('headerImage')
+                    expect(buttons.at(2).prop('id')).toBe('headerCategories')
+                    expect(buttons.at(3).prop('id')).toBe('headerPrices')
+                    expect(buttons.at(4).prop('id')).toBe('headerSocials')
+                    expect(buttons.at(5).prop('id')).toBe('headerInlanguage')
                 })
             })
         })

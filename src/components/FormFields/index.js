@@ -30,6 +30,7 @@ import CustomDateTimeField from '../CustomFormFields/Dateinputs/CustomDateTimeFi
 import EventMap from '../Map/EventMap';
 import classNames from 'classnames';
 import ImageGallery from '../ImageGallery/ImageGallery';
+import CollapseButton from './CollapseButton/CollapseButton';
 
 
 // Removed material-ui/icons because it was no longer used.
@@ -453,20 +454,13 @@ class FormFields extends React.Component {
 
                 <div>
                     <h2>
-                        <Button
-                            color='collapse'
-                            onClick={this.toggleHeader}
+                        <CollapseButton 
                             id='headerDescription'
-                            className={classNames('headerbutton', {'error': validationErrors['description'] || validationErrors['provider']})}
-                            aria-label={this.context.intl.formatMessage({id: 'editor-expand-headerbutton'}) + ' ' + this.context.intl.formatMessage({id: 'event-description-fields-header'})}
-                        >
-                            <FormattedMessage id='event-description-fields-header'/>
-                            {this.state.headerDescription ?
-                                <span aria-hidden className='glyphicon glyphicon-chevron-up' />
-                                :
-                                <span aria-hidden className='glyphicon glyphicon-chevron-down' />
-                            }
-                        </Button>
+                            isOpen={this.state.headerDescription}
+                            targetCollapseNameId='event-description-fields-header'
+                            toggleHeader={this.toggleHeader}
+                            validationErrorList={[validationErrors['description'], validationErrors['provider']]}
+                        />
                     </h2>
                     <Collapse isOpen={this.state.headerDescription}>
                         <FormHeader>
@@ -532,20 +526,12 @@ class FormFields extends React.Component {
                 </div>
                 <div>
                     <h2>
-                        <Button
-                            onClick={this.toggleHeader}
+                        <CollapseButton 
                             id='headerImage'
-                            className='headerbutton'
-                            color='collapse'
-                            aria-label={this.context.intl.formatMessage({id: 'editor-expand-headerbutton'}) + ' ' + this.context.intl.formatMessage({id: 'event-picture-header'})}
-                        >
-                            <FormattedMessage id='event-picture-header'/>
-                            {this.state.headerImage ?
-                                <span aria-hidden className='glyphicon glyphicon-chevron-up' />
-                                :
-                                <span aria-hidden className='glyphicon glyphicon-chevron-down' />
-                            }
-                        </Button>
+                            isOpen={this.state.headerImage}
+                            targetCollapseNameId='event-picture-header'
+                            toggleHeader={this.toggleHeader}
+                        />
                     </h2>
                     <Collapse isOpen={this.state.headerImage}>
                         <FormHeader>
@@ -558,20 +544,14 @@ class FormFields extends React.Component {
                 </div>
                 <div>
                     <h2>
-                        <Button
-                            onClick={this.toggleHeader}
+                        <CollapseButton 
                             id='headerCategories'
-                            className={classNames('headerbutton', {'error': validationErrors['keywords'] || validationErrors['audience']})}
-                            color='collapse'
-                            aria-label={this.context.intl.formatMessage({id: 'editor-expand-headerbutton'})  + ' ' + this.context.intl.formatMessage({id: 'event-category-header'}) + '.' + this.context.intl.formatMessage({id: 'editor-expand-required'})}
-                        >
-                            <FormattedMessage id='event-category-header' />
-                            {this.state.headerCategories ?
-                                <span aria-hidden className='glyphicon glyphicon-chevron-up' />
-                                :
-                                <span aria-hidden className='glyphicon glyphicon-chevron-down' />
-                            }
-                        </Button>
+                            isOpen={this.state.headerCategories}
+                            isRequired={true}
+                            targetCollapseNameId='event-category-header'
+                            toggleHeader={this.toggleHeader}
+                            validationErrorList={[validationErrors['keywords'], validationErrors['audience']]}
+                        />
                     </h2>
                     <Collapse isOpen={this.state.headerCategories}>
                         <FormHeader>
@@ -604,20 +584,13 @@ class FormFields extends React.Component {
                 </div>
                 <div>
                     <h2>
-                        <Button
-                            onClick={this.toggleHeader}
+                        <CollapseButton 
                             id='headerPrices'
-                            className={classNames('headerbutton', {'error': validationErrors['price'] || validationErrors['offer_info_url']})}
-                            color='collapse'
-                            aria-label={this.context.intl.formatMessage({id: 'editor-expand-headerbutton'}) + ' ' + this.context.intl.formatMessage({id: 'event-price-header'})}
-                        >
-                            <FormattedMessage id='event-price-header'/>
-                            {this.state.headerPrices ?
-                                <span aria-hidden className='glyphicon glyphicon-chevron-up' />
-                                :
-                                <span aria-hidden className='glyphicon glyphicon-chevron-down' />
-                            }
-                        </Button>
+                            isOpen={this.state.headerPrices}
+                            targetCollapseNameId='event-price-header'
+                            toggleHeader={this.toggleHeader}
+                            validationErrorList={[validationErrors['price'], validationErrors['offer_info_url']]}
+                        />
                     </h2>
                     <Collapse isOpen={this.state.headerPrices}>
                         <FormHeader>
@@ -644,20 +617,14 @@ class FormFields extends React.Component {
                 </div>
                 <div>
                     <h2>
-                        <Button
-                            onClick={this.toggleHeader}
+                        <CollapseButton 
                             id='headerSocials'
-                            className={classNames('headerbutton', {'error': validationErrors['info_url'] || validationErrors['extlink_facebook'] || validationErrors['extlink_twitter'] || validationErrors['extlink_instagram']})}
-                            color='collapse'
-                            aria-label={this.context.intl.formatMessage({id: 'editor-expand-headerbutton'}) + ' ' + this.context.intl.formatMessage({id: 'event-social-header'})}
-                        >
-                            <FormattedMessage id='event-social-header' />
-                            {this.state.headerSocials ?
-                                <span aria-hidden className='glyphicon glyphicon-chevron-up' />
-                                :
-                                <span aria-hidden className='glyphicon glyphicon-chevron-down' />
-                            }
-                        </Button>
+                            isOpen={this.state.headerSocials}
+                            targetCollapseNameId='event-social-header'
+                            toggleHeader={this.toggleHeader}
+                            validationErrorList={[validationErrors['info_url'], validationErrors['extlink_facebook'],
+                                validationErrors['extlink_twitter'], validationErrors['extlink_instagram']]}
+                        />
                     </h2>
                     <Collapse isOpen={this.state.headerSocials}>
                         <FormHeader>
@@ -735,20 +702,13 @@ class FormFields extends React.Component {
                 </div>
                 <div>
                     <h2>
-                        <Button
-                            onClick={this.toggleHeader}
+                        <CollapseButton 
                             id='headerInlanguage'
-                            className={classNames('headerbutton', {'error': validationErrors['in_language']})}
-                            color='collapse'
-                            aria-label={this.context.intl.formatMessage({id: 'editor-expand-headerbutton'}) + ' ' + this.context.intl.formatMessage({id: 'hel-event-languages'})}
-                        >
-                            <FormattedMessage id='hel-event-languages'/>
-                            {this.state.headerInlanguage ?
-                                <span aria-hidden className='glyphicon glyphicon-chevron-up' />
-                                :
-                                <span aria-hidden className='glyphicon glyphicon-chevron-down' />
-                            }
-                        </Button>
+                            isOpen={this.state.headerInlanguage}
+                            targetCollapseNameId='hel-event-languages'
+                            toggleHeader={this.toggleHeader}
+                            validationErrorList={[validationErrors['in_language']]}
+                        />
                     </h2>
                     <Collapse isOpen={this.state.headerInlanguage}>
                         <div className="row inlanguage-row">
@@ -771,19 +731,12 @@ class FormFields extends React.Component {
                 {appSettings.ui_mode === 'courses' &&
                 <div>
                     <h2>
-                        <Button
-                            onClick={this.toggleHeader}
+                        <CollapseButton 
                             id='headerCourses'
-                            className='headerbutton'
-                            color='collapse'
-                        >
-                            <FormattedMessage id='create-courses'/>
-                            {this.state.headerCourses ?
-                                <span aria-hidden className='glyphicon glyphicon-chevron-up' />
-                                :
-                                <span aria-hidden className='glyphicon glyphicon-chevron-down' />
-                            }
-                        </Button>
+                            isOpen={this.state.headerCourses}
+                            targetCollapseNameId='create-courses'
+                            toggleHeader={this.toggleHeader}
+                        />
                     </h2>
                     <Collapse isOpen={this.state.headerCourses}>
                         <div>

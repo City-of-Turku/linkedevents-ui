@@ -344,8 +344,9 @@
     "editor-tip-longdescription": "Kirjoita valinnainen pidempi kuvaus tapahtumasta joka näytetään tapahtuman omalla sivulla. Vältä lyhenteitä ja HUUTAMISTA.",
     "editor-tip-required": "Tähdellä (*) merkityt kentät ovat pakollisia.",
 
-    "editor-expand-headerbutton": "Klikkaa laajentaaksesi osio ",
-    "editor-expand-required": "Tämä osio on pakollinen.",
+    "editor-headerbutton-collapse": "Klikkaa sulkeaksesi osio",
+    "editor-headerbutton-expand": "Klikkaa laajentaaksesi osio",
+    "editor-expand-required": "Tämä osio on pakollinen",
 
     "add-more": "Lisää kerrat",
     "play-date-label": "Toistopäivät",

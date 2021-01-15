@@ -337,6 +337,10 @@
     "editor-tip-umbrella-selection1": "Om evenemanget samlar andra evenemang under sig, välj ’Detta evenemang är ett paraplyevenemang’. Till exempel Konstens natt eller Filmdagen.",
     "editor-tip-umbrella-selection2": "Om evenemanget ingår i ett större evenemang, välj ’Det här evenemanget har ett paraplyevenemang’ och välj ett evenemang som skapats förut. Till exempel Författarmöte under Konstens natt.",
 
+    "editor-headerbutton-collapse": "Klicka för att stänga sektionen",
+    "editor-headerbutton-expand": "Klicka för att utöka sektionen",
+    "editor-expand-required": "Detta sektion krävs",
+
     "add-more": "Lägg till gånger",
     "play-date-label": "Repetitionsdagar",
     "linked-courses": "Linked Courses",
