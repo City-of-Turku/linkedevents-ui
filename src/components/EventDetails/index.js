@@ -338,8 +338,8 @@ const EventDetails = (props) => {
             <FormHeader>
                 {intl.formatMessage({id: 'event-datetime-fields-header'})}
             </FormHeader>
-            <DateTime value={values['start_time']} labelKey="event-starting-datetime"/>
-            <DateTime value={values['end_time']} labelKey="event-ending-datetime"/>
+            <DateTime value={values['start_time']} labelKey="event-starting"/>
+            <DateTime value={values['end_time']} labelKey="event-ending"/>
 
             <FormHeader>
                 {intl.formatMessage({id: 'event-location-fields-header'})}

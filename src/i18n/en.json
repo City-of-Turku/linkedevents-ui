@@ -123,10 +123,12 @@
     "no-image": "NO IMAGE",
 
     "event-datetime-fields-header": "Event times",
+    "event-starting": "Event starts",
     "event-starting-datetime": "Event starts (dd.mm.yyyy hh.mm)",
-    "event-ending-datetime": "Event ends (dd.mm.yyyy hh.mm)",
     "event-starting-datelabel": "Event starts (dd.mm.yyyy)",
     "event-starting-timelabel": "Starting time (hh.mm)",
+    "event-ending": "Event ends",
+    "event-ending-datetime": "Event ends (dd.mm.yyyy hh.mm)",
     "event-ending-datelabel": "Event ends (dd.mm.yyyy)",
     "event-ending-timelabel": "Ending time (hh.mm)",
     "event-add-new-occasion": "Add new occasion",

@@ -130,10 +130,12 @@
     "select-from-default": "Eller välj en standardbild",
 
     "event-datetime-fields-header": "Evenemangets tidpunkter",
+    "event-starting": "Evenemanget inleds",
     "event-starting-datetime": "Evenemanget inleds (dd.mm.åååå tt.mm)",
-    "event-ending-datetime": "Evenemanget avslutas (dd.mm.åååå tt.mm)",
     "event-starting-datelabel": "Evenemanget inleds (dd.mm.åååå)",
     "event-starting-timelabel": "Starttid (tt.mm)",
+    "event-ending": "Evenemanget avslutas",
+    "event-ending-datetime": "Evenemanget avslutas (dd.mm.åååå tt.mm)",
     "event-ending-datelabel": "Evenemanget avslutas (dd.mm.åååå)",
     "event-ending-timelabel": "Sluttid (tt.mm)",
     "event-add-new-occasion": "Lägg till en ny tidpunkt",

@@ -135,9 +135,11 @@
     "no-image": "Tapahtumalla ei ole kuvaa",
 
     "event-datetime-fields-header": "Määritä ajankohdat",
+    "event-starting": "Tapahtuma alkaa",
     "event-starting-datetime": "Tapahtuma alkaa (pp.kk.vvvv tt.mm)",
     "event-starting-datelabel": "Tapahtuma alkaa (pp.kk.vvvv)",
     "event-starting-timelabel": "Alkuaika (tt.mm)",
+    "event-ending": "Tapahtuma päättyy",
     "event-ending-datetime": "Tapahtuma päättyy (pp.kk.vvvv tt.mm)",
     "event-ending-datelabel": "Tapahtuma päättyy (pp.kk.vvvv)",
     "event-ending-timelabel": "Loppuaika (tt.mm)",
