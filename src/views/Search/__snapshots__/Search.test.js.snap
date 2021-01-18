@@ -333,7 +333,7 @@ exports[`Search Snapshot should render view correctly 1`] = `
       "postpone-events": "Lykkää tapahtumaa",
       "postponed": "Lykätty",
       "preview-event": "Tapahtuman tiedot",
-      "preview-event-button": "Tarkista lomakkeen tiedot",
+      "preview-event-button": "Esikatsele tapahtumatiedot",
       "profile-menu": " Käyttäjävalikko",
       "publish-events": "Julkaise tapahtuma",
       "publish-events-multi": "Julkaise tapahtumat",
