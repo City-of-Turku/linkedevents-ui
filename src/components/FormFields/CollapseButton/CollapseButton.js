@@ -4,7 +4,17 @@ import classNames from 'classnames';
 import {FormattedMessage, injectIntl, intlShape} from 'react-intl';
 import PropTypes from 'prop-types';
 
-
+/**
+ * @param {object} props Component props
+ * @prop {string} id element id
+ * @prop {object} intl intl object
+ * @prop {boolean} isOpen is collapsed element open
+ * @prop {boolean} isRequired is controlled collapse section required
+ * @prop {string} targetCollapseNameId collapse element's name id
+ * @prop {func} toggleHeader onClick toggle function
+ * @prop {array} validationErrorList array of errors
+ * @returns {JSX.Element}
+ */
 function CollapseButton({id, intl, isOpen, isRequired, targetCollapseNameId, toggleHeader, validationErrorList}){
     // include error class if any validation error exists
     const showError = (validationError) => !!validationError
