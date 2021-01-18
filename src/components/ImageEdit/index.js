@@ -6,7 +6,7 @@ import {connect} from 'react-redux';
 import {HelTextField, MultiLanguageField} from '../HelFormFields';
 import {postImage as postImageAction} from 'src/actions/userImages';
 import constants from 'src/constants';
-import {Button, Modal, ModalHeader, ModalBody, Input, Label} from 'reactstrap';
+import {Button, Modal, ModalHeader, ModalBody} from 'reactstrap';
 import update from 'immutability-helper';
 import {getStringWithLocale} from 'src/utils/locale';
 import validationFn from 'src/validation/validationRules'
@@ -345,37 +345,46 @@ class ImageEdit extends React.Component {
         return (
             <div className='image-license-container'>
                 <div className='license-choices'>
-                    <Label>
-                        <Input
-                            addon
+                    <div className='custom-control custom-checkbox'>
+                        <input
+                            className='custom-control-input'
                             type='checkbox'
+                            id='permission'
                             name='permission'
                             onChange={this.handleLicenseChange}
                         />
-                        <FormattedMessage id={'image-modal-image-license-permission'}>{txt => txt}</FormattedMessage>
-                    </Label>
-
-                    <Label>
-                        <Input
-                            addon
+                        <label className='custom-control-label' htmlFor='permission'>
+                            <FormattedMessage id={'image-modal-image-license-permission'}>{txt => txt}</FormattedMessage>
+                        </label>
+                    </div>
+                    <div className='custom-control custom-radio'>
+                        <input
+                            className='custom-control-input'
                             type='radio'
+                            id='event_only'
                             name='license_type'
                             value='event_only'
                             onChange={this.handleLicenseChange}
-                            checked={temp('event_only')} />
-
-                        <FormattedMessage id={'image-modal-license-restricted-to-event'}/>
-                    </Label>
-                    <Label>
-                        <Input
-                            addon
+                            checked={temp('event_only')} 
+                        />
+                        <label className='custom-control-label' htmlFor='event_only'>
+                            <FormattedMessage id={'image-modal-license-restricted-to-event'}/>
+                        </label>
+                    </div>
+                    <div className='custom-control custom-radio'>
+                        <input
+                            className='custom-control-input'
                             type='radio'
+                            id='cc_by'
                             name='license_type'
                             value='cc_by'
                             onChange={this.handleLicenseChange}
-                            checked={temp('cc_by')} />
-                        Creative Commons BY 4.0
-                    </Label>
+                            checked={temp('cc_by')} 
+                        />
+                        <label className='custom-control-label' htmlFor='cc_by'>
+                            Creative Commons BY 4.0
+                        </label>
+                    </div>
                 </div>
                 <div className='license-help-text tip' aria-label={this.context.intl.formatMessage({id: 'license-help-text'})}>
                     <FormattedMessage id={'image-modal-image-license-explanation-event-only'}/>
@@ -446,6 +455,7 @@ class ImageEdit extends React.Component {
                                                 style={{display: 'none'}}
                                                 type='file'
                                                 ref={this.hiddenFileInput}
+                                                aria-hidden
                                             />
                                             <Button
                                                 size='xl' block
@@ -498,17 +508,18 @@ class ImageEdit extends React.Component {
                                                             <FormattedMessage id='uploaded-image-alt-tip2'>{txt => txt}</FormattedMessage>
                                                         </p>
                                                     </div>
-                                                    <Label>
-                                                        <Input
-                                                            addon
+                                                    <div className='custom-control custom-checkbox'>
+                                                        <input
+                                                            className='custom-control-input'
                                                             id='hideAltText'
                                                             name='decoration'
                                                             type="checkbox"
                                                             onChange={this.setAltDecoration}
-                                                        >
-                                                        </Input>
-                                                        <FormattedMessage id={'uploaded-image-alt-decoration'}/>
-                                                    </Label>
+                                                        />
+                                                        <label className='custom-control-label' htmlFor='hideAltText'>
+                                                            <FormattedMessage id={'uploaded-image-alt-decoration'}/>
+                                                        </label>
+                                                    </div>
                                                 </div>
                                             </form>
                                         </div>

@@ -1,19 +1,8 @@
-.UmbrellaCheckbox {
-    input {
-        margin-bottom: 1rem;
-    }
-}
-
-.editor-page {
-    .side-field-umbrella.highlighted-block {
-        padding: 20px;
-    }
-}
-
-@media (min-width: 575px) {
-    .UmbrellaCheckbox {
-        label {
-            width: max-content;
-        }
+.custom-control-label {
+    margin-bottom: 1rem;
+    width: max-content;
+    span {
+        position: inherit;
+        top: 0.2rem;
     }
 }

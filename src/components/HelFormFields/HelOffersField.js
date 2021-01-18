@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
-import React from 'react'
+import React, {Fragment} from 'react'
 
-import {FormattedMessage, injectIntl} from 'react-intl'
+import {FormattedMessage} from 'react-intl'
 import HelCheckbox from './HelCheckbox'
 import NewOffer from './NewOffer'
 import './HelOffersField.scss'
@@ -96,13 +96,14 @@ class HelOffersField extends React.Component {
         const disabled = isOverLimit || this.state.isFree
 
         return (
-            <div className="offers-field">
+            <Fragment>
                 <HelCheckbox defaultChecked={this.state.isFree} ref="is_free" label={<FormattedMessage id="is-free"/>} onChange={(e,v) => this.setIsFree(e,v)} />
                 <div className="offers">
                     { offerDetails }
                 </div>
                 <Button
-                    size='lg'block
+                    size='lg'
+                    block
                     variant="contained"
                     disabled={disabled}
                     onClick={() => this.addNewOffer()}
@@ -114,7 +115,7 @@ class HelOffersField extends React.Component {
                         <FormattedMessage id="event-add-price-limit" values={{count:GENERATE_LIMIT.OFFER_LENGTH}}/>
                     </p>
                 }
-            </div>
+            </Fragment>
         )
     }
 }

@@ -34,25 +34,10 @@ $actionBtnHeight: 60px;
             font-weight: bold;
         }
         .language-selection {
-            height: 0.1%;
-            display: flex;
-            justify-content: space-evenly;
             text-transform: capitalize;
-            font-size: 20px;
             margin-left: 1rem;
-            margin-right: 2rem;
-            flex-wrap: wrap;
-            & > * {
-                flex: 0 1 33%;
-                margin: 0;
-                min-width: max-content;
-            }
-            .checkbox1 {
-                position: absolute;
-                height: 1.5rem;
-                width: 1.5rem;
-                margin-top: 0.2rem;
-                margin-left: -1.25rem;
+            span {
+                top: 0.1rem;
             }
         }
     }
@@ -124,7 +109,7 @@ $actionBtnHeight: 60px;
                 &.editor-update-button {
                     margin-right: auto;
                 }
-            }
+            }/*
             .terms-checkbox {
                 height: $actionBtnHeight;
                 display: flex;
@@ -140,7 +125,7 @@ $actionBtnHeight: 60px;
                 label {
                     margin: 0 1em 0 0;
                 }
-            }
+            }*/
         }
     }
 }
@@ -164,15 +149,6 @@ $actionBtnHeight: 60px;
                 }
             }
         }
-        .highlighted-block {
-            .language-selection {
-                display: inline-block;
-                .checkbox1 {
-                    vertical-align: text-bottom;
-                    position: relative;
-                }
-            }
-        }
     }
 }
 @media (max-width: 480px) {
@@ -180,15 +156,6 @@ $actionBtnHeight: 60px;
         margin-top: 1rem !important;
     }
     .editor-page {
-        .highlighted-block {
-            .language-selection {
-                display: inline-block;
-                .checkbox1 {
-                    vertical-align: text-bottom;
-                    position: relative;
-                }
-            }
-        }
         .editor-action-buttons {
             height: auto;
             .buttons-group {

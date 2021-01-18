@@ -5,8 +5,6 @@ import React, {useRef, Fragment} from 'react'
 import {connect} from 'react-redux'
 import {setData as setDataAction} from '../../actions/editor'
 import ValidationPopover from '../ValidationPopover'
-//Replaced Material-ui CheckBox for a reactstrap implementation. - Turku
-import {Form, Label, Input} from 'reactstrap';
 
 const handleChange = (refs, {options, name, customOnChangeHandler, setDirtyState, setData}) => {
     const checkedOptions = options
@@ -51,19 +49,19 @@ const HelLabeledCheckboxGroup = (props) => {
                         const checked = checkedOptions.includes(item.value)
 
                         return (
-                            <div key={`hel-checkbox-${index}`} className={(itemClassName || '')} >
-                                <Input
+                            <div key={`hel-checkbox-${index}`} className={(itemClassName) + (' custom-control custom-checkbox')} >
+                                <input
                                     aria-label={item.label}
-                                    className='checkboxes'
+                                    className='custom-control-input checkboxes'
                                     type='checkbox'
                                     value={item.value}
                                     name={`${name}.${item.value}`}
-                                    innerRef={ref => refs[`checkRef${index}`] = ref}
+                                    ref={ref => refs[`checkRef${index}`] = ref}
                                     checked={checked}
                                     onChange={() => handleChange(refs, props)}
                                     id={`checkBox-${item.value}`}
                                 />
-                                <Label htmlFor={`checkBox-${item.value}`} className='main-category-text'>{item.label}</Label>
+                                <label htmlFor={`checkBox-${item.value}`} className='custom-control-label'>{item.label}</label>
                             </div>
                         )
                     })}

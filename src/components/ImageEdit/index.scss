@@ -73,43 +73,6 @@
 	}
 
 	.image-license-container {
-		.license-choices {
-			margin: 0.5em 0;
-			display: flex;
-			flex-direction: column;
-			input {
-				font-size: inherit;
-			}
-
-			input[type='checkbox'] {
-				width: 1em;
-				height: 1em;
-				margin-right: 1em;
-				cursor: pointer;
-				font-size: 20px;
-			}
-			input[type='checkbox']:after {
-				content: ' ';
-				width: 1.5rem;
-				height: 1.5rem;
-				visibility: visible;
-				display: inline-block;
-				border: solid 2px;
-				text-align: center;
-			}
-			input[type='checkbox']:checked::before {
-				content: '';
-				font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-				width: 1.5rem;
-				height: 1.5rem;
-				visibility: visible;
-			}
-			input[type="radio"] {
-				margin-right: 1em;
-				width: 1.5rem;
-				height: 1.5rem;
-			}
-		}
 		.license-help-text {
 			display: flex;
 			flex-direction: column;

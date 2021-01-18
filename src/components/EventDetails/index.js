@@ -2,6 +2,7 @@ import './index.scss'
 import moment from 'moment-timezone'
 import React from 'react'
 import PropTypes from 'prop-types'
+import classNames from 'classnames';
 import get from 'lodash/get'
 import {
     injectIntl,
@@ -13,9 +14,6 @@ import {
 import {getStringWithLocale} from '../../utils/locale'
 import {mapKeywordSetToForm} from '../../utils/apiDataMapping'
 import LinksToEvents from '../LinksToEvents/LinksToEvents'
-
-
-import classNames from 'classnames';
 
 const NoValue = (props) => {
     let header = props.labelKey ? (<span ><FormattedMessage id={`${props.labelKey}`}/>&nbsp;</span>) : null
@@ -32,18 +30,17 @@ NoValue.propTypes = {
 }
 
 const CheckedValue = ({checked, labelKey, label}) => (
-    <div className="checked-value">
-        <label htmlFor={label}>
-            {checked
-                ? <input type='checkbox' checked='disabled' readOnly id={label}/>
-                : <input type='checkbox' disabled id={label} readOnly aria-hidden="true" />
-            }
+    <div className="custom-control custom-checkbox">
+        {checked
+            ? <input className='custom-control-input' type='checkbox' checked='disabled' readOnly id={label}/>
+            : <input className='custom-control-input' type='checkbox' disabled id={label} readOnly aria-hidden="true" />
+        }
+        <label className='custom-control-label' htmlFor={label}>
             {labelKey
                 ? <FormattedMessage id={labelKey}/>
                 : label
             }
         </label>
-
     </div>
 )
 
