@@ -241,11 +241,12 @@ const OffersValue = (props) => {
 
     return (
         <div>
-            <CheckedValue  checked={offers[0].is_free} labelKey="is-free"/>
+            {offers[0].is_free && <FormattedMessage id="is-free"/>}
             {props.values.offers.map((offer, key) => (
                 <div key={`offer-value-${key}`} className="offer-values">
                     <MultiLanguageValue
                         labelKey="event-purchase-link"
+                        hidden={offer.is_free}
                         value={offer.info_url}
                     />
                     <MultiLanguageValue
