@@ -40,7 +40,6 @@ describe('Notifications', () => {
             expect(paragraph).toHaveLength(1)
             expect(paragraph.prop('className')).toBe('text-center')
             expect(paragraph.prop('role')).toBe('alert')
-            expect(paragraph.prop('tabIndex')).toBe('0')
             expect(paragraph.text()).toBe('<FormattedMessage />')
         })
     })
