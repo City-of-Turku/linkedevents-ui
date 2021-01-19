@@ -240,9 +240,14 @@ export class EventListing extends React.Component {
         queryParams.setPublisher(publisher)
         queryParams.page_size = pageSize
         queryParams.setSort(sortBy, sortDirection)
-        queryParams.show_all = userType === USER_TYPE.REGULAR && USER_TYPE.PUBLIC ? false : null
+        queryParams.show_all = userType === USER_TYPE.REGULAR ? true : null
         queryParams.admin_user = userType === USER_TYPE.ADMIN ? true : null
         queryParams.created_by = useCreatedBy ? 'me' : null
+        if (user.userType === 'public') {
+            queryParams.created_by = 'me'
+        } else {
+            queryParams.created_by = useCreatedBy ? 'me' : null
+        }
         if (this.state.showContentLanguage) {
             queryParams.language = this.state.showContentLanguage
         }
@@ -275,7 +280,8 @@ export class EventListing extends React.Component {
         const header = <h1><FormattedMessage id={`${appSettings.ui_mode}-management`}/></h1>
         // Defined React Helmet title with intl
         const pageTitle = `Linkedevents - ${intl.formatMessage({id: `${appSettings.ui_mode}-management`})}`
-        const isRegularUser = get(user, 'userType') === USER_TYPE.REGULAR && USER_TYPE.PRIVATE
+        const isRegularUser = get(user, 'userType') === USER_TYPE.REGULAR
+        const isPublicUser = get(user, 'userType') === USER_TYPE.PUBLIC
 
         if (!user) {
             return (
@@ -293,14 +299,22 @@ export class EventListing extends React.Component {
             <div className="container">
                 <Helmet title={pageTitle} />
                 {header}
-                <p>
-                    {isRegularUser
-                        ? <FormattedMessage id="events-management-description-regular-user"/>
-                        : <FormattedMessage id="events-management-description"/>
-                    }
-                </p>
+                {isPublicUser 
+                    ?
+                    <p>
+                        <FormattedMessage id="events-management-description-public-user"/>
+                    </p>
+                    :
+                    <p>
+                        {isRegularUser
+                            ? <FormattedMessage id="events-management-description-regular-user"/>
+                            : <FormattedMessage id="events-management-description"/>
+                        }
+                    </p>
+                }
                 {!isRegularUser &&
                 <div className='row event-settings'>
+                    {!isPublicUser &&
                     <div className='col-sm-6'>
                         <div className='user-events-toggle'>
                             <Input
@@ -314,6 +328,7 @@ export class EventListing extends React.Component {
                                 {<FormattedMessage id={'user-events-toggle'} />}</Label>
                         </div>
                     </div>
+                    }
                     <div className='col-sm-6 radios'>
                         <div className='row'>
                             <Label><FormattedMessage id='filter-event-languages'/></Label>

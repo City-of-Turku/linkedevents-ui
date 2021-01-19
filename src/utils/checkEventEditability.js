@@ -48,8 +48,10 @@ export const userMayEdit = (user, event) => {
     // disallowed for everybody else. event organization is set by the API when POSTing.
         userMayEdit = true
     }
-    if (publicMembership && !userMayEdit) {
-        userMayEdit = eventOwner === true
+    if (publicMembership && !userMayEdit && eventOwner) {
+        //User has public membership and is owner of the event
+        //may publish and edit their own events
+        userMayEdit = eventOwner
     }
     return userMayEdit
 }

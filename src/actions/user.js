@@ -2,7 +2,7 @@ import constants from '../constants.js'
 import {set, get} from 'lodash'
 import {setEditorAuthFlashMsg} from './editor'
 import client from '../api/client'
-import {getAdminOrganizations, getRegularOrganizations} from '../utils/user'
+import {getAdminOrganizations, getRegularOrganizations, getPublicOrganizations} from '../utils/user'
 
 const {RECEIVE_USERDATA, CLEAR_USERDATA, USER_TYPE} = constants
 
@@ -70,14 +70,15 @@ export const fetchUser = (id) => async (dispatch) => {
         
         const adminOrganizations = await Promise.all(getAdminOrganizations(mergedUser))
         const regularOrganizations = await Promise.all(getRegularOrganizations(mergedUser))
-        const publicOrganizations = await Promise.all(getRegularOrganizations(mergedUser))
+        const publicOrganizations = await Promise.all(getPublicOrganizations(mergedUser))
         // store data of all the organizations that the user is admin in
         mergedUser.adminOrganizationData = adminOrganizations
             .reduce((acc, organization) => set(acc, `${organization.data.id}`, organization.data), {})
         // store data of all the organizations where the user is a regular user
-        mergedUser.publicOrganizations = publicOrganizations
-            .reduce((acc, organization) => set(acc, `${organization.data.id}`, organization.data), {})
         mergedUser.regularOrganizationData = regularOrganizations
+            .reduce((acc, organization) => set(acc, `${organization.data.id}`, organization.data), {})
+        // store data of all the organizations where the user is public user
+        mergedUser.publicOrganizationData = publicOrganizations
             .reduce((acc, organization) => set(acc, `${organization.data.id}`, organization.data), {})
         // get organizations with regular users
         mergedUser.organizationsWithRegularUsers = adminOrganizations

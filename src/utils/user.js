@@ -49,14 +49,27 @@ export const getRegularOrganizations = user =>
         .map(getOrganization)
 
 /**
+ * Returns a promise containing data for the public organizations that the given user belongs to
+ * @param user User data
+ */
+export const getPublicOrganizations = user =>
+    get(user, 'publicMemberships', [])
+        .map(getOrganization)
+
+/**
  * Returns whether the given user is an admin in any organization that has regular users
  * @param user  User data
  */
 export const hasOrganizationWithRegularUsers = user =>
     get(user, 'organizationsWithRegularUsers', []).length > 0
 
+/**
+ * 
+ * @param user User data 
+ */
 export const hasOrganizationWithPublicUsers = user =>
     get(user, 'publicMemberships', []).length > 0
+    
 /**
  * Returns the ID's of the organizations that the user is part of depending on user type
  * @param user  User data
