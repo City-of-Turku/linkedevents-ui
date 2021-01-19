@@ -25,19 +25,11 @@ $actionBtnHeight: 60px;
     .highlighted-block {
         align-content: center;
         display: grid;
-        padding: 20px;
-        line-height: 1.5;
-        color: #5a5959;
-        label:first-child {
-            font-size: 24px;
-            line-height: 1.5;
-            font-weight: bold;
-        }
         .language-selection {
+            display: flex;
             text-transform: capitalize;
-            margin-left: 1rem;
-            span {
-                top: 0.1rem;
+            .custom-checkbox {
+                margin: auto auto auto 0.25rem;
             }
         }
     }
@@ -152,6 +144,13 @@ $actionBtnHeight: 60px;
     }
 }
 @media (max-width: 480px) {
+    .editor-page {
+        .highlighted-block {
+            .language-selection {
+                display: block;
+            }
+        }
+    }
     legend {
         margin-top: 1rem !important;
     }

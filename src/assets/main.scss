@@ -101,6 +101,24 @@ h1 {
     }
 }
 
+//Global Checkbox styles
+.custom-control-label {
+    &::before, &::after {
+        width: 1.25rem;
+        height: 1.25rem;
+    }
+}
+.custom-control-input:checked ~ .custom-control-label::before {
+    background-color: #0062ae;
+    border-color: var(--main-color);
+}
+.custom-control-input:focus ~ .custom-control-label::before {
+    box-shadow: 0 0 0 0.15rem rgba(0, 98, 174, 0.25);
+}
+.custom-checkbox .custom-control-input:disabled:checked ~ .custom-control-label::before {
+    background-color: rgba(0, 98, 174, 0.6);
+}
+    
 //All text-inputs globally used in project
 input, .custom-date-time-input > input, .event-input > input textarea, .form-control {
     border-color: var(--black-color);

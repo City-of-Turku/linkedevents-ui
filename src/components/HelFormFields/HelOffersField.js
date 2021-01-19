@@ -97,7 +97,7 @@ class HelOffersField extends React.Component {
 
         return (
             <Fragment>
-                <HelCheckbox defaultChecked={this.state.isFree} ref="is_free" label={<FormattedMessage id="is-free"/>} onChange={(e,v) => this.setIsFree(e,v)} />
+                <HelCheckbox fieldID="is-free-checkbox" defaultChecked={this.state.isFree} ref="is_free" label={<FormattedMessage id="is-free"/>} onChange={(e,v) => this.setIsFree(e,v)} />
                 <div className="offers">
                     { offerDetails }
                 </div>
