@@ -140,7 +140,7 @@
     "event-ending-timelabel": "Sluttid (tt.mm)",
     "event-add-new-occasion": "Lägg till en ny tidpunkt",
     "event-add-recurring": "Ett återkommande evenemang",
-    "event-delete-recurring": "Radera denna förekomst av återkommande händelsen",
+    "event-delete-recurring": "Ta bort föregående tidpunkt",
     "event-add-price":  "Lägg till en ny prisinformation",
     "event-add-price-limit": "Det kan finnas högst {count} stycken prisuppgifter.",
     "date": "Datum",

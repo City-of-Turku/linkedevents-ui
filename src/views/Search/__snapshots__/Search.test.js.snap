@@ -155,7 +155,7 @@ exports[`Search Snapshot should render view correctly 1`] = `
       "event-creation-update-success": "Tapahtuma päivitettiin onnistuneesti!",
       "event-datetime-fields-header": "Määritä ajankohdat",
       "event-datetime-fields-header-help": "Ajankohta ohje",
-      "event-delete-recurring": "Poista tämä tapahtumakerta",
+      "event-delete-recurring": "Poista edeltävä ajankohta",
       "event-description": "Kuvaus",
       "event-description-fields-header": "Syötä kuvaukset",
       "event-description-fields-header-help": "Kuvaus ohje",

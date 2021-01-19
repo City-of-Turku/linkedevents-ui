@@ -145,7 +145,7 @@
     "event-ending-timelabel": "Loppuaika (tt.mm)",
     "event-add-new-occasion": "Lisää uusi ajankohta",
     "event-add-recurring": "Toistuva tapahtuma",
-    "event-delete-recurring": "Poista tämä tapahtumakerta",
+    "event-delete-recurring": "Poista edeltävä ajankohta",
     "event-add-price": "Lisää uusi hintatieto",
     "event-add-price-limit": "Hintatietoja voi olla enintään {count} kappaletta.",
     "date": "Päivämäärä",

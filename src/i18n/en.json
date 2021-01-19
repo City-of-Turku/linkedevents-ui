@@ -133,7 +133,7 @@
     "event-ending-timelabel": "Ending time (hh.mm)",
     "event-add-new-occasion": "Add new occasion",
     "event-add-recurring": "Recurring event",
-    "event-delete-recurring": "Delete this occurrance",
+    "event-delete-recurring": "Remove previous event time",
     "event-add-price": "Add new price",
     "event-add-price-limit": "Price information can be up to {count} pieces.",
     "date": "Date",
