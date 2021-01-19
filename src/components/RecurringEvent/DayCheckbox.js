@@ -3,29 +3,23 @@ import React from 'react'
 import HelCheckbox from 'src/components/HelFormFields/HelCheckbox.js'
 import {FormattedMessage} from 'react-intl'
 
-
 const DayCheckbox = props => {
     const {day, onChange, defaultChecked, fieldID} = props
-    
  
     const changePasser = (event, value,) => {
         onChange(day, value,)
     }
     
-    
-    
     return (
         <div className="col-xs-12 col-md-6">
             <HelCheckbox
-                id={fieldID}
+                fieldID={day}
                 className='recurring-day'
                 onChange={changePasser}
                 defaultChecked={defaultChecked}
-                label={<FormattedMessage id= {day}/>}
-                
+                label={<FormattedMessage id={day}/>}
             />
         </div>
-
     )
 }
 
