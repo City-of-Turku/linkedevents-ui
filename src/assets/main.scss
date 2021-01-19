@@ -118,6 +118,12 @@ h1 {
 .custom-checkbox .custom-control-input:disabled:checked ~ .custom-control-label::before {
     background-color: rgba(0, 98, 174, 0.6);
 }
+.custom-checkbox .custom-control-input ~ .custom-control-label::after {
+    cursor: pointer;
+}
+.custom-checkbox .custom-control-input:disabled:checked ~ .custom-control-label::after {
+    cursor: not-allowed;
+}
     
 //All text-inputs globally used in project
 input, .custom-date-time-input > input, .event-input > input textarea, .form-control {
