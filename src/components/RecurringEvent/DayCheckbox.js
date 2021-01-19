@@ -4,7 +4,7 @@ import HelCheckbox from 'src/components/HelFormFields/HelCheckbox.js'
 import {FormattedMessage} from 'react-intl'
 
 const DayCheckbox = props => {
-    const {day, onChange, defaultChecked, fieldID} = props
+    const {day, onChange, defaultChecked} = props
  
     const changePasser = (event, value,) => {
         onChange(day, value,)
@@ -30,7 +30,6 @@ DayCheckbox.propTypes = {
     defaultChecked: PropTypes.bool,
     id: PropTypes.string,
     fieldID: PropTypes.string,
-   
 }
 
 export default DayCheckbox;
