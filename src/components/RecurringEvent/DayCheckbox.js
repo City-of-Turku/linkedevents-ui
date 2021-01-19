@@ -11,7 +11,7 @@ const DayCheckbox = (props) => {
     };
 
     return (
-        <div className='col-xs-12 col-md-6'>
+        <div className='col-xs-12 col-md-6 text-capitalize'>
             <HelCheckbox
                 fieldID={day}
                 className='recurring-day'
