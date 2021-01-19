@@ -453,6 +453,7 @@ class ImageEdit extends React.Component {
                                             <input
                                                 onChange={(e) => this.handleUpload(e)}
                                                 style={{display: 'none'}}
+                                                name='file_upload'
                                                 type='file'
                                                 ref={this.hiddenFileInput}
                                                 aria-hidden
@@ -475,7 +476,7 @@ class ImageEdit extends React.Component {
                                                         onChange={this.handleExternalImage}
                                                         name='externalUrl'
                                                         onBlur={this.handleInputBlur}
-
+                                                        type='url'
                                                     />
                                                 </label>
                                                 {(this.state.fileSizeError || this.state.urlError) && (

@@ -157,7 +157,7 @@ describe('EventListing', () => {
         const instance = wrapper.instance();
 
         test('contains radio-inputs with correct props', () => {
-            const inputElements = wrapper.find('.col-sm-12').find(Input);
+            const inputElements = wrapper.find('.col-sm-12').find('input');
             const eventLanguages = ['all', 'fi', 'sv', 'en'];
             expect(inputElements).toHaveLength(4);
             inputElements.forEach((element, index) => {
@@ -168,7 +168,7 @@ describe('EventListing', () => {
         });
 
         test('contains user-input with correct props', () => {
-            const userInputElement = wrapper.find('.user-events-toggle').find(Input);
+            const userInputElement = wrapper.find('.user-events-toggle').find('input');
             expect(userInputElement).toHaveLength(1);
 
             expect(userInputElement.prop('type')).toBe('checkbox');

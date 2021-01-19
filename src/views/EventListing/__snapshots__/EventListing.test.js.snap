@@ -28,33 +28,25 @@ exports[`EventListing Snapshot should render view by default 1`] = `
       className="col-sm-6"
     >
       <div
-        className="user-events-toggle"
+        className="custom-control custom-checkbox user-events-toggle"
       >
-        <Input
+        <input
           checked={false}
+          className="custom-control-input"
           color="primary"
           id="user-events-toggle"
           onChange={[Function]}
           type="checkbox"
         />
-        <Label
+        <label
+          className="custom-control-label"
           htmlFor="user-events-toggle"
-          tag="label"
-          widths={
-            Array [
-              "xs",
-              "sm",
-              "md",
-              "lg",
-              "xl",
-            ]
-          }
         >
           <FormattedMessage
             id="user-events-toggle"
             values={Object {}}
           />
-        </Label>
+        </label>
       </div>
     </div>
     <div
@@ -63,23 +55,10 @@ exports[`EventListing Snapshot should render view by default 1`] = `
       <div
         className="row"
       >
-        <Label
-          tag="label"
-          widths={
-            Array [
-              "xs",
-              "sm",
-              "md",
-              "lg",
-              "xl",
-            ]
-          }
-        >
-          <FormattedMessage
-            id="filter-event-languages"
-            values={Object {}}
-          />
-        </Label>
+        <FormattedMessage
+          id="filter-event-languages"
+          values={Object {}}
+        />
       </div>
       <div
         className="row"
@@ -87,135 +66,127 @@ exports[`EventListing Snapshot should render view by default 1`] = `
         <div
           className="col-sm-12"
         >
-          <Label
-            tag="label"
-            widths={
-              Array [
-                "xs",
-                "sm",
-                "md",
-                "lg",
-                "xl",
-              ]
-            }
+          <div
+            className="custom-control custom-radio"
           >
-            <FormattedMessage
-              id="filter-event-all"
-              values={Object {}}
-            />
-            <Input
+            <input
+              className="custom-control-input"
               defaultChecked={true}
+              id="all"
               name="radiogroup"
               onChange={[Function]}
               type="radio"
               value="all"
             />
-          </Label>
-          <Label
-            tag="label"
-            widths={
-              Array [
-                "xs",
-                "sm",
-                "md",
-                "lg",
-                "xl",
-              ]
-            }
+            <label
+              className="custom-control-label"
+              htmlFor="all"
+            >
+              <FormattedMessage
+                id="filter-event-all"
+                values={Object {}}
+              />
+            </label>
+          </div>
+          <div
+            className="custom-control custom-radio"
           >
-            <div
-              className="filter-desktop"
-            >
-              <FormattedMessage
-                id="filter-event-fi"
-                values={Object {}}
-              />
-            </div>
-            <div
-              className="filter-mobile"
-            >
-              <FormattedMessage
-                id="filter-event-fi-mobile"
-                values={Object {}}
-              />
-            </div>
-            <Input
+            <input
+              className="custom-control-input"
+              id="fi"
               name="radiogroup"
               onChange={[Function]}
               type="radio"
               value="fi"
             />
-          </Label>
-          <Label
-            tag="label"
-            widths={
-              Array [
-                "xs",
-                "sm",
-                "md",
-                "lg",
-                "xl",
-              ]
-            }
+            <label
+              className="custom-control-label"
+              htmlFor="fi"
+            >
+              <div
+                className="filter-desktop"
+              >
+                <FormattedMessage
+                  id="filter-event-fi"
+                  values={Object {}}
+                />
+              </div>
+              <div
+                className="filter-mobile"
+              >
+                <FormattedMessage
+                  id="filter-event-fi-mobile"
+                  values={Object {}}
+                />
+              </div>
+            </label>
+          </div>
+          <div
+            className="custom-control custom-radio"
           >
-            <div
-              className="filter-desktop"
-            >
-              <FormattedMessage
-                id="filter-event-sv"
-                values={Object {}}
-              />
-            </div>
-            <div
-              className="filter-mobile"
-            >
-              <FormattedMessage
-                id="filter-event-sv-mobile"
-                values={Object {}}
-              />
-            </div>
-            <Input
+            <input
+              className="custom-control-input"
+              id="sv"
               name="radiogroup"
               onChange={[Function]}
               type="radio"
               value="sv"
             />
-          </Label>
-          <Label
-            tag="label"
-            widths={
-              Array [
-                "xs",
-                "sm",
-                "md",
-                "lg",
-                "xl",
-              ]
-            }
+            <label
+              className="custom-control-label"
+              htmlFor="sv"
+            >
+              <div
+                className="filter-desktop"
+              >
+                <FormattedMessage
+                  id="filter-event-sv"
+                  values={Object {}}
+                />
+              </div>
+              <div
+                className="filter-mobile"
+              >
+                <FormattedMessage
+                  id="filter-event-sv-mobile"
+                  values={Object {}}
+                />
+              </div>
+            </label>
+          </div>
+          <div
+            className="custom-control custom-radio"
           >
-            <div
-              className="filter-desktop"
-            >
-              <FormattedMessage
-                id="filter-event-en"
-                values={Object {}}
-              />
-            </div>
-            <div
-              className="filter-mobile"
-            >
-              <FormattedMessage
-                id="filter-event-en-mobile"
-                values={Object {}}
-              />
-            </div>
-            <Input
+            <input
+              className="custom-control-input"
+              id="en"
               name="radiogroup"
               onChange={[Function]}
               type="radio"
               value="en"
             />
-          </Label>
+            <label
+              className="custom-control-label"
+              htmlFor="en"
+            >
+              <div
+                className="filter-desktop"
+              >
+                <FormattedMessage
+                  id="filter-event-en"
+                  values={Object {}}
+                />
+              </div>
+              <div
+                className="filter-mobile"
+              >
+                <FormattedMessage
+                  id="filter-event-en-mobile"
+                  values={Object {}}
+                />
+              </div>
+            </label>
+          </div>
         </div>
       </div>
     </div>
