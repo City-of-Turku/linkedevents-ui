@@ -82,7 +82,7 @@ export const fetchUser = (id) => async (dispatch) => {
             .reduce((acc, organization) => set(acc, `${organization.data.id}`, organization.data), {})
         // get organizations with regular users
         mergedUser.organizationsWithRegularUsers = adminOrganizations
-            .filter(organization => get(organization, ['data'], false))
+            .filter(organization => get(organization, ['data', 'has_regular_users'], false))
             .map(organization => organization.data.id)
         
         dispatch(receiveUserData(mergedUser))
