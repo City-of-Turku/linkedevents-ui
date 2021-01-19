@@ -32,6 +32,7 @@ const defaultProps = {
     maxDate: moment('2020-04-23'),
     getDateFormat: () => {},
     required: true,
+    setInitialFocus: false,
 }
 const typeFieldId = ['-date-field', '-time-field']
 
@@ -76,7 +77,7 @@ describe('renders', () => {
                 expect(element.prop('onBlur')).toBe(instance.handleInputBlur)
                 expect(element.prop('aria-describedby')).toBe(undefined)
                 expect(element.prop('disabled')).toBe(defaultProps.disabled)
-                expect(element.prop('required')).toBe(defaultProps.required)
+                expect(element.prop('aria-required')).toBe(defaultProps.required)
                 expect(element.prop('id')).toBe(defaultProps.id + typeFieldId[index])
             });
             expect(input.at(0).prop('value')).toBe(instance.state.dateInputValue)
@@ -353,7 +354,25 @@ describe('functions', () => {
         })
     })
 
+    describe('componentDidMount', () => {
+        test('sets focus to ref firstInput if prop.setInitialFocus is true', () => {
+            const wrapper = mount(<UnconnectedCustomDateTime {...defaultProps} setInitialFocus={true} />, {context: {intl}});
+            const instance = wrapper.instance()
+            const firstInput = instance.firstInput
+            jest.spyOn(firstInput.current, 'focus')
+            instance.componentDidMount()
+            expect(firstInput.current.focus).toHaveBeenCalledTimes(1)
+        })
 
+        test('doesnt set focus to firstInput if prop.setInitialFocus is not true', () => {
+            const wrapper = mount(<UnconnectedCustomDateTime {...defaultProps} setInitialFocus={false} />, {context: {intl}});
+            const instance = wrapper.instance()
+            const firstInput = instance.firstInput
+            jest.spyOn(firstInput.current, 'focus')
+            instance.componentDidMount()
+            expect(firstInput.current.focus).toHaveBeenCalledTimes(0)
+        })
+    })
 
     describe('componentDidUpdate', () => {
         const spy = jest.spyOn(UnconnectedCustomDateTime.prototype, 'validateDate');

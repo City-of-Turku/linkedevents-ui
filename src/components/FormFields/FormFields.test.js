@@ -19,7 +19,7 @@ import RecurringEvent from 'src/components/RecurringEvent'
 import {Button,Form, FormGroup, Collapse} from 'reactstrap';
 import {mapKeywordSetToForm, mapLanguagesSetToForm} from '../../utils/apiDataMapping'
 import {setEventData, setData} from '../../actions/editor'
-import {get, isNull, pickBy} from 'lodash'
+import {get, isNull, pickBy, merge} from 'lodash'
 import API from '../../api'
 import CONSTANTS from '../../constants'
 import OrganizationSelector from '../HelFormFields/OrganizationSelector';
@@ -32,6 +32,7 @@ import EventMap from '../Map/EventMap';
 import classNames from 'classnames';
 import ImageGallery from '../ImageGallery/ImageGallery';
 import {mockKeywordSets, mockLanguages, mockUser, mockUserEvents} from '__mocks__/mockData';
+import CollapseButton from './CollapseButton/CollapseButton';
 
 
 const testMessages = mapValues(fiMessages, (value, key) => value);
@@ -112,7 +113,7 @@ describe('FormField', () => {
                 test('amount of formattedmessages', () => {
                     const wrapper = getWrapper()
                     const messages = wrapper.find(FormattedMessage)
-                    expect(messages).toHaveLength(42)
+                    expect(messages).toHaveLength(36)
                 })
             })
             describe('SideField', () => {
@@ -422,6 +423,70 @@ describe('FormField', () => {
                     expect(eventmap.prop('mapContainer')).toBe(instance.state.mapContainer)
                 })
             })
+
+            describe('event map button', () => {
+                test('container div', () => {
+                    const container = getWrapper().find('div.map-button-container')
+                    expect(container).toHaveLength(1)
+                })
+
+                test('button with correct default props', () => {
+                    const wrapper = getWrapper()
+                    const instance = wrapper.instance()
+                    const button = wrapper.find('div.map-button-container').find(Button)
+                    expect(button).toHaveLength(1)
+                    expect(button.prop('title')).toBe(null)
+                    expect(button.prop('aria-pressed')).toBe(instance.state.openMapContainer)
+                    expect(button.prop('aria-disabled')).toBe(!defaultProps.editor.values.location.position)
+                    expect(button.prop('id')).toBe('map-button')
+                    expect(button.prop('className')).toBe('btn btn-link')
+                    expect(button.prop('onClick')).toBeDefined()
+                })
+
+                test('button aria-disabled and title props when position is defined', () => {
+                    const wrapper = getWrapper()
+                    const editor = {editor: {values: {location: {position: {type: 'Point'}}}}}
+                    wrapper.setProps(merge(defaultProps, editor))
+                    const button = wrapper.find('div.map-button-container').find(Button)
+                    expect(button).toHaveLength(1)
+                    expect(button.prop('aria-disabled')).toBe(false)
+                    expect(button.prop('title')).toBe(null)
+                })
+
+                test('button aria-disabled and title props when position is not defined', () => {
+                    const wrapper = getWrapper()
+                    const editor = {editor:{values: {location: 'null'}}}
+                    wrapper.setProps(merge(defaultProps, editor))
+                    const button = wrapper.find('div.map-button-container').find(Button)
+                    expect(button).toHaveLength(1)
+                    expect(button.prop('aria-disabled')).toBe(true)
+                    expect(button.prop('title')).toBe(defaultProps.intl.formatMessage({id: 'event-location-button-tooltip'}))
+                })
+
+                test('FormattedMessage', () => {
+                    const message = getWrapper().find('#event-location-button')
+                    expect(message).toHaveLength(1)
+                })
+                
+                test('button icon when state.openMapContainer is true', () => {
+                    const wrapper = getWrapper()
+                    const instance = wrapper.instance()
+                    instance.setState({openMapContainer: true})
+                    const icon = wrapper.find('div.map-button-container').find(Button).find('span')
+                    expect(icon).toHaveLength(1)
+                    expect(icon.prop('className')).toBe('glyphicon glyphicon-triangle-bottom')
+                })
+
+                test('button icon when state.openMapContainer is false', () => {
+                    const wrapper = getWrapper()
+                    const instance = wrapper.instance()
+                    instance.setState({openMapContainer: false})
+                    const icon = wrapper.find('div.map-button-container').find(Button).find('span')
+                    expect(icon).toHaveLength(1)
+                    expect(icon.prop('className')).toBe('glyphicon glyphicon-triangle-top')
+                })
+            })
+
             describe('ImageGallery', () => {
                 const wrapper = getWrapper()
                 const imagegallery = wrapper.find(ImageGallery)
@@ -445,26 +510,25 @@ describe('FormField', () => {
                     expect(collapse.at(5).prop('isOpen')).toBe(instance.state.headerInlanguage)
                 })
             })
-            describe('Buttons for collapses', () => {
+            describe('CollapseButtons', () => { // päivitä
                 const wrapper = getWrapper()
                 const instance = wrapper.instance();
-                const button = wrapper.find(Button).find('.headerbutton')
+                const buttons = wrapper.find(CollapseButton)
                 test('amount of collapse buttons', () => {
-                    expect(button).toHaveLength(6)
+                    expect(buttons).toHaveLength(6)
                 })
                 test('default props for collapse Buttons', () => {
-                    button.forEach((element) => {
-                        expect(element.prop('color')).toBe('collapse')
-                        expect(element.prop('onClick')).toBe(instance.toggleHeader)
+                    buttons.forEach((button) => {
+                        expect(button.prop('toggleHeader')).toBe(instance.toggleHeader)
                     })
                 })
                 test('correct ids for Buttons', () => {
-                    expect(button.at(0).prop('id')).toBe('headerDescription')
-                    expect(button.at(1).prop('id')).toBe('headerImage')
-                    expect(button.at(2).prop('id')).toBe('headerCategories')
-                    expect(button.at(3).prop('id')).toBe('headerPrices')
-                    expect(button.at(4).prop('id')).toBe('headerSocials')
-                    expect(button.at(5).prop('id')).toBe('headerInlanguage')
+                    expect(buttons.at(0).prop('id')).toBe('headerDescription')
+                    expect(buttons.at(1).prop('id')).toBe('headerImage')
+                    expect(buttons.at(2).prop('id')).toBe('headerCategories')
+                    expect(buttons.at(3).prop('id')).toBe('headerPrices')
+                    expect(buttons.at(4).prop('id')).toBe('headerSocials')
+                    expect(buttons.at(5).prop('id')).toBe('headerInlanguage')
                 })
             })
         })

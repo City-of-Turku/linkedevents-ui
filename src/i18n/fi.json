@@ -77,7 +77,7 @@
     "clear-form": "Tyhjennä kentät",
     "validate-form": "Tarkista puuttuvat tiedot",
 
-    "event-presented-in-languages": "Tapahtumatiedot syötetään",
+    "event-presented-in-languages": "Tapahtuman syöttökielet",
 
     "in-fi": "suomeksi",
     "in-en": "englanniksi",
@@ -88,15 +88,15 @@
 
     "no-value": "-kenttää ei ole täytetty.",
 
-    "event-picture-header": "Tapahtuman kuva",
-    "event-description-fields-header": "Tapahtuman kuvaus",
-    "event-category-header": "Tapahtuman luokittelu ja kohderyhmät*",
-    "event-price-header": "Tapahtuman hintatiedot",
-    "event-social-header": "Tapahtuman kanavat",
+    "event-picture-header": "Määritä kuva",
+    "event-description-fields-header": "Syötä kuvaukset",
+    "event-category-header": "Luokittele ja määritä kohderyhmät*",
+    "event-price-header": "Syötä hintatiedot",
+    "event-social-header": "Määritä sosiaaliset mediat",
 
     "event-add-newInfo": "Täytä tapahtuman tiedot",
     "event-headline": "Otsikko",
-    "event-name-shortdescription": "Tapahtuman nimi ja lyhyt kuvaus",
+    "event-name-shortdescription": "Syötä otsikko ja lyhyt kuvaus",
     "event-short-description": "Lyhyt kuvaus",
     "event-description": "Kuvaus",
     "event-info-url": "Kotisivu",
@@ -135,10 +135,12 @@
     "use-existing-image": "Käytä järjestelmässä olemassaolevaa kuvaa",
     "no-image": "Tapahtumalla ei ole kuvaa",
 
-    "event-datetime-fields-header": "Tapahtuman ajankohdat",
+    "event-datetime-fields-header": "Määritä ajankohdat",
+    "event-starting": "Tapahtuma alkaa",
     "event-starting-datetime": "Tapahtuma alkaa (pp.kk.vvvv tt.mm)",
     "event-starting-datelabel": "Tapahtuma alkaa (pp.kk.vvvv)",
     "event-starting-timelabel": "Alkuaika (tt.mm)",
+    "event-ending": "Tapahtuma päättyy",
     "event-ending-datetime": "Tapahtuma päättyy (pp.kk.vvvv tt.mm)",
     "event-ending-datelabel": "Tapahtuma päättyy (pp.kk.vvvv)",
     "event-ending-timelabel": "Loppuaika (tt.mm)",
@@ -165,7 +167,7 @@
     "repetition-start-time": "Tapahtumien alkuaika (tt.mm)",
     "repetition-end-time": "Tapahtumien loppuaika (tt.mm)",
 
-    "event-location-fields-header": "Tapahtumapaikka",
+    "event-location-fields-header": "Valitse paikka",
     "event-location": "Paikka",
     "event-location-id": "Paikan ID",
     "event-location-additional-info": "Paikan lisätiedot",
@@ -191,8 +193,8 @@
     "twitter-url": "Twitter (URL)",
     "instagram-url": "Instagram (URL)",
 
-    "event-categorization": "Tapahtuman luokittelu",
-    "event-keywords": "Lisää muita asiasanoja",
+    "event-categorization": "Määritä luokat",
+    "event-keywords": "Lisää asiasanoja",
     "event-keywords-delete": "Poista asiasana",
 
     "event-umbrella": "Kattotapahtumat",
@@ -202,7 +204,7 @@
     "event-has-umbrella-tooltip": "Kattotapahtumalla ei voi olla kattotapahtumaa.",
     "event-has-umbrella-select-tip": "Huom. Kattotapahtuma täytyy luoda ennen kuin voit lisätä sille alatapahtumia.",
 
-    "hel-event-languages": "Tapahtuman kielet",
+    "hel-event-languages": "Käytetyt kielet",
 
     "audience-age-restrictions": "Ikärajoitukset",
     "audience-min-age": "Alaikäraja",
@@ -289,7 +291,7 @@
 
     "hel-target-groups": "Kohderyhmät",
     "additional-keywords": "Muut avainsanat",
-    "main-categories": "Pääkategoriat",
+    "main-categories": "Luokittelu",
 
     "editor-publish-draft-warning": "HUOM. Tämä toiminto julkaisee tapahtuman Internetiin. Tapahtumaehdotuksen alkuperäinen tekijä ei voi enää muokata tapahtumaa.",
     "editor-publish-draft-extra-warning": "Seuraavat tapahtumat julkaistaan:",
@@ -345,8 +347,9 @@
     "editor-tip-longdescription": "Kirjoita valinnainen pidempi kuvaus tapahtumasta joka näytetään tapahtuman omalla sivulla. Vältä lyhenteitä ja HUUTAMISTA.",
     "editor-tip-required": "Tähdellä (*) merkityt kentät ovat pakollisia.",
 
-    "editor-expand-headerbutton": "Klikkaa laajentaaksesi osio ",
-    "editor-expand-required": "Tämä osio on pakollinen.",
+    "editor-headerbutton-collapse": "Klikkaa sulkeaksesi osio",
+    "editor-headerbutton-expand": "Klikkaa laajentaaksesi osio",
+    "editor-expand-required": "Tämä osio on pakollinen",
 
     "add-more": "Lisää kerrat",
     "play-date-label": "Toistopäivät",
@@ -411,7 +414,7 @@
     "image-modal-image-license": "Lisenssi",
     "image-modal-image-license-permission": "Minulla on oikeus lähettää kuva.",
     "image-modal-image-license-explanation-event-only": "Käyttö vain tapahtuman yhteydessä = Kuvaa saa käyttää ja jakaa vain tämän tapahtumatiedon yhteydessä.",
-    "image-modal-image-license-explanation-cc-by": "CC BY 4.0 = Kuvaa saa jakaa ja käyttää vapaasti, kun tekijäntiedot mainitaan. Valitse aina, kun kuva on saatu tällä käyttöoikeudella. (ks. <a href='https://creativecommons.org/licenses/by/4.0/' target='_blank' rel='noopener noreferrer'>lisätietoja</a>).",
+    "image-modal-image-license-explanation-cc-by": "CC BY 4.0 = Kuvaa saa jakaa ja käyttää vapaasti, kun tekijäntiedot mainitaan. Valitse aina, kun kuva on saatu tällä käyttöoikeudella. (ks. <a href='https://creativecommons.org/licenses/by/4.0/' target='_blank' rel='noopener noreferrer'>lisätietoja CC BY 4.0 oikeuksista. Aukeaa uudessa välilehdessä</a>).",
     "image-modal-view-terms-paragraph-text": "Voit tutustua laajemmin <a href='/help#images' target='_blank' rel='noopener noreferrer'>kuvien lisäämisen ehtoihin ja suosituksiin (aukeaa uudessa välilehdessä).</a>",
     "image-modal-save-button-text": "Tallenna tiedot",
     "error-message-has-been-sent": "Raportti lähetetty onnistuneesti, kiitoksia!",
@@ -430,6 +433,7 @@
     "navbar.en": "Valitse kieleksi Englanti",
     "navbar.sv": "Valitse kieleksi Ruotsi",
     "navbar.active": "Käytössä oleva kieli on Suomi",
+    "navigation-toggle": "Navigaatio",
 
     "skiplink-shortcut": "Siirry sisältöön",
 
@@ -448,7 +452,7 @@
     "footer-link": "https://www.hel.fi",
 
     "preview-event": "Tapahtuman tiedot",
-    "preview-event-button": "Tarkista lomakkeen tiedot",
+    "preview-event-button": "Esikatsele tapahtumatiedot",
 
     "reportbutton-send": "Lähetä raportti",
     "reportmodal-title": "Raportoi virhetilanne",

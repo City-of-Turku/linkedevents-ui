@@ -63,6 +63,13 @@ class HelOffersField extends React.Component {
 
     generateOffers(offers) {
         const newOffers = []
+        let keys
+        let lastKey
+        if(offers){
+            keys = Object.keys(offers)
+            lastKey = keys[keys.length - 1]
+        }
+
         for (const key in offers) {
             if (offers.hasOwnProperty(key) && !this.state.isFree) {
                 newOffers.push(
@@ -73,6 +80,7 @@ class HelOffersField extends React.Component {
                         validationErrors={this.props.validationErrors}
                         languages={this.props.languages}
                         isFree={this.state.isFree}
+                        setInitialFocus={key === lastKey ? true : false}
                     />
                 )
             }
@@ -93,14 +101,16 @@ class HelOffersField extends React.Component {
                 <div className="offers">
                     { offerDetails }
                 </div>
-                <Button
-                    size='lg'block
-                    variant="contained"
-                    disabled={disabled}
-                    onClick={() => this.addNewOffer()}
-                ><span aria-hidden className="glyphicon glyphicon-plus"></span>
-                    <FormattedMessage id="event-add-price" />
-                </Button>
+                {!this.state.isFree &&
+                    <Button
+                        size='lg'block
+                        variant="contained"
+                        disabled={disabled}
+                        onClick={() => this.addNewOffer()}
+                    ><span aria-hidden className="glyphicon glyphicon-plus"></span>
+                        <FormattedMessage id="event-add-price" />
+                    </Button>
+                }
                 {isOverLimit && 
                     <p className='offersLimit' role='alert'>
                         <FormattedMessage id="event-add-price-limit" values={{count:GENERATE_LIMIT.OFFER_LENGTH}}/>

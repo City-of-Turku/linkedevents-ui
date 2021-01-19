@@ -130,10 +130,12 @@
     "select-from-default": "Eller välj en standardbild",
 
     "event-datetime-fields-header": "Evenemangets tidpunkter",
+    "event-starting": "Evenemanget inleds",
     "event-starting-datetime": "Evenemanget inleds (dd.mm.åååå tt.mm)",
-    "event-ending-datetime": "Evenemanget avslutas (dd.mm.åååå tt.mm)",
     "event-starting-datelabel": "Evenemanget inleds (dd.mm.åååå)",
     "event-starting-timelabel": "Starttid (tt.mm)",
+    "event-ending": "Evenemanget avslutas",
+    "event-ending-datetime": "Evenemanget avslutas (dd.mm.åååå tt.mm)",
     "event-ending-datelabel": "Evenemanget avslutas (dd.mm.åååå)",
     "event-ending-timelabel": "Sluttid (tt.mm)",
     "event-add-new-occasion": "Lägg till en ny tidpunkt",
@@ -337,6 +339,10 @@
     "editor-tip-umbrella-selection1": "Om evenemanget samlar andra evenemang under sig, välj ’Detta evenemang är ett paraplyevenemang’. Till exempel Konstens natt eller Filmdagen.",
     "editor-tip-umbrella-selection2": "Om evenemanget ingår i ett större evenemang, välj ’Det här evenemanget har ett paraplyevenemang’ och välj ett evenemang som skapats förut. Till exempel Författarmöte under Konstens natt.",
 
+    "editor-headerbutton-collapse": "Klicka för att stänga sektionen",
+    "editor-headerbutton-expand": "Klicka för att utöka sektionen",
+    "editor-expand-required": "Detta sektion krävs",
+
     "add-more": "Lägg till gånger",
     "play-date-label": "Repetitionsdagar",
     "linked-courses": "Linked Courses",
@@ -383,8 +389,8 @@
     "image-modal-image-license": "Licens",
     "image-modal-image-license-permission": "Jag har tillstånd att använda bilden.",
     "image-modal-image-license-explanation-event-only": "Användningen begränsad till anknytning med evenemanget = Bildens användning är begränsat till detta evenemang.",
-    "image-modal-image-license-explanation-cc-by": "CC BY 4.0 = Bilden får delas och bearbetas fritt så länge som upphovspersonen anges. Välj alltid om bilden har denna licens. (<a href='https://creativecommons.org/licenses/by/4.0/' target='_blank' rel='noopener noreferrer'>mer information</a>).",
-    "image-modal-view-terms-paragraph-text": "Innan du tillägger en ny bild, bekanta dig med <a href='/help#images' target='_blank' rel='noopener noreferrer'>villkoren och rekommendationer för tilläggander av bilder (öppnas i en ny flik).</a>",
+    "image-modal-image-license-explanation-cc-by": "CC BY 4.0 = Bilden får delas och bearbetas fritt så länge som upphovspersonen anges. Välj alltid om bilden har denna licens. (<a href='https://creativecommons.org/licenses/by/4.0/' target='_blank' rel='noopener noreferrer'>mer information om CC BY 4.0. Öppnas i en ny flik</a>).",
+    "image-modal-view-terms-paragraph-text": "Innan du tillägger en ny bild, bekanta dig med <a href='/help#images' target='_blank' rel='noopener noreferrer'>villkoren och rekommendationer för tilläggandet av bilder (öppnas i en ny flik).</a>",
     "image-modal-view-terms-link-text": "villkoren och rekommendationer för tilläggandet av bilder.",
     "image-modal-save-button-text": "Spara uppgifterna",
     "error-message-has-been-sent": "Rapporten skickad lyckat, tack!",
@@ -403,6 +409,7 @@
     "navbar.en": "Engelska",
     "navbar.sv": "Svenska",
     "navbar.active": "Språket i bruk är Svenska",
+    "navigation-toggle": "Navigering",
 
     "skiplink-shortcut": "Gå till innehållet",
 
@@ -429,7 +436,7 @@
     "reportmodal-sent": "Rapport skickad, tack",
 
     "preview-event": "Evenemangets uppgifter",
-    "preview-event-button": "Kontrollera blankettens uppgifter",
+    "preview-event-button": "Förhandsvisa händelseinformation",
 
     "eventable-expand": "Utöka händelsen",
 

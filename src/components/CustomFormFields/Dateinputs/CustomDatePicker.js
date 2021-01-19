@@ -194,7 +194,7 @@ class CustomDatePicker extends React.Component {
                             onChange={this.handleInputChange}
                             onBlur={this.handleInputBlur}
                             disabled={disabled}
-                            required={required}
+                            aria-required={required}
                         />
                         <DatePicker
                             disabled={disabled}

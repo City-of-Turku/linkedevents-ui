@@ -89,7 +89,7 @@ const MultiLanguageValue = (props) => {
 
     if (elements.length > 0) {
         return (
-            <div className="multi-value-field" tabIndex='0'>
+            <div className="multi-value-field">
                 <label htmlFor= 'field'><FormattedMessage id={`${props.labelKey}`}/></label>
                 <input type='hidden' id='field' />
 
@@ -114,7 +114,7 @@ const MultiLanguageValue = (props) => {
 const TextValue = (props) => {
     if (_.isInteger(props.value) || (props.value && props.value.length !== undefined && props.value.length > 0)) {
         return (
-            <div className="single-value-field" tabIndex='0'>
+            <div className="single-value-field">
                 <div>
                     <label htmlFor='events-creator'><FormattedMessage id={`${props.labelKey}`}/></label>
                     <input type="hidden" id="events-creator" />
@@ -164,7 +164,7 @@ const OptionGroup = (props) => {
     }
 
     return (
-        <div className="option-group" tabIndex='0'>
+        <div className="option-group">
             <div>
                 <label htmlFor='category'><FormattedMessage id={`${props.labelKey}`}/></label>
                 <input type="hidden" id='category' />
@@ -202,7 +202,7 @@ const DateTime = (props) => {
             </div>
         }
         return (
-            <div className="single-value-field" tabIndex='0'>
+            <div className="single-value-field">
                 <label  htmlFor='single-value-field'><FormattedMessage id={`${props.labelKey}`}/></label>
                 <input type="hidden" id="single-value-field" />
                 <span className="value" id="single-value-field">
@@ -212,7 +212,7 @@ const DateTime = (props) => {
         )
     } else {
         return (
-            <div className="single-value-field" tabIndex='0'>
+            <div className="single-value-field">
                 <label  htmlFor='value'><FormattedMessage id={`${props.labelKey}`}/></label>
                 <input type="hidden" id="value" />
                 <span className="value">
@@ -223,7 +223,7 @@ const DateTime = (props) => {
     }
 }
 
-const FormHeader = props => <h2 tabIndex='0'>{props.children}</h2>
+const FormHeader = props => <h2>{props.children}</h2>
 
 FormHeader.propTypes = {
     children: PropTypes.oneOfType([
@@ -240,12 +240,13 @@ const OffersValue = (props) => {
     }
 
     return (
-        <div tabIndex='0'>
-            <CheckedValue  checked={offers[0].is_free} labelKey="is-free"/>
+        <div>
+            {offers[0].is_free && <FormattedMessage id="is-free"/>}
             {props.values.offers.map((offer, key) => (
                 <div key={`offer-value-${key}`} className="offer-values">
                     <MultiLanguageValue
                         labelKey="event-purchase-link"
+                        hidden={offer.is_free}
                         value={offer.info_url}
                     />
                     <MultiLanguageValue
@@ -338,8 +339,8 @@ const EventDetails = (props) => {
             <FormHeader>
                 {intl.formatMessage({id: 'event-datetime-fields-header'})}
             </FormHeader>
-            <DateTime value={values['start_time']} labelKey="event-starting-datetime"/>
-            <DateTime value={values['end_time']} labelKey="event-ending-datetime"/>
+            <DateTime value={values['start_time']} labelKey="event-starting"/>
+            <DateTime value={values['end_time']} labelKey="event-ending"/>
 
             <FormHeader>
                 {intl.formatMessage({id: 'event-location-fields-header'})}
@@ -407,7 +408,6 @@ const EventDetails = (props) => {
         <LinksToEvents
             event={rawData}
             superEvent={superEvent}
-            tabIndex='0'
         />
     </React.Fragment>
             }

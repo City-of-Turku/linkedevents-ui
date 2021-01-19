@@ -34,6 +34,8 @@ class CustomDateTime extends React.Component {
         this.handleDateTimePickerChange = this.handleDateTimePickerChange.bind(this)
         this.handleDataUpdate = this.handleDataUpdate.bind(this)
         this.validateDate = this.validateDate.bind(this)
+
+        this.firstInput = React.createRef()
     }
     
     static contextTypes = {
@@ -112,6 +114,12 @@ class CustomDateTime extends React.Component {
         return true
     }
 
+    componentDidMount(){
+        if(this.props.setInitialFocus){
+            this.firstInput.current.focus()
+        }
+    }
+
     componentDidUpdate(prevProps) {
         // Update validation if min or max date changes and dateInputValue and timeInputValue are not empty
         const {minDate, maxDate} = this.props
@@ -166,7 +174,8 @@ class CustomDateTime extends React.Component {
                                 onChange={this.handleInputChangeDate}
                                 onBlur={this.handleInputBlur}
                                 disabled={disabled}
-                                required={required}
+                                aria-required={required}
+                                innerRef={this.firstInput}
                             />
                             <ValidationPopover
                                 anchor={this.containerRef}
@@ -208,7 +217,7 @@ class CustomDateTime extends React.Component {
                                 onChange={this.handleInputChangeTime}
                                 onBlur={this.handleInputBlur}
                                 disabled={disabled}
-                                required={required}
+                                aria-required={required}
                             />
                             <ValidationPopover
                                 anchor={this.containerRef}
@@ -242,6 +251,7 @@ CustomDateTime.propTypes = {
     required: PropTypes.bool,
     setDirtyState: PropTypes.func,
     setData: PropTypes.func,
+    setInitialFocus: PropTypes.bool,
     updateSubEvent: PropTypes.func,
     eventKey: PropTypes.string,
     intl: PropTypes.object,

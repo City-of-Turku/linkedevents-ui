@@ -49,6 +49,7 @@ class MultiLanguageField extends React.Component {
         label: PropTypes.string,
         id: PropTypes.string,
         type: PropTypes.string,
+        setInitialFocus: PropTypes.bool,
     }
 
     onChange(e,value,lang) {
@@ -140,6 +141,7 @@ class MultiLanguageField extends React.Component {
                         index={this.props.index}
                         multiLine={this.props.multiLine}
                         type={this.props.type}
+                        setInitialFocus={this.props.setInitialFocus}
                     />
 
                 </div>
@@ -160,6 +162,7 @@ class MultiLanguageField extends React.Component {
                             disabled={this.props.disabled}
                             validations={this.props.validations}
                             type={this.props.type}
+                            setInitialFocus={this.props.setInitialFocus && (index === 0)}
                         />
                     </div>
                 )

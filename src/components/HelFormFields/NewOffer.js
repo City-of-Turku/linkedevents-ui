@@ -100,7 +100,8 @@ class NewOffer extends React.Component {
                     multiLine={true} 
                     onBlur={e => this.onBlur(e)} 
                     validationErrors={this.props.validationErrors['offer_description']} 
-                    index={this.props.offerKey} 
+                    index={this.props.offerKey}
+                    setInitialFocus={this.props.setInitialFocus}
                 />
 
                 <MultiLanguageField
@@ -140,6 +141,7 @@ NewOffer.propTypes = {
     id: PropTypes.string,
     label: PropTypes.string,
     intl: intlShape,
+    setInitialFocus: PropTypes.bool,
 }
 
 export default injectIntl(NewOffer);

@@ -59,9 +59,9 @@ class SearchPage extends React.Component {
         return (
             <div className="container">
                 <Helmet title={pageTitle}/>
-                <h1 tabIndex='0'><FormattedMessage id={`search-${appSettings.ui_mode}`}/></h1>
-                <p tabIndex='0'><FormattedMessage id="search-events-description"/></p>
-                <p tabIndex='0'><FormattedMessage id='pick-time-range' /></p>
+                <h1><FormattedMessage id={`search-${appSettings.ui_mode}`}/></h1>
+                <p><FormattedMessage id="search-events-description"/></p>
+                <p><FormattedMessage id='pick-time-range' /></p>
                 <SearchBar onFormSubmit={(query, start, end) => this.searchEvents(query, start, end)}/>
                 <FormattedMessage id="search-results-count" values={{count: this.state.events.length}}>{txt => <p role="status">{txt}</p>}</FormattedMessage>
                 <section className="container-fluid">

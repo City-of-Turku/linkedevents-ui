@@ -1,5 +1,5 @@
 import React from 'react';
-import {shallow} from 'enzyme';
+import {shallow, mount} from 'enzyme';
 import HelTextField from '../HelTextField';
 import {Input, FormText} from 'reactstrap';
 import ValidationPopover from '../../ValidationPopover';
@@ -27,6 +27,7 @@ const defaultProps = {
     validationErrors: undefined,
     type: 'text',
     index: 'text-index',
+    setInitialFocus: false,
 }
 
 describe('HelTextField', () => {
@@ -69,7 +70,7 @@ describe('HelTextField', () => {
             expect(inputComponent.prop('type')).toBe(defaultProps.type)
             expect(inputComponent.prop('name')).toBe(defaultProps.name)
             expect(inputComponent.prop('value')).toBe(defaultProps.defaultValue)
-            expect(inputComponent.prop('required')).toBe(defaultProps.required)
+            expect(inputComponent.prop('aria-required')).toBe(defaultProps.required)
             expect(inputComponent.prop('onChange')).toBe(instance.handleChange)
             expect(inputComponent.prop('onBlur')).toBe(instance.handleBlur)
             expect(inputComponent.prop('innerRef')).toBeDefined()
@@ -108,12 +109,33 @@ describe('HelTextField', () => {
     })
 
     describe('functions', () => {
-        test('componentDidMount', () => {
-            const instance = getWrapper().instance()
-            jest.spyOn(instance, 'setValidationErrorsToState')
-            instance.componentDidMount()
-            expect(instance.setValidationErrorsToState).toHaveBeenCalledTimes(1)
+        describe('componentDidMount', () => {
+            test('calls setValidationErrorsToState', () => {
+                const instance = getWrapper().instance()
+                jest.spyOn(instance, 'setValidationErrorsToState')
+                instance.componentDidMount()
+                expect(instance.setValidationErrorsToState).toHaveBeenCalledTimes(1)
+            })
+
+            test('sets focus to ref inputRef if prop.setInitialFocus is true', () => {
+                const wrapper = mount(<HelTextField {...defaultProps} setInitialFocus={true} />, {context: {intl}});
+                const instance = wrapper.instance()
+                const inputRef = instance.inputRef
+                jest.spyOn(inputRef, 'focus')
+                instance.componentDidMount()
+                expect(inputRef.focus).toHaveBeenCalledTimes(1)
+            })
+    
+            test('doesnt set focus to inputRef if prop.setInitialFocus is not true', () => {
+                const wrapper = mount(<HelTextField {...defaultProps} setInitialFocus={false} />, {context: {intl}});
+                const instance = wrapper.instance()
+                const inputRef = instance.inputRef
+                jest.spyOn(inputRef, 'focus')
+                instance.componentDidMount()
+                expect(inputRef.focus).toHaveBeenCalledTimes(0)
+            })
         })
+        
 
         describe('UNSAFE_componentWillReceiveProps', () => {
             test('sets state.value when props.defaultValue changes', () => {

@@ -5,7 +5,7 @@ import CustomDateTime from '../CustomFormFields/Dateinputs/CustomDateTime';
 import {connect} from 'react-redux'
 import {deleteSubEvent as deleteSubEventAction} from 'src/actions/editor'
 import {FormattedMessage, injectIntl} from 'react-intl';
-const NewEvent = ({event, eventKey, errors, deleteSubEvent, intl}) => (
+const NewEvent = ({event, eventKey, errors, deleteSubEvent, intl, setInitialFocus}) => (
     <div className="new-sub-event">
         <div className="new-sub-event--inputs">
             <CustomDateTime
@@ -17,6 +17,7 @@ const NewEvent = ({event, eventKey, errors, deleteSubEvent, intl}) => (
                 eventKey={eventKey}
                 validationErrors={errors['start_time']}
                 required={true}
+                setInitialFocus={setInitialFocus}
             />
             <CustomDateTime
                 disablePast
@@ -49,6 +50,7 @@ NewEvent.propTypes = {
     errors: PropTypes.object,
     deleteSubEvent: PropTypes.func,
     intl: PropTypes.object,
+    setInitialFocus: PropTypes.bool,
 }
 
 

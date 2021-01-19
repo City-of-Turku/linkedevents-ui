@@ -123,10 +123,12 @@
     "no-image": "NO IMAGE",
 
     "event-datetime-fields-header": "Event times",
+    "event-starting": "Event starts",
     "event-starting-datetime": "Event starts (dd.mm.yyyy hh.mm)",
-    "event-ending-datetime": "Event ends (dd.mm.yyyy hh.mm)",
     "event-starting-datelabel": "Event starts (dd.mm.yyyy)",
     "event-starting-timelabel": "Starting time (hh.mm)",
+    "event-ending": "Event ends",
+    "event-ending-datetime": "Event ends (dd.mm.yyyy hh.mm)",
     "event-ending-datelabel": "Event ends (dd.mm.yyyy)",
     "event-ending-timelabel": "Ending time (hh.mm)",
     "event-add-new-occasion": "Add new occasion",
@@ -325,6 +327,10 @@
     "editor-tip-umbrella-sub-event": "If you wish to add this event under an umbrella event, you may do so from the associated ",
     "editor-tip-umbrella-sub-event-link": "top level event",
 
+    "editor-headerbutton-collapse": "Click to close section",
+    "editor-headerbutton-expand": "Click to expand section",
+    "editor-expand-required": "This section is required",
+
     "add-more": "Add more",
     "play-date-label": "Play date",
     "linked-courses": "Linked Courses",
@@ -379,8 +385,8 @@
     "image-modal-image-license": "Image licence",
     "image-modal-image-license-permission": "I have permission to use this image.",
     "image-modal-image-license-explanation-event-only": "Image may be used only for this event = Image use is limited to this event",
-    "image-modal-image-license-explanation-cc-by": "CC BY 4.0 = Image is free to share and use, as long as a link to license is provided. (<a href='https://creativecommons.org/licenses/by/4.0/' target='_blank' rel='noopener noreferrer'>additional information</a>)",
-    "image-modal-view-terms-paragraph-text": "Prior to uploading a new image, get to know the <a href='/help#images' target='_blank' rel='noopener noreferrer'>image terms and recommendations.</a>",
+    "image-modal-image-license-explanation-cc-by": "CC BY 4.0 = Image is free to share and use, as long as a link to license is provided (<a href='https://creativecommons.org/licenses/by/4.0/' target='_blank' rel='noopener noreferrer'>additional information about CC BY 4.0. Opens in a new browser tab</a>).",
+    "image-modal-view-terms-paragraph-text": "Prior to uploading a new image, get to know the <a href='/help#images' target='_blank' rel='noopener noreferrer'>image terms and recommendations (opens in a new browser tab).</a>",
     "image-modal-view-terms-link-text": "image terms and recommendations.",
     "image-modal-save-button-text": "Save image",
     "error-message-has-been-sent": "The error message has been sent. Thank you for reporting!",
@@ -398,6 +404,7 @@
     "navbar.en": "English",
     "navbar.sv": "Swedish",
     "navbar.active": "Current language is English",
+    "navigation-toggle": "Navigation toggle",
 
     "skiplink-shortcut": "Move to content",
 
@@ -410,7 +417,7 @@
 
 
     "preview-event": "Event information",
-    "preview-event-button": "Check data in the form",
+    "preview-event-button": "Preview event information",
 
     "uploaded-image-size-tip": "Maximum image size is 2 MB.",
     "uploaded-image-size-tip2": "Before entering the image, edit it so that it is suitable for online use and has a horizontal aspect ratio of 3:2, e.g. 1200 X 800 px (width x height).",
