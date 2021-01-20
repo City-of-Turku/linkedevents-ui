@@ -101,20 +101,21 @@ class EventActionButton extends React.Component {
         return (
             <Fragment>
                 {showTermsCheckbox &&
-                <div className='terms-checkbox'>
-                    <label htmlFor='terms-agree'>
+                <div className='custom-control custom-checkbox'>
+                    <input
+                        className='custom-control-input'
+                        type='checkbox'
+                        checked={this.state.agreedToTerms}
+                        onChange={this.handleChange}
+                        id='terms-agree'
+                    />
+                    <label className='custom-control-label' htmlFor='terms-agree'>
                         <FormattedMessage id={'terms-agree-text'}>{txt => txt}</FormattedMessage>
                         &nbsp;
                         <Link to={'/terms'} target='_black'>
                             <FormattedMessage id={'terms-agree-link'}>{txt => txt}</FormattedMessage>
                         </Link>
                     </label>
-                    <Input
-                        type='checkbox'
-                        checked={this.state.agreedToTerms}
-                        onChange={this.handleChange}
-                        id='terms-agree'
-                    />
                 </div>
                 }
                 <Button

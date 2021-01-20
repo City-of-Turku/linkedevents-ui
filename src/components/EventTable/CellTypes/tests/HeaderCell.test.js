@@ -32,15 +32,15 @@ describe('HeaderCell', () => {
         });
 
         test('renders', () => {
-            const inputElement = element.find(Input);
+            const inputElement = element.find('input');
             expect(element.find('th.checkbox')).toHaveLength(1);
             expect(inputElement).toHaveLength(1);
         });
         test('checked prop changes according to state.isChecked', () => {
             const instance = element.instance();
-            expect(element.find(Input).prop('checked')).toBe(false);
+            expect(element.find('input').prop('checked')).toBe(false);
             instance.handleRow();
-            expect(element.find(Input).prop('checked')).toBe(true);
+            expect(element.find('input').prop('checked')).toBe(true);
         });
     });
 

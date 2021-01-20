@@ -34,10 +34,19 @@ class HeaderCell extends React.Component {
             <React.Fragment>
                 {name === 'checkbox' &&
                 <th className='checkbox'>
-                    <label htmlFor='allchecked' className='visually-hidden'>
-                        {this.context.intl.formatMessage({id: 'table-events-checkbox-all'})}
-                    </label>
-                    <Input checked={this.state.isChecked} type='checkbox' id='allchecked' onChange={this.handleRow} />
+                    <div className='custom-control custom-checkbox'>
+                        <input className='custom-control-input' 
+                            checked={this.state.isChecked} 
+                            type='checkbox' 
+                            id='allchecked' 
+                            onChange={this.handleRow} 
+                        />
+                        <label className='custom-control-label' htmlFor='allchecked'>
+                            <span className='hidden'>
+                                {this.context.intl.formatMessage({id: 'table-events-checkbox-all'})}
+                            </span>
+                        </label>
+                    </div>
                 </th>
                 }
                 {name !== 'checkbox' && name !== 'validation' &&

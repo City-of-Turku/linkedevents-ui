@@ -102,6 +102,9 @@ h1 {
 }
 
 //Global Checkbox styles
+.custom-control {
+    z-index: 0;
+}
 .custom-control-label {
     margin-bottom: 1rem;
     width: max-content;

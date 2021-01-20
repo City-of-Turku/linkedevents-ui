@@ -43,13 +43,13 @@ describe('EventActionButton', () => {
             test('renders div', () => {
                 const div = getWrapper({user, event, action}).find('div')
                 expect(div).toHaveLength(1)
-                expect(div.prop('className')).toBe('terms-checkbox')
+                expect(div.prop('className')).toBe('custom-control custom-checkbox')
             })
 
             test('renders Input', () => {
                 const wrapper = getWrapper({user, event, action})
                 const instance = wrapper.instance()
-                const input = wrapper.find(Input)
+                const input = wrapper.find('input')
                 expect(input).toHaveLength(1)
                 expect(input.prop('type')).toBe('checkbox')
                 expect(input.prop('checked')).toBe(instance.state.agreedToTerms)
