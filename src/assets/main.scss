@@ -103,6 +103,9 @@ h1 {
 
 //Global Checkbox styles
 .custom-control-label {
+    margin-bottom: 1rem;
+    width: max-content;
+    padding-top: 0.3rem;
     &::before, &::after {
         width: 1.25rem;
         height: 1.25rem;
