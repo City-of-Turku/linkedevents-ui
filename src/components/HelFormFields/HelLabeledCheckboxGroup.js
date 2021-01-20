@@ -59,9 +59,9 @@ const HelLabeledCheckboxGroup = (props) => {
                                     ref={ref => refs[`checkRef${index}`] = ref}
                                     checked={checked}
                                     onChange={() => handleChange(refs, props)}
-                                    id={`checkBox-${item.value}`}
+                                    id={item.label}
                                 />
-                                <label htmlFor={`checkBox-${item.value}`} className='custom-control-label'>{item.label}</label>
+                                <label htmlFor={item.label} className='custom-control-label'>{item.label}</label>
                             </div>
                         )
                     })}
