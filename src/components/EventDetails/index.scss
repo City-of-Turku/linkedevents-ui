@@ -109,19 +109,6 @@ legend {
     font-weight: 300;
 }
 
-.checked-value {
-    align-items: center;
-    display: flex;
-    font-size: 22px;
-    font-weight: 300;
-    label {
-        margin: 0 0 0 1rem;
-        &::first-letter {
-            text-transform: capitalize;
-        }
-    }
-}
-
 .green {
     color: darken(#28e7b3, 24%);
 }
@@ -132,12 +119,6 @@ legend {
         font-size: 22px;
         font-weight: 300;
         text-transform: capitalize;
-    }
-    .checked-value {
-        margin-top: 8px;
-        label {
-            font-size: 20px;
-        }
     }
 }
 
