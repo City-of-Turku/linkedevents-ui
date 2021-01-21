@@ -103,16 +103,24 @@ class HelOffersField extends React.Component {
                     label={<FormattedMessage id='is-free' />}
                     onChange={(e, v) => this.setIsFree(e, v)}
                 />
-                <div className='offers'>{offerDetails}</div>
-                <Button size='lg' block variant='contained' disabled={disabled} onClick={() => this.addNewOffer()}>
-                    <span aria-hidden className='glyphicon glyphicon-plus' />
-                    <FormattedMessage id='event-add-price' />
-                </Button>
-                {isOverLimit && (
+                <div className="offers">
+                    { offerDetails }
+                </div>
+                {!this.state.isFree &&
+                    <Button
+                        size='lg'block
+                        variant="contained"
+                        disabled={disabled}
+                        onClick={() => this.addNewOffer()}
+                    ><span aria-hidden className="glyphicon glyphicon-plus"></span>
+                        <FormattedMessage id="event-add-price" />
+                    </Button>
+                }
+                {isOverLimit && 
                     <p className='offersLimit' role='alert'>
                         <FormattedMessage id='event-add-price-limit' values={{count: GENERATE_LIMIT.OFFER_LENGTH}} />
                     </p>
-                )}
+                }
             </Fragment>
         );
     }
