@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import constants from 'src/constants';
-import {Input} from 'reactstrap';
-
 
 const {TABLE_COLUMNS} = constants;
 

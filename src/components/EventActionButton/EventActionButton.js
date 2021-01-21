@@ -7,7 +7,7 @@ import {checkEventEditability} from '../../utils/checkEventEditability';
 import constants from '../../constants';
 import showConfirmationModal from '../../utils/confirm';
 import {appendEventDataWithSubEvents, getEventsWithSubEvents} from '../../utils/events';
-import {Button, Input, UncontrolledTooltip} from 'reactstrap';
+import {Button, UncontrolledTooltip} from 'reactstrap';
 import {confirmAction} from '../../actions/app';
 import {getButtonLabel} from '../../utils/helpers';
 import {Link} from 'react-router-dom';
