@@ -163,6 +163,7 @@
 
     "event-location-fields-header": "Evenemangsplats",
     "event-location": "Plats",
+    "event-location-virtual": "Virtuell händelse",
     "event-location-id": "Platsens ID",
     "event-location-additional-info": "Platsens tilläggsuppgifter",
     "event-location-button": "Visa platsen på kartan",

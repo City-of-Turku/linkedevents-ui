@@ -168,6 +168,8 @@ function mapAPIDataToUIFormat(values) {
 
     // Location data
     obj.location = values.location
+    obj.is_virtual = values.is_virtual
+    obj.virtualevent_url = values.virtualevent_url
 
     obj.location_extra_info = values.location_extra_info
 

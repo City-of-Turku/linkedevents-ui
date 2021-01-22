@@ -156,6 +156,7 @@
 
     "event-location-fields-header": "Venue",
     "event-location": "Location",
+    "event-location-virtual": "Virtual event",
     "event-location-id": "Location ID",
     "event-location-additional-info": "Additional information",
     "event-location-button": "Show location on map",
