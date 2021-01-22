@@ -1,14 +1,14 @@
 $select-input-border-radius: 0px;
 
 .hel-select {
-    label {
-        position: relative;
-        font-size: 1.2em;
-        padding-top: 2vh;
+    .validation-error-popover.popover.small {
+        top: 50%;
     }
-        .validation-error-popover.popover.small {
-            top: 50%;
+    .location-select {
+        label {
+            font-size: 1.2rem;
         }
+    }
 }
 
 .css-1wa3eu0-placeholder{
