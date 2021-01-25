@@ -1,7 +1,7 @@
 import CONSTANTS from '../constants'
 import validationFn from './validationRules'
 import {getCharacterLimitByRule} from '../utils/helpers'
-import {each, remove, pickBy, isEmpty, omitBy} from 'lodash'
+import {each, remove, pickBy, isEmpty, omitBy, includes} from 'lodash'
 import moment from 'moment'
 
 const {

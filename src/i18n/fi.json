@@ -170,6 +170,7 @@
     "event-location-fields-header": "Valitse paikka",
     "event-location": "Paikka",
     "event-location-virtual": "Virtuaalitapahtuma",
+    "event-location-virtual-url": "Linkki virtuaaliseen tapahtumaan",
     "event-location-id": "Paikan ID",
     "event-location-additional-info": "Paikan lisätiedot",
     "event-location-button": "Näytä kartalla",

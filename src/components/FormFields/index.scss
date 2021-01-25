@@ -212,6 +212,12 @@ textarea {
         position: relative;
         z-index: 1;
     }
+    .custom-control {
+    &-label {
+            font-size: 1.2em;
+            padding-top: 0px;
+    }
+}
     .map-button-container {
         display: block;
         text-align: right;

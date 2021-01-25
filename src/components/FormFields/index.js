@@ -309,23 +309,27 @@ class FormFields extends React.Component {
                         <p><FormattedMessage id="editor-tip-location-not-found"/></p>
                     </SideField>
                     <div className="col-sm-6 hel-select">
-                        <HelCheckbox
-                            fieldID='is_virtual'
-                            defaultChecked={values['is_virtual']}
-                            label={<FormattedMessage id='event-location-virtual'/>}
-                        />
-                        <HelTextField
-                            validations={validationErrors['virtualevent_url']}
-                            id='virtualevent_url'
-                            ref='virtualevent_url'
-                            name='virtualevent_url'
-                            label='Linkki virtuaaliseen tapahtumaan'
-                            validationErrors={validationErrors['virtualevent_url']}
-                            defaultValue={values['virtualevent_url']}
-                            setDirtyState={this.props.setDirtyState}
-                            forceApplyToStore
-                            type='text'
-                        />
+                        <div>
+                            
+                            <HelCheckbox
+                                name='is_virtualevent'
+                                label={<FormattedMessage id='event-location-virtual'/>}
+                                fieldID='is_virtual'
+                            />
+
+                            <HelTextField
+                                validations={[VALIDATION_RULES.IS_URL]}
+                                id='event-location-virtual-url'
+                                ref="event-location-virtual-url"
+                                name="virtualevent_url"
+                                label={this.context.intl.formatMessage({id: 'event-location-virtual-url'})}
+                                validationErrors={validationErrors['virtualevent_url']}
+                                defaultValue={values['virtualevent_url']}
+                                setDirtyState={this.props.setDirtyState}
+                                forceApplyToStore
+                                type='text'
+                            />
+                        </div>
                         <HelSelect
                             legend={this.context.intl.formatMessage({id: 'event-location'})}
                             selectedValue={values['location']}
@@ -336,7 +340,7 @@ class FormFields extends React.Component {
                             setDirtyState={this.props.setDirtyState}
                             optionalWrapperAttributes={{className: 'location-select'}}
                             currentLocale={currentLocale}
-                            required={true}
+                            required={!values.is_virtualevent}
                         />
                         <div className='map-button-container'>
                             <Button
