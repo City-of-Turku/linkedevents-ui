@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {push} from 'react-router-redux';
 import {withRouter} from 'react-router';
+import {NavLink} from 'react-router-dom'
 
 import {clearUserData as clearUserDataAction} from 'src/actions/user.js';
 import {setLocale as setLocaleAction} from 'src/actions/userLocale';
@@ -15,7 +16,7 @@ import {FormattedMessage} from 'react-intl';
 import constants from '../../constants';
 
 // Citylogo is now set from SCSS, className: bar__logo
-import {Collapse, Navbar, NavbarToggler, NavItem, NavLink, NavbarBrand, Button} from 'reactstrap';
+import {Collapse, Navbar, NavbarToggler, NavItem, Button} from 'reactstrap';
 import {hasOrganizationWithRegularUsers} from '../../utils/user';
 import {get} from 'lodash';
 import moment from 'moment';
@@ -151,8 +152,9 @@ class HeaderBar extends React.Component {
                         <ul className='linked-events-bar__links'>
                             <NavItem>
                                 <NavLink
-                                    active={this.isActivePath('/event/create/new')}
-                                    href='#'
+                                    strict={this.isActivePath('/event/create/new')}
+                                    className='nav-link'
+                                    to='/event/create/new'
                                     onClick={() => this.handleOnClick('/event/create/new')}>
                                     <span aria-hidden className='glyphicon glyphicon-plus' />
                                     <FormattedMessage id={`create-${appSettings.ui_mode}`} />
@@ -160,8 +162,9 @@ class HeaderBar extends React.Component {
                             </NavItem>
                             <NavItem>
                                 <NavLink
-                                    active={this.isActivePath('/search')}
-                                    href='#'
+                                    strict={this.isActivePath('/search')}
+                                    className='nav-link'
+                                    to='/search'
                                     onClick={() => this.handleOnClick('/search')}>
                                     <span aria-hidden className='glyphicon glyphicon-search' />
                                     <FormattedMessage id={`search-${appSettings.ui_mode}`} />
@@ -169,8 +172,9 @@ class HeaderBar extends React.Component {
                             </NavItem>
                             <NavItem>
                                 <NavLink
-                                    active={this.isActivePath('/')}
-                                    href='#'
+                                    exact
+                                    to='/'
+                                    className='nav-link'
                                     onClick={() => this.handleOnClick('/')}>
                                     <span aria-hidden className='glyphicon glyphicon-wrench' />
                                     <FormattedMessage id={`${appSettings.ui_mode}-management`} />
@@ -179,9 +183,9 @@ class HeaderBar extends React.Component {
                             {showModerationLink && (
                                 <NavItem>
                                     <NavLink
-                                        active={this.isActivePath('/moderation')}
-                                        href='#'
-                                        className='moderator'
+                                        strict={this.isActivePath('/moderation')}
+                                        className='nav-link moderator'
+                                        to='/moderation'
                                         onClick={() => this.handleOnClick('/moderation')}>
                                         <span aria-hidden className='glyphicon glyphicon-cog' />
                                         <FormattedMessage id='moderation-page' />
@@ -190,8 +194,9 @@ class HeaderBar extends React.Component {
                             )}
                             <NavItem>
                                 <NavLink
-                                    active={this.isActivePath('/help')}
-                                    href='#'
+                                    strict={this.isActivePath('/help')}
+                                    className='nav-link'
+                                    to='/help'
                                     onClick={() => this.handleOnClick('/help')}>
                                     <span aria-hidden className='glyphicon glyphicon-question-sign' />
                                     <FormattedMessage id='more-info' />

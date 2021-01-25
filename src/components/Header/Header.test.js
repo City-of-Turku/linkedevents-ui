@@ -1,6 +1,7 @@
 import React from 'react';
 import {shallow} from 'enzyme';
-import {NavLink, Button} from 'reactstrap';
+import {Button} from 'reactstrap';
+import {NavLink} from 'react-router-dom'
 
 import {mockUser} from '__mocks__/mockData';
 import {UnconnectedHeaderBar} from './index';
@@ -135,28 +136,16 @@ describe('components/Header/index', () => {
 
                 test('when user is admin, one of the NavLinks is to moderation', () => {
                     const element = getWrapper({user: userAdmin}).find(NavLink).filter('.moderator');
-                    expect(element.prop('className')).toBe('moderator');
+                    expect(element.prop('className')).toBe('nav-link moderator');
                 });
 
                 test('NavLink is active based on location.pathname prop',() => {
                     const element = getWrapper({location:{pathname:'/'}});
                     let navLinks = element.find(NavLink);
-                    expect(navLinks.at(0).prop('active')).toBe(false);
-                    expect(navLinks.at(1).prop('active')).toBe(false);
-                    expect(navLinks.at(2).prop('active')).toBe(true);
-                    expect(navLinks.at(3).prop('active')).toBe(false);
-                    element.setProps({location:{pathname:'/search'}});
-                    navLinks = element.find(NavLink);
-                    expect(navLinks.at(0).prop('active')).toBe(false);
-                    expect(navLinks.at(1).prop('active')).toBe(true);
-                    expect(navLinks.at(2).prop('active')).toBe(false);
-                    expect(navLinks.at(3).prop('active')).toBe(false);
-                    element.setProps({location:{pathname:'/help'}});
-                    navLinks = element.find(NavLink);
-                    expect(navLinks.at(0).prop('active')).toBe(false);
-                    expect(navLinks.at(1).prop('active')).toBe(false);
-                    expect(navLinks.at(2).prop('active')).toBe(false);
-                    expect(navLinks.at(3).prop('active')).toBe(true);
+                    expect(navLinks.at(0).prop('strict')).toBe(false);
+                    expect(navLinks.at(1).prop('strict')).toBe(false);
+                    expect(navLinks.at(2).prop('exact')).toBe(true);
+                    expect(navLinks.at(3).prop('strict')).toBe(false);
                 });
             });
         });
