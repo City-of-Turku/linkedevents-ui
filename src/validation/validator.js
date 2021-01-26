@@ -108,7 +108,15 @@ function runValidationWithSettings(values, languages, settings, keywordSets) {
                 const error = isEmpty(subEventError) ? null : subEventError
                 errors[eventKey] = error
             })
-        // validate offers
+            // validate location & virtual event based on conditional
+            // if event is virtual, location is not required
+        } else if (key === 'location') {
+            errors = validateLocation(values, validations)
+            // validate virtual_url
+            // Check for URL & string
+        } else if (key === 'virtualevent_url') {
+            errors = validateVirtualURL(values)
+            // validate offers 
         } else if (key === 'price') {
             errors = validateOffers(valuesWithLanguages)
         // validate keywords
@@ -136,6 +144,7 @@ function runValidationWithSettings(values, languages, settings, keywordSets) {
         } else {
             obj[key] = errors
         }
+        console.log(errors, 'viimeinen error')
     })
     obj = pickBy(obj, (validationErrors, key) => {
         if (key === 'sub_events' || key === 'videos') {
@@ -144,6 +153,30 @@ function runValidationWithSettings(values, languages, settings, keywordSets) {
         return validationErrors.length > 0
     })
     return obj
+}
+
+const validateLocation = (values, validations) => {
+    const errors = []
+    if (!values['is_virtualevent']) {
+        if (!validationFn[validations](values, values['location'])) {
+            errors.push(validations)
+        }
+    }
+    return errors
+}
+
+const validateVirtualURL = values => {
+    const errors = []
+    const validations = ['requiredString', 'isUrl']
+    if (values['virtualevent_url']) {
+        validations.forEach((val) => {
+            const correct = validationFn[val](values, values.virtualevent_url)
+            if (!correct) {
+                errors.push(val)
+            }
+        })
+    }
+    return errors
 }
 
 const validateOffers = values => {

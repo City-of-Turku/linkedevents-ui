@@ -342,7 +342,7 @@ const EventDetails = (props) => {
             <FormHeader>
                 {intl.formatMessage({id: 'event-location-fields-header'})}
             </FormHeader>
-            <CheckedValue values={values['is_virtualevent']} labelKey="event-location-virtual" locale={intl.locale}/>
+            <CheckedValue checked={values['is_virtualevent']} labelKey="event-location-virtual" locale={intl.locale}/>
             <TextValue labelKey='event-location-virtual-url' value={get(values, 'virtualevent_url')} />
             <MultiLanguageValue labelKey="event-location" value={get(values, 'location.name')}/>
             <TextValue labelKey="event-location-id" value={get(values, 'location.id')}/>

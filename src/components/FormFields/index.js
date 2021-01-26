@@ -328,6 +328,8 @@ class FormFields extends React.Component {
                                 setDirtyState={this.props.setDirtyState}
                                 forceApplyToStore
                                 type='text'
+                                required={values.is_virtualevent}
+                                disabled={!values.is_virtualevent}
                             />
                         </div>
                         <HelSelect
