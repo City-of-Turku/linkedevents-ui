@@ -172,6 +172,7 @@ class HeaderBar extends React.Component {
                             </NavItem>
                             <NavItem>
                                 <NavLink
+                                    strict={this.isActivePath('/')}
                                     exact
                                     to='/'
                                     className='nav-link'

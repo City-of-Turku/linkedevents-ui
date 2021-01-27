@@ -146,6 +146,18 @@ describe('components/Header/index', () => {
                     expect(navLinks.at(1).prop('strict')).toBe(false);
                     expect(navLinks.at(2).prop('exact')).toBe(true);
                     expect(navLinks.at(3).prop('strict')).toBe(false);
+                    element.setProps({location:{pathname:'/search'}});
+                    navLinks = element.find(NavLink);
+                    expect(navLinks.at(0).prop('strict')).toBe(false);
+                    expect(navLinks.at(1).prop('strict')).toBe(true);
+                    expect(navLinks.at(2).prop('strict')).toBe(false);
+                    expect(navLinks.at(3).prop('strict')).toBe(false);
+                    element.setProps({location:{pathname:'/help'}});
+                    navLinks = element.find(NavLink);
+                    expect(navLinks.at(0).prop('strict')).toBe(false);
+                    expect(navLinks.at(1).prop('strict')).toBe(false);
+                    expect(navLinks.at(2).prop('strict')).toBe(false);
+                    expect(navLinks.at(3).prop('strict')).toBe(true);
                 });
             });
         });
