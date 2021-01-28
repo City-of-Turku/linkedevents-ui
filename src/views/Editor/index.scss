@@ -101,23 +101,7 @@ $actionBtnHeight: 60px;
                 &.editor-update-button {
                     margin-right: auto;
                 }
-            }/*
-            .terms-checkbox {
-                height: $actionBtnHeight;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                @media (max-width: 768px) {
-                    height: 30px;
-                }
-                input {
-                    position: unset;
-                    margin: 0 0.7em 0 0;
-                }
-                label {
-                    margin: 0 1em 0 0;
-                }
-            }*/
+            }
         }
     }
 }
