@@ -311,6 +311,32 @@ VideoValue.propTypes = {
     values: PropTypes.array,
 }
 
+const VirtualInfo = (props) => {
+    if (props.isvirtual && props.values) {
+        return (
+            <div className="single-value-field">
+                <div>
+                    <FormattedMessage id={props.labelvirtual}>{txt => <label>{txt}</label>}</FormattedMessage>
+                    <br/>
+                    <FormattedMessage id={props.labelvirtualURL}>{txt => <span htmlFor={props.values}>{txt}</span>}</FormattedMessage>
+                    <br/>
+                    <a href={props.values} rel='noopener noreferrer' target="_blank">{props.values}</a>
+                </div>
+            </div>
+        )
+    } else {
+        return (
+            <div />
+        )
+    }
+}
+VirtualInfo.propTypes = {
+    values: PropTypes.string,
+    isvirtual: PropTypes.bool,
+    labelvirtual: PropTypes.string,
+    labelvirtualURL: PropTypes.string,
+}
+
 const EventDetails = (props) => {
     const {editor, values, intl, rawData, publisher, superEvent} = props
     // Changed keywordSets to be compatible with Turku's backend.
@@ -342,8 +368,9 @@ const EventDetails = (props) => {
             <FormHeader>
                 {intl.formatMessage({id: 'event-location-fields-header'})}
             </FormHeader>
-            <CheckedValue checked={values['is_virtualevent']} labelKey="event-location-virtual" locale={intl.locale}/>
-            <TextValue labelKey='event-location-virtual-url' value={get(values, 'virtualevent_url')} />
+
+            <VirtualInfo labelvirtual='event-isvirtual' labelvirtualURL='event-location-virtual-url' isvirtual={values['is_virtualevent']} values={get(values, 'virtualevent_url')}/>
+
             <MultiLanguageValue labelKey="event-location" value={get(values, 'location.name')}/>
             <TextValue labelKey="event-location-id" value={get(values, 'location.id')}/>
             <MultiLanguageValue

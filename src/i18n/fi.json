@@ -104,6 +104,7 @@
     "event-provider-input": "Tapahtuman järjestäjä (jos eri kuin julkaisija)",
     "event-publisher": "Tapahtuman julkaisija",
     "event-publisher-info": "Julkaisija: {publisher}",
+    "event-isvirtual": "Tämä tapahtuma on virtuaalinen",
 
     "events-management": "Tapahtumien hallinta",
     "events-management-prompt": "muokataksesi tapahtumia.",

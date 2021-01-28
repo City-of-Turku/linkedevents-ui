@@ -112,11 +112,15 @@ function runValidationWithSettings(values, languages, settings, keywordSets) {
             // if event is virtual, location is not required
         } else if (key === 'location') {
             errors = validateLocation(values, validations)
-            // validate virtual_url
-            // Check for URL & string
-        } else if (key === 'virtualevent_url') {
-            errors = validateVirtualURL(values)
-            // validate offers 
+
+        }
+        // check is_virtual boolean, is true check that virtualevent_url exists
+        // validate virtual_url
+        // Check for URL
+        else if (key === 'virtualevent_url') {
+            errors = validateVirtualURL(values, validations)
+
+            // validate offers
         } else if (key === 'price') {
             errors = validateOffers(valuesWithLanguages)
         // validate keywords
@@ -144,7 +148,6 @@ function runValidationWithSettings(values, languages, settings, keywordSets) {
         } else {
             obj[key] = errors
         }
-        console.log(errors, 'viimeinen error')
     })
     obj = pickBy(obj, (validationErrors, key) => {
         if (key === 'sub_events' || key === 'videos') {
@@ -154,27 +157,32 @@ function runValidationWithSettings(values, languages, settings, keywordSets) {
     })
     return obj
 }
-
+// Validate location
 const validateLocation = (values, validations) => {
     const errors = []
+    // Validation rule used for location select
+    const validationError = VALIDATION_RULES.REQUIRE_AT_ID
     if (!values['is_virtualevent']) {
-        if (!validationFn[validations](values, values['location'])) {
-            errors.push(validations)
+        if (!validationFn[validationError](values, values['location'])) {
+            errors.push(validationError)
         }
     }
     return errors
 }
-
-const validateVirtualURL = values => {
+// Validate is_virtual & virtualevent_url
+// Check that virtualevent_url is url indeed
+const validateVirtualURL = (values, validations) => {
     const errors = []
-    const validations = ['requiredString', 'isUrl']
-    if (values['virtualevent_url']) {
+    // Validation rule used for virtual events url
+    const validationError = VALIDATION_RULES.IS_URL
+    if (values['is_virtualevent'] && values['virtualevent_url']) {
         validations.forEach((val) => {
-            const correct = validationFn[val](values, values.virtualevent_url)
-            if (!correct) {
+            if (!validationFn[val](values, values['virtualevent_url'])) {
                 errors.push(val)
             }
         })
+    } else if (values['is_virtualevent'] && !values['virtualevent_url']) {
+        errors.push(validationError)
     }
     return errors
 }

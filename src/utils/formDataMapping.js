@@ -53,10 +53,13 @@ function mapUIDataToAPIFormat(values) {
     // Location data
     if (values.location) {
         obj.location = {'@id': values.location['@id']}
+    } else if (!values.location) {
+        obj.location = null
     }
     if (values.location_extra_info) {
         obj.location_extra_info = _nullifyEmptyStrings(values.location_extra_info)
     }
+    // Virtual data
     if (!values.is_virtualevent) {
         obj.is_virtualevent = false
     }
@@ -172,10 +175,10 @@ function mapAPIDataToUIFormat(values) {
 
     // Location data
     obj.location = values.location
+    obj.location_extra_info = values.location_extra_info
+    // Virtual data
     obj.is_virtualevent = values.is_virtualevent
     obj.virtualevent_url = values.virtualevent_url
-
-    obj.location_extra_info = values.location_extra_info
 
     if(values.offers) {
         obj.offers = values.offers
