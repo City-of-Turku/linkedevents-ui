@@ -315,6 +315,7 @@ class FormFields extends React.Component {
                                 name='is_virtualevent'
                                 label={<FormattedMessage id='event-location-virtual'/>}
                                 fieldID='is_virtual'
+                                defaultChecked={values['is_virtualevent']}
                             />
 
                             <HelTextField
