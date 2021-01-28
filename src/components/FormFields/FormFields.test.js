@@ -11,6 +11,7 @@ import {
     HelLabeledCheckboxGroup,
     HelLanguageSelect,
     HelSelect,
+    HelCheckbox,
     HelOffersField,
     NewEvent,
     HelKeywordSelector,
@@ -69,6 +70,7 @@ describe('FormField', () => {
                 location: {
                     position: {},
                 },
+                virtualevent_url: '',
                 offers: [],
                 videos: [],
                 start_time: '',
@@ -91,6 +93,7 @@ describe('FormField', () => {
                 location: {},
                 start_time: {},
                 end_time: {},
+                virtualevent_url: {},
             },
             contentLanguages: [
             ],
@@ -218,11 +221,20 @@ describe('FormField', () => {
                     expect(infoUrlMulti.prop('forceApplyToStore')).toBe(true)
                 })
             })
+            describe('HelCheckbox', () => {
+                const wrapper = getWrapper()
+                const helcheckbox = wrapper.find(HelCheckbox)
+                test('correct props for is_virtualevent checkbox', () => {
+                    expect(helcheckbox.prop('name')).toBe('is_virtualevent')
+                    expect(helcheckbox.prop('label')).toEqual(<FormattedMessage id='event-location-virtual'/>)
+                    expect(helcheckbox.prop('fieldID')).toBe('is_virtual')
+                })
+            })
             describe('HelTextField', () => {
                 const wrapper = getWrapper()
                 const helfields = wrapper.find(HelTextField)
                 test('amount of heltextfields', () => {
-                    expect(helfields).toHaveLength(3)
+                    expect(helfields).toHaveLength(4)
                 })
                 test('default props for HelTextFields', () => {
                     helfields.forEach((element) => {
@@ -231,8 +243,17 @@ describe('FormField', () => {
                         expect(element.prop('type')).toBe('text')
                     })
                 })
+                test('correct props for virtualevent_url field', () => {
+                    const virtualHelText = helfields.at(0)
+                    expect(virtualHelText.prop('validations')).toEqual([VALIDATION_RULES.IS_URL])
+                    expect(virtualHelText.prop('id')).toBe('event-location-virtual-url')
+                    expect(virtualHelText.prop('name')).toBe('virtualevent_url')
+                    expect(virtualHelText.prop('label')).toBe(defaultProps.intl.formatMessage({id: 'event-location-virtual-url'}))
+                    expect(virtualHelText.prop('validationErrors')).toBe(defaultProps.editor.validationErrors.virtualevent_url)
+                    expect(virtualHelText.prop('defaultValue')).toBe(defaultProps.editor.values.virtualevent_url)
+                })
                 test('correct props for event facebook field', () => {
-                    const faceHelText = helfields.at(0)
+                    const faceHelText = helfields.at(1)
                     expect(faceHelText.prop('validations')).toEqual([VALIDATION_RULES.IS_URL])
                     expect(faceHelText.prop('id')).toBe('extlink_facebook')
                     expect(faceHelText.prop('name')).toBe('extlink_facebook')
@@ -241,7 +262,7 @@ describe('FormField', () => {
                     expect(faceHelText.prop('defaultValue')).toBe(defaultProps.editor.values.extlink_facebook)
                 })
                 test('correct props for event twitter field', () => {
-                    const twitterHelText = helfields.at(1)
+                    const twitterHelText = helfields.at(2)
                     expect(twitterHelText.prop('validations')).toEqual([VALIDATION_RULES.IS_URL])
                     expect(twitterHelText.prop('id')).toBe('extlink_twitter')
                     expect(twitterHelText.prop('name')).toBe('extlink_twitter')
@@ -250,7 +271,7 @@ describe('FormField', () => {
                     expect(twitterHelText.prop('defaultValue')).toBe(defaultProps.editor.values.extlink_twitter)
                 })
                 test('correct props for event instagram field', () => {
-                    const instaHelText = helfields.at(2)
+                    const instaHelText = helfields.at(3)
                     expect(instaHelText.prop('validations')).toEqual([VALIDATION_RULES.IS_URL])
                     expect(instaHelText.prop('id')).toBe('extlink_instagram')
                     expect(instaHelText.prop('name')).toBe('extlink_instagram')

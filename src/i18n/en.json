@@ -97,6 +97,7 @@
     "event-provider-input": "Event organizer (if different from the publisher)",
     "event-publisher": "Event publisher",
     "event-publisher-info": "Publisher: {publisher}",
+    "event-isvirtual": "This event is virtual",
 
     "events-management": "Manage events",
     "events-management-prompt": "to manage events.",
@@ -157,6 +158,7 @@
     "event-location-fields-header": "Venue",
     "event-location": "Location",
     "event-location-virtual": "Virtual event",
+    "event-location-virtual-url": "Link to a virtual event",
     "event-location-id": "Location ID",
     "event-location-additional-info": "Additional information",
     "event-location-button": "Show location on map",

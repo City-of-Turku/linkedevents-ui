@@ -97,6 +97,7 @@
     "event-provider-input": "Evenemangets arrangör (om annan än publiceraren)",
     "event-publisher": "Publiceraren av evenemanget",
     "event-publisher-info": "Publicerare: {publisher}",
+    "event-isvirtual": "Denna händelse är virtuell",
 
     "events-management": "Hantering av evenemang",
     "events-management-prompt": "för att redigera evenemangen.",
@@ -164,6 +165,7 @@
     "event-location-fields-header": "Evenemangsplats",
     "event-location": "Plats",
     "event-location-virtual": "Virtuell händelse",
+    "event-location-virtual-url": "Länk till virtuella händelsen",
     "event-location-id": "Platsens ID",
     "event-location-additional-info": "Platsens tilläggsuppgifter",
     "event-location-button": "Visa platsen på kartan",

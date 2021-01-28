@@ -174,6 +174,7 @@ exports[`Image add form ImagePicker component should render correctly with data 
       "event-is-free": "Tapahtuma on maksuton",
       "event-is-umbrella": "Tämä tapahtuma on kattotapahtuma.",
       "event-is-umbrella-tooltip": "Alatapahtuma ei voi olla kattotapahtuma.",
+      "event-isvirtual": "Tämä tapahtuma on virtuaalinen",
       "event-keywords": "Lisää asiasanoja",
       "event-keywords-delete": "Poista asiasana",
       "event-location": "Paikka",
@@ -184,6 +185,8 @@ exports[`Image add form ImagePicker component should render correctly with data 
       "event-location-fields-header-help": "Paikkatieto ohje",
       "event-location-id": "Paikan ID",
       "event-location-map-error-missing-coordinates": "Paikan koordinaatteja ei ole määritetty.",
+      "event-location-virtual": "Virtuaalitapahtuma",
+      "event-location-virtual-url": "Linkki virtuaaliseen tapahtumaan",
       "event-name-or-place": "Tapahtuman nimi tai paikka",
       "event-name-shortdescription": "Syötä otsikko ja lyhyt kuvaus",
       "event-name-shortdescription-help": "Nimi ja kuvaus ohje",
@@ -495,7 +498,6 @@ exports[`Image add form ImagePicker component should render view by default 1`] 
     role="dialog"
     scrollable={false}
     size="xl"
-    trapFocus={false}
     unmountOnClose={true}
     zIndex={1050}
   >
