@@ -1,24 +1,14 @@
-.skiplink-shortcut{
+.skiplink-shortcut {
     text-align: center;
-    background-color:white;
+    background-color: white;
     .visually-hidden {
-        position: absolute;
-        left: -10000px;
-        top: auto;
-        width: 1px;
-        height: 1px;
-        overflow: hidden;
-      &.skip-link {
-        &:focus,
-        &:active {
-          position: relative;
-          left: 0;
-          width: auto;
-          height: auto;
-          overflow: visible;
-          outline: none;
-          color:blue;
+        &.skip-link {
+            &:focus,
+            &:active {
+                position: relative;
+                left: 0;
+                color: blue;
+            }
         }
-      }
     }
-  }
+}
