@@ -5,7 +5,7 @@ import ImageEdit from '../ImageEdit';
 import './index.scss';
 import {connect} from 'react-redux';
 import {Button} from 'reactstrap';
-import {FormattedMessage, injectIntl} from 'react-intl';
+import {FormattedMessage} from 'react-intl';
 import ImagePickerForm from '../ImagePicker';
 import {get as getIfExists} from 'lodash';
 import {fetchUserImages as fetchUserImagesAction} from 'src/actions/userImages'
