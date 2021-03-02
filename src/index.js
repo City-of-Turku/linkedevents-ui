@@ -63,6 +63,7 @@ if (window.location.pathname === '/silent-renew') {
                                 <Route exact path="/" component={EventListingPage}/>
                                 <Route exact path="/event/:eventId" component={Event}/>
                                 <Route exact path="/event/:action/:eventId" component={Editor}/>
+                                <Route exact path="/event/:eventId/recurring/:action" component={Editor}/>
                                 <Route exact path="/event/done/:action/:eventId" component={EventCreated}/>
                                 <Route exact path="/search" component={Search}/>
                                 <Route exact path="/help" component={Help}/>

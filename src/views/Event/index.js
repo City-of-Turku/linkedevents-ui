@@ -96,21 +96,27 @@ class EventPage extends React.Component {
 
     /**
      * Opens the editor with the event data in given mode
-     * @param mode  Whether event is copied as a template or being updated. Can be either 'copy' or 'update'
+     * @param mode  Whether event is copied as a template or being updated. Can be 'copy', 'update' or 'add'
      */
     openEventInEditor = (mode = 'update') => {
         const {replaceData, routerPush} = this.props
         const {event} = this.state
-
-        const route = mode === 'copy'
-            ? 'create/new'
-            : `update/${event.id}`
-
-        if (event) {
-            replaceData(event)
-            routerPush(`/event/${route}`)
-            scrollToTop()
+        let route;
+        if (mode === 'addRecurring') {
+            route = `${event.id}/recurring/add/`
+            
+        } else if (mode === 'copy') {
+            route =  'create/new'
+        } else {
+            route = `update/${event.id}` 
         }
+        if (mode === 'addRecurring') {
+            replaceData(event, true)
+        } else {
+            replaceData(event)  
+        }
+        routerPush(`/event/${route}`)
+        scrollToTop()
     }
 
     /**
@@ -157,7 +163,9 @@ class EventPage extends React.Component {
         const userType = get(user, 'userType')
         const isDraft = event.publication_status === PUBLICATION_STATUS.DRAFT
         const isAdmin = userType === USER_TYPE.ADMIN
+        const isRecurring = event.super_event_type === SUPER_EVENT_TYPE_RECURRING
         const editEventButton = this.getActionButton('edit', this.openEventInEditor, false)
+        const addRecurringButton = this.getActionButton('add', () => this.openEventInEditor('addRecurring'), false)
         const publishEventButton = this.getActionButton('publish')
         const postponeEventButton = this.getActionButton('postpone')
         const cancelEventButton = this.getActionButton('cancel')
@@ -172,6 +180,7 @@ class EventPage extends React.Component {
             <div className="edit-copy-btn">
                 {isAdmin && isDraft && publishEventButton}
                 {editEventButton}
+                {isRecurring && addRecurringButton}
                 <Button
                     variant="contained"
                     disabled={loading}
@@ -219,7 +228,7 @@ class EventPage extends React.Component {
             }
         }
         // re-fetch event data after cancel, postpone or publish action
-        if (action === 'cancel' || action === 'publish' ||  action === 'postpone') {
+        if (action === 'cancel' || action === 'publish' ||  action === 'postpone' ) {
             this.fetchEventData()
         }
     }
@@ -301,7 +310,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    replaceData: (event) => dispatch(replaceDataAction(event)),
+    replaceData: (event, recurring) => dispatch(replaceDataAction(event, recurring)),
     routerPush: (url) => dispatch(push(url)),
     confirm: (msg, style, actionButtonLabel, data) => dispatch(confirmAction(msg, style, actionButtonLabel, data)),
 })

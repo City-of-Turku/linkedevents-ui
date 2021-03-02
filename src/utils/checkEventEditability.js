@@ -62,6 +62,8 @@ export const userCanDoAction = (user, event, action, editor) => {
     const isPublic = get(event, 'publication_status') === PUBLICATION_STATUS.PUBLIC
     const isRegularUser = get(user, 'userType') === USER_TYPE.REGULAR
     const isSubEvent = !isUndefined(get(event, ['super_event', '@id']))
+    const eventOwner = get(event, 'is_owner')
+    const isPublicUser = get(user, 'userType') === USER_TYPE.PUBLIC
     const {keywordSets} = editor
 
     if (action === 'publish') {
@@ -85,6 +87,9 @@ export const userCanDoAction = (user, event, action, editor) => {
     }
     if (action === 'edit' || action === 'update' || action === 'delete') {
         return !(isRegularUser && (isUmbrellaEvent || isPublic))
+    }
+    if (action === 'add') {
+        return !(isRegularUser && eventOwner && (isPublic)) 
     }
 
     return true

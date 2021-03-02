@@ -77,6 +77,10 @@ const constants = {
     SUPER_EVENT_TYPE_RECURRING: 'recurring',
     SUPER_EVENT_TYPE_UMBRELLA: 'umbrella',
 
+    // Sub event types
+    SUB_EVENT_TYPE_RECURRING: 'sub_recurring',
+    SUB_EVENT_TYPE_UMBRELLA: 'sub_umbrella',
+
     // Event schedule values
     EVENT_STATUS: {
         SCHEDULED: 'EventScheduled',
@@ -141,6 +145,7 @@ const constants = {
         AT_LEAST_ONE_IS_TRUE: 'atLeastOneIsTrue',
         DEFAULT_END_IN_FUTURE: 'defaultEndInTheFuture',
         REQUIRED_VIDEO_FIELD: 'requiredVideoField',
+        IS_MORE_THAN_TWO: 'isMoreThanTwo',
     },
 
     CHARACTER_LIMIT: {

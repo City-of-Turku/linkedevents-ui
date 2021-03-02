@@ -8,6 +8,7 @@ import {Link} from 'react-router-dom'
 import {getBadge, getFirstMultiLanguageFieldValue, scrollToTop} from '../../utils/helpers'
 import moment from 'moment'
 import {isNull, get} from 'lodash'
+import {compareDates} from '../../utils/confirm'
 
 const {
     EVENT_STATUS,
@@ -16,7 +17,10 @@ const {
     SUPER_EVENT_TYPE_UMBRELLA,
 } = constants
 
+
+
 const getSuperEventLinks = (event, type) => (
+
     <React.Fragment>
         <p className="links-to-events--text">
             <FormattedMessage id={`super-event-of-${type}`} />
@@ -26,27 +30,30 @@ const getSuperEventLinks = (event, type) => (
                 <p className="links-to-events--text">
                     <FormattedMessage id={`sub-events-for-${type}`} />
                 </p>
-                {event.sub_events.map(subEvent => {
-                    const isCancelled = subEvent.event_status === EVENT_STATUS.CANCELLED
-                    const isRecurringEvent = subEvent.super_event_type === SUPER_EVENT_TYPE_RECURRING
-                    const isDraft = subEvent.publication_status === PUBLICATION_STATUS.DRAFT
+                {event.sub_events
+                    // sort sub_events by start time
+                    .sort(compareDates)
+                    .map((subEvent => {
+                        const isCancelled = subEvent.event_status === EVENT_STATUS.CANCELLED
+                        const isRecurringEvent = subEvent.super_event_type === SUPER_EVENT_TYPE_RECURRING
+                        const isDraft = subEvent.publication_status === PUBLICATION_STATUS.DRAFT
 
-                    return (
-                        <div key={subEvent.id}
-                            className="links-to-events--link"
-                        >
-                            <Link
-                                to={`/event/${subEvent.id}`}
-                                onClick={scrollToTop}
+                        return (
+                            <div key={subEvent.id}
+                                className="links-to-events--link"
                             >
-                                {isCancelled && getBadge('cancelled')}
-                                {isRecurringEvent && getBadge('series')}
-                                {isDraft && getBadge('draft')}
-                                <span>{getFirstMultiLanguageFieldValue(subEvent.name)} ({moment(subEvent.start_time).format('DD.MM.YYYY')})</span>
-                            </Link>
-                        </div>
-                    )
-                })}
+                                <Link
+                                    to={`/event/${subEvent.id}`}
+                                    onClick={scrollToTop}
+                                >
+                                    {isCancelled && getBadge('cancelled')}
+                                    {isRecurringEvent && getBadge('series')}
+                                    {isDraft && getBadge('draft')}
+                                    <span>{getFirstMultiLanguageFieldValue(subEvent.name)} ({moment(subEvent.start_time).format('DD.MM.YYYY')})</span>
+                                </Link>
+                            </div>
+                        )
+                    }))}
             </React.Fragment>
         }
     </React.Fragment>

@@ -165,6 +165,7 @@ class UmbrellaSelector extends React.Component {
     /**
      * Handles select changes
      * @param selectedEvent Data for the selected event
+     * sub_event_type to umbrella as selected super event is umbrella
      */
     handleChange = selectedEvent => {
         if (isNull(selectedEvent)) {
@@ -173,7 +174,7 @@ class UmbrellaSelector extends React.Component {
             })
             this.context.dispatch(setData({super_event: null}))
         } else {
-            this.context.dispatch(setData({super_event: {'@id': selectedEvent.value}}))
+            this.context.dispatch(setData({super_event: {'@id': selectedEvent.value}, sub_event_type: constants.SUB_EVENT_TYPE_UMBRELLA}))
             this.setState({selectedUmbrellaEvent: selectedEvent})
         }
     }

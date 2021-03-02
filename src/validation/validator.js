@@ -50,10 +50,11 @@ const publicValidations = {
     extlink_facebook: [VALIDATION_RULES.IS_URL],
     extlink_twitter: [VALIDATION_RULES.IS_URL],
     extlink_instagram: [VALIDATION_RULES.IS_URL],
-    sub_events: {
+    sub_events: { 
         start_time: [VALIDATION_RULES.REQUIRED_STRING, VALIDATION_RULES.IS_DATE, VALIDATION_RULES.DEFAULT_END_IN_FUTURE],
         end_time: [VALIDATION_RULES.AFTER_START_TIME, VALIDATION_RULES.IS_DATE, VALIDATION_RULES.IN_THE_FUTURE],
     },
+    sub_length: [VALIDATION_RULES.IS_MORE_THAN_TWO],
     keywords: [VALIDATION_RULES.AT_LEAST_ONE_MAIN_CATEGORY],
     audience_min_age: [VALIDATION_RULES.IS_INT],
     audience_max_age: [VALIDATION_RULES.IS_INT],
@@ -102,8 +103,21 @@ function runValidationWithSettings(values, languages, settings, keywordSets) {
 
         // validate sub events
         if (key === 'sub_events') {
+            /* const errors = []
+            const validationError = [VALIDATION_RULES.IS_MORE_THAN_TWO]
+            if (Object.keys(values['sub_events'])) {
+                if (!validationFn[validationError](values, values['sub_events'])) {
+                    errors.push(validationError)
+                }
+            }
+            
+            */
+            // jos recurring niin testataan että niitä on vähintään 2
+            // const foo = [VALIDATION_RULES.MORE_THAN_TWO]
+            // jotain jotain !validationFn[foo](values, values['sub_events'])
             errors = {}
             each(values['sub_events'], (subEvent, eventKey) => {
+                console.log(values['sub_events'])
                 const subEventError = runValidationWithSettings(subEvent, languages, settings.sub_events)
                 const error = isEmpty(subEventError) ? null : subEventError
                 errors[eventKey] = error
@@ -113,11 +127,15 @@ function runValidationWithSettings(values, languages, settings, keywordSets) {
         } else if (key === 'location') {
             errors = validateLocation(values, validations)
 
-        }
+        }  else if (key === 'sub_length') {
+            errors = validateSubEventCount(values, validations)
+        
+        } else if (key === 'start_time') {
+            errors = validateStartTime(values, validations)
         // check is_virtual boolean, is true check that virtualevent_url exists
         // validate virtual_url
         // Check for URL
-        else if (key === 'virtualevent_url') {
+        } else if (key === 'virtualevent_url') {
             errors = validateVirtualURL(values, validations)
 
             // validate offers
@@ -155,6 +173,7 @@ function runValidationWithSettings(values, languages, settings, keywordSets) {
         }
         return validationErrors.length > 0
     })
+    console.log(obj)
     return obj
 }
 // Validate location
@@ -183,6 +202,34 @@ const validateVirtualURL = (values, validations) => {
         })
     } else if (values['is_virtualevent'] && !values['virtualevent_url']) {
         errors.push(validationError)
+    }
+    return errors
+}
+
+const validateStartTime = (values, validations) => {
+    const errors = []
+    console.log(values)
+    if (Object.keys(values).length < 5 || Object.keys(values['sub_events']).length < 2 || (values['super_event_type'] && values['super_event_type'] !== 'umbrella')) {
+        validations.forEach((val) => {
+            if (!validationFn[val](values, values['start_time'])) {
+                errors.push(val)
+            }
+        })
+    }
+    return errors
+}
+
+const validateSubEventCount = (values, validations) => {
+    let errors = []
+    const validationError = [VALIDATION_RULES.IS_MORE_THAN_TWO]
+    console.log(values['sub_events'])
+    if (Object.keys(values['sub_events']).length < 2 && Object.keys(values['sub_events']).length !== 0) {
+        if (!validationFn[validationError](values, values['sub_events'])) {
+            errors.push(validationError);
+        }
+    }
+    if (errors.length > 0) {
+        return errors[0]
     }
     return errors
 }

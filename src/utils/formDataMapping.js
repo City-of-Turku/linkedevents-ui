@@ -9,7 +9,7 @@ export {
     mapAPIDataToUIFormat,
 }
 
-const {EVENT_STATUS, PUBLICATION_STATUS} = constants
+const {EVENT_STATUS, PUBLICATION_STATUS, SUB_EVENT_TYPE_RECURRING, SUB_EVENT_TYPE_UMBRELLA} = constants
 
 function _nullifyEmptyStrings(multiLangObject) {
     forOwn(multiLangObject, function(value, language) {
@@ -49,6 +49,8 @@ function mapUIDataToAPIFormat(values) {
     obj.videos = values.videos
     obj.is_virtualevent = values.is_virtualevent
     obj.virtualevent_url = values.virtualevent_url
+    //Sub event type
+    obj.sub_event_type = values.sub_event_type
 
     // Location data
     if (values.location) {
@@ -184,6 +186,8 @@ function mapAPIDataToUIFormat(values) {
         obj.offers = values.offers
     }
 
+    //Sub event type
+    obj.sub_event_type = values.sub_event_type
     // Subevents: from array to object
     obj.sub_events = {...values.sub_events}
 
@@ -286,25 +290,35 @@ export const combineSubEventsFromEditor = (formValues, updateExisting = false) =
         subEvents = formValues.sub_events
     } else {
         subEvents = {
-            '0': {start_time: formValues.start_time, end_time: formValues.end_time},
             ...formValues.sub_events,
         }
     }
-
     return Object.assign({}, formValues, {
         sub_events: subEvents,
         id: undefined,
     })
 }
 
-export const createSubEventsFromFormValues = (formValues, updateExisting, superEventUrl) => {
+/**
+ * @param {object} formValues Form data
+ * @param {boolean} updateExisting Whether we're updating an existing event
+ * @param {string} superEventUrl parent/super event url that is passed to subevent
+ * @param {string} subEventType Can be 'sub_umbrella' or 'sub_recurring' depending on parent/super event
+ */
+export const createSubEventsFromFormValues = (formValues, updateExisting, superEventUrl, subEventType) => {
     const formWithAllSubEvents = combineSubEventsFromEditor(formValues, updateExisting)
-    const baseEvent = {...formWithAllSubEvents, sub_events: {}, super_event: {'@id': superEventUrl}}
+    const baseEvent = {...formWithAllSubEvents, sub_events: {}, super_event: {'@id': superEventUrl}, sub_event_type: subEventType}
     const subEvents = {...formWithAllSubEvents.sub_events}
     return Object.keys(subEvents)
         .map(key => ({...baseEvent, start_time: subEvents[key].start_time, end_time: subEvents[key].end_time}))
 }
 
+/**
+ * Returns updated SubEvents
+ * @param {object} formValues Form data
+ * @param {Object[]} subEventsToUpdate
+ * @return {Object[]}
+ */
 export const updateSubEventsFromFormValues = (formValues, subEventsToUpdate) => {
     const keysToUpdate = ['start_time', 'end_time', 'id', 'super_event', 'super_event_type']
     // update form data with sub event data where applicable
