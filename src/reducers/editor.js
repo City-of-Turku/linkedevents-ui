@@ -143,7 +143,14 @@ function update(state = initialState, action) {
 
     if (action.type === constants.EDITOR_SORT_SUB_EVENTS) {
         const mappedSubEvents = map(state.values.sub_events)
-        const sortedSubEvents = sortBy(mappedSubEvents, (event) => event.start_time)
+        const eventsWithValues = mappedSubEvents.reduce((events, event) => {
+            if (event.start_time !== undefined) {
+                events.push(event)
+            }
+            return events
+        }, [])
+        const sortedSubEvents = sortBy(eventsWithValues, (event) => event.start_time)
+
         const subEventsObject = {};
         for (const event in sortedSubEvents) {
             subEventsObject[event] = sortedSubEvents[event]
@@ -184,6 +191,14 @@ function update(state = initialState, action) {
                 },
             },
         });
+    }
+
+    if (action.type === constants.EDITOR_CLEAR_VALUE) {
+        return updater(state, {
+            values: {
+                $unset: action.values,
+            },
+        })
     }
 
     if (action.type === constants.EDITOR_SET_FREE_OFFERS) {

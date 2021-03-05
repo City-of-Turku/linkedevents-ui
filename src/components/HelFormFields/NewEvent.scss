@@ -1,6 +1,6 @@
 .new-sub-event {
     border-left: 5px solid #f6f6f6;
-    display: flex;
+    display: grid;
     margin-top: 36px;
     padding: 0 0 16px 16px;
 
@@ -17,7 +17,7 @@
         height: 36px;
         position: absolute;
         right: -55px;
-        margin-top: 5rem;
+        margin-top: 9rem;
     }
    
 

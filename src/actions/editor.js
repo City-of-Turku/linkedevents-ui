@@ -1,5 +1,5 @@
 import fetch from 'isomorphic-fetch'
-import {includes, keys, pickBy, isUndefined, isNil, get} from 'lodash';
+import {includes, keys, pickBy, isUndefined, isNil, get, omit} from 'lodash';
 
 import constants from '../constants'
 import {
@@ -78,6 +78,17 @@ export function deleteOffer(offerKey) {
     return {
         type: constants.EDITOR_DELETE_OFFER,
         offerKey,
+    }
+}
+/**
+ * Clears key(s) from editor.values
+ * @param {string[]} values
+ * @returns {{values, type: string}}
+ */
+export function clearValue(values) {
+    return {
+        type: constants.EDITOR_CLEAR_VALUE,
+        values,
     }
 }
 export function setFreeOffers(isFree) {
@@ -247,6 +258,10 @@ const prepareFormValues = (
     // exclude all existing sub events from editing form
     if (updateExisting) {
         formValues.sub_events = pickBy(formValues.sub_events, event => !event['@id'])
+    }
+
+    if (formValues.sub_events && Object.keys(formValues.sub_events).length === 0) {
+        formValues = _.omit(formValues,'sub_events')
     }
 
     let recurring = false;

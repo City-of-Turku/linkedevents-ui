@@ -6,11 +6,14 @@ import {connect} from 'react-redux'
 import {deleteSubEvent as deleteSubEventAction} from 'src/actions/editor'
 import {FormattedMessage, injectIntl} from 'react-intl';
 import ValidationPopover from '../ValidationPopover';
-const NewEvent = ({event, eventKey, errors, deleteSubEvent, intl, setInitialFocus, subError}) => {
+const NewEvent = ({event, eventKey, errors, deleteSubEvent, intl, setInitialFocus, subError, length}) => {
     
     const containerRef = useRef(null);
     return (
         <div className="new-sub-event" ref={containerRef}>
+            <div>
+                <FormattedMessage id="event-sub-count" values={{count: length}}>{txt => <h4>{txt}</h4>}</FormattedMessage>
+            </div>
             <div className="new-sub-event--inputs">
                 <CustomDateTime
                     id={'start_time' + eventKey}
@@ -63,6 +66,7 @@ NewEvent.propTypes = {
     intl: PropTypes.object,
     setInitialFocus: PropTypes.bool,
     subError: PropTypes.object,
+    length: PropTypes.number,
 }
 
 

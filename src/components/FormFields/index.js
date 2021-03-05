@@ -17,7 +17,7 @@ import {
 import RecurringEvent from 'src/components/RecurringEvent'
 import {Button,Form, FormGroup, Collapse} from 'reactstrap';
 import {mapKeywordSetToForm, mapLanguagesSetToForm} from '../../utils/apiDataMapping'
-import {setEventData, setData} from '../../actions/editor'
+import {setEventData, setData, clearValue} from '../../actions/editor'
 import {get, isNull, pickBy} from 'lodash'
 import API from '../../api'
 import CONSTANTS from '../../constants'
@@ -111,6 +111,7 @@ class FormFields extends React.Component {
         if ((Object.keys(prevProps.editor.validationErrors).length === 0) && (Object.keys(this.props.editor.validationErrors).length > 0)) {
             this.setState({headerPrices: true, headerSocials: true, headerCategories: true, headerInlanguage: true, headerDescription: true, headerImage: true});
         }
+
     }
 
     handleSetMapContainer = (mapContainer) => {
@@ -157,10 +158,10 @@ class FormFields extends React.Component {
     addNewEventDialog(recurring = false) {
         let subEventKeys = Object.keys(this.props.editor.values.sub_events)
         let key = subEventKeys.length > 0 ? Math.max.apply(null, subEventKeys) + 1 : 1
-        const newEventObject = {[key]: {}}
+        const newEventObject = {[key]: {start_time: undefined}}
         this.context.dispatch(setEventData(newEventObject, key))
         if (recurring) {
-            const newObj = {[key + 1]: {}}
+            const newObj = {[key + 1]: {start_time: undefined}}
             this.context.dispatch(setEventData(newObj, key + 1))
         }
     }
@@ -178,6 +179,7 @@ class FormFields extends React.Component {
             if (events.hasOwnProperty(key)) {
                 newEvents.push(
                     <NewEvent
+                        length={newEvents.length + 1}
                         key={key}
                         eventKey={key}
                         event={events[key]}
@@ -223,13 +225,12 @@ class FormFields extends React.Component {
      *  or sub_event related values
      */
     toggleEventType = (event) => {
-        const {editor} = this.props
         const type = event.target.value === 'single' ? '' : event.target.value;
         this.setState({selectEventType: type});
         if (event.target.value === 'single') {
             this.context.dispatch(setData({sub_events: {}}))
         } else if (event.target.value === 'recurring') {
-            this.context.dispatch(setData({start_time: null, end_time: null}))
+            this.context.dispatch(clearValue(['start_time', 'end_time']))
             this.addNewEventDialog(true)
         }
     }
@@ -261,7 +262,7 @@ class FormFields extends React.Component {
         const headerTextId = formType === 'update'
             ? 'edit-events'
             : 'create-events'
-        console.log(formType)
+
         return (
             <div className='mainwrapper'>
                 <div className='row row-mainheader'>
@@ -435,7 +436,8 @@ class FormFields extends React.Component {
                 <div className='row date-row'>
                     <SideField label={this.context.intl.formatMessage({id: 'event-datetime-fields-header-help'})}>
                         <p><FormattedMessage id="editor-tip-time-start-end"/></p>
-                        <p><FormattedMessage id="editor-tip-time-multi"/></p>
+                        <p><FormattedMessage id="editor-tip-time-type"/></p>
+                        <p><FormattedMessage id="editor-tip-time-extended"/></p>
                         <p><FormattedMessage id="editor-tip-time-delete"/></p>
                     </SideField>
                     <div className='col-sm-6'>
@@ -449,10 +451,11 @@ class FormFields extends React.Component {
                                     value='single'
                                     onChange={this.toggleEventType}
                                     defaultChecked
+                                    checked={!this.state.selectEventType}
                                     disabled={formType === 'update' || formType === 'add' || isSuperEventDisable || isSuperEvent}
                                 />
                                 <label className='custom-control-label' htmlFor='single'>
-                                    <p>Yksittäinen tapahtuma</p>
+                                    <FormattedMessage id='event-type-single'/>
                                 </label>
                             </div>
                             <div className='custom-control custom-radio'>
@@ -462,11 +465,12 @@ class FormFields extends React.Component {
                                     name='radiogroup'
                                     type='radio'
                                     value='recurring'
+                                    checked={this.state.selectEventType}
                                     onChange={this.toggleEventType}
                                     disabled={formType === 'update' || formType === 'add' || isSuperEventDisable || isSuperEvent}
                                 />
                                 <label className='custom-control-label' htmlFor='recurring'>
-                                    <p>Sarjatapahtuma</p>
+                                    <FormattedMessage id='event-type-recurring'/>
                                 </label>
                             </div>
                         </div>

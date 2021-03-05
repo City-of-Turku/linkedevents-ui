@@ -103,35 +103,24 @@ function runValidationWithSettings(values, languages, settings, keywordSets) {
 
         // validate sub events
         if (key === 'sub_events') {
-            /* const errors = []
-            const validationError = [VALIDATION_RULES.IS_MORE_THAN_TWO]
-            if (Object.keys(values['sub_events'])) {
-                if (!validationFn[validationError](values, values['sub_events'])) {
-                    errors.push(validationError)
-                }
-            }
-            
-            */
-            // jos recurring niin testataan että niitä on vähintään 2
-            // const foo = [VALIDATION_RULES.MORE_THAN_TWO]
-            // jotain jotain !validationFn[foo](values, values['sub_events'])
             errors = {}
             each(values['sub_events'], (subEvent, eventKey) => {
-                console.log(values['sub_events'])
                 const subEventError = runValidationWithSettings(subEvent, languages, settings.sub_events)
                 const error = isEmpty(subEventError) ? null : subEventError
                 errors[eventKey] = error
             })
+
             // validate location & virtual event based on conditional
             // if event is virtual, location is not required
         } else if (key === 'location') {
             errors = validateLocation(values, validations)
-
+            //validate sub_events length, minium of 2
         }  else if (key === 'sub_length') {
             errors = validateSubEventCount(values, validations)
-        
+            //Validate start_time
         } else if (key === 'start_time') {
             errors = validateStartTime(values, validations)
+
         // check is_virtual boolean, is true check that virtualevent_url exists
         // validate virtual_url
         // Check for URL
@@ -173,7 +162,6 @@ function runValidationWithSettings(values, languages, settings, keywordSets) {
         }
         return validationErrors.length > 0
     })
-    console.log(obj)
     return obj
 }
 // Validate location
@@ -205,11 +193,14 @@ const validateVirtualURL = (values, validations) => {
     }
     return errors
 }
-
+//Validate start_time
+//Check if sub_events exist
 const validateStartTime = (values, validations) => {
     const errors = []
-    console.log(values)
-    if (Object.keys(values).length < 5 || Object.keys(values['sub_events']).length < 2 || (values['super_event_type'] && values['super_event_type'] !== 'umbrella')) {
+    const isSingleMain = !values.hasOwnProperty('sub_events')
+    const subEvent = values.hasOwnProperty('start_time') && isSingleMain
+
+    if (isSingleMain || subEvent) {
         validations.forEach((val) => {
             if (!validationFn[val](values, values['start_time'])) {
                 errors.push(val)
@@ -218,18 +209,14 @@ const validateStartTime = (values, validations) => {
     }
     return errors
 }
-
-const validateSubEventCount = (values, validations) => {
+//Validate sub_event count
+const validateSubEventCount = (values, validation) => {
     let errors = []
-    const validationError = [VALIDATION_RULES.IS_MORE_THAN_TWO]
-    console.log(values['sub_events'])
-    if (Object.keys(values['sub_events']).length < 2 && Object.keys(values['sub_events']).length !== 0) {
-        if (!validationFn[validationError](values, values['sub_events'])) {
-            errors.push(validationError);
+    const eventHasSubEvents = values.hasOwnProperty('sub_events') && !values.hasOwnProperty('start_time')
+    if (eventHasSubEvents) {
+        if (!validationFn[validation](values, values['sub_events'])) {
+            errors = validation
         }
-    }
-    if (errors.length > 0) {
-        return errors[0]
     }
     return errors
 }
