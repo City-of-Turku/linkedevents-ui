@@ -1,7 +1,6 @@
 import path from 'path';
 import common from './common.js';
 import webpack from 'webpack';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
 import {readConfig} from '../appConfig';
 import assetPath from '../assetPath';
 const publicUrl = readConfig('publicUrl')
@@ -11,7 +10,6 @@ export default {
     context: path.join(common.paths.ROOT, '/src'),
     entry: [
         'webpack-hot-middleware/client?reload=true',
-        'babel-polyfill',
         path.join(common.paths.SRC, '/index.js'),
     ],
     output: {

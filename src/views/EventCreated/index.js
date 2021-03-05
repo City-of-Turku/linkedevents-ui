@@ -3,7 +3,7 @@ import './index.scss'
 import React from 'react'
 import {connect} from 'react-redux'
 import {FormattedMessage} from 'react-intl'
-import {push} from 'react-router-redux'
+import {push} from 'connected-react-router'
 import PropTypes from 'prop-types'
 
 import {setFlashMsg as setFlashMsgAction} from '../../actions/app'

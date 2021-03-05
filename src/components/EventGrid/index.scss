@@ -54,3 +54,14 @@
         text-transform: uppercase;
     }
 }
+
+.event-item-link {
+    &:active, &:focus {
+        .event-item {
+            outline-width: 4px;
+            outline-style: solid;
+            outline-color: black;
+            outline-offset: 2px;
+        }
+    }
+}

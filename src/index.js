@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import {Route} from 'react-router'
 import {withRouter} from 'react-router-dom'
 import {Provider, connect} from 'react-redux'
-import {ConnectedRouter} from 'react-router-redux'
+import {ConnectedRouter} from 'connected-react-router'
 import {isIE} from 'react-device-detect'
 
 // Views

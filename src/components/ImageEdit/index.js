@@ -329,9 +329,7 @@ class ImageEdit extends React.Component {
                     name='photographerName'
                     required={true}
                     defaultValue={this.state.image.photographerName}
-                    label={<FormattedMessage id={'photographer'}
-                        values={{maxLength: this.state.validation.photographerMaxLength}}
-                    />}
+                    label={this.context.intl.formatMessage({id: 'photographer'})}
                     validations={[VALIDATION_RULES.SHORT_STRING]}
                     maxLength={this.state.validation.photographerMaxLength}
                     onChange={this.handleChange}
@@ -341,7 +339,6 @@ class ImageEdit extends React.Component {
     }
 
     getLicense() {
-        const temp = (string) => this.props.updateExisting && this.state.license === string ? 'checked' : null;
         return (
             <div className='image-license-container'>
                 <div className='license-choices'>
@@ -365,7 +362,7 @@ class ImageEdit extends React.Component {
                             name='license_type'
                             value='event_only'
                             onChange={this.handleLicenseChange}
-                            checked={temp('event_only')} 
+                            checked
                         />
                         <label className='custom-control-label' htmlFor='event_only'>
                             <FormattedMessage id={'image-modal-license-restricted-to-event'}/>
@@ -379,7 +376,6 @@ class ImageEdit extends React.Component {
                             name='license_type'
                             value='cc_by'
                             onChange={this.handleLicenseChange}
-                            checked={temp('cc_by')} 
                         />
                         <label className='custom-control-label' htmlFor='cc_by'>
                             Creative Commons BY 4.0

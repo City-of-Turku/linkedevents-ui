@@ -153,6 +153,7 @@ class CustomDateTime extends React.Component {
                         <Label for={dateFieldId}>{getCorrectInputLabel(labelDate)}{required ? '*' : ''}</Label>
                         <div className="input-and-button"  ref={ref => this.containerRef = ref}>
                             <DatePicker
+                                id={dateFieldId + '-button'}
                                 disabled={disabled}
                                 onChange={(value) => this.handleDateTimePickerChange(value, 'date')}
                                 customInput={<DatePickerButton type={'date'} intl={intl} disabled={disabled} />}
@@ -194,6 +195,7 @@ class CustomDateTime extends React.Component {
                         <Label for={timeFieldId}>{getCorrectInputLabel(labelTime)}{required ? '*' : ''}</Label>
                         <div className="input-and-button"  ref={ref => this.containerRef = ref}>
                             <DatePicker
+                                id={timeFieldId + '-button'}
                                 disabled={disabled}
                                 onChange={(value) => this.handleDateTimePickerChange(value, 'time')}
                                 customInput={<DatePickerButton type={'time'} intl={intl} disabled={disabled} />}

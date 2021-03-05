@@ -3,7 +3,6 @@ import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import moment from 'moment'
 import PropTypes from 'prop-types'
-import {FormattedMessage} from 'react-intl'
 import get from 'lodash/get'
 import forEach from 'lodash/forEach'
 import {getBadge} from '../../utils/helpers'
@@ -79,7 +78,7 @@ const EventItem = (props) => {
 
     return (
         <div className="col-xs-12 col-md-6 col-lg-4" key={props.event['id']}>
-            <Link to={url}>
+            <Link className="event-item-link" to={url}>
                 <div className="event-item">
                     {isCancelled && getBadge('cancelled')}
                     {isPostponed && getBadge('postponed')}

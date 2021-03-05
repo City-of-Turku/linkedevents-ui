@@ -15,7 +15,7 @@ import {
     HelKeywordSelector,
 } from 'src/components/HelFormFields'
 import RecurringEvent from 'src/components/RecurringEvent'
-import {Button,Form, FormGroup, Collapse} from 'reactstrap';
+import {Button, Form, FormGroup, Collapse, UncontrolledCollapse} from 'reactstrap';
 import {mapKeywordSetToForm, mapLanguagesSetToForm} from '../../utils/apiDataMapping'
 import {setEventData, setData, clearValue} from '../../actions/editor'
 import {get, isNull, pickBy} from 'lodash'
@@ -32,7 +32,7 @@ import classNames from 'classnames';
 import ImageGallery from '../ImageGallery/ImageGallery';
 import CollapseButton from './CollapseButton/CollapseButton';
 import HelCheckbox from '../HelFormFields/HelCheckbox';
-
+import LoginNotification from './LoginNotification/LoginNotification'
 
 // Removed material-ui/icons because it was no longer used.
 //Added isOpen for RecurringEvents modal
@@ -82,6 +82,7 @@ class FormFields extends React.Component {
             headerCourses: false,
             headerDescription: false,
             headerImage: false,
+            displayEvents: true,
         }
         
         this.handleOrganizationChange = this.handleOrganizationChange.bind(this)
@@ -128,6 +129,11 @@ class FormFields extends React.Component {
 
     showRecurringEventDialog() {
         this.setState({showRecurringEvent: !this.state.showRecurringEvent})
+    }
+
+    // Replace with more proper functionality - preferably something that will hide the button if event length == 0.
+    showEventList() {
+        this.setState({displayEvents: !this.state.displayEvents})
     }
 
     showNewEventDialog() {
@@ -265,6 +271,11 @@ class FormFields extends React.Component {
 
         return (
             <div className='mainwrapper'>
+                {!this.props.user &&
+                <div className='row-loginwarning'>
+                    <LoginNotification />
+                </div>
+                }
                 <div className='row row-mainheader'>
                     <FormattedMessage id={headerTextId}>{txt => <h1>{txt}</h1>}</FormattedMessage>
                 </div>
@@ -506,8 +517,20 @@ class FormFields extends React.Component {
                             :
                             <React.Fragment>
                                 <div className={'new-events ' + (this.state.showNewEvents ? 'show' : 'hidden')}>
-                                    {newEvents}
+                                    <UncontrolledCollapse toggler='#events-list' defaultOpen>
+                                        { newEvents }
+                                    </UncontrolledCollapse>
                                 </div>
+                                <Button 
+                                    block 
+                                    className='btn'
+                                    id='events-list'
+                                    onClick={() => this.showEventList()}>
+                                    {this.state.displayEvents
+                                        ? <FormattedMessage id='event-list-hide'/>
+                                        : <FormattedMessage id='event-list-show'/>
+                                    }
+                                </Button>
                                 {this.state.showRecurringEvent &&
                                 <RecurringEvent
                                     toggle={() => this.showRecurringEventDialog()}

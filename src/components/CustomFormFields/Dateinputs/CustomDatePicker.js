@@ -1,7 +1,7 @@
 import React from 'react'
 import DatePicker, {registerLocale} from 'react-datepicker'
 import PropTypes from 'prop-types'
-import {FormGroup, Label, Input, Button} from 'reactstrap'
+import {FormGroup, Label, Input} from 'reactstrap'
 import 'react-datepicker/dist/react-datepicker.css'
 import './CustomDatePicker.scss'
 import moment from 'moment'
@@ -197,6 +197,7 @@ class CustomDatePicker extends React.Component {
                             aria-required={required}
                         />
                         <DatePicker
+                            id={type}
                             disabled={disabled}
                             openToDate={this.getDatePickerOpenDate(defaultValue, minDate)}
                             onChange={this.handleDatePickerChange}

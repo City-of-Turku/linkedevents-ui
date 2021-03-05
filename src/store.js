@@ -1,7 +1,7 @@
 import {createBrowserHistory as createHistory} from 'history'
 import {applyMiddleware, combineReducers, compose, createStore} from 'redux'
 import reducers from './reducers'
-import {routerMiddleware, routerReducer} from 'react-router-redux'
+import {routerMiddleware, connectRouter} from 'connected-react-router'
 import thunk from 'redux-thunk'
 import {loadUser} from 'redux-oidc';
 import userManager from './utils/userManager';
@@ -9,7 +9,7 @@ import userManager from './utils/userManager';
 export const history = createHistory()
 
 const allReducers = combineReducers(Object.assign({}, reducers, {
-    router: routerReducer,
+    router: connectRouter(history),
 }))
 
 const allMiddlewares = compose(

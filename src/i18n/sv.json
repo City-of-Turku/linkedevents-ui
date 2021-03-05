@@ -459,5 +459,8 @@
     "close-preview-modal": "Stäng förhandsvisning",
     "close-image-gallery-modal": "Stäng bildgalleridialogen",
     "close-image-edit-modal": "Stäng dialogrutan Lägg till / redigera bild",
-    "profile-menu": " Profilmeny"
+    "profile-menu": " Profilmeny",
+
+    "event-list-show": "Visa händelser",
+    "event-list-hide": "Dölj händelser"
 }

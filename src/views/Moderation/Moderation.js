@@ -21,7 +21,7 @@ import {getSelectedRows, getSortColumnName, getSortDirection} from '../../utils/
 import showConfirmationModal from '../../utils/confirm'
 import {confirmAction, setFlashMsg as setFlashMsgAction} from '../../actions/app'
 import {hasOrganizationWithRegularUsers} from '../../utils/user'
-import {push} from 'react-router-redux'
+import {push} from 'connected-react-router'
 
 const {TABLE_DATA_SHAPE, PUBLICATION_STATUS} = constants
 

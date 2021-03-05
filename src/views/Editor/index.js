@@ -22,7 +22,7 @@ import {confirmAction, clearFlashMsg as clearFlashMsgAction, setFlashMsg as setF
 import constants from '../../constants'
 import FormFields from '../../components/FormFields/'
 import {EventQueryParams, fetchEvent} from '../../utils/events'
-import {push} from 'react-router-redux'
+import {push} from 'connected-react-router'
 import moment from 'moment'
 import {
     getOrganizationAncestors,
@@ -334,7 +334,7 @@ export class EditorPage extends React.Component {
                         />
                     </div>
 
-                    <div className="container">
+                    <div className="container mt-5 pt-3">
                         <FormFields
                             action={editMode}
                             editor={editor}

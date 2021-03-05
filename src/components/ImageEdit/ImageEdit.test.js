@@ -389,7 +389,7 @@ describe('ImageEdit', () => {
                 expect(element).toHaveLength(1);
                 expect(element.prop('fullWidth')).toBeDefined();
                 expect(element.prop('name')).toEqual('photographerName');
-                expect(element.prop('label')).toBeDefined();
+                expect(element.prop('label')).toBe(intl.formatMessage({id: 'photographer'}))
                 expect(element.prop('validations')).toEqual([VALIDATION_RULES.SHORT_STRING]);
                 expect(element.prop('maxLength')).toEqual(CHARACTER_LIMIT.SHORT_STRING);
                 expect(element.prop('defaultValue')).toEqual('Phil Photo');

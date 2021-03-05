@@ -1,14 +1,15 @@
-import {HelLabeledCheckboxGroup, HelSelect} from '../index'
-import {FormattedMessage} from 'react-intl'
-import SelectedKeywords from '../../SelectedKeywords/SelectedKeywords'
 import React, {useEffect, useState} from 'react'
-import {SideField} from '../../FormFields'
+import PropTypes from 'prop-types'
 import {get, isNil, uniqBy} from 'lodash'
+import {connect} from 'react-redux'
+import {FormattedMessage} from 'react-intl'
+import {HelLabeledCheckboxGroup, HelSelect} from '../index'
+import SelectedKeywords from '../../SelectedKeywords/SelectedKeywords'
+import {SideField} from '../../FormFields'
 import {mapKeywordSetToForm} from '../../../utils/apiDataMapping'
 import {setData as setDataAction} from '../../../actions/editor'
-import PropTypes from 'prop-types'
-import {connect} from 'react-redux'
 import {CopyToClipboard} from 'react-copy-to-clipboard'
+import {UncontrolledTooltip} from 'reactstrap'
 
 const handleKeywordChange = (checkedOptions, keywords, mainCategoryOptions, setData) => {
     if (isNil(checkedOptions)) {
@@ -125,11 +126,11 @@ const HelKeywordSelector = ({intl, editor, setDirtyState, setData, currentLocale
                     currentLocale={currentLocale}
                 />
                 <CopyToClipboard tabIndex='-1' aria-hidden='true' text={values['keywords'] ? getKeywordIds(keywords) : ''}>
-                    <button type='button' className="clipboard-copy-button btn btn-default" aria-label={intl.formatMessage({id: 'copy-keyword-to-clipboard'})}>
+                    <button id='keyword-clipboard' type='button' className="clipboard-copy-button btn btn-default" aria-label={intl.formatMessage({id: 'copy-keyword-to-clipboard'})}>
                         <span className="glyphicon glyphicon-duplicate" aria-hidden="true"></span>
-                        <p hidden>duplicate</p>
                     </button>
                 </CopyToClipboard>
+                <UncontrolledTooltip placement='top' target='keyword-clipboard' hideArrow>{intl.formatMessage({id: 'copy-keyword-to-clipboard'})}</UncontrolledTooltip>
                 <SelectedKeywords
                     selectedKeywords={keywords}
                     onDelete={(deletedItem) => handleKeywordDelete(deletedItem, keywords, setData)}

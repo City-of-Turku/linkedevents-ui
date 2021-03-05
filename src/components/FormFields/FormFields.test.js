@@ -116,7 +116,7 @@ describe('FormField', () => {
                 test('amount of formattedmessages', () => {
                     const wrapper = getWrapper()
                     const messages = wrapper.find(FormattedMessage)
-                    expect(messages).toHaveLength(36)
+                    expect(messages).toHaveLength(37)
                 })
             })
             describe('SideField', () => {

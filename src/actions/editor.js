@@ -12,7 +12,7 @@ import {
 } from '../utils/formDataMapping'
 import {emptyField, nullifyMultiLanguageValues, scrollToTop} from '../utils/helpers'
 
-import {push} from 'react-router-redux'
+import {push} from 'connected-react-router'
 import {setFlashMsg, clearFlashMsg} from './app'
 
 import {doValidations} from 'src/validation/validator.js'

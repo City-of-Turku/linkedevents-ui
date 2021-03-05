@@ -24,4 +24,31 @@ describe('EventPage', () => {
         const pageTitle = wrapper.prop('title');
         expect(pageTitle).toBe('Linkedevents - ');
     });
+
+    describe('functions', () => {
+        describe('componentDidUpdate', () => {
+            const wrapper = getWrapper()
+            const instance = wrapper.instance()
+            const fetchDataSpy = jest.spyOn(instance, 'fetchEventData')
+
+            afterEach(() => { fetchDataSpy.mockClear() })
+            afterAll(() => { fetchDataSpy.mockRestore() })
+
+            test('fetchEventData is called when user prop changes', () => {
+                wrapper.setProps({user: {id: '123abc'}})
+                wrapper.setProps({user: {id: '567fgh'}})
+                wrapper.setProps({user: null})
+                expect(fetchDataSpy).toHaveBeenCalledTimes(3)
+            })
+
+            test('fetchEventData is not called when user prop does not change', () => {
+                const user = {user: {id: '123abc'}}
+                wrapper.setProps({user})
+                expect(fetchDataSpy).toHaveBeenCalledTimes(1)
+                fetchDataSpy.mockClear()
+                wrapper.setProps({user})
+                expect(fetchDataSpy).toHaveBeenCalledTimes(0)
+            })
+        })
+    })
 });

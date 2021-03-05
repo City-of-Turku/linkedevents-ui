@@ -312,7 +312,7 @@
     "editor-delete-draft-extra-warning": "The following events will be deleted:",
 
     "editor-sentinel-alert": "You can view the form, but you don't have the permission to publish or edit events. You are not logged in or your login has expired.",
-    "editor-authorization-required": "You must be logged in to edit events.",
+    "editor-authorization-required": "You must be logged in to create or edit events.",
 
     "editor-tip-time-start": "Enter the start date of the event and also the start time if the event starts at a specific time.",
     "editor-tip-time-end": "Also enter the end date and end time if the event ends at a specific time.",
@@ -477,5 +477,12 @@
     "image-upload-help": "Instructions for adding an image",
     "uploaded-image-alt-tip-help": "Instructions for image alt text",
     "license-help-text": "Licence information",
-    "profile-menu": " Profile menu"
+    "profile-menu": " Profile menu",
+
+    "login-warning": "Warning! You must",
+    "login-warning1": "login",
+    "login-warning2": "to be able to submit or edit events!",
+
+    "event-list-show": "Show events",
+    "event-list-hide": "Hide events"
 }
