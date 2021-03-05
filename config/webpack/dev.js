@@ -9,6 +9,7 @@ const ui_mode = readConfig('ui_mode')
 export default {
     context: path.join(common.paths.ROOT, '/src'),
     entry: [
+        'core-js/stable/object/assign',
         'webpack-hot-middleware/client?reload=true',
         path.join(common.paths.SRC, '/index.js'),
     ],
