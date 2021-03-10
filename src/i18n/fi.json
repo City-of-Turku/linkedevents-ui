@@ -355,6 +355,7 @@
     "editor-tip-namedescription2": "Lyhyt kuvaus näytetään vain tapahtumalistoissa. Jos kohderyhmä on rajattu, kerro siitä pidemmässä kuvaustekstissä.",
     "editor-tip-longdescription": "Kirjoita valinnainen pidempi kuvaus tapahtumasta joka näytetään tapahtuman omalla sivulla. Vältä lyhenteitä ja HUUTAMISTA.",
     "editor-tip-required": "Tähdellä (*) merkityt kentät ovat pakollisia.",
+    "editor-tip-eventtype-disable": "Jos tahdot vaihtaa tapahtuman tyyppiä, poista lisätyt ajat.",
 
     "editor-headerbutton-collapse": "Klikkaa sulkeaksesi osio",
     "editor-headerbutton-expand": "Klikkaa laajentaaksesi osio",

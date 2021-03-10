@@ -134,12 +134,10 @@ export function replaceData(formData, recurring = false) {
             formObject.super_event = setRecurringRoot(formData)
             //Add sub_event_type recurring as we're adding new event under existing recurring super event
             formObject.sub_event_type = SUB_EVENT_TYPE_RECURRING
-            delete formObject.event_status
-            delete formObject.super_event_type
-            delete formObject.id
         }
         delete formObject.event_status
         delete formObject.super_event_type
+        delete formObject.id
         formObject.sub_events = {}
         // here, we do more thorough validation
         dispatch(validateFor(publicationStatus))

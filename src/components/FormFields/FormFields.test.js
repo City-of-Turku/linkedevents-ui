@@ -19,7 +19,7 @@ import {
 import RecurringEvent from 'src/components/RecurringEvent'
 import {Button,Form, FormGroup, Collapse} from 'reactstrap';
 import {mapKeywordSetToForm, mapLanguagesSetToForm} from '../../utils/apiDataMapping'
-import {setEventData, setData} from '../../actions/editor'
+import {setEventData, setData, clearValue} from '../../actions/editor'
 import {get, isNull, pickBy, merge} from 'lodash'
 import API from '../../api'
 import CONSTANTS from '../../constants'
@@ -42,7 +42,7 @@ const {intl} = intlProvider.getChildContext();
 const mockEvent = mockUserEvents[0];
 const {SUPER_EVENT_TYPE_RECURRING, SUPER_EVENT_TYPE_UMBRELLA, VALIDATION_RULES, USER_TYPE} = CONSTANTS
 const dispatch = jest.fn()
-
+jest.mock('../../actions/editor');
 
 describe('FormField', () => {
     const defaultProps = {
@@ -65,6 +65,7 @@ describe('FormField', () => {
                 extlink_facebook: '',
                 extlink_twitter: '',
                 extlink_instagram: '',
+                sub_events: {},
                 audience: {},
                 in_language: {},
                 location: {
@@ -108,6 +109,59 @@ describe('FormField', () => {
     function getWrapper(props) {
         return shallow(<FormFields {...defaultProps} {...props} />, {context: {intl, dispatch}});
     }
+
+    describe('methods', () => {
+        describe('toggleEventType', () => {
+            let wrapper;
+            let instance;
+            beforeEach(() => {
+                clearValue.mockClear()
+                wrapper = getWrapper()
+                instance = wrapper.instance()
+            })
+
+            test('when toggleEventType is recurring', () => {
+                instance.toggleEventType({target: {value: 'single'}})
+                clearValue.mockClear()
+                expect(wrapper.state().selectEventType).toBe('')
+                instance.toggleEventType({target: {value: 'recurring'}})
+                expect(clearValue).toHaveBeenCalledWith(['start_time', 'end_time'])
+            })
+            test('when toggleEventType is single', () => {
+                const expectedValue = {sub_events: {}}
+                instance.toggleEventType({target: {value: 'recurring'}})
+                setData.mockClear()
+            
+                expect(wrapper.state().selectEventType).toBe('recurring')
+                instance.toggleEventType({target: {value: 'single'}})
+                expect(setData).toHaveBeenCalledWith(expectedValue)
+                expect(wrapper.state().selectEventType).toBe('')
+            })
+        })
+        describe('addNewEventDialog', () => {
+            let wrapper;
+            let instance;
+            let subEventKeys = Object.keys(defaultProps.editor.values.sub_events)
+            let key = subEventKeys.length > 0 ? Math.max.apply(null, subEventKeys) + 1 : 1
+            const newEventObject = {[key]: {start_time: undefined}}
+            beforeEach(() => {
+                setEventData.mockClear()
+                wrapper = getWrapper()
+                instance = wrapper.instance()
+            })
+            test('called while recurring is false', () => {
+                instance.addNewEventDialog()
+                expect(setEventData).toHaveBeenCalledTimes(1)
+                expect(setEventData).toHaveBeenCalledWith(newEventObject, key)
+            })
+            test('called while recurring is true', () => {
+                instance.addNewEventDialog(true)
+                expect(setEventData).toHaveBeenCalledTimes(2)
+                expect(setEventData).toHaveBeenCalledWith(newEventObject, key)
+            })
+        })
+    })
+    
     describe('render', () => {
 
         describe('components', () => {
@@ -116,7 +170,7 @@ describe('FormField', () => {
                 test('amount of formattedmessages', () => {
                     const wrapper = getWrapper()
                     const messages = wrapper.find(FormattedMessage)
-                    expect(messages).toHaveLength(37)
+                    expect(messages).toHaveLength(38)
                 })
             })
             describe('SideField', () => {
@@ -356,7 +410,7 @@ describe('FormField', () => {
 
             describe('RecurringEvent', () => {
                 const wrapper = getWrapper()
-                wrapper.setState({showRecurringEvent: true})
+                wrapper.setState({showRecurringEvent: true, selectEventType: 'recurring'})
                 const instance = wrapper.instance();
                 const recurring = wrapper.find(RecurringEvent)
                 test('correct props for RecurringEvent', () => {
@@ -550,6 +604,30 @@ describe('FormField', () => {
                     expect(buttons.at(3).prop('id')).toBe('headerPrices')
                     expect(buttons.at(4).prop('id')).toBe('headerSocials')
                     expect(buttons.at(5).prop('id')).toBe('headerInlanguage')
+                })
+            })
+            describe('event type radios', () => {
+                const wrapper = getWrapper()
+                const instance = wrapper.instance();
+                const radios = wrapper.find('input')
+                test('correct amount of radios', () => {
+                    expect(radios).toHaveLength(2)
+                })
+                test('default prop for radio buttons', () => {
+                    radios.forEach((radio) => {
+                        expect(radio.prop('onChange')).toBe(instance.toggleEventType)
+                        expect(radio.prop('name')).toBe('radiogroup')
+                        expect(radio.prop('type')).toBe('radio')
+                        expect(radio.prop('className')).toBe('custom-control-input')
+                    })
+                })
+                test('default props for radio buttons', () => {
+                    expect(radios.at(0).prop('id')).toBe('single')
+                    expect(radios.at(1).prop('id')).toBe('recurring')
+                    expect(radios.at(0).prop('value')).toBe('single')
+                    expect(radios.at(1).prop('value')).toBe('recurring')
+                    expect(radios.at(0).prop('defaultChecked')).toBe(true)
+                    expect(radios.at(0).prop('checked')).toBe(true)
                 })
             })
         })

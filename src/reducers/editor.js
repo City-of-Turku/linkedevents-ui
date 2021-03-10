@@ -106,6 +106,14 @@ function update(state = initialState, action) {
         })
     }
 
+    if (action.type === constants.EDITOR_CLEAR_VALUE) {
+        return updater(state, {
+            values: {
+                $unset: action.values,
+            },
+        })
+    }
+
     if (action.type === constants.EDITOR_UPDATE_SUB_EVENT) {
 
         const newValues = updater(state.values, {
@@ -131,7 +139,7 @@ function update(state = initialState, action) {
 
     if (action.type === constants.EDITOR_DELETE_SUB_EVENT) {
         const oldSubEvents = Object.assign({}, state.values.sub_events);
-        const newSubEvents = _.omit(oldSubEvents, action.event);
+        const newSubEvents = omit(oldSubEvents, action.event);
         return updater(state, {
             values: {
                 sub_events: {
@@ -191,14 +199,6 @@ function update(state = initialState, action) {
                 },
             },
         });
-    }
-
-    if (action.type === constants.EDITOR_CLEAR_VALUE) {
-        return updater(state, {
-            values: {
-                $unset: action.values,
-            },
-        })
     }
 
     if (action.type === constants.EDITOR_SET_FREE_OFFERS) {

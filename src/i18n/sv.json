@@ -142,7 +142,7 @@
     "event-ending-timelabel": "Sluttid (tt.mm)",
     "event-add-new-occasion": "Lägg till en ny tidpunkt",
     "event-add-recurring": "Ett återkommande evenemang",
-    "event-type-single": "Enskilt eveneman",
+    "event-type-single": "Enskilt evenemang",
     "event-type-recurring": "Återkommande evenemang",
     "event-delete-recurring": "Ta bort föregående tidpunkt",
     "event-sub-count": "Händelse {count}",
@@ -347,6 +347,7 @@
     "editor-tip-umbrella-selection": "Lämna valen tomma om det gäller ett självständigt evenemang.",
     "editor-tip-umbrella-selection1": "Om evenemanget samlar andra evenemang under sig, välj ’Detta evenemang är ett paraplyevenemang’. Till exempel Konstens natt eller Filmdagen.",
     "editor-tip-umbrella-selection2": "Om evenemanget ingår i ett större evenemang, välj ’Det här evenemanget har ett paraplyevenemang’ och välj ett evenemang som skapats förut. Till exempel Författarmöte under Konstens natt.",
+    "editor-tip-eventtype-disable": "Radera tillagda tider om du vill byta evenemangstyp.",
 
     "editor-headerbutton-collapse": "Klicka för att stänga sektionen",
     "editor-headerbutton-expand": "Klicka för att utöka sektionen",

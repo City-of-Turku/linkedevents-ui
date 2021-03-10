@@ -54,7 +54,18 @@ textarea {
     }
 }
 .radio-row {
-    
+    .typetip {
+        background: var(--light-color);
+        border: 2px solid var(--secondinfo-color);
+        color: var(--dark-color);
+        width: 100%;
+        margin-top: 0px;
+        padding: 10px;
+        text-align: center;
+    }
+    @media (min-width: 320px) and (max-width: 480px) {
+        padding-left: 16px;
+    }
 }
 .row-header {
     width: 100%;

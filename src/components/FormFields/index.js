@@ -18,7 +18,7 @@ import RecurringEvent from 'src/components/RecurringEvent'
 import {Button, Form, FormGroup, Collapse, UncontrolledCollapse} from 'reactstrap';
 import {mapKeywordSetToForm, mapLanguagesSetToForm} from '../../utils/apiDataMapping'
 import {setEventData, setData, clearValue} from '../../actions/editor'
-import {get, isNull, pickBy} from 'lodash'
+import {get, isNull, isString, pickBy} from 'lodash'
 import API from '../../api'
 import CONSTANTS from '../../constants'
 import OrganizationSelector from '../HelFormFields/OrganizationSelector';
@@ -111,6 +111,9 @@ class FormFields extends React.Component {
         }
         if ((Object.keys(prevProps.editor.validationErrors).length === 0) && (Object.keys(this.props.editor.validationErrors).length > 0)) {
             this.setState({headerPrices: true, headerSocials: true, headerCategories: true, headerInlanguage: true, headerDescription: true, headerImage: true});
+        }
+        if (prevState.selectEventType === 'recurring' && Object.keys(this.props.editor.values.sub_events).length === 0) {
+            this.toggleEventType({target: {value: 'single'}})
         }
 
     }
@@ -232,13 +235,30 @@ class FormFields extends React.Component {
      */
     toggleEventType = (event) => {
         const type = event.target.value === 'single' ? '' : event.target.value;
-        this.setState({selectEventType: type});
         if (event.target.value === 'single') {
             this.context.dispatch(setData({sub_events: {}}))
-        } else if (event.target.value === 'recurring') {
+        } else if (event.target.value === 'recurring' && !this.state.selectEventType) {
             this.context.dispatch(clearValue(['start_time', 'end_time']))
             this.addNewEventDialog(true)
         }
+        this.setState({selectEventType: type});
+    }
+    
+    /**
+    * Check that sub_events has property 'start_time' & it's not undefined
+    * @param sub_events value
+    * @returns boolean
+    */
+    subEventsContainTime(sub_events) {
+        let found = false;
+        if (Object.keys(sub_events).length > 0) {
+            for(const key in sub_events) {
+                if (sub_events[key].hasOwnProperty('start_time') && sub_events[key].start_time !== undefined) {
+                    found = true;
+                }
+            }
+        }
+        return found;
     }
 
     render() {
@@ -256,19 +276,17 @@ class FormFields extends React.Component {
         const addedEvents = pickBy(values.sub_events, event => !event['@id'])
         const newEvents = this.generateNewEventFields(addedEvents)
         const userType = get(user, 'userType')
-        const newSubEvents = newEvents.length
         const isRegularUser = userType === USER_TYPE.REGULAR
         const organizationData = get(user, `${userType}OrganizationData`, {})
         const publisherOptions = Object.keys(organizationData)
             .map(id => ({label: organizationData[id].name, value: id}))
-
+        const subTimeDisable = this.subEventsContainTime(values['sub_events'])
         const selectedPublisher = publisherOptions.find(option => option.value === values['organization']) || {};
-
         const position = this.props.editor.values.location ? this.props.editor.values.location.position : null;
         const headerTextId = formType === 'update'
             ? 'edit-events'
             : 'create-events'
-
+            
         return (
             <div className='mainwrapper'>
                 {!this.props.user &&
@@ -461,9 +479,13 @@ class FormFields extends React.Component {
                                     type='radio'
                                     value='single'
                                     onChange={this.toggleEventType}
-                                    defaultChecked
                                     checked={!this.state.selectEventType}
-                                    disabled={formType === 'update' || formType === 'add' || isSuperEventDisable || isSuperEvent}
+                                    disabled={
+                                        formType === 'update' ||
+                                        formType === 'add' ||
+                                        isSuperEventDisable ||
+                                        isSuperEvent ||
+                                        subTimeDisable}
                                 />
                                 <label className='custom-control-label' htmlFor='single'>
                                     <FormattedMessage id='event-type-single'/>
@@ -478,12 +500,22 @@ class FormFields extends React.Component {
                                     value='recurring'
                                     checked={this.state.selectEventType}
                                     onChange={this.toggleEventType}
-                                    disabled={formType === 'update' || formType === 'add' || isSuperEventDisable || isSuperEvent}
+                                    disabled={formType === 'update' || 
+                                    formType === 'add' || 
+                                    isSuperEventDisable || 
+                                    isSuperEvent ||
+                                    values.start_time !== undefined}
                                 />
                                 <label className='custom-control-label' htmlFor='recurring'>
                                     <FormattedMessage id='event-type-recurring'/>
                                 </label>
                             </div>
+                            { !['update', 'add'].includes(formType) && (subTimeDisable || values.start_time !== undefined) ?
+                                <div className='typetip'>
+                                    <FormattedMessage id="editor-tip-eventtype-disable"/>
+                                </div>
+                                : null
+                            }
                         </div>
                         {!this.state.selectEventType
                             ?
@@ -496,7 +528,7 @@ class FormFields extends React.Component {
                                     defaultValue={values['start_time']}
                                     setDirtyState={this.props.setDirtyState}
                                     maxDate={values['end_time'] ? moment(values['end_time']) : undefined}
-                                    
+                                    required={true}
                                     disabled={formType === 'update' && isSuperEvent}
                                     validationErrors={validationErrors['start_time']}
                                 />
@@ -511,7 +543,7 @@ class FormFields extends React.Component {
                                     labelTime={<FormattedMessage  id="event-ending-timelabel" />}
                                     setDirtyState={this.props.setDirtyState}
                                     minDate={values['start_time'] ? moment(values['start_time']) : undefined}
-                                    
+                                    required={true}
                                 />
                             </div>
                             :

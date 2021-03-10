@@ -335,6 +335,7 @@
     "editor-tip-event-languages": "Languages used in the event.",
     "editor-tip-umbrella-sub-event": "If you wish to add this event under an umbrella event, you may do so from the associated ",
     "editor-tip-umbrella-sub-event-link": "top level event",
+    "editor-tip-eventtype-disable": "If you want to change the event type, delete the added times.",
 
     "editor-headerbutton-collapse": "Click to close section",
     "editor-headerbutton-expand": "Click to expand section",
