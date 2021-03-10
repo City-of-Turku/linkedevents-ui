@@ -626,7 +626,6 @@ describe('FormField', () => {
                     expect(radios.at(1).prop('id')).toBe('recurring')
                     expect(radios.at(0).prop('value')).toBe('single')
                     expect(radios.at(1).prop('value')).toBe('recurring')
-                    expect(radios.at(0).prop('defaultChecked')).toBe(true)
                     expect(radios.at(0).prop('checked')).toBe(true)
                 })
             })
