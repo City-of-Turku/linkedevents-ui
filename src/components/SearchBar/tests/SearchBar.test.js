@@ -94,7 +94,6 @@ describe('SearchBar', () => {
         test('Button', () => {
             const button = getWrapper().find(Button)
             expect(button).toHaveLength(1)
-            expect(button.prop('disabled')).toBe(true)
             expect(button.prop('variant')).toBe('contained')
             expect(button.prop('color')).toBe('primary')
             expect(button.prop('onClick')).toBeDefined()

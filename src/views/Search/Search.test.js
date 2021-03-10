@@ -13,6 +13,21 @@ import {IntlProvider, FormattedMessage} from 'react-intl';
 import fiMessages from 'src/i18n/fi.json';
 import mapValues from 'lodash/mapValues';
 import {Helmet} from 'react-helmet'
+import {mockUserEvents} from '../../../__mocks__/mockData'
+
+jest.mock('../../utils/events', () => (
+    {
+        ...(jest.requireActual('../../utils/events')),
+        fetchEvents: jest.fn(() =>(
+            new Promise((resolve) => {
+                process.nextTick(() =>
+                    resolve({data: {data: mockUserEvents}})
+                );
+            })
+        )),
+    }
+))
+import {EventQueryParams, fetchEvents} from '../../utils/events'
 
 const testMessages = mapValues(fiMessages, (value, key) => value);
 const intlProvider = new IntlProvider({locale: 'fi', messages: testMessages}, {});
@@ -125,6 +140,40 @@ describe('Search', () => {
             });
         });
     });
+
+    describe('functions', () => {
+        describe('searchEvents', () => {
+            const searchQuery = 'testing'
+            const startDate = undefined
+            const endDate = undefined
+
+            test('calls fetchEvents with correct parameters', () => {
+                const date = new Date(`2021`)
+                jest.spyOn(global.Date, 'now').mockImplementationOnce(() => date);
+                const instance = getWrapper().instance()
+                const queryParams = new EventQueryParams()
+                queryParams.page_size = 100
+                queryParams.sort = 'start_time'
+                queryParams.nocache = date
+                queryParams.text = searchQuery
+                instance.searchEvents(searchQuery, startDate, endDate)
+                expect(fetchEvents).toHaveBeenCalledTimes(1)
+                expect(fetchEvents).toHaveBeenCalledWith(queryParams);
+            })
+
+            test('sets correct state values', async () => {
+                const instance = getWrapper().instance()
+                const initialState = {...instance.state}
+                expect(instance.state.events).toStrictEqual(initialState.events)
+                expect(instance.state.searchExecuted).toBe(initialState.loading)
+                expect(instance.state.loading).toBe(initialState.searchExecuted)
+                await instance.searchEvents(searchQuery, startDate, endDate)                
+                expect(instance.state.events).toBe(mockUserEvents)
+                expect(instance.state.searchExecuted).toBe(true)
+                expect(instance.state.loading).toBe(false)
+            })
+        })
+    })
 })
 
 

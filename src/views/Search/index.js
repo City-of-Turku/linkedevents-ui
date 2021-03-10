@@ -19,10 +19,6 @@ class SearchPage extends React.Component {
     }
 
     searchEvents = async (searchQuery, startDate, endDate) => {
-        if (!searchQuery && (!startDate || !endDate)) {
-            return
-        }
-
         this.setState({loading: true})
 
         const queryParams = new EventQueryParams()
