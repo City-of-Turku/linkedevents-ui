@@ -4,7 +4,7 @@ import {Route} from 'react-router'
 import {withRouter} from 'react-router-dom'
 import {Provider, connect} from 'react-redux'
 import {ConnectedRouter} from 'connected-react-router'
-import {isIE} from 'react-device-detect'
+import {isIE, isLegacyEdge} from 'react-device-detect'
 
 // Views
 import App from './views/App'
@@ -54,7 +54,7 @@ if (window.location.pathname === '/silent-renew') {
     processSilentRenew();
 } else {
     ReactDOM.render(
-        isIE ? <BrowserWarning/> :
+        isIE || isLegacyEdge ? <BrowserWarning/> :
             <Provider store={store}>
                 <OidcProvider store={store} userManager={userManager}>
                     <IntlProviderWrapper>

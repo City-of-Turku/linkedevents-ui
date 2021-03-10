@@ -22,6 +22,7 @@ const config = {
     context: path.join(common.paths.ROOT, '/src'),
     entry: [
         //'webpack-hot-middleware/client',
+        'core-js/stable/object/assign',
         path.join(common.paths.SRC, '/index.js'),
     ],
     output: {

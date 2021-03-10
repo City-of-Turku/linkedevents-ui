@@ -4,7 +4,7 @@ function BrowserWarning() {
     return (
         <div>
             <p className='alert alert-warning'>
-                Linkedevents does not support Internet Explorer.
+                Linkedevents does not support old browsers.
                 Please use another browser (such as
                 <a href='https://www.google.com/chrome/'> Chrome</a>,
                 <a href='https://www.mozilla.org/en-US/firefox/new/'> Firefox</a> or
@@ -14,7 +14,7 @@ function BrowserWarning() {
             </p>
 
             <p className='alert alert-warning'>
-                Linkedevents ei tue Internet Explorer selainta. 
+                Linkedevents ei tue vanhoja selaimia. 
                 Käytä toista selainta (kuten
                 <a href='https://www.google.com/intl/fi/chrome/'> Chrome</a>,
                 <a href='https://www.mozilla.org/fi/firefox/new/'> Firefox</a> tai
@@ -23,7 +23,7 @@ function BrowserWarning() {
             </p>
 
             <p className='alert alert-warning'>
-                Linkedevents fungerar inte längre med Internet Explorer.
+                Linkedevents stöder inte längre äldre webbläsare.
                 Vänligen använd någon annan webbläsare (t.ex
                 <a href='https://www.google.com/intl/sv/chrome/'> Chrome</a>,
                 <a href='https://www.mozilla.org/sv-SE/firefox/new/'> Firefox</a> eller
