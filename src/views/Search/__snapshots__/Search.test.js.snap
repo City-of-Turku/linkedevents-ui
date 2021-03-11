@@ -407,7 +407,7 @@ exports[`Search Snapshot should render view correctly 1`] = `
       "twitter-url": "Twitter (URL)",
       "umbrella": "Kattotapahtuma",
       "update-events": "Tallenna",
-      "upload-image": "Lataa kuva kovalevyltäsi",
+      "upload-image": "Lataa kuva",
       "upload-image-from-url": "Tai syötä ulkoisen kuvan osoite (URL)",
       "upload-image-from-url-button": "Lataa osoitteesta",
       "upload-image-select-bank": "Valitse kuvapankista",
