@@ -1,7 +1,7 @@
 Linkedevents-UI - form-style UI for Linked Events API
 =====================================================
 
-![Build Status](https://github.com/github/docs/actions/workflows/main.yml/badge.svg?branch=develop)
+![Build Status](https://github.com/City-of-Turku/linkedevents-ui/actions/workflows/main.yml/badge.svg?branch=develop)
 [![codecov](https://codecov.io/gh/City-of-Turku/linkedevents-ui/branch/develop/graph/badge.svg)](https://codecov.io/gh/City-of-Turku/linkedevents-ui)
 
 Linkedevents-UI is a user interface for creating and changing events through
