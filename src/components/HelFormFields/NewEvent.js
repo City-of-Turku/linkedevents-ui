@@ -10,11 +10,11 @@ const NewEvent = ({event, eventKey, errors, deleteSubEvent, intl, setInitialFocu
     
     const containerRef = useRef(null);
     return (
-        <div className="new-sub-event" ref={containerRef}>
-            <div>
+        <div className="new-sub-event row" ref={containerRef}>
+            <div className="col-auto">
                 <FormattedMessage id="event-sub-count" values={{count: length}}>{txt => <h4>{txt}</h4>}</FormattedMessage>
             </div>
-            <div className="new-sub-event--inputs">
+            <div className="new-sub-event--inputs col-12 order-last">
                 <CustomDateTime
                     id={'start_time' + eventKey}
                     name="start_time"
@@ -38,12 +38,13 @@ const NewEvent = ({event, eventKey, errors, deleteSubEvent, intl, setInitialFocu
                 />
             </div>
             <button
-                className="new-sub-event--delete"
+                className="new-sub-event--delete col-auto"
                 onClick={() => deleteSubEvent(eventKey)}
                 aria-label={intl.formatMessage({id: `event-delete-recurring`})}
             >
-                <span className="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                <span id="sub-event-del-icon" className="glyphicon glyphicon-trash" aria-hidden="true"></span>
             </button>
+            <div className="w-100"></div>
             <ValidationPopover
                 anchor={containerRef.current}
                 placement={'top'}
