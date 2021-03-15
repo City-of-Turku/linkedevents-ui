@@ -1,3 +1,11 @@
 .price-label {
     margin-top: 0.5rem;
 }
+.language-selection {
+    .custom-control.custom-checkbox .custom-control-input:checked ~ .custom-control-label.disabled::before {
+        background-color: rgba(0, 98, 174, 0.6);
+    }
+    .custom-checkbox .custom-control-input:checked ~ .custom-control-label.disabled::after {
+        cursor: not-allowed;
+    }
+}
