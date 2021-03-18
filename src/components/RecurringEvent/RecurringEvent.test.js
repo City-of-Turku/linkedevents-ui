@@ -6,14 +6,17 @@ import fiMessages from 'src/i18n/fi.json';
 import mapValues from 'lodash/mapValues';
 import moment from 'moment';
 import {Modal} from 'reactstrap';
-
+import {setEventData, sortSubEvents} from 'src/actions/editor'
 
 const testMessages = mapValues(fiMessages, (value, key) => value);
 
 const intlProvider = new IntlProvider({locale: 'fi', messages: testMessages}, {});
 const {intl} = intlProvider.getChildContext();
+const dispatch = jest.fn()
 const defaultProps = {
-    values: {},
+    values: {
+        sub_events: {},
+    },
     toggle: () => null,
     validationErrors: [],
     formType: '',
@@ -23,7 +26,7 @@ const defaultProps = {
 
 describe('RecurringEvent', () => {
     function getWrapper(props) {
-        return shallow(<RecurringEventWithoutIntl {...defaultProps} {...props} />, {context: {intl}});
+        return shallow(<RecurringEventWithoutIntl {...defaultProps} {...props} />, {context: {intl, dispatch}});
     }
     describe('render', () => {
         test('contains Modal with correct props', () => {
@@ -40,7 +43,7 @@ describe('RecurringEvent', () => {
         });
         test('Correct amount of formattedMessages', () => {
             const element = getWrapper().find(FormattedMessage)
-            expect(element).toHaveLength(6)
+            expect(element).toHaveLength(7)
         })
     });
     describe('methods', () => {
@@ -115,6 +118,8 @@ describe('RecurringEvent', () => {
         describe('onCheckboxChange', () => {
             let wrapper;
             let instance;
+            wrapper = getWrapper();
+            instance = wrapper.instance();
             const clearErrors = jest.fn();
             const mockDays = {
                 monday: false,
@@ -126,8 +131,6 @@ describe('RecurringEvent', () => {
                 sunday: false,
             };
             beforeEach(() => {
-                wrapper = getWrapper();
-                instance = wrapper.instance();
                 instance.clearErrors = clearErrors;
                 instance.forceUpdate();
             });
@@ -143,5 +146,95 @@ describe('RecurringEvent', () => {
                 expect(clearErrors).toHaveBeenCalledTimes(2);
             });
         });
+        describe('generateEvents', () => {
+            const mockDays = {
+                monday: true,
+                tuesday: true,
+                wednesday: true,
+                thursday: true,
+                friday: true,
+                saturday: false,
+                sunday: false,
+            };
+            test('generateEvents doesnt dispatch', () => {
+                const wrapper = getWrapper({values: {sub_events: []}});
+                const instance = wrapper.instance();
+                const StartDateOver = moment('2021-02-12 00:00:00')
+                const StartTimeOver = moment('2021-02-12 09:30:00')
+                const EndDateOver = moment('2021-08-23 00:00:00')
+                const EndTimeOver = moment('2021-08-23 14:30:00')
+
+                for (const day in mockDays) {
+                    instance.onCheckboxChange(day, mockDays[day]);
+                }
+                expect(wrapper.state('daysSelected')).toEqual(mockDays)
+
+                instance.onChange('recurringStartDate', StartDateOver)
+                instance.onChange('recurringStartTime', StartTimeOver)
+                instance.onChange('recurringEndDate', EndDateOver)
+                instance.onChange('recurringEndTime', EndTimeOver)
+                
+                instance.generateEvents()
+                expect(wrapper.state('subEventLimit')['overLimit']).toBe(true)
+                expect(wrapper.state('subEventLimit')['subEventAmount']).toBe(137)
+
+                expect(dispatch).toHaveBeenCalledTimes(0)
+            })
+            test('generateEvents dispatches', () => {
+                const wrapper = getWrapper({values: {sub_events: []}});
+                const instance = wrapper.instance();
+                const StartDate = moment('2021-02-12 00:00:00')
+                const StartTime = moment('2021-02-12 09:30:00')
+                const EndDate = moment('2021-02-23 00:00:00')
+                const EndTime = moment('2021-02-23 14:30:00')
+
+                for (const day in mockDays) {
+                    instance.onCheckboxChange(day, mockDays[day]);
+                }
+
+                instance.onChange('recurringStartDate', StartDate)
+                instance.onChange('recurringStartTime', StartTime)
+                instance.onChange('recurringEndDate', EndDate)
+                instance.onChange('recurringEndTime', EndTime)
+                instance.generateEvents()
+                expect(wrapper.state('subEventLimit')['overLimit']).toBe(false)
+                expect(wrapper.state('subEventLimit')['subEventAmount']).toBe(8)
+
+                let subEventKeys = Object.keys(defaultProps.values.sub_events)
+                let key = subEventKeys.length > 0 ? Math.max.apply(null, subEventKeys) + 1 : 1
+                const newEventObject = {[key]: {start_time: '2021-02-15T07:30:00.000Z' , end_time: '2021-02-26T12:30:00.000Z'}}
+                const expectedValue = setEventData(newEventObject, key);
+                expect(dispatch).toHaveBeenCalledWith(expectedValue)
+                expect(dispatch).toHaveBeenCalledTimes(9)
+            })
+            test('generateEvents overLimit & subEventAmount-states change', () => {
+                const wrapper = getWrapper({values: {sub_events: []}});
+                const instance = wrapper.instance();
+                const StartDateOver = moment('2021-02-12 00:00:00')
+                const StartTimeOver = moment('2021-02-12 09:30:00')
+                const EndDateOver = moment('2021-08-23 00:00:00')
+                const EndTimeOver = moment('2021-08-23 14:30:00')
+                const EndDateChange = moment('2021-03-26 00:00:00')
+
+                for (const day in mockDays) {
+                    instance.onCheckboxChange(day, mockDays[day]);
+                }
+                expect(wrapper.state('daysSelected')).toEqual(mockDays)
+
+                instance.onChange('recurringStartDate', StartDateOver)
+                instance.onChange('recurringStartTime', StartTimeOver)
+                instance.onChange('recurringEndDate', EndDateOver)
+                instance.onChange('recurringEndTime', EndTimeOver)
+                
+                instance.generateEvents()
+                expect(wrapper.state('subEventLimit')['overLimit']).toBe(true)
+                expect(wrapper.state('subEventLimit')['subEventAmount']).toBe(137)
+
+                instance.onChange('recurringEndDate', EndDateChange)
+
+                expect(wrapper.state('subEventLimit')['overLimit']).toBe(false)
+                expect(wrapper.state('subEventLimit')['subEventAmount']).toBe(31)
+            })
+        })
     });
 });

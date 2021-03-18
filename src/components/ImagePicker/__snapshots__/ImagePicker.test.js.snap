@@ -143,6 +143,7 @@ exports[`Image add form ImagePicker component should render correctly with data 
       "event-add-price": "Lisää uusi hintatieto",
       "event-add-price-limit": "Hintatietoja voi olla enintään {count} kappaletta.",
       "event-add-recurring": "Toistuva tapahtuma",
+      "event-add-recurring-limit": "Toistuvia ajankohtia voi olla {count} kappaletta, olet lisäämässä {subEventcount} kappaletta.",
       "event-canceled": "Peruttuja tapahtumia ei voi muokata.",
       "event-categorization": "Määritä luokat",
       "event-categorization-help": "Pääkategoria ohje",

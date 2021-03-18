@@ -147,6 +147,7 @@ const constants = {
         DEFAULT_END_IN_FUTURE: 'defaultEndInTheFuture',
         REQUIRED_VIDEO_FIELD: 'requiredVideoField',
         IS_MORE_THAN_TWO: 'isMoreThanTwo',
+        IS_MORE_THAN_SIXTYFIVE: 'isMoreThanSixtyFive',
     },
 
     CHARACTER_LIMIT: {

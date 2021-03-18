@@ -6,7 +6,7 @@ import {connect} from 'react-redux'
 import {deleteSubEvent as deleteSubEventAction} from 'src/actions/editor'
 import {FormattedMessage, injectIntl} from 'react-intl';
 import ValidationPopover from '../ValidationPopover';
-const NewEvent = ({event, eventKey, errors, deleteSubEvent, intl, setInitialFocus, subError, length}) => {
+const NewEvent = ({event, eventKey, errors, deleteSubEvent, intl, setInitialFocus, subErrors, length}) => {
     
     const containerRef = useRef(null);
     return (
@@ -48,7 +48,7 @@ const NewEvent = ({event, eventKey, errors, deleteSubEvent, intl, setInitialFocu
             <ValidationPopover
                 anchor={containerRef.current}
                 placement={'top'}
-                validationErrors={subError['sub_length']}
+                validationErrors={subErrors['sub_length']}
             />
         </div>
     )
@@ -66,7 +66,7 @@ NewEvent.propTypes = {
     deleteSubEvent: PropTypes.func,
     intl: PropTypes.object,
     setInitialFocus: PropTypes.bool,
-    subError: PropTypes.object,
+    subErrors: PropTypes.object,
     length: PropTypes.number,
 }
 

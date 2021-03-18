@@ -54,7 +54,7 @@ const publicValidations = {
         start_time: [VALIDATION_RULES.REQUIRED_STRING, VALIDATION_RULES.IS_DATE, VALIDATION_RULES.DEFAULT_END_IN_FUTURE],
         end_time: [VALIDATION_RULES.AFTER_START_TIME, VALIDATION_RULES.IS_DATE, VALIDATION_RULES.IN_THE_FUTURE],
     },
-    sub_length: [VALIDATION_RULES.IS_MORE_THAN_TWO],
+    sub_length: [VALIDATION_RULES.IS_MORE_THAN_TWO, VALIDATION_RULES.IS_MORE_THAN_SIXTYFIVE],
     keywords: [VALIDATION_RULES.AT_LEAST_ONE_MAIN_CATEGORY],
     audience_min_age: [VALIDATION_RULES.IS_INT],
     audience_max_age: [VALIDATION_RULES.IS_INT],
@@ -210,13 +210,15 @@ const validateStartTime = (values, validations) => {
     return errors
 }
 //Validate sub_event count
-const validateSubEventCount = (values, validation) => {
-    let errors = []
+const validateSubEventCount = (values, validations) => {
+    const errors = []
     const eventHasSubEvents = values.hasOwnProperty('sub_events') && !values.hasOwnProperty('start_time')
     if (eventHasSubEvents) {
-        if (!validationFn[validation](values, values['sub_events'])) {
-            errors = validation
-        }
+        validations.forEach((val) => {
+            if (!validationFn[val](values, values['sub_events'])) {
+                errors.push(val)
+            }
+        })
     }
     return errors
 }

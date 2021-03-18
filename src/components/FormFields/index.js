@@ -177,8 +177,7 @@ class FormFields extends React.Component {
 
     generateNewEventFields(events) {
         const {validationErrors} = this.props.editor;
-        const subLengthError = Object.assign({}, validationErrors.sub_length);
-        const subEventErrors = {...validationErrors.sub_events, ...subLengthError} || {}
+        const subEventErrors = {...validationErrors.sub_events, ...validationErrors.sub_length} || {}
 
         let newEvents = []
         const keys = Object.keys(events)
@@ -194,7 +193,7 @@ class FormFields extends React.Component {
                         event={events[key]}
                         errors={subEventErrors[key] || {}}
                         setInitialFocus={key === lastKey ? true : false}
-                        subError={this.props.editor.validationErrors}
+                        subErrors={validationErrors}
                     />
                 )
             }
