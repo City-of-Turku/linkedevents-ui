@@ -166,7 +166,7 @@ class FormFields extends React.Component {
 
     addNewEventDialog(recurring = false) {
         let subEventKeys = Object.keys(this.props.editor.values.sub_events)
-        let key = subEventKeys.length > 0 ? Math.max.apply(null, subEventKeys) + 1 : 1
+        let key = subEventKeys.length > 0 ? Math.max.apply(null, subEventKeys) + 1 : 0
         const newEventObject = {[key]: {start_time: undefined}}
         this.context.dispatch(setEventData(newEventObject, key))
         if (recurring) {
@@ -177,7 +177,7 @@ class FormFields extends React.Component {
 
     generateNewEventFields(events) {
         const {validationErrors} = this.props.editor;
-        const subEventErrors = {...validationErrors.sub_events, ...validationErrors.sub_length} || {}
+        const subEventErrors = {...validationErrors.sub_events} || {}
 
         let newEvents = []
         const keys = Object.keys(events)
@@ -193,7 +193,7 @@ class FormFields extends React.Component {
                         event={events[key]}
                         errors={subEventErrors[key] || {}}
                         setInitialFocus={key === lastKey ? true : false}
-                        subErrors={validationErrors}
+                        subErrors={this.props.editor.validationErrors}
                     />
                 )
             }
@@ -574,7 +574,11 @@ class FormFields extends React.Component {
                                 <Button
                                     size='lg'block
                                     variant="contained"
-                                    disabled={formType === 'update' || formType === 'add' || isSuperEventDisable}
+                                    disabled={formType === 'update' ||
+                                    formType === 'add' ||
+                                    isSuperEventDisable ||
+                                    newEvents.length >= 65
+                                    }
                                     onClick={() => this.addNewEventDialog()}>
     
                                     <span aria-hidden='true' className="glyphicon glyphicon-plus"/>
@@ -584,7 +588,11 @@ class FormFields extends React.Component {
                                 <Button
                                     size='lg' block
                                     variant="contained"
-                                    disabled={formType === 'update' || formType === 'add' || isSuperEventDisable}
+                                    disabled={formType === 'update' ||
+                                    formType === 'add' ||
+                                    isSuperEventDisable ||
+                                    newEvents.length >= 65
+                                    }
                                     onClick={() => this.showRecurringEventDialog()}>
     
                                     <span aria-hidden='true' className="glyphicon glyphicon-refresh"/>

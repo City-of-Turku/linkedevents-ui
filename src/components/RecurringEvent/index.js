@@ -203,22 +203,16 @@ class RecurringEvent extends React.Component {
                 let formSubEvents = Object.keys(this.props.values.sub_events).length;
                 const SubEventsLeft = GENERATE_LIMIT.EVENT_LENGTH - formSubEvents
 
-                if (counter === true) {
-                    if (newSubEvents.length > SubEventsLeft) {
-                        this.setState({
-                            subEventLimit: {
-                                ...this.state.subEventLimit,
-                                overLimit: true,
-                                subEventAmount: newSubEvents.length}})
-                    } else {
-                        this.setState({
-                            subEventLimit: {
-                                ...this.state.subEventLimit,
-                                overLimit: false,
-                                subEventAmount: newSubEvents.length}})
+                if (counter) {
+                    this.setState({
+                        subEventLimit: {
+                            ...this.state.subEventLimit,
+                            overLimit: newSubEvents.length > SubEventsLeft,
+                            subEventAmount: newSubEvents.length},
                     }
+                    )
                     return;
-                }
+                }    
 
                 if (!this.state.subEventLimit.overLimit) {
                     for (const bar of newSubEvents) {
@@ -478,7 +472,12 @@ class RecurringEvent extends React.Component {
                     <div className="row">
                         <div role="progressbar" aria-valuemax={SubEventsLeft} aria-valuenow={this.state.subEventLimit.subEventAmount} className={classNames('tip', {'error': this.state.subEventLimit.overLimit})}>
                             <p role='status' className='count-message'>
-                                <FormattedMessage id='event-add-recurring-limit' values={{count: SubEventsLeft, subEventcount: this.state.subEventLimit.subEventAmount}} />
+                                {!this.state.subEventLimit.overLimit
+                                    ?
+                                    <FormattedMessage id='event-add-recurring-limit' values={{count: SubEventsLeft, subEventcount: this.state.subEventLimit.subEventAmount}} />
+                                    :
+                                    <FormattedMessage id='event-add-recurring-error' values={{count: SubEventsLeft, subEventcount: this.state.subEventLimit.subEventAmount}} />
+                                }
                             </p>
                         </div>
                         <div className="col-xs-12 col-sm-12">

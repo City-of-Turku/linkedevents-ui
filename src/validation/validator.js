@@ -209,9 +209,10 @@ const validateStartTime = (values, validations) => {
     }
     return errors
 }
+
 //Validate sub_event count
 const validateSubEventCount = (values, validations) => {
-    const errors = []
+    let errors = []
     const eventHasSubEvents = values.hasOwnProperty('sub_events') && !values.hasOwnProperty('start_time')
     if (eventHasSubEvents) {
         validations.forEach((val) => {

@@ -155,6 +155,7 @@
     "event-add-price": "Lisää uusi hintatieto",
     "event-add-price-limit": "Hintatietoja voi olla enintään {count} kappaletta.",
     "event-add-recurring-limit": "Toistuvia ajankohtia voi olla {count} kappaletta, olet lisäämässä {subEventcount} kappaletta.",
+    "event-add-recurring-error": "Vähennä toistuvien tapahtumien määrää, sallittu määrä on {count} kappaletta, olet lisäämässä {subEventcount} kappaletta.",
     "date": "Päivämäärä",
     "time": "Aika",
     "monday": "maanantai",

@@ -268,7 +268,7 @@ var validations = {
         return Object.keys(value).length >= 2
     },
     isMoreThanSixtyFive: function isMoreThanSixtyFive(values, value) {
-        return Object.keys(value).length <= 4
+        return Object.keys(value).length <= 65
     },
     daysWithinInterval: function daysWithinInterval(values, value) {
         if (!(value < 6)) { return true }

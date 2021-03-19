@@ -142,7 +142,7 @@ describe('FormField', () => {
             let wrapper;
             let instance;
             let subEventKeys = Object.keys(defaultProps.editor.values.sub_events)
-            let key = subEventKeys.length > 0 ? Math.max.apply(null, subEventKeys) + 1 : 1
+            let key = subEventKeys.length > 0 ? Math.max.apply(null, subEventKeys) + 1 : 0
             const newEventObject = {[key]: {start_time: undefined}}
             beforeEach(() => {
                 setEventData.mockClear()
