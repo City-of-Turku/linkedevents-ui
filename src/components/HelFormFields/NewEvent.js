@@ -7,15 +7,17 @@ import {deleteSubEvent as deleteSubEventAction} from 'src/actions/editor'
 import {FormattedMessage, injectIntl} from 'react-intl';
 import ValidationPopover from '../ValidationPopover';
 const NewEvent = ({event, eventKey, errors, deleteSubEvent, intl, setInitialFocus, subErrors, length}) => {
-    const isZeroKey = () => {
-
+    /**
+     * If eventKey is 0 -> return all errors, for other keys filter out the max sub count error
+     * @returns {string[]|undefined}
+     */
+    const getValidationErrors = () => {
         if (eventKey === '0') {
             return subErrors['sub_length']
         } else {
             return subErrors['sub_length'] ?  subErrors['sub_length'].filter(error => error !== 'isMoreThanSixtyFive') : undefined
         }
-
-    }
+    };
     const containerRef = useRef(null);
     return (
         <div className="new-sub-event row" ref={containerRef}>
@@ -56,7 +58,7 @@ const NewEvent = ({event, eventKey, errors, deleteSubEvent, intl, setInitialFocu
             <ValidationPopover
                 anchor={containerRef.current}
                 placement={'top'}
-                validationErrors={isZeroKey()}
+                validationErrors={getValidationErrors()}
             />
         </div>
     )

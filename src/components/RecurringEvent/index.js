@@ -108,7 +108,7 @@ class RecurringEvent extends React.Component {
         })
     }
 
-    generateEvents = (counter = false) => {
+    generateEvents = (eventCounter = false) => {
         const {
             recurringStartDate,
             recurringStartTime,
@@ -116,7 +116,9 @@ class RecurringEvent extends React.Component {
             recurringEndTime,
             daysSelected,
             weekInterval,
+            subEventLimit,
         } = this.state
+        const {values} = this.props
         const errors = this.getValidationErrors()
 
         // handle validation errors
@@ -181,7 +183,7 @@ class RecurringEvent extends React.Component {
                             matchWeekday = matchWeekday.add(weekInterval, 'week')
                         ) {
                             let obj = {}
-                            const key = Object.keys(this.props.values.sub_events).length + count
+                            const key = Object.keys(values.sub_events).length + count
                             count += 1
                             const startTime = matchWeekday.hours(formattedRecurringStartTime.hours).minutes(formattedRecurringStartTime.minutes)
                             let endTime
@@ -200,10 +202,10 @@ class RecurringEvent extends React.Component {
                     }
                 }
 
-                let formSubEvents = Object.keys(this.props.values.sub_events).length;
+                let formSubEvents = Object.keys(values.sub_events).length;
                 const SubEventsLeft = GENERATE_LIMIT.EVENT_LENGTH - formSubEvents
 
-                if (counter) {
+                if (eventCounter) {
                     this.setState({
                         subEventLimit: {
                             ...this.state.subEventLimit,
@@ -212,11 +214,11 @@ class RecurringEvent extends React.Component {
                     }
                     )
                     return;
-                }    
+                }
 
-                if (!this.state.subEventLimit.overLimit) {
-                    for (const bar of newSubEvents) {
-                        this.context.dispatch(setEventData(bar[0],bar[1]));
+                if (!subEventLimit.overLimit) {
+                    for (const event of newSubEvents) {
+                        this.context.dispatch(setEventData(event[0],event[1]));
                     }
                     this.props.toggle()
                     this.context.dispatch(sortSubEvents())
@@ -255,12 +257,12 @@ class RecurringEvent extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        if (this.shouldUpdate(prevState) ) {
+        if (this.shouldGenerateEventCount(prevState) ) {
             this.generateEvents(true)
         }
     }
-    
-    shouldUpdate(prevState) {
+
+    shouldGenerateEventCount(prevState) {
         const {recurringStartDate, recurringEndDate, weekInterval, daysSelected} = this.state
         const StartDate = prevState.recurringStartDate !== recurringStartDate
         const EndDate = prevState.recurringEndDate !== recurringEndDate
@@ -328,10 +330,9 @@ class RecurringEvent extends React.Component {
     }
 
     render() {
-        const {recurringStartDate, recurringEndDate, errors} = this.state
-        const {intl} = this.props
-        let formSubEvents = Object.keys(this.props.values.sub_events).length;
-        const SubEventsLeft = GENERATE_LIMIT.EVENT_LENGTH - formSubEvents
+        const {recurringStartDate, recurringEndDate, errors, subEventLimit} = this.state
+        const {intl, values} = this.props
+        const SubEventsLeft = GENERATE_LIMIT.EVENT_LENGTH - Object.keys(values.sub_events).length
         const days = this.generateCheckboxes(this.state.daysSelected)
         const closebtn = <Button onClick={this.props.toggle} aria-label={this.context.intl.formatMessage({id: `close-recurring-modal`})}><span className="glyphicon glyphicon-remove"></span></Button>
         return (
@@ -378,7 +379,7 @@ class RecurringEvent extends React.Component {
                                 style={{
                                     display: 'inline-block',
                                     marginTop: '16px',
-                                }}                               
+                                }}
                             >
                                 <FormattedMessage id="play-date-label">{txt => <h3>{txt}</h3>}</FormattedMessage>
                             </div>
@@ -470,13 +471,13 @@ class RecurringEvent extends React.Component {
                         </div>
                     </div>
                     <div className="row">
-                        <div role="progressbar" aria-valuemax={SubEventsLeft} aria-valuenow={this.state.subEventLimit.subEventAmount} className={classNames('tip', {'error': this.state.subEventLimit.overLimit})}>
+                        <div role="progressbar" aria-valuemax={SubEventsLeft} aria-valuenow={subEventLimit.subEventAmount} className={classNames('tip', {'error': subEventLimit.overLimit})}>
                             <p role='status' className='count-message'>
-                                {!this.state.subEventLimit.overLimit
+                                {!subEventLimit.overLimit
                                     ?
-                                    <FormattedMessage id='event-add-recurring-limit' values={{count: SubEventsLeft, subEventcount: this.state.subEventLimit.subEventAmount}} />
+                                    <FormattedMessage id='event-add-recurring-limit' values={{count: SubEventsLeft, subEventcount: subEventLimit.subEventAmount}} />
                                     :
-                                    <FormattedMessage id='event-add-recurring-error' values={{count: SubEventsLeft, subEventcount: this.state.subEventLimit.subEventAmount}} />
+                                    <FormattedMessage id='event-add-recurring-error' values={{count: SubEventsLeft, subEventcount: subEventLimit.subEventAmount}} />
                                 }
                             </p>
                         </div>
