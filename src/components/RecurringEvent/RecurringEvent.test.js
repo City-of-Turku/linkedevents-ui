@@ -157,7 +157,7 @@ describe('RecurringEvent', () => {
                 sunday: false,
             };
             test('generateEvents doesnt dispatch', () => {
-                const wrapper = getWrapper({values: {sub_events: []}});
+                const wrapper = getWrapper();
                 const instance = wrapper.instance();
                 const StartDateOver = moment('2021-02-12 00:00:00')
                 const StartTimeOver = moment('2021-02-12 09:30:00')
@@ -175,39 +175,52 @@ describe('RecurringEvent', () => {
                 instance.onChange('recurringEndTime', EndTimeOver)
                 
                 instance.generateEvents()
-                expect(wrapper.state('subEventLimit')['overLimit']).toBe(true)
-                expect(wrapper.state('subEventLimit')['subEventAmount']).toBe(137)
+                expect(wrapper.state('subEvents')['overMaxAmount']).toBe(true)
+                expect(wrapper.state('subEvents')['newSubCount']).toBe(137)
 
                 expect(dispatch).toHaveBeenCalledTimes(0)
             })
             test('generateEvents dispatches', () => {
-                const wrapper = getWrapper({values: {sub_events: []}});
+                const wrapper = getWrapper();
                 const instance = wrapper.instance();
-                const StartDate = moment('2021-02-12 00:00:00')
-                const StartTime = moment('2021-02-12 09:30:00')
-                const EndDate = moment('2021-02-23 00:00:00')
-                const EndTime = moment('2021-02-23 14:30:00')
+                const StartDate = moment('2021-02-12T00:00:00Z')
+                const StartTime = moment('2021-02-12T09:30:00Z')
+                const EndDate = moment('2021-02-23T00:00:00Z')
+                const EndTime = moment('2021-02-23T14:30:00Z')
 
                 for (const day in mockDays) {
                     instance.onCheckboxChange(day, mockDays[day]);
                 }
+                expect(wrapper.state('daysSelected')).toEqual(mockDays)
 
                 instance.onChange('recurringStartDate', StartDate)
                 instance.onChange('recurringStartTime', StartTime)
                 instance.onChange('recurringEndDate', EndDate)
                 instance.onChange('recurringEndTime', EndTime)
                 instance.generateEvents()
-                expect(wrapper.state('subEventLimit')['overLimit']).toBe(false)
-                expect(wrapper.state('subEventLimit')['subEventAmount']).toBe(8)
+                expect(wrapper.state('subEvents')['overMaxAmount']).toBe(false)
+                expect(wrapper.state('subEvents')['newSubCount']).toBe(8)
 
-                let subEventKeys = Object.keys(defaultProps.values.sub_events)
-                let key = subEventKeys.length > 0 ? Math.max.apply(null, subEventKeys) + 1 : 1
-                const newEventObject = {[key]: {start_time: '2021-02-15T07:30:00.000Z' , end_time: '2021-02-26T12:30:00.000Z'}}
-                const expectedValue = setEventData(newEventObject, key);
-                expect(dispatch).toHaveBeenCalledWith(expectedValue)
+                // ordered by day, all mondays, all tuesdays etc..
+                const eventTimes = [
+                    {[1]: {start_time: '2021-02-15T09:30:00.000Z', end_time: '2021-02-26T14:30:00.000Z'}}, // mon
+                    {[2]: {start_time: '2021-02-22T09:30:00.000Z', end_time: '2021-03-05T14:30:00.000Z'}}, // mon
+                    {[3]: {start_time: '2021-02-16T09:30:00.000Z', end_time: '2021-02-27T14:30:00.000Z'}}, // tues
+                    {[4]: {start_time: '2021-02-23T09:30:00.000Z', end_time: '2021-03-06T14:30:00.000Z'}}, // tues
+                    {[5]: {start_time: '2021-02-17T09:30:00.000Z', end_time: '2021-02-28T14:30:00.000Z'}}, // wed
+                    {[6]: {start_time: '2021-02-18T09:30:00.000Z', end_time: '2021-03-01T14:30:00.000Z'}}, // thurs
+                    {[7]: {start_time: '2021-02-12T09:30:00.000Z', end_time: '2021-02-23T14:30:00.000Z'}}, // fri
+                    {[8]: {start_time: '2021-02-19T09:30:00.000Z', end_time: '2021-03-02T14:30:00.000Z'}}, // fri
+                ]
+
+                const setEventDataCount = wrapper.state().subEvents['newSubCount']
+                for (let i = 0; i < setEventDataCount; i++) {
+                    expect(dispatch).toHaveBeenNthCalledWith(i + 1,setEventData(eventTimes[i],i + 1))
+                }
+                expect(dispatch).toHaveBeenNthCalledWith(9,{'type': 'EDITOR_SORT_SUB_EVENTS'})
                 expect(dispatch).toHaveBeenCalledTimes(9)
             })
-            test('generateEvents overLimit & subEventAmount-states change', () => {
+            test('generateEvents overMaxAmount & newSubCount-states change', () => {
                 const wrapper = getWrapper({values: {sub_events: []}});
                 const instance = wrapper.instance();
                 const StartDateOver = moment('2021-02-12 00:00:00')
@@ -227,13 +240,13 @@ describe('RecurringEvent', () => {
                 instance.onChange('recurringEndTime', EndTimeOver)
                 
                 instance.generateEvents()
-                expect(wrapper.state('subEventLimit')['overLimit']).toBe(true)
-                expect(wrapper.state('subEventLimit')['subEventAmount']).toBe(137)
+                expect(wrapper.state('subEvents')['overMaxAmount']).toBe(true)
+                expect(wrapper.state('subEvents')['newSubCount']).toBe(137)
 
                 instance.onChange('recurringEndDate', EndDateChange)
 
-                expect(wrapper.state('subEventLimit')['overLimit']).toBe(false)
-                expect(wrapper.state('subEventLimit')['subEventAmount']).toBe(31)
+                expect(wrapper.state('subEvents')['overMaxAmount']).toBe(false)
+                expect(wrapper.state('subEvents')['newSubCount']).toBe(31)
             })
         })
     });
