@@ -106,6 +106,14 @@ function update(state = initialState, action) {
         })
     }
 
+    if (action.type === constants.EDITOR_CLEAR_VALUE) {
+        return updater(state, {
+            values: {
+                $unset: action.values,
+            },
+        })
+    }
+
     if (action.type === constants.EDITOR_UPDATE_SUB_EVENT) {
 
         const newValues = updater(state.values, {
@@ -131,7 +139,7 @@ function update(state = initialState, action) {
 
     if (action.type === constants.EDITOR_DELETE_SUB_EVENT) {
         const oldSubEvents = Object.assign({}, state.values.sub_events);
-        const newSubEvents = _.omit(oldSubEvents, action.event);
+        const newSubEvents = omit(oldSubEvents, action.event);
         return updater(state, {
             values: {
                 sub_events: {
@@ -143,7 +151,14 @@ function update(state = initialState, action) {
 
     if (action.type === constants.EDITOR_SORT_SUB_EVENTS) {
         const mappedSubEvents = map(state.values.sub_events)
-        const sortedSubEvents = sortBy(mappedSubEvents, (event) => event.start_time)
+        const eventsWithValues = mappedSubEvents.reduce((events, event) => {
+            if (event.start_time !== undefined) {
+                events.push(event)
+            }
+            return events
+        }, [])
+        const sortedSubEvents = sortBy(eventsWithValues, (event) => event.start_time)
+
         const subEventsObject = {};
         for (const event in sortedSubEvents) {
             subEventsObject[event] = sortedSubEvents[event]

@@ -7,7 +7,7 @@ import {checkEventEditability} from '../../utils/checkEventEditability';
 import constants from '../../constants';
 import showConfirmationModal from '../../utils/confirm';
 import {appendEventDataWithSubEvents, getEventsWithSubEvents} from '../../utils/events';
-import {Button, Input, UncontrolledTooltip} from 'reactstrap';
+import {Button, UncontrolledTooltip} from 'reactstrap';
 import {confirmAction} from '../../actions/app';
 import {getButtonLabel} from '../../utils/helpers';
 import {Link} from 'react-router-dom';
@@ -101,20 +101,21 @@ class EventActionButton extends React.Component {
         return (
             <Fragment>
                 {showTermsCheckbox &&
-                <div className='terms-checkbox'>
-                    <label htmlFor='terms-agree'>
+                <div className='custom-control custom-checkbox'>
+                    <input
+                        className='custom-control-input'
+                        type='checkbox'
+                        checked={this.state.agreedToTerms}
+                        onChange={this.handleChange}
+                        id='terms-agree'
+                    />
+                    <label className='custom-control-label' htmlFor='terms-agree'>
                         <FormattedMessage id={'terms-agree-text'}>{txt => txt}</FormattedMessage>
                         &nbsp;
                         <Link to={'/terms'} target='_black'>
                             <FormattedMessage id={'terms-agree-link'}>{txt => txt}</FormattedMessage>
                         </Link>
                     </label>
-                    <Input
-                        type='checkbox'
-                        checked={this.state.agreedToTerms}
-                        onChange={this.handleChange}
-                        id='terms-agree'
-                    />
                 </div>
                 }
                 <Button
@@ -173,7 +174,7 @@ class EventActionButton extends React.Component {
         let disabled = !editable || loading || (showTermsCheckbox && !this.state.agreedToTerms);
 
 
-        const buttonLabel = customButtonLabel || getButtonLabel(action, isRegularUser, isDraft, eventIsPublished, formHasSubEvents);
+        const buttonLabel = customButtonLabel || getButtonLabel(action, isRegularUser,  isDraft, eventIsPublished, formHasSubEvents);
 
         if (action === 'postpone' && isPostponed) {
             disabled = true;

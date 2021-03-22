@@ -56,7 +56,7 @@ class Notifications extends React.Component {
                 autohideduration={duration}
                 onClose={closeFn}
             >
-                <p className="text-center" role='alert' tabIndex='0'>{flashMsgSpan}{[actionButton]}</p>
+                <p className="text-center" role='alert'>{flashMsgSpan}{[actionButton]}</p>
             </div>
                 }
             </React.Fragment>

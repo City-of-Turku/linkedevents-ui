@@ -6,7 +6,7 @@ import {connect} from 'react-redux';
 import {HelTextField, MultiLanguageField} from '../HelFormFields';
 import {postImage as postImageAction} from 'src/actions/userImages';
 import constants from 'src/constants';
-import {Button, Modal, ModalHeader, ModalBody, Input, Label} from 'reactstrap';
+import {Button, Modal, ModalHeader, ModalBody} from 'reactstrap';
 import update from 'immutability-helper';
 import {getStringWithLocale} from 'src/utils/locale';
 import validationFn from 'src/validation/validationRules'
@@ -329,9 +329,7 @@ class ImageEdit extends React.Component {
                     name='photographerName'
                     required={true}
                     defaultValue={this.state.image.photographerName}
-                    label={<FormattedMessage id={'photographer'}
-                        values={{maxLength: this.state.validation.photographerMaxLength}}
-                    />}
+                    label={this.context.intl.formatMessage({id: 'photographer'})}
                     validations={[VALIDATION_RULES.SHORT_STRING]}
                     maxLength={this.state.validation.photographerMaxLength}
                     onChange={this.handleChange}
@@ -341,43 +339,50 @@ class ImageEdit extends React.Component {
     }
 
     getLicense() {
-        const temp = (string) => this.props.updateExisting && this.state.license === string ? 'checked' : null;
         return (
             <div className='image-license-container'>
                 <div className='license-choices'>
-                    <Label>
-                        <Input
-                            addon
+                    <div className='custom-control custom-checkbox'>
+                        <input
+                            className='custom-control-input'
                             type='checkbox'
+                            id='permission'
                             name='permission'
                             onChange={this.handleLicenseChange}
                         />
-                        <FormattedMessage id={'image-modal-image-license-permission'}>{txt => txt}</FormattedMessage>
-                    </Label>
-
-                    <Label>
-                        <Input
-                            addon
+                        <label className='custom-control-label' htmlFor='permission'>
+                            <FormattedMessage id={'image-modal-image-license-permission'}>{txt => txt}</FormattedMessage>
+                        </label>
+                    </div>
+                    <div className='custom-control custom-radio'>
+                        <input
+                            className='custom-control-input'
                             type='radio'
+                            id='event_only'
                             name='license_type'
                             value='event_only'
                             onChange={this.handleLicenseChange}
-                            checked={temp('event_only')} />
-
-                        <FormattedMessage id={'image-modal-license-restricted-to-event'}/>
-                    </Label>
-                    <Label>
-                        <Input
-                            addon
+                            checked
+                        />
+                        <label className='custom-control-label' htmlFor='event_only'>
+                            <FormattedMessage id={'image-modal-license-restricted-to-event'}/>
+                        </label>
+                    </div>
+                    <div className='custom-control custom-radio'>
+                        <input
+                            className='custom-control-input'
                             type='radio'
+                            id='cc_by'
                             name='license_type'
                             value='cc_by'
                             onChange={this.handleLicenseChange}
-                            checked={temp('cc_by')} />
-                        Creative Commons BY 4.0
-                    </Label>
+                        />
+                        <label className='custom-control-label' htmlFor='cc_by'>
+                            Creative Commons BY 4.0
+                        </label>
+                    </div>
                 </div>
-                <div className='license-help-text tip'>
+                <div className='license-help-text tip' aria-label={this.context.intl.formatMessage({id: 'license-help-text'})}>
                     <FormattedMessage id={'image-modal-image-license-explanation-event-only'}/>
                     <FormattedHTMLMessage id={'image-modal-image-license-explanation-cc-by'} />
                 </div>
@@ -428,7 +433,7 @@ class ImageEdit extends React.Component {
                             <div className='col-sm-8 image-edit-dialog--form'>
                                 {!this.props.updateExisting &&
                                 <div className='file-upload'>
-                                    <div className='tip'>
+                                    <div className='tip' aria-label={this.context.intl.formatMessage({id: 'image-upload-help'})}>
                                         <p>
                                             <FormattedMessage id='uploaded-image-event-tip'>{txt => txt}</FormattedMessage>
                                             <br/>
@@ -444,8 +449,10 @@ class ImageEdit extends React.Component {
                                             <input
                                                 onChange={(e) => this.handleUpload(e)}
                                                 style={{display: 'none'}}
+                                                name='file_upload'
                                                 type='file'
                                                 ref={this.hiddenFileInput}
+                                                aria-hidden
                                             />
                                             <Button
                                                 size='xl' block
@@ -465,7 +472,7 @@ class ImageEdit extends React.Component {
                                                         onChange={this.handleExternalImage}
                                                         name='externalUrl'
                                                         onBlur={this.handleInputBlur}
-
+                                                        type='url'
                                                     />
                                                 </label>
                                                 {(this.state.fileSizeError || this.state.urlError) && (
@@ -491,24 +498,25 @@ class ImageEdit extends React.Component {
                                                     >
                                                         <FormattedMessage id='uploaded-image-button-delete' />
                                                     </Button>
-                                                    <div className='tip'>
+                                                    <div className='tip' aria-label={this.context.intl.formatMessage({id: 'uploaded-image-alt-tip-help'})}>
                                                         <p>
                                                             <FormattedMessage id='uploaded-image-alt-tip'>{txt => txt}</FormattedMessage>
                                                             <br/>
                                                             <FormattedMessage id='uploaded-image-alt-tip2'>{txt => txt}</FormattedMessage>
                                                         </p>
                                                     </div>
-                                                    <Label>
-                                                        <Input
-                                                            addon
+                                                    <div className='custom-control custom-checkbox'>
+                                                        <input
+                                                            className='custom-control-input'
                                                             id='hideAltText'
                                                             name='decoration'
                                                             type="checkbox"
                                                             onChange={this.setAltDecoration}
-                                                        >
-                                                        </Input>
-                                                        <FormattedMessage id={'uploaded-image-alt-decoration'}/>
-                                                    </Label>
+                                                        />
+                                                        <label className='custom-control-label' htmlFor='hideAltText'>
+                                                            <FormattedMessage id={'uploaded-image-alt-decoration'}/>
+                                                        </label>
+                                                    </div>
                                                 </div>
                                             </form>
                                         </div>

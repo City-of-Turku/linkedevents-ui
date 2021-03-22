@@ -11,6 +11,7 @@ import {
     HelLabeledCheckboxGroup,
     HelLanguageSelect,
     HelSelect,
+    HelCheckbox,
     HelOffersField,
     NewEvent,
     HelKeywordSelector,
@@ -18,8 +19,8 @@ import {
 import RecurringEvent from 'src/components/RecurringEvent'
 import {Button,Form, FormGroup, Collapse} from 'reactstrap';
 import {mapKeywordSetToForm, mapLanguagesSetToForm} from '../../utils/apiDataMapping'
-import {setEventData, setData} from '../../actions/editor'
-import {get, isNull, pickBy} from 'lodash'
+import {setEventData, setData, clearValue} from '../../actions/editor'
+import {get, isNull, pickBy, merge} from 'lodash'
 import API from '../../api'
 import CONSTANTS from '../../constants'
 import OrganizationSelector from '../HelFormFields/OrganizationSelector';
@@ -32,6 +33,7 @@ import EventMap from '../Map/EventMap';
 import classNames from 'classnames';
 import ImageGallery from '../ImageGallery/ImageGallery';
 import {mockKeywordSets, mockLanguages, mockUser, mockUserEvents} from '__mocks__/mockData';
+import CollapseButton from './CollapseButton/CollapseButton';
 
 
 const testMessages = mapValues(fiMessages, (value, key) => value);
@@ -40,7 +42,7 @@ const {intl} = intlProvider.getChildContext();
 const mockEvent = mockUserEvents[0];
 const {SUPER_EVENT_TYPE_RECURRING, SUPER_EVENT_TYPE_UMBRELLA, VALIDATION_RULES, USER_TYPE} = CONSTANTS
 const dispatch = jest.fn()
-
+jest.mock('../../actions/editor');
 
 describe('FormField', () => {
     const defaultProps = {
@@ -63,11 +65,13 @@ describe('FormField', () => {
                 extlink_facebook: '',
                 extlink_twitter: '',
                 extlink_instagram: '',
+                sub_events: {},
                 audience: {},
                 in_language: {},
                 location: {
                     position: {},
                 },
+                virtualevent_url: '',
                 offers: [],
                 videos: [],
                 start_time: '',
@@ -90,6 +94,7 @@ describe('FormField', () => {
                 location: {},
                 start_time: {},
                 end_time: {},
+                virtualevent_url: {},
             },
             contentLanguages: [
             ],
@@ -104,6 +109,59 @@ describe('FormField', () => {
     function getWrapper(props) {
         return shallow(<FormFields {...defaultProps} {...props} />, {context: {intl, dispatch}});
     }
+
+    describe('methods', () => {
+        describe('toggleEventType', () => {
+            let wrapper;
+            let instance;
+            beforeEach(() => {
+                clearValue.mockClear()
+                wrapper = getWrapper()
+                instance = wrapper.instance()
+            })
+
+            test('when toggleEventType is recurring', () => {
+                instance.toggleEventType({target: {value: 'single'}})
+                clearValue.mockClear()
+                expect(wrapper.state().selectEventType).toBe('')
+                instance.toggleEventType({target: {value: 'recurring'}})
+                expect(clearValue).toHaveBeenCalledWith(['start_time', 'end_time'])
+            })
+            test('when toggleEventType is single', () => {
+                const expectedValue = {sub_events: {}}
+                instance.toggleEventType({target: {value: 'recurring'}})
+                setData.mockClear()
+            
+                expect(wrapper.state().selectEventType).toBe('recurring')
+                instance.toggleEventType({target: {value: 'single'}})
+                expect(setData).toHaveBeenCalledWith(expectedValue)
+                expect(wrapper.state().selectEventType).toBe('')
+            })
+        })
+        describe('addNewEventDialog', () => {
+            let wrapper;
+            let instance;
+            let subEventKeys = Object.keys(defaultProps.editor.values.sub_events)
+            let key = subEventKeys.length > 0 ? Math.max.apply(null, subEventKeys) + 1 : 0
+            const newEventObject = {[key]: {start_time: undefined}}
+            beforeEach(() => {
+                setEventData.mockClear()
+                wrapper = getWrapper()
+                instance = wrapper.instance()
+            })
+            test('called while recurring is false', () => {
+                instance.addNewEventDialog()
+                expect(setEventData).toHaveBeenCalledTimes(1)
+                expect(setEventData).toHaveBeenCalledWith(newEventObject, key)
+            })
+            test('called while recurring is true', () => {
+                instance.addNewEventDialog(true)
+                expect(setEventData).toHaveBeenCalledTimes(2)
+                expect(setEventData).toHaveBeenCalledWith(newEventObject, key)
+            })
+        })
+    })
+    
     describe('render', () => {
 
         describe('components', () => {
@@ -112,7 +170,7 @@ describe('FormField', () => {
                 test('amount of formattedmessages', () => {
                     const wrapper = getWrapper()
                     const messages = wrapper.find(FormattedMessage)
-                    expect(messages).toHaveLength(42)
+                    expect(messages).toHaveLength(38)
                 })
             })
             describe('SideField', () => {
@@ -125,6 +183,11 @@ describe('FormField', () => {
                     Sidefields.forEach((element) => {
                         expect(element.find(FormattedMessage))
                     })
+                })
+                test('first sidefield with correct props', () => {
+                    expect(Sidefields.at(0).prop('label')).toBe('Syöttökielen ohje')
+                    expect(Sidefields.at(0).prop('children')).toEqual(<FormattedMessage id="editor-tip-formlanguages"/>)
+                    
                 })
             })
             describe('MultiLanguageField', () => {
@@ -212,11 +275,20 @@ describe('FormField', () => {
                     expect(infoUrlMulti.prop('forceApplyToStore')).toBe(true)
                 })
             })
+            describe('HelCheckbox', () => {
+                const wrapper = getWrapper()
+                const helcheckbox = wrapper.find(HelCheckbox)
+                test('correct props for is_virtualevent checkbox', () => {
+                    expect(helcheckbox.prop('name')).toBe('is_virtualevent')
+                    expect(helcheckbox.prop('label')).toEqual(<FormattedMessage id='event-location-virtual'/>)
+                    expect(helcheckbox.prop('fieldID')).toBe('is_virtual')
+                })
+            })
             describe('HelTextField', () => {
                 const wrapper = getWrapper()
                 const helfields = wrapper.find(HelTextField)
                 test('amount of heltextfields', () => {
-                    expect(helfields).toHaveLength(3)
+                    expect(helfields).toHaveLength(4)
                 })
                 test('default props for HelTextFields', () => {
                     helfields.forEach((element) => {
@@ -225,8 +297,17 @@ describe('FormField', () => {
                         expect(element.prop('type')).toBe('text')
                     })
                 })
+                test('correct props for virtualevent_url field', () => {
+                    const virtualHelText = helfields.at(0)
+                    expect(virtualHelText.prop('validations')).toEqual([VALIDATION_RULES.IS_URL])
+                    expect(virtualHelText.prop('id')).toBe('event-location-virtual-url')
+                    expect(virtualHelText.prop('name')).toBe('virtualevent_url')
+                    expect(virtualHelText.prop('label')).toBe(defaultProps.intl.formatMessage({id: 'event-location-virtual-url'}))
+                    expect(virtualHelText.prop('validationErrors')).toBe(defaultProps.editor.validationErrors.virtualevent_url)
+                    expect(virtualHelText.prop('defaultValue')).toBe(defaultProps.editor.values.virtualevent_url)
+                })
                 test('correct props for event facebook field', () => {
-                    const faceHelText = helfields.at(0)
+                    const faceHelText = helfields.at(1)
                     expect(faceHelText.prop('validations')).toEqual([VALIDATION_RULES.IS_URL])
                     expect(faceHelText.prop('id')).toBe('extlink_facebook')
                     expect(faceHelText.prop('name')).toBe('extlink_facebook')
@@ -235,7 +316,7 @@ describe('FormField', () => {
                     expect(faceHelText.prop('defaultValue')).toBe(defaultProps.editor.values.extlink_facebook)
                 })
                 test('correct props for event twitter field', () => {
-                    const twitterHelText = helfields.at(1)
+                    const twitterHelText = helfields.at(2)
                     expect(twitterHelText.prop('validations')).toEqual([VALIDATION_RULES.IS_URL])
                     expect(twitterHelText.prop('id')).toBe('extlink_twitter')
                     expect(twitterHelText.prop('name')).toBe('extlink_twitter')
@@ -244,7 +325,7 @@ describe('FormField', () => {
                     expect(twitterHelText.prop('defaultValue')).toBe(defaultProps.editor.values.extlink_twitter)
                 })
                 test('correct props for event instagram field', () => {
-                    const instaHelText = helfields.at(2)
+                    const instaHelText = helfields.at(3)
                     expect(instaHelText.prop('validations')).toEqual([VALIDATION_RULES.IS_URL])
                     expect(instaHelText.prop('id')).toBe('extlink_instagram')
                     expect(instaHelText.prop('name')).toBe('extlink_instagram')
@@ -329,7 +410,7 @@ describe('FormField', () => {
 
             describe('RecurringEvent', () => {
                 const wrapper = getWrapper()
-                wrapper.setState({showRecurringEvent: true})
+                wrapper.setState({showRecurringEvent: true, selectEventType: 'recurring'})
                 const instance = wrapper.instance();
                 const recurring = wrapper.find(RecurringEvent)
                 test('correct props for RecurringEvent', () => {
@@ -417,6 +498,70 @@ describe('FormField', () => {
                     expect(eventmap.prop('mapContainer')).toBe(instance.state.mapContainer)
                 })
             })
+
+            describe('event map button', () => {
+                test('container div', () => {
+                    const container = getWrapper().find('div.map-button-container')
+                    expect(container).toHaveLength(1)
+                })
+
+                test('button with correct default props', () => {
+                    const wrapper = getWrapper()
+                    const instance = wrapper.instance()
+                    const button = wrapper.find('div.map-button-container').find(Button)
+                    expect(button).toHaveLength(1)
+                    expect(button.prop('title')).toBe(null)
+                    expect(button.prop('aria-pressed')).toBe(instance.state.openMapContainer)
+                    expect(button.prop('aria-disabled')).toBe(!defaultProps.editor.values.location.position)
+                    expect(button.prop('id')).toBe('map-button')
+                    expect(button.prop('className')).toBe('btn btn-link')
+                    expect(button.prop('onClick')).toBeDefined()
+                })
+
+                test('button aria-disabled and title props when position is defined', () => {
+                    const wrapper = getWrapper()
+                    const editor = {editor: {values: {location: {position: {type: 'Point'}}}}}
+                    wrapper.setProps(merge(defaultProps, editor))
+                    const button = wrapper.find('div.map-button-container').find(Button)
+                    expect(button).toHaveLength(1)
+                    expect(button.prop('aria-disabled')).toBe(false)
+                    expect(button.prop('title')).toBe(null)
+                })
+
+                test('button aria-disabled and title props when position is not defined', () => {
+                    const wrapper = getWrapper()
+                    const editor = {editor:{values: {location: 'null'}}}
+                    wrapper.setProps(merge(defaultProps, editor))
+                    const button = wrapper.find('div.map-button-container').find(Button)
+                    expect(button).toHaveLength(1)
+                    expect(button.prop('aria-disabled')).toBe(true)
+                    expect(button.prop('title')).toBe(defaultProps.intl.formatMessage({id: 'event-location-button-tooltip'}))
+                })
+
+                test('FormattedMessage', () => {
+                    const message = getWrapper().find('#event-location-button')
+                    expect(message).toHaveLength(1)
+                })
+                
+                test('button icon when state.openMapContainer is true', () => {
+                    const wrapper = getWrapper()
+                    const instance = wrapper.instance()
+                    instance.setState({openMapContainer: true})
+                    const icon = wrapper.find('div.map-button-container').find(Button).find('span')
+                    expect(icon).toHaveLength(1)
+                    expect(icon.prop('className')).toBe('glyphicon glyphicon-triangle-bottom')
+                })
+
+                test('button icon when state.openMapContainer is false', () => {
+                    const wrapper = getWrapper()
+                    const instance = wrapper.instance()
+                    instance.setState({openMapContainer: false})
+                    const icon = wrapper.find('div.map-button-container').find(Button).find('span')
+                    expect(icon).toHaveLength(1)
+                    expect(icon.prop('className')).toBe('glyphicon glyphicon-triangle-top')
+                })
+            })
+
             describe('ImageGallery', () => {
                 const wrapper = getWrapper()
                 const imagegallery = wrapper.find(ImageGallery)
@@ -440,26 +585,48 @@ describe('FormField', () => {
                     expect(collapse.at(5).prop('isOpen')).toBe(instance.state.headerInlanguage)
                 })
             })
-            describe('Buttons for collapses', () => {
+            describe('CollapseButtons', () => { // päivitä
                 const wrapper = getWrapper()
                 const instance = wrapper.instance();
-                const button = wrapper.find(Button).find('.headerbutton')
+                const buttons = wrapper.find(CollapseButton)
                 test('amount of collapse buttons', () => {
-                    expect(button).toHaveLength(6)
+                    expect(buttons).toHaveLength(6)
                 })
                 test('default props for collapse Buttons', () => {
-                    button.forEach((element) => {
-                        expect(element.prop('color')).toBe('collapse')
-                        expect(element.prop('onClick')).toBe(instance.toggleHeader)
+                    buttons.forEach((button) => {
+                        expect(button.prop('toggleHeader')).toBe(instance.toggleHeader)
                     })
                 })
                 test('correct ids for Buttons', () => {
-                    expect(button.at(0).prop('id')).toBe('headerDescription')
-                    expect(button.at(1).prop('id')).toBe('headerImage')
-                    expect(button.at(2).prop('id')).toBe('headerCategories')
-                    expect(button.at(3).prop('id')).toBe('headerPrices')
-                    expect(button.at(4).prop('id')).toBe('headerSocials')
-                    expect(button.at(5).prop('id')).toBe('headerInlanguage')
+                    expect(buttons.at(0).prop('id')).toBe('headerDescription')
+                    expect(buttons.at(1).prop('id')).toBe('headerImage')
+                    expect(buttons.at(2).prop('id')).toBe('headerCategories')
+                    expect(buttons.at(3).prop('id')).toBe('headerPrices')
+                    expect(buttons.at(4).prop('id')).toBe('headerSocials')
+                    expect(buttons.at(5).prop('id')).toBe('headerInlanguage')
+                })
+            })
+            describe('event type radios', () => {
+                const wrapper = getWrapper()
+                const instance = wrapper.instance();
+                const radios = wrapper.find('input')
+                test('correct amount of radios', () => {
+                    expect(radios).toHaveLength(2)
+                })
+                test('default prop for radio buttons', () => {
+                    radios.forEach((radio) => {
+                        expect(radio.prop('onChange')).toBe(instance.toggleEventType)
+                        expect(radio.prop('name')).toBe('radiogroup')
+                        expect(radio.prop('type')).toBe('radio')
+                        expect(radio.prop('className')).toBe('custom-control-input')
+                    })
+                })
+                test('default props for radio buttons', () => {
+                    expect(radios.at(0).prop('id')).toBe('single')
+                    expect(radios.at(1).prop('id')).toBe('recurring')
+                    expect(radios.at(0).prop('value')).toBe('single')
+                    expect(radios.at(1).prop('value')).toBe('recurring')
+                    expect(radios.at(0).prop('checked')).toBe(true)
                 })
             })
         })

@@ -61,7 +61,6 @@ const SearchBar = ({intl, onFormSubmit}) => {
                     </FormGroup>
                 </Form>
                 <Button
-                    disabled={searchQuery.length === 0}
                     variant='contained'
                     color='primary'
                     onClick={() => onFormSubmit(searchQuery, startDate, endDate)}>

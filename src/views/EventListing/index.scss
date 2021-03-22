@@ -1,35 +1,21 @@
 .event-settings {
-    display: flex;
-    flex-direction: row;
     margin: 20px 0px 10px 0px;
     .user-events-toggle{
         label{
             margin-bottom: 2rem;
-        }
-        .form-check-input{
-            position:relative;
-            margin-left: 0.5rem;
-    
         }
     }
     .radios {
         display: flex;
         flex-direction: column;
         justify-content: space-around;
-        width: 100%;
-        label {
-            margin: 0px;
-        }
         .row {
             margin: 0px;
         }
         .col-sm-12 {
             display: flex;
             justify-content: space-between;
-            padding-left: 0px;
-            input {
-                margin-left: 5px;
-            }
+            padding-left: 0;
         }
     }
 }

@@ -6,7 +6,7 @@ import {doValidations} from 'src/validation/validator';
 import getContentLanguages from 'src/utils/language';
 import {mapAPIDataToUIFormat} from 'src/utils/formDataMapping';
 import {connect} from 'react-redux';
-import {push} from 'react-router-redux';
+import {push} from 'connected-react-router';
 import constants from 'src/constants';
 import classNames from 'classnames';
 

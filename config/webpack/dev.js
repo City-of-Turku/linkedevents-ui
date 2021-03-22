@@ -1,7 +1,6 @@
 import path from 'path';
 import common from './common.js';
 import webpack from 'webpack';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
 import {readConfig} from '../appConfig';
 import assetPath from '../assetPath';
 const publicUrl = readConfig('publicUrl')
@@ -10,8 +9,8 @@ const ui_mode = readConfig('ui_mode')
 export default {
     context: path.join(common.paths.ROOT, '/src'),
     entry: [
+        'core-js/stable/object/assign',
         'webpack-hot-middleware/client?reload=true',
-        'babel-polyfill',
         path.join(common.paths.SRC, '/index.js'),
     ],
     output: {

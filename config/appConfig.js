@@ -5,7 +5,7 @@ const paths = require('./webpack/common').paths;
 
 
 // Config-keys used by server
-const serverConfigKeys = ['port', 'publicUrl', 'helsinkiAuthId', 'helsinkiAuthSecret', 'helsinkiTargetApp', 'sessionSecret'];
+const serverConfigKeys = ['port', 'publicUrl', 'sessionSecret'];
 // Config-keys used for pug template
 const templateConfigKeys = ['LE_PRODUCTION_INSTANCE', 'APP_MODE'];
 // React-app config-keys

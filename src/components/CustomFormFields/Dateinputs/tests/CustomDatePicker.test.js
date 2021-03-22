@@ -69,7 +69,7 @@ describe('CustomDatePicker', () => {
                 expect(input.prop('onBlur')).toBe(instance.handleInputBlur)
                 expect(input.prop('aria-describedby')).toBe(undefined)
                 expect(input.prop('disabled')).toBe(defaultProps.disabled)
-                expect(input.prop('required')).toBe(false)
+                expect(input.prop('aria-required')).toBe(false)
             })
 
             test('prop value is not empty when state.inputValue is defined', () => {
@@ -395,7 +395,7 @@ describe('CustomDatePicker', () => {
             
             describe('calls validateDate if state.inputValue is defined', () => {
                 test('with correct params when inputValue is not valid', () => {
-                    const wrapper = mount(<CustomDatePicker {...defaultProps} />, {context: {intl}});
+                    const wrapper = shallow(<CustomDatePicker {...defaultProps} />, {context: {intl}});
                     const instance = wrapper.instance()
                     instance.state.inputValue = '123'
                     const minDate = moment('2020-03-23')
@@ -407,7 +407,7 @@ describe('CustomDatePicker', () => {
                 })
 
                 test('with correct params when inputValue is valid', () => {
-                    const wrapper = mount(<CustomDatePicker {...defaultProps} />, {context: {intl}});
+                    const wrapper = shallow(<CustomDatePicker {...defaultProps} />, {context: {intl}});
                     const instance = wrapper.instance()
                     instance.state.inputValue = '20.5.2020'
                     const minDate = moment('2020-03-23')
@@ -420,7 +420,7 @@ describe('CustomDatePicker', () => {
             })
 
             test('doesnt call validateDate if state.inputValue is not defined', () => {
-                const wrapper = mount(<CustomDatePicker {...defaultProps} />, {context: {intl}});
+                const wrapper = shallow(<CustomDatePicker {...defaultProps} />, {context: {intl}});
                 const minDate = moment('2020-03-23')
                 wrapper.setProps({minDate})
                 expect(spy).toHaveBeenCalledTimes(0);

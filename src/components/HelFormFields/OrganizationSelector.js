@@ -54,7 +54,7 @@ const OrganizationSelector = ({formType, selectedOption, options, onChange}) => 
 
 OrganizationSelector.propTypes = {
     options: PropTypes.arrayOf(PropTypes.object),
-    formType: PropTypes.oneOf(['update', 'create']),
+    formType: PropTypes.oneOf(['update', 'create', 'add']),
     selectedOption: PropTypes.object,
     onChange: PropTypes.func,   
 }

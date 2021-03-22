@@ -109,38 +109,21 @@ legend {
     font-weight: 300;
 }
 
-.checked-value {
-    align-items: center;
-    display: flex;
-    font-size: 22px;
-    font-weight: 300;
-
-    label {
-        margin: 0 0 0 1rem;
-
-        &:first-letter {
-            text-transform: capitalize;
-        }
-    }
-}
-
 .green {
     color: darken(#28e7b3, 24%);
 }
 
 .option-group {
     padding: $default-margin-top 0;
-
     label {
-        font-size: 22px;
+        font-size: 	1.375rem;
         font-weight: 300;
+        text-transform: capitalize;
     }
-
-    .checked-value {
-        margin-top: 8px;
-
+    .custom-control {
         label {
-            font-size: 20px;
+            font-size: 1.25rem;
+            padding-top: 0.2rem;
         }
     }
 }
@@ -163,27 +146,5 @@ legend {
         &:not(:first-of-type) {
             margin-top: 3rem;
         }
-    }
-}
-.event-details {
-    input[type="checkbox"] {
-        -webkit-appearance: none;
-        appearance: none;
-    }
-    input[type="checkbox"]::before {
-        position: absolute;
-        font-size: 1.2em;
-        right: -1px;
-        top: -0.3em;
-        visibility: hidden;
-    }
-    input[type="checkbox"]:checked::before {
-        /* Use `visibility` instead of `display` to avoid recalculating layout */
-        visibility: visible;
-    }
-    input[type="checkbox"]:disabled {
-        border-color: black;
-        background: #ddd;
-        color: gray;
     }
 }

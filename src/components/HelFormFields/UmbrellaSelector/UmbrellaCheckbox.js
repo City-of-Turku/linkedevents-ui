@@ -11,17 +11,17 @@ const UmbrellaCheckbox = props => {
 
     return (
         <Fragment>
-            <div className='UmbrellaCheckbox'>
-                <label htmlFor={`${name}_label`} className='UmbrellaCheckbox'>
-                    <input
-                        id={`${name}_label`}
-                        className='UmbrellaCheckbox'
-                        type='checkbox'
-                        name={name}
-                        onChange={handleCheck}
-                        checked={checked}
-                        disabled={disabled}
-                    />{props.children}
+            <div className='custom-control custom-checkbox'>
+                <input
+                    id={`${name}_label`}
+                    className='custom-control-input'
+                    type='checkbox'
+                    name={name}
+                    onChange={handleCheck}
+                    checked={checked}
+                    disabled={disabled}
+                />
+                <label htmlFor={`${name}_label`} className='custom-control-label'>{props.children}
                 </label>
             </div>
             {disabled &&

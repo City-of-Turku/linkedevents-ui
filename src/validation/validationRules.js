@@ -264,6 +264,12 @@ var validations = {
     isMoreThanOne: function isMoreThanOne(values, value) {
         return value > 0 ? true : false
     },
+    isMoreThanTwo: function isMoreThanTwo(values, value) {
+        return Object.keys(value).length >= 2
+    },
+    isMoreThanSixtyFive: function isMoreThanSixtyFive(values, value) {
+        return Object.keys(value).length <= 65
+    },
     daysWithinInterval: function daysWithinInterval(values, value) {
         if (!(value < 6)) { return true }
         const {start_day_index, end_day_index, daysSelected} = values

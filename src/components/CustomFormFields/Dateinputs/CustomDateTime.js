@@ -34,6 +34,8 @@ class CustomDateTime extends React.Component {
         this.handleDateTimePickerChange = this.handleDateTimePickerChange.bind(this)
         this.handleDataUpdate = this.handleDataUpdate.bind(this)
         this.validateDate = this.validateDate.bind(this)
+
+        this.firstInput = React.createRef()
     }
     
     static contextTypes = {
@@ -112,6 +114,12 @@ class CustomDateTime extends React.Component {
         return true
     }
 
+    componentDidMount(){
+        if(this.props.setInitialFocus){
+            this.firstInput.current.focus()
+        }
+    }
+
     componentDidUpdate(prevProps) {
         // Update validation if min or max date changes and dateInputValue and timeInputValue are not empty
         const {minDate, maxDate} = this.props
@@ -121,6 +129,12 @@ class CustomDateTime extends React.Component {
                 const datetimeString = `${this.state.dateInputValue} ${this.state.timeInputValue}`
                 this.validateDate(moment(datetimeString, getDateFormat('date-time'), true), minDate)
             }
+        }
+        if (prevProps.defaultValue !== this.props.defaultValue) {
+            this.setState({
+                dateInputValue: this.props.defaultValue ? convertDateToLocaleString(this.props.defaultValue, 'date') : '',
+                timeInputValue: this.props.defaultValue ? convertDateToLocaleString(this.props.defaultValue, 'time') : '',
+            })
         }
     }
 
@@ -139,6 +153,7 @@ class CustomDateTime extends React.Component {
                         <Label for={dateFieldId}>{getCorrectInputLabel(labelDate)}{required ? '*' : ''}</Label>
                         <div className="input-and-button"  ref={ref => this.containerRef = ref}>
                             <DatePicker
+                                id={dateFieldId + '-button'}
                                 disabled={disabled}
                                 onChange={(value) => this.handleDateTimePickerChange(value, 'date')}
                                 customInput={<DatePickerButton type={'date'} intl={intl} disabled={disabled} />}
@@ -166,7 +181,8 @@ class CustomDateTime extends React.Component {
                                 onChange={this.handleInputChangeDate}
                                 onBlur={this.handleInputBlur}
                                 disabled={disabled}
-                                required={required}
+                                aria-required={required}
+                                innerRef={this.firstInput}
                             />
                             <ValidationPopover
                                 anchor={this.containerRef}
@@ -179,6 +195,7 @@ class CustomDateTime extends React.Component {
                         <Label for={timeFieldId}>{getCorrectInputLabel(labelTime)}{required ? '*' : ''}</Label>
                         <div className="input-and-button"  ref={ref => this.containerRef = ref}>
                             <DatePicker
+                                id={timeFieldId + '-button'}
                                 disabled={disabled}
                                 onChange={(value) => this.handleDateTimePickerChange(value, 'time')}
                                 customInput={<DatePickerButton type={'time'} intl={intl} disabled={disabled} />}
@@ -208,7 +225,7 @@ class CustomDateTime extends React.Component {
                                 onChange={this.handleInputChangeTime}
                                 onBlur={this.handleInputBlur}
                                 disabled={disabled}
-                                required={required}
+                                aria-required={required}
                             />
                             <ValidationPopover
                                 anchor={this.containerRef}
@@ -242,6 +259,7 @@ CustomDateTime.propTypes = {
     required: PropTypes.bool,
     setDirtyState: PropTypes.func,
     setData: PropTypes.func,
+    setInitialFocus: PropTypes.bool,
     updateSubEvent: PropTypes.func,
     eventKey: PropTypes.string,
     intl: PropTypes.object,

@@ -232,7 +232,7 @@ export class EventListing extends React.Component {
         const publisher = userType === USER_TYPE.ADMIN && !showCreatedByUser
             ? getOrganizationMembershipIds(user)
             : null
-        const useCreatedBy = userType === USER_TYPE.REGULAR || showCreatedByUser
+        const useCreatedBy = userType === USER_TYPE.REGULAR && USER_TYPE.PUBLIC || showCreatedByUser
 
         const queryParams = new EventQueryParams()
         queryParams.super_event = 'none'
@@ -243,6 +243,11 @@ export class EventListing extends React.Component {
         queryParams.show_all = userType === USER_TYPE.REGULAR ? true : null
         queryParams.admin_user = userType === USER_TYPE.ADMIN ? true : null
         queryParams.created_by = useCreatedBy ? 'me' : null
+        if (user.userType === 'public') {
+            queryParams.created_by = 'me'
+        } else {
+            queryParams.created_by = useCreatedBy ? 'me' : null
+        }
         if (this.state.showContentLanguage) {
             queryParams.language = this.state.showContentLanguage
         }
@@ -276,6 +281,7 @@ export class EventListing extends React.Component {
         // Defined React Helmet title with intl
         const pageTitle = `Linkedevents - ${intl.formatMessage({id: `${appSettings.ui_mode}-management`})}`
         const isRegularUser = get(user, 'userType') === USER_TYPE.REGULAR
+        const isPublicUser = get(user, 'userType') === USER_TYPE.PUBLIC
 
         if (!user) {
             return (
@@ -283,9 +289,9 @@ export class EventListing extends React.Component {
                     <Helmet title={pageTitle}/>
                     {header}
                     <p>
-                        <a className='underline' rel='external' style={{cursor: 'pointer'}} onClick={this.handleLoginClick}>
+                        <button className='btn-link underline' rel='external' role='link' onClick={this.handleLoginClick}>
                             <FormattedMessage id="login" />
-                        </a>{' '}
+                        </button>
                         <FormattedMessage id="events-management-prompt" /></p>
                 </div>);
         }
@@ -293,73 +299,100 @@ export class EventListing extends React.Component {
             <div className="container">
                 <Helmet title={pageTitle} />
                 {header}
-                <p>
-                    {isRegularUser
-                        ? <FormattedMessage id="events-management-description-regular-user"/>
-                        : <FormattedMessage id="events-management-description"/>
-                    }
-                </p>
+                {isPublicUser 
+                    ?
+                    <p>
+                        <FormattedMessage id="events-management-description-public-user"/>
+                    </p>
+                    :
+                    <p>
+                        {isRegularUser
+                            ? <FormattedMessage id="events-management-description-regular-user"/>
+                            : <FormattedMessage id="events-management-description"/>
+                        }
+                    </p>
+                }
                 {!isRegularUser &&
                 <div className='row event-settings'>
+                    {!isPublicUser &&
                     <div className='col-sm-6'>
-                        <div className='user-events-toggle'>
-                            <Input
+                        <div className='custom-control custom-checkbox user-events-toggle'>
+                            <input
+                                className='custom-control-input'
                                 id='user-events-toggle'
                                 type='checkbox'
                                 color="primary"
                                 onChange={this.toggleUserEvents}
                                 checked={showCreatedByUser}
                             />
-                            <Label htmlFor='user-events-toggle'>
-                                {<FormattedMessage id={'user-events-toggle'} />}</Label>
+                            <label className='custom-control-label' htmlFor='user-events-toggle'>
+                                {<FormattedMessage id={'user-events-toggle'} />}
+                            </label>
                         </div>
                     </div>
+                    }
                     <div className='col-sm-6 radios'>
                         <div className='row'>
-                            <Label><FormattedMessage id='filter-event-languages'/></Label>
+                            <FormattedMessage id='filter-event-languages'/>
                         </div>
                         <div className='row'>
                             <div className='col-sm-12'>
-                                <Label>
-                                    <FormattedMessage id='filter-event-all'/>
-                                    <Input
+                                <div className='custom-control custom-radio'>
+                                    <input
+                                        className='custom-control-input'
+                                        id='all'
                                         name='radiogroup'
                                         type='radio'
                                         value='all'
                                         onChange={this.toggleEventLanguages}
                                         defaultChecked
                                     />
-                                </Label>
-                                <Label>
-                                    <div className='filter-desktop'><FormattedMessage id='filter-event-fi'/></div>
-                                    <div className='filter-mobile'><FormattedMessage id='filter-event-fi-mobile'/></div>
-                                    <Input
+                                    <label className='custom-control-label' htmlFor='all'>
+                                        <FormattedMessage id='filter-event-all'/>
+                                    </label>
+                                </div>
+                                <div className='custom-control custom-radio'>
+                                    <input
+                                        className='custom-control-input'
+                                        id='fi'
                                         name='radiogroup'
                                         type='radio'
                                         value='fi'
                                         onChange={this.toggleEventLanguages}
                                     />
-                                </Label>
-                                <Label>
-                                    <div className='filter-desktop'><FormattedMessage id='filter-event-sv'/></div>
-                                    <div className='filter-mobile'><FormattedMessage id='filter-event-sv-mobile'/></div>
-                                    <Input
+                                    <label className='custom-control-label' htmlFor='fi'>
+                                        <div className='filter-desktop'><FormattedMessage id='filter-event-fi'/></div>
+                                        <div className='filter-mobile'><FormattedMessage id='filter-event-fi-mobile'/></div>
+                                    </label>
+                                </div>
+                                <div className='custom-control custom-radio'>
+                                    <input
+                                        className='custom-control-input'
+                                        id='sv'
                                         name='radiogroup'
                                         type='radio'
                                         value='sv'
                                         onChange={this.toggleEventLanguages}
                                     />
-                                </Label>
-                                <Label>
-                                    <div className='filter-desktop'><FormattedMessage id='filter-event-en'/></div>
-                                    <div className='filter-mobile'><FormattedMessage id='filter-event-en-mobile'/></div>
-                                    <Input
+                                    <label className='custom-control-label' htmlFor='sv'>
+                                        <div className='filter-desktop'><FormattedMessage id='filter-event-sv'/></div>
+                                        <div className='filter-mobile'><FormattedMessage id='filter-event-sv-mobile'/></div>
+                                    </label>
+                                </div>
+                                <div className='custom-control custom-radio'>
+                                    <input
+                                        className='custom-control-input'
+                                        id='en'
                                         name='radiogroup'
                                         type='radio'
                                         value='en'
                                         onChange={this.toggleEventLanguages}
                                     />
-                                </Label>
+                                    <label className='custom-control-label' htmlFor='en'>
+                                        <div className='filter-desktop'><FormattedMessage id='filter-event-en'/></div>
+                                        <div className='filter-mobile'><FormattedMessage id='filter-event-en-mobile'/></div>
+                                    </label>
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Input} from 'reactstrap';
 import {getEventName} from 'src/utils/events';
 
 class CheckBoxCell extends React.Component {
@@ -24,9 +23,9 @@ class CheckBoxCell extends React.Component {
         const locale = this.context.intl.locale;
         return (
             <td className='checkbox'>
-                <label htmlFor={event.id}>
-                    <p className='hidden' aria-hidden='true'>.</p>
-                    <Input
+                <div className='custom-control custom-checkbox'>
+                    <input
+                        className='custom-control-input'
                         aria-label={this.context.intl.formatMessage({id: 'table-events-checkbox'}, {name: getEventName(event, locale)})}
                         id={event.id}
                         checked={checked}
@@ -34,7 +33,12 @@ class CheckBoxCell extends React.Component {
                         invalid={disabled}
                         onChange={this.handleRowSelection}
                     />
-                </label>
+                    <label className='custom-control-label' htmlFor={event.id}>
+                        <span className='hidden'>
+                            {this.context.intl.formatMessage({id: 'table-events-checkbox'}, {name: getEventName(event, locale)})}
+                        </span>
+                    </label>
+                </div>
             </td>
         );
     }

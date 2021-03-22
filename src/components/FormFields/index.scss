@@ -53,6 +53,20 @@ textarea {
         top: 65px;
     }
 }
+.radio-row {
+    .typetip {
+        background: var(--light-color);
+        border: 2px solid var(--secondinfo-color);
+        color: var(--dark-color);
+        width: 100%;
+        margin-top: 0px;
+        padding: 10px;
+        text-align: center;
+    }
+    @media (min-width: 320px) and (max-width: 480px) {
+        padding-left: 16px;
+    }
+}
 .row-header {
     width: 100%;
     text-align: start;
@@ -68,16 +82,9 @@ textarea {
 .row-mainheader {
     width: 100%;
     text-align: start;
-    border-top: none;
-    border-right: none;
-    border-left: none;
-    border-bottom: solid var(--light-color);
+    margin-top: 0 !important;
     padding: 0.375rem 0.75rem;
     background-color: var(--main-color);
-    margin-top: 4rem !important;
-    @media (min-width: 320px) and (max-width: 768px) {
-        margin-top: 2rem !important;
-    }
     h1 {
         color: var(--light-color);
         font-weight: bold;
@@ -85,6 +92,17 @@ textarea {
         margin-bottom: 25px;
     }
 }
+.row-loginwarning {
+    width: 100%;
+    @media (min-width: 320px) and (max-width: 768px) {
+        margin-top: 2rem !important;
+    }
+    .alert {
+        margin-bottom: 0;
+        border-radius: 0;
+    }
+}
+
 .date-row,
 .description-row,
 .offers-row,
@@ -212,6 +230,12 @@ textarea {
         position: relative;
         z-index: 1;
     }
+    .custom-control {
+    &-label {
+            font-size: 1.2em;
+            padding-top: 0px;
+    }
+}
     .map-button-container {
         display: block;
         text-align: right;
@@ -262,28 +286,28 @@ textarea {
     .show {
         background-color: white;
     }
-.headerbutton {
-    width: 100%;
-    font-size: inherit;
-    font-weight: bold;
-    text-align: start;
-    border-bottom: solid;
-    white-space: normal;
-    span {
-        pointer-events: none;
-    }
-    .glyphicon {
-        float: right;
-    }
-    &.error {
-        border-bottom-color: red;
-    }
-    @media (min-width: 320px) and (max-width: 768px) {
-        display: grid;
+    .headerbutton {
+        width: 100%;
+        font-size: inherit;
+        font-weight: bold;
+        text-align: start;
+        border-bottom: solid;
+        white-space: normal;
         span {
-            text-align: center;
+            pointer-events: none;
         }
-    }
+        .glyphicon {
+            float: right;
+        }
+        &.error {
+            border-bottom-color: red;
+        }
+        @media (min-width: 320px) and (max-width: 768px) {
+            display: grid;
+            span {
+                text-align: center;
+            }
+        }
     }
 }
 

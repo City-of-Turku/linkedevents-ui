@@ -2,7 +2,7 @@ import constants from '../constants.js'
 import {set, get} from 'lodash'
 import {setEditorAuthFlashMsg} from './editor'
 import client from '../api/client'
-import {getAdminOrganizations, getRegularOrganizations} from '../utils/user'
+import {getAdminOrganizations, getRegularOrganizations, getPublicOrganizations} from '../utils/user'
 
 const {RECEIVE_USERDATA, CLEAR_USERDATA, USER_TYPE} = constants
 
@@ -28,6 +28,9 @@ const getUserType = (permissions) => {
     if (permissions.includes(USER_TYPE.REGULAR)) {
         return USER_TYPE.REGULAR
     }
+    if (permissions.includes(USER_TYPE.PUBLIC)) {
+        return USER_TYPE.PUBLIC
+    }
 }
 
 // Handles getting user data from backend api with given id.
@@ -45,6 +48,9 @@ export const fetchUser = (id) => async (dispatch) => {
         if (get(userData, 'organization_memberships', []).length > 0) {
             permissions.push(USER_TYPE.REGULAR)
         }
+        if (get(userData, 'public_memberships', []).length > 0) {
+            permissions.push(USER_TYPE.PUBLIC)
+        }
 
         // add all desired user data in an object which will be stored into redux store
         const mergedUser = {
@@ -57,17 +63,22 @@ export const fetchUser = (id) => async (dispatch) => {
             organization: get(userData, 'organization', null),
             adminOrganizations: get(userData, 'admin_organizations', null),
             organizationMemberships: get(userData, 'organization_memberships', null),
+            publicMemberships: get(userData, 'public_memberships', null),
             permissions,
             userType: getUserType(permissions),
         }
         
         const adminOrganizations = await Promise.all(getAdminOrganizations(mergedUser))
         const regularOrganizations = await Promise.all(getRegularOrganizations(mergedUser))
+        const publicOrganizations = await Promise.all(getPublicOrganizations(mergedUser))
         // store data of all the organizations that the user is admin in
         mergedUser.adminOrganizationData = adminOrganizations
             .reduce((acc, organization) => set(acc, `${organization.data.id}`, organization.data), {})
         // store data of all the organizations where the user is a regular user
         mergedUser.regularOrganizationData = regularOrganizations
+            .reduce((acc, organization) => set(acc, `${organization.data.id}`, organization.data), {})
+        // store data of all the organizations where the user is public user
+        mergedUser.publicOrganizationData = publicOrganizations
             .reduce((acc, organization) => set(acc, `${organization.data.id}`, organization.data), {})
         // get organizations with regular users
         mergedUser.organizationsWithRegularUsers = adminOrganizations

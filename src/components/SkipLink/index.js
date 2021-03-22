@@ -19,7 +19,9 @@ class SkipLink extends React.Component {
         );
     }
 }
+
 SkipLink.contextTypes = {
     intl: PropTypes.object,
-}
+};
+
 export default SkipLink;

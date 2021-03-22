@@ -1,5 +1,5 @@
 const appConfig = require('../config/appConfig');
-const configKeys = ['port', 'publicUrl', 'helsinkiAuthId', 'helsinkiAuthSecret', 'helsinkiTargetApp', 'sessionSecret'];
+const configKeys = ['port', 'publicUrl', 'sessionSecret'];
 
 appConfig.ensureConfigExists(configKeys);
 

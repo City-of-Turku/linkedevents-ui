@@ -1,4 +1,5 @@
 {
+    "user": "Käyttäjä, ",
     "login": "Kirjaudu sisään",
     "logout": "Kirjaudu ulos",
     "linked-events": "Linked Events",
@@ -20,6 +21,7 @@
 	"create-admin-draft-events": "Tallenna luonnoksena",
     "create-events": "Lisää uusi tapahtuma",
     "edit-events": "Muokkaa tapahtumaa",
+    "add-events": "Lisää sarjaan tapahtuma",
     "update-events": "Tallenna",
     "delete-events": "Poista tapahtuma",
     "cancel-events": "Peruuta tapahtuma",
@@ -76,7 +78,7 @@
     "clear-form": "Tyhjennä kentät",
     "validate-form": "Tarkista puuttuvat tiedot",
 
-    "event-presented-in-languages": "Tapahtumatiedot syötetään",
+    "event-presented-in-languages": "Tapahtuman syöttökielet",
 
     "in-fi": "suomeksi",
     "in-en": "englanniksi",
@@ -87,15 +89,15 @@
 
     "no-value": "-kenttää ei ole täytetty.",
 
-    "event-picture-header": "Tapahtuman kuva",
-    "event-description-fields-header": "Tapahtuman kuvaus",
-    "event-category-header": "Tapahtuman luokittelu ja kohderyhmät*",
-    "event-price-header": "Tapahtuman hintatiedot",
-    "event-social-header": "Tapahtuman kanavat",
+    "event-picture-header": "Määritä kuva",
+    "event-description-fields-header": "Syötä kuvaukset",
+    "event-category-header": "Luokittele ja määritä kohderyhmät*",
+    "event-price-header": "Syötä hintatiedot",
+    "event-social-header": "Määritä sosiaaliset mediat",
 
     "event-add-newInfo": "Täytä tapahtuman tiedot",
     "event-headline": "Otsikko",
-    "event-name-shortdescription": "Tapahtuman nimi ja lyhyt kuvaus",
+    "event-name-shortdescription": "Syötä otsikko ja lyhyt kuvaus",
     "event-short-description": "Lyhyt kuvaus",
     "event-description": "Kuvaus",
     "event-info-url": "Kotisivu",
@@ -103,11 +105,13 @@
     "event-provider-input": "Tapahtuman järjestäjä (jos eri kuin julkaisija)",
     "event-publisher": "Tapahtuman julkaisija",
     "event-publisher-info": "Julkaisija: {publisher}",
+    "event-isvirtual": "Tämä tapahtuma on virtuaalinen",
 
     "events-management": "Tapahtumien hallinta",
     "events-management-prompt": "muokataksesi tapahtumia.",
     "events-management-description": "Selaa ja muokkaa oman organisaatiosi julkaistuja tapahtumia.",
     "events-management-description-regular-user": "Selaa ja muokkaa omia luonnoksiasi ja selaa julkaistuja tapahtumiasi. Julkaistuja tapahtumia ei voi muokata.",
+    "events-management-description-public-user": "Selaa ja muokkaa julkaisemiasi tapahtumia.",
     "events-management-no-results": "Yhtäkään muokattavaa tapahtumaa ei löytynyt.",
 
     "event-image": "Tapahtuman kuva (klikkaa vaihtaaksesi)",
@@ -133,18 +137,25 @@
     "use-existing-image": "Käytä järjestelmässä olemassaolevaa kuvaa",
     "no-image": "Tapahtumalla ei ole kuvaa",
 
-    "event-datetime-fields-header": "Tapahtuman ajankohdat",
+    "event-datetime-fields-header": "Määritä ajankohdat",
+    "event-starting": "Tapahtuma alkaa",
     "event-starting-datetime": "Tapahtuma alkaa (pp.kk.vvvv tt.mm)",
     "event-starting-datelabel": "Tapahtuma alkaa (pp.kk.vvvv)",
     "event-starting-timelabel": "Alkuaika (tt.mm)",
+    "event-ending": "Tapahtuma päättyy",
     "event-ending-datetime": "Tapahtuma päättyy (pp.kk.vvvv tt.mm)",
     "event-ending-datelabel": "Tapahtuma päättyy (pp.kk.vvvv)",
     "event-ending-timelabel": "Loppuaika (tt.mm)",
     "event-add-new-occasion": "Lisää uusi ajankohta",
     "event-add-recurring": "Toistuva tapahtuma",
-    "event-delete-recurring": "Poista tämä tapahtumakerta",
+    "event-type-single": "Yksittäinen tapahtuma",
+    "event-type-recurring": "Sarjatapahtuma",
+    "event-delete-recurring": "Poista edeltävä ajankohta",
+    "event-sub-count": "Tapahtuma {count}",
     "event-add-price": "Lisää uusi hintatieto",
     "event-add-price-limit": "Hintatietoja voi olla enintään {count} kappaletta.",
+    "event-add-recurring-limit": "Toistuvia ajankohtia voi olla {count} kappaletta, olet lisäämässä {subEventcount} kappaletta.",
+    "event-add-recurring-error": "Vähennä toistuvien tapahtumien määrää, sallittu määrä on {count} kappaletta, olet lisäämässä {subEventcount} kappaletta.",
     "date": "Päivämäärä",
     "time": "Aika",
     "monday": "maanantai",
@@ -163,8 +174,10 @@
     "repetition-start-time": "Tapahtumien alkuaika (tt.mm)",
     "repetition-end-time": "Tapahtumien loppuaika (tt.mm)",
 
-    "event-location-fields-header": "Tapahtumapaikka",
+    "event-location-fields-header": "Valitse paikka",
     "event-location": "Paikka",
+    "event-location-virtual": "Virtuaalitapahtuma",
+    "event-location-virtual-url": "Linkki virtuaaliseen tapahtumaan",
     "event-location-id": "Paikan ID",
     "event-location-additional-info": "Paikan lisätiedot",
     "event-location-button": "Näytä kartalla",
@@ -184,13 +197,13 @@
     "event-video-alt_text": "Alt-teksti",
     "event-video-add": "Lisää uusi video",
 
-    "event-social-media-fields-header": "Tapahtuma sosiaalisessa mediassa",
-    "facebook-url": "Facebook (url)",
-    "twitter-url": "Twitter (url)",
-    "instagram-url": "Instagram (url)",
+    "event-social-media-fields-header": "Tapahtuman kanavat",
+    "facebook-url": "Facebook (URL)",
+    "twitter-url": "Twitter (URL)",
+    "instagram-url": "Instagram (URL)",
 
-    "event-categorization": "Tapahtuman luokittelu",
-    "event-keywords": "Lisää muita asiasanoja",
+    "event-categorization": "Määritä luokat",
+    "event-keywords": "Lisää asiasanoja",
     "event-keywords-delete": "Poista asiasana",
 
     "event-umbrella": "Kattotapahtumat",
@@ -200,7 +213,7 @@
     "event-has-umbrella-tooltip": "Kattotapahtumalla ei voi olla kattotapahtumaa.",
     "event-has-umbrella-select-tip": "Huom. Kattotapahtuma täytyy luoda ennen kuin voit lisätä sille alatapahtumia.",
 
-    "hel-event-languages": "Tapahtuman kielet",
+    "hel-event-languages": "Käytetyt kielet",
 
     "audience-age-restrictions": "Ikärajoitukset",
     "audience-min-age": "Alaikäraja",
@@ -238,6 +251,8 @@
     "validation-offerIsFreeOrHasPrice": "Maksullinen tapahtuma vaatii hinnan kaikilla valituilla kielillä",
     "validation-atLeastOneIsTrue": "Valitse vähintään yksi toistopäivä",
     "validation-isMoreThanOne": "Toistovälin tulee olla vähintään 1 viikko",
+    "validation-isMoreThanTwo": "Sarjan tulee sisältää vähintään 2 alitapahtumaa",
+    "validation-isMoreThanSixtyFive": "Sarjassa voi olla maksimissaan 65 alitapahtumaa",
     "validation-daysWithinInterval": "Yksi tai useampi valituista päivistä ei esiinny toistovälillä",
     "validation-hasPrice": "Hintatietoja puuttuu",
     "validation-requiredVideoField": "Tämä kenttä vaaditaan",
@@ -287,7 +302,7 @@
 
     "hel-target-groups": "Kohderyhmät",
     "additional-keywords": "Muut avainsanat",
-    "main-categories": "Pääkategoriat",
+    "main-categories": "Luokittelu",
 
     "editor-publish-draft-warning": "HUOM. Tämä toiminto julkaisee tapahtuman Internetiin. Tapahtumaehdotuksen alkuperäinen tekijä ei voi enää muokata tapahtumaa.",
     "editor-publish-draft-extra-warning": "Seuraavat tapahtumat julkaistaan:",
@@ -314,8 +329,11 @@
     "editor-sentinel-alert": "Voit katsella lomaketta, mutta sinulla ei ole oikeuksia julkaista tai muokata tapahtumia. Et ole kirjautunut sisään tai kirjautumisesi on vanhentunut.",
     "editor-authorization-required": "Jos haluat julkaista tapahtuman, kirjaudu ensin sisään.",
 
+    "editor-tip-time-start": "Kirjoita tapahtuman alkamispäivä ja alkamisaika.",
     "editor-tip-time-start-end": "Kirjoita tapahtuman alkua ja loppua varten päivämäärät ja kellonajat.",
-    "editor-tip-time-multi": "Jos tapahtuma järjestetään useamman kerran, voit lisätä tapahtumalle uusia ajankohtia. Jos tapahtuma toistuu säännöllisesti, voit lisätä kaikki ajankohdat kerralla valitsemalla \"Toistuva tapahtuma\". Tapahtumakertoja voi olla enintään 65.",
+    "editor-tip-time-type": "Voit valita onko tapahtumasi yksittäinen tapahtuma, vai sarjatapahtuma.", 
+    "editor-tip-time-end": " Kirjoita päättymispäivä ja päättymisaika, jos tiedossa. Jos päättymisaikaa ei ole annettu, tulee päättymisajaksi alkamispäivä klo 23.59.",
+    "editor-tip-time-extended": "Yksittäinen tapahtuma tapahtuu antamiesi aikojen ajan. Sarjatapahtuma koostuu alitapahtumista, joita voi olla minimissään 2, maksimissaan 65. Voit lisätä yksittäisiä alitapahtumia valitsemalla 'Lisää uusi ajankohta' tai jos sarjatapahtumasi toistuu säännöllisesti niin voit lisätä useamman ajankohdan valitsemalla 'Toistuva tapahtuma'.",
     "editor-tip-time-delete": "Ylimääräisen ajankohdan voit poistaa valitsemalla ajankohdan vieressä olevan roskakorisymbolin.",
     "editor-tip-location": "Kirjoita kenttään tapahtumapaikan nimi tai katuosoite ja valitse oikea paikka listasta.",
     "editor-tip-location-internet": "Jos tapahtuma järjestetään vain etänä internetissä, valitse tapahtumapaikaksi Virtuaalitapahtuma. Tapahtuman URL-osoite laitetaan kotisivu-kenttään ja/tai tapahtuma sosiaalisessa mediassa -kenttiin.",
@@ -327,19 +345,24 @@
     "editor-tip-video": "Jos tapahtumaan liittyy video, voit lisätä sen osoitteen tässä.",
     "editor-tip-video-fields": "Anna videolle nimi ja kuvaa lyhyesti mitä siinä tapahtuu.",
     "editor-tip-keywords": "Liitä tapahtumaan vähintään yksi asiasana, joka kuvaa tapahtuman teemaa. Aloita kirjoittamaan asiasanaa ja valitse lisättävä asiasana alle ilmestyvästä listasta.",
-    "editor-tip-hel-main-category": "Valitse vähintään yksi pääkategoria.",
-    "editor-tip-hel-target-group": "Jos tapahtumalla ei ole erityistä kohderyhmää, älä valitse mitään.",
+    "editor-tip-main-category": "Valitse vähintään yksi pääkategoria.",
+    "editor-tip-target-group": "Jos tapahtumalla ei ole erityistä kohderyhmää, älä valitse mitään.",
     "editor-tip-event-languages": "Kielet, joita tapahtumassa käytetään.",
     "editor-tip-umbrella-sub-event": "Jos haluat lisätä tämän tapahtuman osaksi kattotapahtumaa, tee se ",
     "editor-tip-umbrella-sub-event-link": "sarjan ylätapahtumasta",
+    "editor-tip-umbrella-selection": "Jos kyseessä on itsenäinen tapahtuma, jätä valinnat tyhjiksi.",
+    "editor-tip-umbrella-selection1": "Jos tämä tapahtuma kokoaa alleen useita muita tapahtumia, valitse 'Tämä tapahtuma on kattotapahtuma'. Esimerkiksi Taiteiden yö tai Elokuvapäivä.",
+    "editor-tip-umbrella-selection2": "Jos tämä tapahtuma liittyy suoraan isompaan tapahtumaan, valitse 'Tällä tapahtumalla on kattotapahtuma' ja valitse aiemmin luotu tapahtuma. Esim. Kirjailijatapaaminen Taiteiden yönä.",
     "editor-tip-formlanguages": "Valitse tapahtuman syöttökielet. Jokaisella tapahtumalla on vähintään yksi kieli. Monikielisille tapahtumille suosittelemme syöttämään tiedot usealla kielellä.",
     "editor-tip-namedescription": "Kirjoita eri yhteyksissä ymmärrettävä otsikko sekä lyhyt kuvaus tapahtumasta. Voit myös syöttää valinnaisen pidemmän kuvauksen.",
     "editor-tip-namedescription2": "Lyhyt kuvaus näytetään vain tapahtumalistoissa. Jos kohderyhmä on rajattu, kerro siitä pidemmässä kuvaustekstissä.",
     "editor-tip-longdescription": "Kirjoita valinnainen pidempi kuvaus tapahtumasta joka näytetään tapahtuman omalla sivulla. Vältä lyhenteitä ja HUUTAMISTA.",
     "editor-tip-required": "Tähdellä (*) merkityt kentät ovat pakollisia.",
+    "editor-tip-eventtype-disable": "Jos tahdot vaihtaa tapahtuman tyyppiä, poista lisätyt ajat.",
 
-    "editor-expand-headerbutton": "Klikkaa laajentaaksesi osio ",
-    "editor-expand-required": "Tämä osio on pakollinen.",
+    "editor-headerbutton-collapse": "Klikkaa sulkeaksesi osio",
+    "editor-headerbutton-expand": "Klikkaa laajentaaksesi osio",
+    "editor-expand-required": "Tämä osio on pakollinen",
 
     "add-more": "Lisää kerrat",
     "play-date-label": "Toistopäivät",
@@ -378,7 +401,7 @@
 
     "format-select-count": " ({count} tapahtumaa)",
 
-    "upload-image-from-url": "Tai syötä ulkoisen kuvan osoite (url)",
+    "upload-image-from-url": "Tai syötä ulkoisen kuvan osoite (URL)",
     "uploaded-image-size-error": "Kuva on liian suuri. Kuvan koon on oltava alle 2 Mt.",
     "uploaded-image-size-tip": " Kuvan sallittu koko on maksimissaan 2 Mt.",
     "uploaded-image-event-tip": "Tapahtumalle lisäämäsi kuva löytyy myös kuvapankistasi.",
@@ -399,12 +422,12 @@
     "thumbnail-picture-delete": "Poista tämä kuva järjestelmästä",
 
     "alt-text": "Alt-teksti eli kuvan sisällön sanallinen kuvaus (pituus vähintään 6 merkkiä)",
-    "photographer": "Kuvaaja",
+    "photographer": "Kuvaaja / kuvan oikeudenomistaja",
     "image-modal-license-restricted-to-event": "Käyttö rajattu tapahtuman yhteyteen",
     "image-modal-image-license": "Lisenssi",
     "image-modal-image-license-permission": "Minulla on oikeus lähettää kuva.",
     "image-modal-image-license-explanation-event-only": "Käyttö vain tapahtuman yhteydessä = Kuvaa saa käyttää ja jakaa vain tämän tapahtumatiedon yhteydessä.",
-    "image-modal-image-license-explanation-cc-by": "CC BY 4.0 = Kuvaa saa jakaa ja käyttää vapaasti, kun tekijäntiedot mainitaan. Valitse aina, kun kuva on saatu tällä käyttöoikeudella. (ks. <a href='https://creativecommons.org/licenses/by/4.0/' target='_blank' rel='noopener noreferrer'>lisätietoja</a>).",
+    "image-modal-image-license-explanation-cc-by": "CC BY 4.0 = Kuvaa saa jakaa ja käyttää vapaasti, kun tekijäntiedot mainitaan. Valitse aina, kun kuva on saatu tällä käyttöoikeudella. (ks. <a href='https://creativecommons.org/licenses/by/4.0/' target='_blank' rel='noopener noreferrer'>lisätietoja CC BY 4.0 oikeuksista. Aukeaa uudessa välilehdessä</a>).",
     "image-modal-view-terms-paragraph-text": "Voit tutustua laajemmin <a href='/help#images' target='_blank' rel='noopener noreferrer'>kuvien lisäämisen ehtoihin ja suosituksiin (aukeaa uudessa välilehdessä).</a>",
     "image-modal-save-button-text": "Tallenna tiedot",
     "error-message-has-been-sent": "Raportti lähetetty onnistuneesti, kiitoksia!",
@@ -423,6 +446,7 @@
     "navbar.en": "Valitse kieleksi Englanti",
     "navbar.sv": "Valitse kieleksi Ruotsi",
     "navbar.active": "Käytössä oleva kieli on Suomi",
+    "navigation-toggle": "Navigaatio",
 
     "skiplink-shortcut": "Siirry sisältöön",
 
@@ -441,14 +465,14 @@
     "footer-link": "https://www.hel.fi",
 
     "preview-event": "Tapahtuman tiedot",
-    "preview-event-button": "Tarkista lomakkeen tiedot",
+    "preview-event-button": "Esikatsele tapahtumatiedot",
 
     "reportbutton-send": "Lähetä raportti",
     "reportmodal-title": "Raportoi virhetilanne",
     "reportmodal-button": "Raportoi virhetilanteesta",
     "reportmodal-field": "Kuvaile ongelmaa",
     "reportmodal-version": "Sovelluksen versiotunniste:",
-    "reportmodal-tooltip": "Jos tapahtumien hallinnassa tai syöttölomakkeen toiminnassa on virhe, klikkaa tästä raportoidaksesi virheestä, niin saamme virhetilanteesta tiedon ja voimme tutkia asiaa.",
+    "reportmodal-tooltip": "Jos tapahtumien hallinnassa tai syöttölomakkeen toiminnassa on virhe, täytä kuvaus virhetilanteesta, niin saamme tiedon ja voimme tutkia asiaa.",
     "reportmodal-sent": "Raportti lähetetty, kiitoksia",
     "reportmodal-debugbutton": "Palaute",
 
@@ -459,9 +483,6 @@
 	"table-pagination-next-page": "Seuraava sivu",
     "table-pagination-previous-page": "Edellinen sivu",
 
-    "editor-tip-umbrella-selection": "Kattotapahtuma valinnalla teet tapahtumaa, jonka alla on mahdollisesti muita tapahtumia. Esim. festivaali jonka alla festivaalin eri esitykset.",
-    "editor-tip-umbrella-selection1": "Jos tapahtuma on toisen tapahtuman alitapahtuma, valitse 'Tällä tapahtumalla on kattotapahtuma'.",
-    "editor-tip-umbrella-selection2": " ",
     "editor-tip-event-description": "Kirjoita eri yhteyksissä ymmärrettävä otsikko, lyhyt kuvaus ja kuvaus.",
     "editor-tip-event-description1": "Lyhyt kuvaus näytetään vain listoissa, kuvaus vain tapahtuman omalla sivulla. Jos kohderyhmä on rajattu, kerro siitä kuvaustekstissä.",
 
@@ -483,5 +504,30 @@
 
     "filter-event-fi-mobile": "FI",
     "filter-event-sv-mobile": "SV",
-    "filter-event-en-mobile": "EN"
+    "filter-event-en-mobile": "EN",
+
+    "event-presented-in-languages-help": "Syöttökielen ohje",
+    "event-name-shortdescription-help": "Nimi ja kuvaus ohje",
+    "event-location-fields-header-help": "Paikkatieto ohje",
+    "event-datetime-fields-header-help": "Ajankohta ohje",
+    "event-description-fields-header-help": "Kuvaus ohje",
+    "event-umbrella-help": "Kattotapahtuma ohje",
+    "event-categorization-help": "Pääkategoria ohje",
+    "editor-tip-keywords-help": "Asiasana ohje",
+    "editor-tip-target-group-help": "Kohderyhmä ohje",
+    "event-price-fields-header-help": "Hintatieto ohje",
+    "event-social-media-fields-header-help": "Linkki ohje",
+    "event-video-help": "Video ohje",
+    "editor-tip-event-languages-help": "Kieli ohje",
+    "image-upload-help": "Kuvan lisäämisen ohje",
+    "uploaded-image-alt-tip-help": "Kuvan alt-teksti ohje",
+    "license-help-text": "Lisenssi ohje",
+    "profile-menu": " Käyttäjävalikko",
+
+    "login-warning": "Huom! Sinun täytyy",
+    "login-warning1": "kirjautua sisään",
+    "login-warning2": "lisätäksesi tapahtuman!",
+
+    "event-list-show": "Näytä tapahtumat",
+    "event-list-hide": "Piilota tapahtumat"
 }

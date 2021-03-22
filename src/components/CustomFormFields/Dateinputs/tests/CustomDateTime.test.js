@@ -32,6 +32,7 @@ const defaultProps = {
     maxDate: moment('2020-04-23'),
     getDateFormat: () => {},
     required: true,
+    setInitialFocus: false,
 }
 const typeFieldId = ['-date-field', '-time-field']
 
@@ -76,7 +77,7 @@ describe('renders', () => {
                 expect(element.prop('onBlur')).toBe(instance.handleInputBlur)
                 expect(element.prop('aria-describedby')).toBe(undefined)
                 expect(element.prop('disabled')).toBe(defaultProps.disabled)
-                expect(element.prop('required')).toBe(defaultProps.required)
+                expect(element.prop('aria-required')).toBe(defaultProps.required)
                 expect(element.prop('id')).toBe(defaultProps.id + typeFieldId[index])
             });
             expect(input.at(0).prop('value')).toBe(instance.state.dateInputValue)
@@ -133,6 +134,7 @@ describe('renders', () => {
 
         test('for date with default props', () => {
             const dateDatePicker = wrapper.find(DatePicker).at(0)
+            expect(dateDatePicker.prop('id')).toBe(defaultProps.id + '-date-field' + '-button')
             expect(dateDatePicker.prop('disabled')).toBe(defaultProps.disabled)
             expect(dateDatePicker.prop('openToDate')).toEqual(getDatePickerOpenDate(defaultProps.defaultValue))
             expect(dateDatePicker.prop('onChange')).toBeDefined()
@@ -154,6 +156,7 @@ describe('renders', () => {
         test('for time with default props', () => {
             const timeDatePicker = wrapper.find(DatePicker).at(1)
             expect(timeDatePicker.prop('onChange')).toBeDefined()
+            expect(timeDatePicker.prop('id')).toBe(defaultProps.id + '-time-field' + '-button')
             expect(timeDatePicker.prop('disabled')).toBe(defaultProps.disabled)
             expect(timeDatePicker.prop('customInput')).toEqual(<DatePickerButton disabled={defaultProps.disabled} type={'time'}/>)
             expect(timeDatePicker.prop('locale')).toBe(instance.context.intl.locale)
@@ -353,8 +356,6 @@ describe('functions', () => {
         })
     })
 
-
-
     describe('componentDidUpdate', () => {
         const spy = jest.spyOn(UnconnectedCustomDateTime.prototype, 'validateDate');
 
@@ -363,7 +364,7 @@ describe('functions', () => {
         })
             
         test('calls validateDate if state.dateInputValue and state.timeInputValue are defined', () => {
-            const wrapper = mount(<UnconnectedCustomDateTime {...defaultProps} />, {context: {intl}});
+            const wrapper = shallow(<UnconnectedCustomDateTime {...defaultProps} />, {context: {intl}});
             const instance = wrapper.instance()
             instance.state.dateInputValue = '123'
             instance.state.timeInputValue = '456'
@@ -377,7 +378,7 @@ describe('functions', () => {
         })
 
         test('doesnt call validateDate if state.dateInputValue and state.timeInputValue are not defined', () => {
-            const wrapper = mount(<UnconnectedCustomDateTime {...defaultProps} />, {context: {intl}});
+            const wrapper = shallow(<UnconnectedCustomDateTime {...defaultProps} />, {context: {intl}});
             const instance = wrapper.instance()
             instance.setState({dateInputValue: '', timeInputValue: ''})
             const minDate = moment('2020-03-23')

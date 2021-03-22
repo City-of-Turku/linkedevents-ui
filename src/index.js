@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom'
 import {Route} from 'react-router'
 import {withRouter} from 'react-router-dom'
 import {Provider, connect} from 'react-redux'
-import {ConnectedRouter} from 'react-router-redux'
-import {isIE} from 'react-device-detect'
+import {ConnectedRouter} from 'connected-react-router'
+import {isIE, isLegacyEdge} from 'react-device-detect'
 
 // Views
 import App from './views/App'
@@ -55,7 +55,7 @@ if (window.location.pathname === '/silent-renew') {
     processSilentRenew();
 } else {
     ReactDOM.render(
-        isIE ? <BrowserWarning/> :
+        isIE || isLegacyEdge ? <BrowserWarning/> :
             <Provider store={store}>
                 <OidcProvider store={store} userManager={userManager}>
                     <IntlProviderWrapper>
@@ -65,6 +65,7 @@ if (window.location.pathname === '/silent-renew') {
                                 <Route exact path="/listing" component={EventListingPage}/>
                                 <Route exact path="/event/:eventId" component={Event}/>
                                 <Route exact path="/event/:action/:eventId" component={Editor}/>
+                                <Route exact path="/event/:eventId/recurring/:action" component={Editor}/>
                                 <Route exact path="/event/done/:action/:eventId" component={EventCreated}/>
                                 <Route exact path="/search" component={Search}/>
                                 <Route exact path="/help" component={Help}/>

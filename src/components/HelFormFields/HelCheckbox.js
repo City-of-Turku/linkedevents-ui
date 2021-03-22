@@ -1,81 +1,76 @@
-import './HelCheckbox.scss'
-
-import React from 'react'
+import './HelCheckbox.scss';
+import React from 'react';
 import PropTypes from 'prop-types';
-import {setData} from '../../actions/editor'
-//Replaced Material-ui CheckBox for a reactstrap implementation. - Turku
+import {setData} from '../../actions/editor';
 
 class HelCheckbox extends React.Component {
     constructor(props) {
-        super(props)
-       
-        this.handleCheck = this.handleCheck.bind(this)
-    }
-    
-    handleCheck (event) {
-        let newValue = event.target.checked
+        super(props);
 
-        if(this.props.name) {
-            let obj = {}
-            obj[this.props.name] = newValue
-            this.context.dispatch(setData(obj))
+        this.handleCheck = this.handleCheck.bind(this);
+    }
+
+    handleCheck(event) {
+        let newValue = event.target.checked;
+
+        if (this.props.name) {
+            let obj = {};
+            obj[this.props.name] = newValue;
+            this.context.dispatch(setData(obj));
         }
 
-        if(typeof this.props.onChange === 'function') {
-            this.props.onChange(event, newValue)
+        if (typeof this.props.onChange === 'function') {
+            this.props.onChange(event, newValue);
         }
     }
 
     getValidationErrors() {
-        return []
+        return [];
     }
 
     noValidationErrors() {
-        return true
+        return true;
     }
 
     getValue() {
-        return this.checkboxRef.value
+        return this.checkboxRef.value;
     }
 
     render() {
-        let {required, label, name, defaultChecked} = this.props
-       
-        if(required) {
-            if(typeof label === 'string') {
-                label += ' *'
+        let {required, label, name, defaultChecked} = this.props;
+
+        if (required) {
+            if (typeof label === 'string') {
+                label += ' *';
             }
-            if(typeof label === 'object') {
-                label = (<span>{label} *</span>)
+            if (typeof label === 'object') {
+                label = <span>{label} *</span>;
             }
-           
         }
-        const {fieldID} = this.props
+        const {fieldID} = this.props;
 
         return (
-            <div className='price-info-checkbox'>
-                <label className='price-label' htmlFor={fieldID}>
-                    <input
-                        className='checkbox'
-                        type='checkbox'
-                        ref={ref => this.checkboxRef = ref}
-                        name={name}
-                        onChange={this.handleCheck}
-                        checked={defaultChecked}
-                        id={fieldID}
-                    />{label}
+            <div className='custom-control custom-checkbox'>
+                <input
+                    className='custom-control-input'
+                    type='checkbox'
+                    ref={(ref) => (this.checkboxRef = ref)}
+                    name={name}
+                    onChange={this.handleCheck}
+                    checked={defaultChecked}
+                    id={fieldID}
+                />
+                <label className='custom-control-label' htmlFor={fieldID}>{label}
                 </label>
             </div>
-            
-        )
+        );
     }
 }
-
 
 HelCheckbox.contextTypes = {
     intl: PropTypes.object,
     dispatch: PropTypes.func,
-}
+};
 
 HelCheckbox.propTypes = {
     name: PropTypes.string,
@@ -85,7 +80,6 @@ HelCheckbox.propTypes = {
     defaultChecked: PropTypes.bool,
     id: PropTypes.string,
     fieldID: PropTypes.string,
+};
 
-}
-
-export default HelCheckbox
+export default HelCheckbox;

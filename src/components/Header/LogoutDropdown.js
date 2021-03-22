@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import {FormattedMessage} from 'react-intl';
@@ -40,14 +40,12 @@ class LogoutDropdown extends React.Component {
     render() {
         const {user, logout} = this.props;
         return (
-            <div className='logout-component'>
+            <Fragment>
                 <div onClick={this.toggle} ref={node => this.node = node} className='Logoutdrop'>
-                    <div className="logout">
-                        <a aria-haspopup="true" aria-label={user.displayName} href="#">
-                            {user.displayName}
-                            <span className="caret"></span>
-                        </a>
-                    </div>
+                    <a aria-haspopup="true" aria-label={this.context.intl.formatMessage({id: 'user'}) + (user.displayName) + this.context.intl.formatMessage({id: 'profile-menu'})} href="#">
+                        {user.displayName}
+                        <span className="caret"></span>
+                    </a>
                 </div>
                 <ul role='menu' className={classNames('user-dropdown', {open: this.state.isOpen})}>
                     <li role="presentation" className="" onClick={logout}>
@@ -56,7 +54,7 @@ class LogoutDropdown extends React.Component {
                         </a>
                     </li>
                 </ul>
-            </div>
+            </Fragment>
         )
     }
 }

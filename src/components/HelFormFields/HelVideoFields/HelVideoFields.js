@@ -9,7 +9,6 @@ import {SideField} from '../../FormFields';
 import {connect} from 'react-redux';
 import classNames from 'classnames';
 import {isEmpty, get} from 'lodash';
-import {Button} from 'reactstrap';
 import update from 'immutability-helper';
 
 import constants from 'src/constants';
@@ -218,12 +217,9 @@ class HelVideoFields extends React.Component {
         return (
             <React.Fragment>
                 <div className="row event-videos">
-                    <SideField>
-                        <div className="tip">
-                            <p><FormattedMessage id="editor-tip-video"/></p>
-                            <p><FormattedMessage id="editor-tip-video-fields"/></p>
-                        </div>
-
+                    <SideField label={this.context.intl.formatMessage({id: 'event-video-help'})}>
+                        <p><FormattedMessage id="editor-tip-video"/></p>
+                        <p><FormattedMessage id="editor-tip-video-fields"/></p>
                     </SideField>
                     <div className="col-xs-12 col-sm-6">
                         {stateVideos.map((video, index) => (
@@ -237,20 +233,18 @@ class HelVideoFields extends React.Component {
                                     >
                                         {this.props.intl.formatMessage({id: 'delete'})}
                                     </Button>
-
                                     */}
                                     <HelTextField
                                         id='event-video-url'
                                         key='url-video-field'
                                         required={required[index]}
                                         defaultValue={video.url}
-                                        label={this.context.intl.formatMessage({id: `event-video-url`})}
+                                        label={this.context.intl.formatMessage({id: 'event-video-url'})}
                                         validations={[VALIDATION_RULES.IS_URL]}
                                         validationErrors={get(this.props.validationErrors,['videos', index, 'url'], {})}
                                         onChange={(e, v) => this.handleChange(e, v, 'url', index)}
                                         onBlur={(e, v) => this.handleBlur(e, v, this.state.videos)}
                                     />
-
                                     <MultiLanguageField
                                         id='event-video-name'
                                         defaultValue={video.name}
@@ -290,7 +284,6 @@ class HelVideoFields extends React.Component {
                         </div>
                         */}
                     </div>
-
                 </div>
             </React.Fragment>
         )

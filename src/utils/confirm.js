@@ -12,7 +12,7 @@ const {PUBLICATION_STATUS, SUPER_EVENT_TYPE_RECURRING, SUPER_EVENT_TYPE_UMBRELLA
  * @param b Event B data
  * @returns {number}
  */
-const compareDates = (a, b) => moment(a.start_time).unix() - moment(b.start_time).unix()
+export const compareDates = (a, b) => moment(a.start_time).unix() - moment(b.start_time).unix()
 
 /**
  * Returns a string containing html markup that lists given sub events in an unsorted list

@@ -9,8 +9,10 @@ import {getOrganizationMembershipIds} from './user'
 const {PUBLICATION_STATUS, EVENT_STATUS, USER_TYPE, SUPER_EVENT_TYPE_UMBRELLA} = constants
 
 export const userMayEdit = (user, event) => {
+    const eventOwner = get(event, 'is_owner')
     const adminOrganizations = get(user, 'adminOrganizations')
     const userOrganization = get(user, 'organization')
+    const publicMembership = get(user, 'publicMemberships')
     const eventOrganization = get(event, 'publisher')
     const eventOrganizationAncestors = get(event, 'publisherAncestors')
     const organizationMemberships = get(user, 'organizationMemberships')
@@ -46,7 +48,11 @@ export const userMayEdit = (user, event) => {
     // disallowed for everybody else. event organization is set by the API when POSTing.
         userMayEdit = true
     }
-
+    if (publicMembership && !userMayEdit && eventOwner) {
+        //User has public membership and is owner of the event
+        //may publish and edit their own events
+        userMayEdit = eventOwner
+    }
     return userMayEdit
 }
 
@@ -56,6 +62,8 @@ export const userCanDoAction = (user, event, action, editor) => {
     const isPublic = get(event, 'publication_status') === PUBLICATION_STATUS.PUBLIC
     const isRegularUser = get(user, 'userType') === USER_TYPE.REGULAR
     const isSubEvent = !isUndefined(get(event, ['super_event', '@id']))
+    const eventOwner = get(event, 'is_owner')
+    const isPublicUser = get(user, 'userType') === USER_TYPE.PUBLIC
     const {keywordSets} = editor
 
     if (action === 'publish') {
@@ -79,6 +87,9 @@ export const userCanDoAction = (user, event, action, editor) => {
     }
     if (action === 'edit' || action === 'update' || action === 'delete') {
         return !(isRegularUser && (isUmbrellaEvent || isPublic))
+    }
+    if (action === 'add') {
+        return !(isRegularUser && eventOwner && (isPublic)) 
     }
 
     return true

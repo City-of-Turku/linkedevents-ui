@@ -1,12 +1,22 @@
-FROM node:8
+# Use the official image as a parent image.
+FROM node:14-alpine
 
-# At this stage everything might be useful
+RUN apk --no-cache add git
 
-WORKDIR /app
+# Set the working directory.
+WORKDIR /src
 
-COPY . /app
+# Install app dependencies
+COPY package.json .
 
+# Run the command inside your image filesystem.
+RUN yarn --silent
+
+# Add metadata to the image to describe which port the container is listening on at runtime.
 EXPOSE 8080
 
-# Create config from env and serve web root with httpd
-CMD npm start
+# Run the specified command within the container.
+CMD ["yarn", "start"]
+
+# Copy the rest of your app's source code from your host to your image filesystem.
+COPY . .

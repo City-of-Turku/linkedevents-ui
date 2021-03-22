@@ -25,7 +25,7 @@ describe('CheckBoxCell', () => {
 
     test('renders', () => {
         const element = getWrapper();
-        const inputElement = element.find(Input);
+        const inputElement = element.find('input');
         expect(inputElement).toHaveLength(1);
         expect(inputElement.prop('checked')).toEqual(defaultProps.checked);
         expect(inputElement.prop('type')).toBe('checkbox');
