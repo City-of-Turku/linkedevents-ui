@@ -171,15 +171,17 @@ class HeaderBar extends React.Component {
                                 </NavLink>
                             </NavItem>
                             <NavItem>
+                                {user &&
                                 <NavLink
                                     strict={this.isActivePath('/listing')}
                                     exact
-                                    to='/'
+                                    to='/listing'
                                     className='nav-link'
                                     onClick={() => this.handleOnClick('/listing')}>
                                     <span aria-hidden className='glyphicon glyphicon-wrench' />
                                     <FormattedMessage id={`${appSettings.ui_mode}-management`} />
                                 </NavLink>
+                                }
                             </NavItem>
                             {showModerationLink && (
                                 <NavItem>

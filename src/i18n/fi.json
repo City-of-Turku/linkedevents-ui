@@ -529,5 +529,13 @@
     "login-warning2": "lisätäksesi tapahtuman!",
 
     "event-list-show": "Näytä tapahtumat",
-    "event-list-hide": "Piilota tapahtumat"
+    "event-list-hide": "Piilota tapahtumat",
+    "event-is-virtualandhaslocation": "Tämä tapahtuma on sekä virtuaalinen että fyysinen",
+    "homepage-welcome": "Tervetuloa Linked-palveluihin",
+    "homepage-introduction-one": "Tervetuloa lisäämään tapahtumasi, harrastuksesi tai koulutuksesi avoimeen Linked Events -tietokantaan. Linked Events on avoin tapahtumatietokanta ja -rajapinta joka tarjoaa tiedot avoimena datana yhdenmukaisessa koneluettavassa muodossa erilaisille sovelluksille.",
+    "homepage-introduction-two": "<strong>Linked Events ei itse ole visuaalinen tapahtumakalenteri.</strong> Katso Turun kaupungin kalenteria. linkki: <a href='https://kalenteri.turku.fi' target='_blank' rel='noopener noreferrer'>https://kalenteri.turku.fi (Aukeaa uudessa välilehdessä)</a>",
+    "homepage-introduction-three": "Turun kaupungin Linked Events on tarkoitettu kaikille Varsinais-Suomen alueen tapahtuma-, harrastus- ja koulutussisällöille, ei pelkästään kaupungin omille.",
+    "homepage-introduction-four": "Linked Events perustuu avoimeen lähdekoodiin (MIT-lisenssi).",
+    "homepage-for-publishers": "Tapahtuman järjestäjälle",
+    "homepage-example-events": "Esimerkkejä luoduista tapahtumista"
 }

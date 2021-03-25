@@ -1,24 +1,19 @@
-import React, {useState} from 'react'
+import React from 'react'
 import {
     injectIntl,
     FormattedMessage,
-    FormattedDate,
-    FormattedTime,
+    FormattedHTMLMessage,
     intlShape,
 } from 'react-intl'
-import moment from 'moment';
 import PropTypes from 'prop-types';
 import EventGrid from '../../components/EventGrid'
 import {connect} from 'react-redux';
-import {push} from 'react-router-redux';
+import {push} from 'connected-react-router';
 import {withRouter} from 'react-router';
 import './index.scss'
 import {EventQueryParams, fetchEvents} from '../../utils/events'
-import {isNull, get} from 'lodash'
+import {get} from 'lodash'
 import constants from '../../constants'
-import {getOrganizationMembershipIds} from '../../utils/user'
-import userManager from '../../utils/userManager';
-import EventTable from '../../components/EventTable/EventTable'
 import {Button} from 'reactstrap'
 const {USER_TYPE, PUBLICATION_STATUS} = constants
 
@@ -31,6 +26,12 @@ class HomePage extends React.Component {
     }
     componentDidMount() {
         this.fetchTableData()
+    }
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.locale !== this.props.locale) {
+            this.fetchTableData()
+        }
     }
 
     /**
@@ -50,11 +51,13 @@ class HomePage extends React.Component {
      */
     getDefaultEventQueryParams = () => {
         const queryParams = new EventQueryParams()
+        const {locale} = this.props
         queryParams.super_event = 'none'
         queryParams.publication_status = PUBLICATION_STATUS.PUBLIC
         queryParams.include = 'location'
         queryParams.start = 'today'
         queryParams.end = 'today'
+        queryParams.language = locale
         return queryParams
     }
 
@@ -71,7 +74,7 @@ class HomePage extends React.Component {
         }
 
         render() {
-            const {user} = this.props;
+            const {user, locale} = this.props;
             const userType = get(user, 'userType')
 
             let organization_missing_msg = null;
@@ -114,28 +117,23 @@ class HomePage extends React.Component {
                     <div className='container'>
                         <div className='content'>
                             <div className= 'row-homeheader'>
-                                {user ? (
-                                    <div>
-                                        <h1>Tervetuloa Linked-palveluihin, {user.firstName}</h1>
-                                    </div>
-                                ) : (
-                                    <h1>Tervetuloa Linked-palveluihin</h1>
-                                )}
+                                <div>
+                                    <FormattedMessage id='homepage-welcome'>{txt => <h1>{txt}{user ? ', ' + user.firstName : null }</h1>}</FormattedMessage>
+                                </div>
                             </div>
                             {this.props.location.pathname == '/' &&
                     <React.Fragment>
                         {organization_missing_msg}
                     </React.Fragment>
                             }
-                            <div className='lorem'><h2>Linked-Palveluiden esittely</h2>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed viverra a nisl euismod dapibus. Quisque dignissim efficitur dui, ultrices molestie nibh ultrices in. In volutpat semper vulputate. Nunc sodales enim eget scelerisque consectetur. Morbi tellus quam, porttitor at pretium nec, fermentum ut lectus. Maecenas dolor diam, ullamcorper at nunc sit amet, mollis accumsan metus. Aenean pellentesque eleifend faucibus.
-
-Nullam a venenatis nisl, nec bibendum enim. Cras quis lorem purus. Etiam elementum est sit amet neque efficitur consectetur. Proin sed enim sed neque mollis gravida. Vivamus sit amet ante a felis rhoncus feugiat. Aliquam luctus, nibh vitae ullamcorper consectetur, magna dui malesuada sapien, ut tristique augue risus eu lorem. Sed lacus sem, efficitur sit amet porttitor a, volutpat vel leo. Vivamus sollicitudin eget nisi nec accumsan. Suspendisse libero nisi, ultricies et malesuada nec, aliquam in nulla.
-
-                                </p>
-                                <h2>Tapahtuman järjestäjälle</h2>
+                            <div className='container-md'>
+                                <FormattedMessage id='homepage-introduction-one'>{txt => <p>{txt}</p>}</FormattedMessage>
+                                <FormattedHTMLMessage id='homepage-introduction-two'/>
+                                <FormattedMessage id='homepage-introduction-three'>{txt => <p>{txt}</p>}</FormattedMessage>
+                                <FormattedMessage id='homepage-introduction-four'>{txt => <p>{txt}</p>}</FormattedMessage>
                             </div>
                             <div className='homebuttons'>
+                                <FormattedMessage id='homepage-for-publishers'>{txt => <h2>{txt}</h2>}</FormattedMessage>
                                 <Button
                                     className='btn'
                                     onClick={() => this.handleRouterClick('/event/create/new')}
@@ -159,7 +157,7 @@ Nullam a venenatis nisl, nec bibendum enim. Cras quis lorem purus. Etiam element
                                 </Button>
                             </div>
                             <div className='events'>
-                                <h2>Tapahtumat tänään</h2>
+                                <FormattedMessage id='homepage-example-events'>{txt => <h2>{txt}</h2>}</FormattedMessage>
                                 {this.getEvents()}
                             </div>
                         </div>
@@ -173,7 +171,6 @@ HomePage.propTypes = {
     events: PropTypes.array,
     user: PropTypes.object,
     routerPush: PropTypes.func,
-    home: PropTypes.bool,
     location: PropTypes.object,
     locale: PropTypes.string,
     intl: intlShape,

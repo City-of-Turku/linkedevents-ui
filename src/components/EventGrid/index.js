@@ -6,10 +6,48 @@ import PropTypes from 'prop-types'
 import {FormattedMessage, injectIntl} from 'react-intl'
 import {getBadge} from '../../utils/helpers'
 import {getStringWithLocale} from 'src/utils/locale';
-import defaultThumbnail from '../../assets/images/helsinki-coat-of-arms-white.png'
+import defaultThumbnail from '../../assets/images/linked-event-white.png'
 
 import constants from '../../constants'
 import './index.scss'
+
+
+const locationAndVirtual = (props) => {
+    const location = getStringWithLocale(props.event.location, 'name', props.locale)
+    const virtual =  props.event.virtualevent_url
+    const content = []
+    const virtualIcon = <span aria-hidden className='glyphicon glyphicon-globe'/>
+    const locationIcon = <span aria-hidden className='glyphicon glyphicon-map-marker'/>
+    if (location && virtual) {
+        content.push(
+            <div className='info'>
+                {virtualIcon}
+                <FormattedMessage id='event-is-virtualandhaslocation'>{txt => <p>{txt}</p>}</FormattedMessage>
+            </div>
+        );
+        content.push(
+            <div className='info'>
+                {locationIcon}
+                <p>{location}</p>
+            </div>
+        );
+        return content
+    }
+    if (virtual) {
+        content.push(virtualIcon)
+        content.push(<FormattedMessage id='event-isvirtual'>{txt => <p>{txt}</p>}</FormattedMessage>)
+    }
+    if (location) {
+        content.push(locationIcon)
+        content.push(<p>{location}</p>)
+    }
+  
+    return (
+        <div className='info'>
+            {content}
+        </div>
+    )
+}
 
 const EventItem = (props) => {
     const name = getStringWithLocale(props.event, 'name', props.locale)
@@ -45,10 +83,10 @@ const EventItem = (props) => {
     if (shortDescription && shortDescription.length > 120) {
         shortDescription = shortDescription.slice(0,120) + '..'
     }
-    const location = getStringWithLocale(props.event.location, 'name', props.locale)
     const isCancelled = props.event.event_status === constants.EVENT_STATUS.CANCELLED
     const isPostponed = props.event.event_status === constants.EVENT_STATUS.POSTPONED
-    
+    const VirtualAndLocationInfo = locationAndVirtual(props)
+
     //HomePages display
     if (props.homePage) {
         return (
@@ -64,13 +102,7 @@ const EventItem = (props) => {
                             <Link to={url}>
                                 <h3> {name} </h3>
                             </Link>
-
-                            <div className='info'>
-                                <span aria-hidden className='glyphicon glyphicon-map-marker'/>
-                                <p>{location}</p>
-                            </div>
-
-
+                            {VirtualAndLocationInfo}
                             <div className='info'>
                                 <span aria-hidden className='glyphicon glyphicon-calendar'/>
                                 <p>{convertedStartingDate} - {convertedEndingDate}</p>
@@ -79,15 +111,11 @@ const EventItem = (props) => {
                                 <span aria-hidden className='glyphicon glyphicon-time'/>
                                 <p className="converted-day">{convertedStartingTime} - {convertedEndingTime}</p>
                             </div>
-
-
                             <div className='info'>
                                 <span aria-hidden className='glyphicon glyphicon-pencil'/>
                                 <p className='shortDescription'>{shortDescription}</p>
                             </div>
-
                         </div>
-
                     </div>
                     <div className='event-border'/>
                 </div>
@@ -97,7 +125,7 @@ const EventItem = (props) => {
     else
         return (
             <div className="col-xs-12 col-md-6 col-lg-4" key={props.event['id']}>
-                <Link to={url}>
+                <Link className="event-item-link" to={url}>
                     <div className="event-item">
                         {isCancelled && getBadge('cancelled')}
                         {isPostponed && getBadge('postponed')}
@@ -130,4 +158,4 @@ EventGrid.propTypes = {
     intl: PropTypes.object,
 }
 
-export default EventGrid
+export default connect()(EventGrid)
