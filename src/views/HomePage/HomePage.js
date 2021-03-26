@@ -15,6 +15,7 @@ import {EventQueryParams, fetchEvents} from '../../utils/events'
 import {get} from 'lodash'
 import constants from '../../constants'
 import {Button} from 'reactstrap'
+import {Helmet} from 'react-helmet';
 const {USER_TYPE, PUBLICATION_STATUS} = constants
 
 class HomePage extends React.Component {
@@ -75,7 +76,9 @@ class HomePage extends React.Component {
 
         render() {
             const {user, locale} = this.props;
+            const {intl} = this.context;
             const userType = get(user, 'userType')
+            const pageTitle = `Linkedevents - ${intl.formatMessage({id: `${appSettings.ui_mode}-homepage`})}`
 
             let organization_missing_msg = null;
             if (user && !user.organization) {
@@ -115,6 +118,7 @@ class HomePage extends React.Component {
                 <div className='homepage'>
                     <div className='container header'/>
                     <div className='container'>
+                        <Helmet title={pageTitle}/>
                         <div className='content'>
                             <div className= 'row-homeheader'>
                                 <div>
@@ -175,7 +179,9 @@ HomePage.propTypes = {
     locale: PropTypes.string,
     intl: intlShape,
 }
-
+HomePage.contextTypes = {
+    intl: PropTypes.object,
+}
 const mapStateToProps = (state) => ({
     user: state.user,
     locale: state.userLocale.locale,

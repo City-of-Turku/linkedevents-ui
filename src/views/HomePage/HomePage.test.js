@@ -35,7 +35,7 @@ const defaultProps = {
 
 describe('Homepage', () => {
     function getWrapper(props) {
-        return shallow(<UnconnectedHomePage {...defaultProps} {...props}/>);
+        return shallow(<UnconnectedHomePage {...defaultProps} {...props}/>, {context: {intl}});
     }
 
     describe('render', () => {

@@ -42,7 +42,7 @@ const locationAndVirtual = (props) => {
         )
     }
     if (location) {
-        content.push(wrapper(locationIcon, <p key={Math.random()}>{location}</p>))
+        content.push(wrapper(locationIcon, <p key={Math.random()}><FormattedMessage id='eventItem-location'/> {location}</p>))
     }
     return [...content]
 }
@@ -104,15 +104,15 @@ const EventItem = (props) => {
                             {VirtualAndLocationInfo}
                             <div className='info'>
                                 <span aria-hidden className='glyphicon glyphicon-calendar'/>
-                                <p>{convertedStartingDate} - {convertedEndingDate}</p>
+                                <p><FormattedMessage id='eventItem-date'/> {convertedStartingDate} - {convertedEndingDate}</p>
                             </div>
                             <div className='info'>
                                 <span aria-hidden className='glyphicon glyphicon-time'/>
-                                <p className="converted-day">{convertedStartingTime} - {convertedEndingTime}</p>
+                                <p className="converted-day"><FormattedMessage id='eventItem-time'/> {convertedStartingTime} - {convertedEndingTime}</p>
                             </div>
                             <div className='info'>
                                 <span aria-hidden className='glyphicon glyphicon-pencil'/>
-                                <p className='shortDescription'>{shortDescription}</p>
+                                <p className='shortDescription'><FormattedMessage id='eventItem-description'/> {shortDescription}</p>
                             </div>
                         </div>
                     </div>
