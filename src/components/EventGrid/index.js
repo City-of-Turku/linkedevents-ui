@@ -12,41 +12,36 @@ import constants from '../../constants'
 import './index.scss'
 
 
+
 const locationAndVirtual = (props) => {
     const location = getStringWithLocale(props.event.location, 'name', props.locale)
     const virtual =  props.event.virtualevent_url
     const content = []
-    const virtualIcon = <span aria-hidden className='glyphicon glyphicon-globe'/>
-    const locationIcon = <span aria-hidden className='glyphicon glyphicon-map-marker'/>
+    const virtualIcon = <span aria-hidden className='glyphicon glyphicon-globe' key={Math.random()}/>
+    const locationIcon = <span aria-hidden className='glyphicon glyphicon-map-marker' key={Math.random()} />
+    const wrapper = (...content) => {return (<div className='info' key={Math.random()}>{content}</div>) }
+
     if (location && virtual) {
         content.push(
-            <div className='info'>
-                {virtualIcon}
-                <FormattedMessage id='event-is-virtualandhaslocation'>{txt => <p>{txt}</p>}</FormattedMessage>
-            </div>
-        );
-        content.push(
-            <div className='info'>
-                {locationIcon}
-                <p>{location}</p>
-            </div>
-        );
-        return content
+            wrapper(
+                virtualIcon,
+                <FormattedMessage id='event-is-virtualandhaslocation' key={Math.random()}>{txt => <p>{txt}</p>}</FormattedMessage>
+            )
+        )
     }
-    if (virtual) {
-        content.push(virtualIcon)
-        content.push(<FormattedMessage id='event-isvirtual'>{txt => <p>{txt}</p>}</FormattedMessage>)
+    if (virtual && !location) {
+        content.push(
+            wrapper(
+                virtualIcon,
+                <FormattedMessage id='event-isvirtual' key={Math.random()}>{txt => <p>{txt}</p>}</FormattedMessage>
+            )
+        )
     }
     if (location) {
-        content.push(locationIcon)
-        content.push(<p>{location}</p>)
+        content.push(wrapper(locationIcon, <p key={Math.random()}>{location}</p>))
     }
-  
-    return (
-        <div className='info'>
-            {content}
-        </div>
-    )
+
+    return [...content]
 }
 
 const EventItem = (props) => {
@@ -56,13 +51,14 @@ const EventItem = (props) => {
     const thumbnailStyle = {
         backgroundImage: 'url(' + image + ')',
     }
+
     const getStartingDay = moment(props.event.start_time).local().format()
     let convertedStartingDate = ''
     if (getStartingDay) {
         const date = getStartingDay.split('T')
         convertedStartingDate = date[0].split('-').reverse().join('.')
     }
-    const getEndingDay = moment(props.event.end_time).local().format()
+    const getEndingDay = props.event.end_time ? moment(props.event.end_time).local().format() : undefined
     let convertedEndingDate = ''
     if (getEndingDay) {
         const date = getEndingDay.split('T')
@@ -147,6 +143,9 @@ const EventGrid = (props) => (
     </div>
 )
 
+EventItem.defaultProps = {
+    homePage: false,
+};
 EventItem.propTypes = {
     event: PropTypes.object,
 }
