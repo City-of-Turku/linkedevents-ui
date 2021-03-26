@@ -485,5 +485,18 @@
     "login-warning2": "to be able to submit or edit events!",
 
     "event-list-show": "Show events",
-    "event-list-hide": "Hide events"
+    "event-list-hide": "Hide events",
+    "event-is-virtualandhaslocation": "This event is both virtual and physical",
+    "homepage-welcome": "Welcome to Linked Services",
+    "homepage-introduction-one": "Welcome to add your events, hobbies or training to the open Linked Events database. Linked Events is an open event database and interface that provides information as open data in a consistent machine-readable format for a variety of applications.",
+    "homepage-introduction-two": "<strong>Linked Events is not itself a visual calendar for events.</strong> See the calendar of the City of Turku. Link: <a href='https://kalenteri.turku.fi' target='_blank' rel='noopener noreferrer'>https://kalenteri.turku.fi (Opens in a new tab)</a>",
+    "homepage-introduction-three": "City of Turku's Linked Events is intended for all event, hobby and educational content in the region of Southwest Finland, not just for city's own events.",
+    "homepage-introduction-four": "Linked Events is based on open source (MIT-license).",
+    "homepage-for-publishers": "For the event organizer",
+    "homepage-example-events": "Examples of created events",
+
+    "eventItem-date": "Date:",
+    "eventItem-description": "Short description:",
+    "eventItem-location": "Location:",
+    "eventItem-time": "Time:"
 }
