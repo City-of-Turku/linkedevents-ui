@@ -11,8 +11,12 @@ import defaultThumbnail from '../../assets/images/linked-event-white.png'
 import constants from '../../constants'
 import './index.scss'
 
-
-
+/**
+ * 
+ * @param  props return elements with props.values based on conditionals
+ * Can display virtual, physical or both in event
+ * @returns [] elements
+ */
 const locationAndVirtual = (props) => {
     const location = getStringWithLocale(props.event.location, 'name', props.locale)
     const virtual =  props.event.virtualevent_url
@@ -40,7 +44,6 @@ const locationAndVirtual = (props) => {
     if (location) {
         content.push(wrapper(locationIcon, <p key={Math.random()}>{location}</p>))
     }
-
     return [...content]
 }
 
@@ -83,7 +86,7 @@ const EventItem = (props) => {
     const isPostponed = props.event.event_status === constants.EVENT_STATUS.POSTPONED
     const VirtualAndLocationInfo = locationAndVirtual(props)
 
-    //HomePages display
+    //props.homePage used in homepage.js
     if (props.homePage) {
         return (
             <div className="row event-home-row" key={props.event['id']}>
