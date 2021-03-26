@@ -101,6 +101,7 @@
     "event-isvirtual": "This event is virtual",
 
     "events-management": "Manage events",
+    "events-homepage": "Homepage",
     "events-management-prompt": "to manage events.",
     "events-management-description": "Browse and edit events published by your organization.",
     "events-management-description-regular-user": "Browse and edit your drafts and browse your published events. Published events can't be edited.",
