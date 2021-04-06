@@ -54,7 +54,12 @@ const EventItem = (props) => {
     const thumbnailStyle = {
         backgroundImage: 'url(' + image + ')',
     }
-
+    const getDay = props.event.start_time
+    let convertedDate = ''
+    if (getDay) {
+        const date = getDay.split('T')
+        convertedDate = date[0].split('-').reverse().join('.')
+    }
     const getStartingDay = moment(props.event.start_time).local().format()
     let convertedStartingDate = ''
     if (getStartingDay) {
@@ -130,7 +135,7 @@ const EventItem = (props) => {
                         {isPostponed && getBadge('postponed')}
                         <div className="thumbnail" style={thumbnailStyle}/>
                         <div className="name">
-                            <span className="converted-day">{convertedStartingDate}</span>
+                            <span className="converted-day">{convertedDate}</span>
                             {name}
                         </div>
 
