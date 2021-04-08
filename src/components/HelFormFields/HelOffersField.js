@@ -28,18 +28,16 @@ class HelOffersField extends React.Component {
         };
     }
 
-    UNSAFE_componentWillMount() {
-        if (this.props.defaultValue && this.props.defaultValue.length) {
+    componentDidUpdate(prevProps, prevState) {
+        if (this.props.defaultValue && this.props.defaultValue !== this.state.values) {
             this.setState({values: this.props.defaultValue});
         }
-    }
-
-    UNSAFE_componentWillReceiveProps(nextProps) {
-        if (nextProps.defaultValue && nextProps.defaultValue !== this.state.values) {
-            this.setState({values: nextProps.defaultValue});
+        if (this.props.defaultValue && this.props.defaultValue[0] && this.props.defaultValue[0].is_free !== this.state.isFree ) {
+            this.setState({isFree: this.props.defaultValue[0].is_free});
         }
-        if (nextProps.defaultValue && nextProps.defaultValue[0] && this.state.isFree !== nextProps.defaultValue[0].is_free) {
-            this.setState({isFree: nextProps.defaultValue[0].is_free});
+        if (prevProps.defaultValue !== 0 && this.props.defaultValue == 0) {
+            this.context.dispatch(setFreeOffers(!this.state.isFree));
+            this.setState({values: undefined, isFree: !this.state.isFree});
         }
     }
 
@@ -95,7 +93,7 @@ class HelOffersField extends React.Component {
         const disabled = isOverLimit || this.state.isFree;
 
         return (
-            <Fragment>
+            <div>
                 <HelCheckbox
                     fieldID='is-free-checkbox'
                     defaultChecked={this.state.isFree}
@@ -121,7 +119,7 @@ class HelOffersField extends React.Component {
                         <FormattedMessage id='event-add-price-limit' values={{count: GENERATE_LIMIT.OFFER_LENGTH}} />
                     </p>
                 }
-            </Fragment>
+            </div>
         );
     }
 }
@@ -132,4 +130,4 @@ HelOffersField.propTypes = {
     languages: PropTypes.array,
 };
 
-export default HelOffersField;
+export default HelOffersField;  
