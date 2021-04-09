@@ -93,7 +93,7 @@ class HelOffersField extends React.Component {
         const disabled = isOverLimit || this.state.isFree;
 
         return (
-            <div>
+            <Fragment>
                 <HelCheckbox
                     fieldID='is-free-checkbox'
                     defaultChecked={this.state.isFree}
@@ -119,7 +119,7 @@ class HelOffersField extends React.Component {
                         <FormattedMessage id='event-add-price-limit' values={{count: GENERATE_LIMIT.OFFER_LENGTH}} />
                     </p>
                 }
-            </div>
+            </Fragment>
         );
     }
 }
