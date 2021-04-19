@@ -14,7 +14,7 @@ import Help from './views/Help'
 import Terms from './views/Terms/Terms'
 import Event from './views/Event'
 import EventCreated from './views/EventCreated'
-import {EventListing} from './views/EventListing'
+import EventListingPage from './views/EventListing'
 import ModerationPage from './views/Moderation/Moderation'
 import Accessibility from './views/Accessibility'
 import BrowserWarning from './views/Browser-Warning/BrowserWarning'
@@ -62,7 +62,7 @@ if (window.location.pathname === '/silent-renew') {
                         <ConnectedRouter history={history}>
                             <LayoutContainer>
                                 <Route exact path="/" component={HomePage}/>
-                                <Route exact path="/listing" component={EventListing}/>
+                                <Route exact path="/listing" component={EventListingPage}/>
                                 <Route exact path="/event/:eventId" component={Event}/>
                                 <Route exact path="/event/:action/:eventId" component={Editor}/>
                                 <Route exact path="/event/:eventId/recurring/:action" component={Editor}/>
