@@ -309,7 +309,6 @@ exports[`Image add form ImagePicker component should render correctly with data 
       "invalid-date-time-format": "Kirjoita päivämäärä ja aika oikeassa muodossa.",
       "invalid-time-format": "Ajan muoto on väärä.",
       "is-free": "Maksuton",
-      "is-url": "https://...",
       "lang-en": "Englanti",
       "lang-fi": "Suomi",
       "lang-sv": "Ruotsi",

@@ -309,7 +309,6 @@ exports[`Search Snapshot should render view correctly 1`] = `
       "invalid-date-time-format": "Kirjoita päivämäärä ja aika oikeassa muodossa.",
       "invalid-time-format": "Ajan muoto on väärä.",
       "is-free": "Maksuton",
-      "is-url": "https://...",
       "lang-en": "Englanti",
       "lang-fi": "Suomi",
       "lang-sv": "Ruotsi",
