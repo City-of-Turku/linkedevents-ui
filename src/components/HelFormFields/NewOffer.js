@@ -130,7 +130,7 @@ class NewOffer extends React.Component {
                     validations={[VALIDATION_RULES.IS_URL]}
                     validationErrors={this.props.validationErrors['offer_info_url']}
                     index={this.props.offerKey}
-                    placeholder={intl.formatMessage({id: 'is-url'})}
+                    placeholder='https://...'
                 />
             </div>
         )

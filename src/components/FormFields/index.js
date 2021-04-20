@@ -805,7 +805,7 @@ class FormFields extends React.Component {
                                     setDirtyState={this.props.setDirtyState}
                                     forceApplyToStore
                                     type='text'
-                                    placeholder={this.context.intl.formatMessage({id: 'is-url'})}
+                                    placeholder='https://...'
                                 />
                                 <HelTextField
                                     validations={[VALIDATION_RULES.IS_URL]}
@@ -818,7 +818,7 @@ class FormFields extends React.Component {
                                     setDirtyState={this.props.setDirtyState}
                                     forceApplyToStore
                                     type='text'
-                                    placeholder={this.context.intl.formatMessage({id: 'is-url'})}
+                                    placeholder='https://...'
                                 />
                                 <HelTextField
                                     validations={[VALIDATION_RULES.IS_URL]}
@@ -831,7 +831,7 @@ class FormFields extends React.Component {
                                     setDirtyState={this.props.setDirtyState}
                                     forceApplyToStore
                                     type='text'
-                                    placeholder={this.context.intl.formatMessage({id: 'is-url'})}
+                                    placeholder='https://...'
                                 />
                                 <HelTextField
                                     validations={[VALIDATION_RULES.IS_URL]}
@@ -844,7 +844,7 @@ class FormFields extends React.Component {
                                     setDirtyState={this.props.setDirtyState}
                                     forceApplyToStore
                                     type='text'
-                                    placeholder={this.context.intl.formatMessage({id: 'is-url'})}
+                                    placeholder='https://...'
                                 />
                             </div>
                         </div>
