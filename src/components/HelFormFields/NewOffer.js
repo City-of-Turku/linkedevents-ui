@@ -81,7 +81,6 @@ class NewOffer extends React.Component {
       
         return (
             <div key={offerKey} className="new-offer">
-
                 <button
                     aria-label={intl.formatMessage({id: 'delete'}) + ' ' + intl.formatMessage({id: 'event-price-fields-header'})}
                     className="offers-button"
@@ -90,6 +89,21 @@ class NewOffer extends React.Component {
                     <span className="glyphicon glyphicon-trash" aria-hidden="true"><p hidden>trash</p></span>
     
                 </button>
+                <MultiLanguageField
+                    id={'event-price' + this.props.offerKey}
+                    type='number'
+                    defaultValue={defaultValue.price} 
+                    disabled={isFree} 
+                    ref="price" 
+                    label="event-price" 
+                    languages={languages} 
+                    onBlur={e => this.onBlur(e)} 
+                    validationErrors={this.props.validationErrors['price']} 
+                    index={this.props.offerKey} 
+                    required={true} 
+                    placeholder={intl.formatMessage({id: 'price-placeholder'})}
+                />
+
                 <MultiLanguageField 
                     id={'event-price-info' + this.props.offerKey}
                     defaultValue={defaultValue.description} 
@@ -102,19 +116,7 @@ class NewOffer extends React.Component {
                     validationErrors={this.props.validationErrors['offer_description']} 
                     index={this.props.offerKey}
                     setInitialFocus={this.props.setInitialFocus}
-                />
-
-                <MultiLanguageField
-                    id={'event-price' + this.props.offerKey}
-                    defaultValue={defaultValue.price} 
-                    disabled={isFree} 
-                    ref="price" 
-                    label="event-price" 
-                    languages={languages} 
-                    onBlur={e => this.onBlur(e)} 
-                    validationErrors={this.props.validationErrors['price']} 
-                    index={this.props.offerKey} 
-                    required={true} 
+                    placeholder={intl.formatMessage({id: 'price-info-placeholder'})}
                 />
 
                 <MultiLanguageField 
@@ -127,6 +129,7 @@ class NewOffer extends React.Component {
                     validations={[VALIDATION_RULES.IS_URL]}
                     validationErrors={this.props.validationErrors['offer_info_url']}
                     index={this.props.offerKey}
+                    placeholder={intl.formatMessage({id: 'is-url'})}
                 />
             </div>
         )

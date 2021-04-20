@@ -187,6 +187,7 @@
 
     "event-price-fields-header": "Hintatiedot",
     "is-free": "Maksuton",
+    "is-url": "https://...",
     "event-is-free": "Tapahtuma on maksuton",
     "event-price": "Hinta",
     "event-price-info": "Hintatietojen kuvaus",
@@ -543,5 +544,7 @@
     "eventItem-location": "Paikka:",
     "eventItem-date": "Päivämäärä:",
     "eventItem-time": "Kello:",
-    "eventItem-description": "Lyhyt kuvaus:"
+    "eventItem-description": "Lyhyt kuvaus:",
+    "price-placeholder": "Esim: 5",
+    "price-info-placeholder": "Esim: Aikuiset"
 }
