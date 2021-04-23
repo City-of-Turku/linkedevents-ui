@@ -189,6 +189,8 @@ class HelTextField extends Component {
             validationErrors,
             index,
             name,
+            min,
+            max,
         } = this.props
         const type = this.props.type;
         const alert = this.state.error ? {role: 'alert', className: 'red-alert'} : '';
@@ -208,7 +210,9 @@ class HelTextField extends Component {
                         onChange={this.handleChange}
                         onBlur={this.handleBlur}
                         innerRef={ref => this.inputRef = ref}
-                        disabled={disabled}/>
+                        disabled={disabled}
+                        min={min}
+                        max={max}/>
                     <FormText {...alert}>
                         {this.helpText()}
                     </FormText>
@@ -254,6 +258,8 @@ HelTextField.propTypes = {
         PropTypes.number,
     ]),
     setInitialFocus: PropTypes.bool,
+    min: PropTypes.number,
+    max: PropTypes.number,
 }
 
 HelTextField.defaultProps = {

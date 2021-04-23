@@ -805,6 +805,7 @@ class FormFields extends React.Component {
                                     setDirtyState={this.props.setDirtyState}
                                     forceApplyToStore
                                     type='text'
+                                    placeholder='https://...'
                                 />
                                 <HelTextField
                                     validations={[VALIDATION_RULES.IS_URL]}
@@ -817,6 +818,7 @@ class FormFields extends React.Component {
                                     setDirtyState={this.props.setDirtyState}
                                     forceApplyToStore
                                     type='text'
+                                    placeholder='https://...'
                                 />
                                 <HelTextField
                                     validations={[VALIDATION_RULES.IS_URL]}
@@ -829,6 +831,7 @@ class FormFields extends React.Component {
                                     setDirtyState={this.props.setDirtyState}
                                     forceApplyToStore
                                     type='text'
+                                    placeholder='https://...'
                                 />
                                 <HelTextField
                                     validations={[VALIDATION_RULES.IS_URL]}
@@ -841,6 +844,7 @@ class FormFields extends React.Component {
                                     setDirtyState={this.props.setDirtyState}
                                     forceApplyToStore
                                     type='text'
+                                    placeholder='https://...'
                                 />
                             </div>
                         </div>

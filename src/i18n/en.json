@@ -173,7 +173,7 @@
     "event-price-fields-header": "Event price",
     "is-free": "Free",
     "event-is-free": "The event is free",
-    "event-price": "Event price",
+    "event-price": "Price",
     "event-price-info": "Price information",
     "event-purchase-link": "Link to ticket purchase/signup",
 
@@ -499,5 +499,7 @@
     "eventItem-date": "Date:",
     "eventItem-description": "Short description:",
     "eventItem-location": "Location:",
-    "eventItem-time": "Time:"
+    "eventItem-time": "Time:",
+    "price-placeholder": "e.g. 5",
+    "price-info-placeholder": "e.g. Adult"
 }

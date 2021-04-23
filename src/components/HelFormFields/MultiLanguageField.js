@@ -50,6 +50,9 @@ class MultiLanguageField extends React.Component {
         id: PropTypes.string,
         type: PropTypes.string,
         setInitialFocus: PropTypes.bool,
+        placeholder: PropTypes.string,
+        min: PropTypes.number,
+        max: PropTypes.number,
     }
 
     onChange(e,value,lang) {
@@ -142,6 +145,9 @@ class MultiLanguageField extends React.Component {
                         multiLine={this.props.multiLine}
                         type={this.props.type}
                         setInitialFocus={this.props.setInitialFocus}
+                        placeholder={this.props.placeholder}
+                        min={this.props.min}
+                        max={this.props.max}
                     />
 
                 </div>
@@ -163,6 +169,9 @@ class MultiLanguageField extends React.Component {
                             validations={this.props.validations}
                             type={this.props.type}
                             setInitialFocus={this.props.setInitialFocus && (index === 0)}
+                            placeholder={this.props.placeholder}
+                            min={this.props.min}
+                            max={this.props.max}
                         />
                     </div>
                 )

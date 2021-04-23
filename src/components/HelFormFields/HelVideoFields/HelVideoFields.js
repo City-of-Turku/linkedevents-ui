@@ -244,6 +244,7 @@ class HelVideoFields extends React.Component {
                                         validationErrors={get(this.props.validationErrors,['videos', index, 'url'], {})}
                                         onChange={(e, v) => this.handleChange(e, v, 'url', index)}
                                         onBlur={(e, v) => this.handleBlur(e, v, this.state.videos)}
+                                        placeholder='https://...'
                                     />
                                     <MultiLanguageField
                                         id='event-video-name'

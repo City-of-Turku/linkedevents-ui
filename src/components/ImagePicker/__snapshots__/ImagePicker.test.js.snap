@@ -364,6 +364,8 @@ exports[`Image add form ImagePicker component should render correctly with data 
       "postponed": "Lykätty",
       "preview-event": "Tapahtuman tiedot",
       "preview-event-button": "Esikatsele tapahtumatiedot",
+      "price-info-placeholder": "Esim: Aikuiset",
+      "price-placeholder": "Esim: 5",
       "profile-menu": " Käyttäjävalikko",
       "publish-events": "Julkaise tapahtuma",
       "publish-events-multi": "Julkaise tapahtumat",
