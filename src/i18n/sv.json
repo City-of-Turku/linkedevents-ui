@@ -98,7 +98,7 @@
     "event-provider-input": "Evenemangets arrangör (om annan än publiceraren)",
     "event-publisher": "Publiceraren av evenemanget",
     "event-publisher-info": "Publicerare: {publisher}",
-    "event-isvirtual": "Denna händelse är virtuell",
+    "event-isvirtual": "Händelsen är virtuell",
 
     "events-management": "Hantering av evenemang",
     "events-management-prompt": "för att redigera evenemangen.",

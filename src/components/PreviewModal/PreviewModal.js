@@ -37,7 +37,6 @@ class PreviewModal extends React.Component {
         const closebtn = <Button onClick={this.props.toggle} aria-label={this.context.intl.formatMessage({id: `close-preview-modal`})}><span className="glyphicon glyphicon-remove"></span></Button>
         const {event,superEvent = null, publisher, editor, values} = this.props;
         const formattedEvent = mapAPIDataToUIFormat(mapUIDataToAPIFormat(values));
-        const keywordExists = editor.values.keywords && editor.values.keywords.length > 0;
         formattedEvent.in_language = this.getFormattedLanguages(editor);
         formattedEvent.audience = this.getFormattedAudience(editor);
         return (
@@ -53,7 +52,7 @@ class PreviewModal extends React.Component {
                 <ModalBody>
                     <div>
                         <EventDetails
-                            values={keywordExists ? values : formattedEvent}
+                            values={values}
                             superEvent={superEvent}
                             rawData={formattedEvent}
                             publisher={publisher}

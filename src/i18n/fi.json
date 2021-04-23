@@ -90,8 +90,10 @@
     "no-value": "-kenttää ei ole täytetty.",
 
     "event-picture-header": "Määritä kuva",
-    "event-description-fields-header": "Syötä kuvaukset",
-    "event-category-header": "Luokittele ja määritä kohderyhmät*",
+    "event-description-fields-header": "Tapahtuman kuvaus",
+    "event-description-form-header": "Syötä kuvaukset",
+    "event-category-header": "Tapahtuman luokittelu ja kohderyhmät*",
+    "event-category-form-header": "Luokittele ja määritä kohderyhmät*",
     "event-price-header": "Syötä hintatiedot",
     "event-social-header": "Määritä sosiaaliset mediat",
 
@@ -105,7 +107,8 @@
     "event-provider-input": "Tapahtuman järjestäjä (jos eri kuin julkaisija)",
     "event-publisher": "Tapahtuman julkaisija",
     "event-publisher-info": "Julkaisija: {publisher}",
-    "event-isvirtual": "Tämä tapahtuma on virtuaalinen",
+    "event-isvirtual": "Tapahtuma on virtuaalinen",
+    "event-isvirtualphysical": "Tapahtuma on sekä virtuaalinen että fyysinen",
 
     "events-management": "Tapahtumien hallinta",
     "events-homepage": "Etusivu",
@@ -138,7 +141,9 @@
     "use-existing-image": "Käytä järjestelmässä olemassaolevaa kuvaa",
     "no-image": "Tapahtumalla ei ole kuvaa",
 
-    "event-datetime-fields-header": "Määritä ajankohdat",
+    "event-datetime-form-header": "Määritä ajankohdat",
+    "event-datetime-fields-header": "Tapahtuman ajankohdat",
+    "event-subEvent-fields-header": "Tapahtumasarja",
     "event-starting": "Tapahtuma alkaa",
     "event-starting-datetime": "Tapahtuma alkaa (pp.kk.vvvv tt.mm)",
     "event-starting-datelabel": "Tapahtuma alkaa (pp.kk.vvvv)",
@@ -151,6 +156,8 @@
     "event-add-recurring": "Toistuva tapahtuma",
     "event-type-single": "Yksittäinen tapahtuma",
     "event-type-recurring": "Sarjatapahtuma",
+    "event-series": "Tapahtuma {count}: {start} - {end}",
+    "event-series-time": "Tapahtuma {count}: Täytäthän sekä alku- että päättymisajan",
     "event-delete-recurring": "Poista edeltävä ajankohta",
     "event-sub-count": "Tapahtuma {count}",
     "event-add-price": "Lisää uusi hintatieto",
@@ -175,7 +182,8 @@
     "repetition-start-time": "Tapahtumien alkuaika (tt.mm)",
     "repetition-end-time": "Tapahtumien loppuaika (tt.mm)",
 
-    "event-location-fields-header": "Valitse paikka",
+    "event-location-fields-header": "Tapahtumapaikka",
+    "event-location-form-header": "Valitse paikka",
     "event-location": "Paikka",
     "event-location-virtual": "Virtuaalitapahtuma",
     "event-location-virtual-url": "Linkki virtuaaliseen tapahtumaan",
@@ -203,7 +211,8 @@
     "twitter-url": "Twitter (URL)",
     "instagram-url": "Instagram (URL)",
 
-    "event-categorization": "Määritä luokat",
+    "event-categorization-form": "Määritä luokat",
+    "event-categorization": "Tapahtuman luokittelu",
     "event-keywords": "Lisää asiasanoja",
     "event-keywords-delete": "Poista asiasana",
 

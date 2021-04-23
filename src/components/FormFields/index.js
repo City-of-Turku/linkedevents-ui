@@ -355,7 +355,7 @@ class FormFields extends React.Component {
                     </div>
                 </div>
                 <FormHeader>
-                    <FormattedMessage id="event-location-fields-header" />
+                    <FormattedMessage id="event-location-form-header" />
                 </FormHeader>
                 <div className="row location-row">
                     <SideField label={this.context.intl.formatMessage({id: 'event-location-fields-header-help'})}>
@@ -460,7 +460,7 @@ class FormFields extends React.Component {
 
                 </div>
                 <FormHeader>
-                    <FormattedMessage id="event-datetime-fields-header" />
+                    <FormattedMessage id="event-datetime-form-header" />
                 </FormHeader>
                 <div className='row date-row'>
                     <SideField label={this.context.intl.formatMessage({id: 'event-datetime-fields-header-help'})}>
@@ -611,14 +611,14 @@ class FormFields extends React.Component {
                         <CollapseButton
                             id='headerDescription'
                             isOpen={this.state.headerDescription}
-                            targetCollapseNameId='event-description-fields-header'
+                            targetCollapseNameId='event-description-form-header'
                             toggleHeader={this.toggleHeader}
                             validationErrorList={[validationErrors['description'], validationErrors['provider']]}
                         />
                     </h2>
                     <Collapse isOpen={this.state.headerDescription}>
                         <FormHeader>
-                            <FormattedMessage id='event-description-fields-header'/>
+                            <FormattedMessage id='event-description-form-header'/>
                         </FormHeader>
                         <div className="row event-row">
                             <SideField label={this.context.intl.formatMessage({id: 'event-description-fields-header-help'})}>
@@ -704,14 +704,14 @@ class FormFields extends React.Component {
                             id='headerCategories'
                             isOpen={this.state.headerCategories}
                             isRequired={true}
-                            targetCollapseNameId='event-category-header'
+                            targetCollapseNameId='event-category-form-header'
                             toggleHeader={this.toggleHeader}
                             validationErrorList={[validationErrors['keywords'], validationErrors['audience']]}
                         />
                     </h2>
                     <Collapse isOpen={this.state.headerCategories}>
                         <FormHeader>
-                            <FormattedMessage id="event-categorization" />
+                            <FormattedMessage id="event-categorization-form" />
                         </FormHeader>
                         <div className="row keyword-row">
                             <HelKeywordSelector

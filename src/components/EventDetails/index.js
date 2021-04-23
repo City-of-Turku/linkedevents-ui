@@ -1,6 +1,6 @@
 import './index.scss'
 import moment from 'moment-timezone'
-import React from 'react'
+import React, {Fragment} from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames';
 import get from 'lodash/get'
@@ -14,6 +14,8 @@ import {
 import {getStringWithLocale} from '../../utils/locale'
 import {mapKeywordSetToForm} from '../../utils/apiDataMapping'
 import LinksToEvents from '../LinksToEvents/LinksToEvents'
+import {Badge} from 'reactstrap';
+import {subEventSorting} from '../../utils/confirm'
 
 const NoValue = (props) => {
     let header = props.labelKey ? (<span ><FormattedMessage id={`${props.labelKey}`}/>&nbsp;</span>) : null
@@ -29,24 +31,12 @@ NoValue.propTypes = {
     labelKey: PropTypes.string,
 }
 
-const CheckedValue = ({checked, labelKey, label}) => (
-    <div className="custom-control custom-checkbox">
-        {checked
-            ? <input className='custom-control-input' type='checkbox' checked='disabled' readOnly id={label}/>
-            : <input className='custom-control-input' type='checkbox' disabled id={label} readOnly aria-hidden="true" />
-        }
-        <label className='custom-control-label' htmlFor={label}>
-            {labelKey
-                ? <FormattedMessage id={labelKey}/>
-                : label
-            }
-        </label>
+const CheckedValue = ({label}) => (
+    <div className="custom-control">
+        <Badge className='badge-primary'>{label}</Badge>
     </div>
 )
-
 CheckedValue.propTypes = {
-    checked: PropTypes.bool,
-    labelKey: PropTypes.string,
     label: PropTypes.string,
 }
 
@@ -176,28 +166,16 @@ OptionGroup.propTypes = {
     labelKey: PropTypes.string,
     locale: PropTypes.string,
 }
-
 const DateTime = (props) => {
-    // TODO: if all day event show it on this field. Add a props for it
     if (props.value && props.value.length !== undefined && props.value.length > 0) {
-        let time = moment(props.value).tz('Europe/Helsinki')
-        let value = ''
-        if (time.isValid()) {
-            value = <div>
-                <FormattedDate
-                    value={time}
-                    year="numeric"
-                    month="short"
-                    day="numeric"
-                    weekday="long"
-                />
-                <FormattedTime
-                    value={time}
-                    hour="numeric"
-                    minute="2-digit"
-                />
-            </div>
+        const options = {
+            weekday: 'long',
+            year: 'numeric', month: 'long', day: 'numeric',
+            hour: 'numeric', minute: 'numeric',
+            timeZone: 'Europe/Helsinki',
         }
+        let time = new Date(props.value)
+        let value = Intl.DateTimeFormat('fi', options).format(time)
         return (
             <div className="single-value-field">
                 <label  htmlFor='single-value-field'><FormattedMessage id={`${props.labelKey}`}/></label>
@@ -313,10 +291,11 @@ VideoValue.propTypes = {
 
 const VirtualInfo = (props) => {
     if (props.isvirtual && props.values) {
+        const messageId = !props.location ? props.labelvirtual : props.labelvirtualphysical;
         return (
             <div className="single-value-field">
                 <div>
-                    <FormattedMessage id={props.labelvirtual}>{txt => <label>{txt}</label>}</FormattedMessage>
+                    <FormattedMessage id={messageId}>{txt => <label>{txt}</label>}</FormattedMessage>
                     <br/>
                     <FormattedMessage id={props.labelvirtualURL}>{txt => <span htmlFor={props.values}>{txt}</span>}</FormattedMessage>
                     <br/>
@@ -335,6 +314,50 @@ VirtualInfo.propTypes = {
     isvirtual: PropTypes.bool,
     labelvirtual: PropTypes.string,
     labelvirtualURL: PropTypes.string,
+    labelvirtualphysical: PropTypes.string,
+}
+
+
+const SubEventListing = (props) => {
+    const subEventsExists = typeof props.value === 'object' && Object.keys(props.value).length > 0
+    const subEvents = subEventSorting(props.value)
+    const mappedSubs = subEvents.map((values, index) => {
+        if (values.start_time && values.end_time !== undefined) {
+            const options = {
+                year: 'numeric', month: 'numeric', day: 'numeric',
+                hour: 'numeric', minute: 'numeric',
+                timeZone: 'Europe/Helsinki',
+            }
+            let timeStart = new Date(values.start_time)
+            let timeEnd = new Date(values.end_time)
+            let valueStart = Intl.DateTimeFormat('fi', options).format(timeStart)
+            let valueEnd = Intl.DateTimeFormat('fi', options).format(timeEnd)
+
+            return(
+                <FormattedMessage id={props.subLabel} key={index} values={{start: valueStart, end: valueEnd, count: index + 1}} />
+            )} else if ((values.start_time && values.end_time) === undefined) {
+            return (
+                <div className="no-value" key={index}>
+                    <FormattedMessage id={props.noSubTimes} key={index + 1} values={{count: index + 1}} />
+                </div>
+            )
+        }});
+    if (subEventsExists) {
+        return (
+            <div className='subGrid' key={Math.random()}>
+                <FormattedMessage id={props.label}>{txt => <h3>{txt}</h3>}</FormattedMessage>
+                {mappedSubs}
+            </div>)
+    } else {
+        return (
+            <div/>
+        )
+    }
+}
+SubEventListing.propTypes = {
+    value: PropTypes.object,
+    subLabel: PropTypes.string,
+    noSubTimes: PropTypes.string,
 }
 
 const EventDetails = (props) => {
@@ -342,8 +365,12 @@ const EventDetails = (props) => {
     // Changed keywordSets to be compatible with Turku's backend.
     const mainCategoryValues = mapKeywordSetToForm(editor.keywordSets, 'turku:topics', intl.locale)
         .map(item => item.value)
-    const mainCategoryKeywords = values.keywords.filter(item => mainCategoryValues.includes(item.value))
-    const nonMainCategoryKeywords = values.keywords.filter(item => !mainCategoryValues.includes(item.value))
+    let mainCategoryKeywords, nonMainCategoryKeywords = [];
+    if (values.keywords) {
+        mainCategoryKeywords = values.keywords.filter(item => mainCategoryValues.includes(item.value))
+        nonMainCategoryKeywords = values.keywords.filter(item => !mainCategoryValues.includes(item.value))
+    }
+    const subsExists = Object.keys(editor.values['sub_events']).length > 0
 
     return (
         <div className={classNames('event-details', {'preview': props.isPreview})}>
@@ -362,14 +389,32 @@ const EventDetails = (props) => {
             <FormHeader>
                 {intl.formatMessage({id: 'event-datetime-fields-header'})}
             </FormHeader>
-            <DateTime value={values['start_time']} labelKey="event-starting"/>
-            <DateTime value={values['end_time']} labelKey="event-ending"/>
-
+            {props.isPreview
+                ?
+                <Fragment>
+                    {!subsExists
+                        ?
+                        <Fragment>
+                            <DateTime value={values['start_time']} labelKey="event-starting"/>
+                            <DateTime value={values['end_time']} labelKey="event-ending"/>
+                        </Fragment>
+                        :
+                        <Fragment>
+                            <SubEventListing label='event-subEvent-fields-header' subLabel="event-series" noSubTimes='event-series-time' value={values['sub_events']} />
+                        </Fragment>
+                    }
+                </Fragment>
+                :
+                <Fragment>
+                    <DateTime value={values['start_time']} labelKey="event-starting"/>
+                    <DateTime value={values['end_time']} labelKey="event-ending"/>
+                </Fragment>
+            }
             <FormHeader>
                 {intl.formatMessage({id: 'event-location-fields-header'})}
             </FormHeader>
 
-            <VirtualInfo labelvirtual='event-isvirtual' labelvirtualURL='event-location-virtual-url' isvirtual={values['is_virtualevent']} values={get(values, 'virtualevent_url')}/>
+            <VirtualInfo labelvirtualphysical='event-isvirtualphysical' labelvirtual='event-isvirtual' labelvirtualURL='event-location-virtual-url' location={get(values, 'location.name')} isvirtual={values['is_virtualevent']} values={get(values, 'virtualevent_url')}/>
 
             <MultiLanguageValue labelKey="event-location" value={get(values, 'location.name')}/>
             <TextValue labelKey="event-location-id" value={get(values, 'location.id')}/>

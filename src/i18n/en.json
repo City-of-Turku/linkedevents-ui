@@ -98,7 +98,7 @@
     "event-provider-input": "Event organizer (if different from the publisher)",
     "event-publisher": "Event publisher",
     "event-publisher-info": "Publisher: {publisher}",
-    "event-isvirtual": "This event is virtual",
+    "event-isvirtual": "Event is virtual",
 
     "events-management": "Manage events",
     "events-homepage": "Homepage",

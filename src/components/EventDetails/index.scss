@@ -121,10 +121,12 @@ legend {
         text-transform: capitalize;
     }
     .custom-control {
-        label {
-            font-size: 1.25rem;
-            padding-top: 0.2rem;
+        padding-left: 0px;
+        display: inline;
+        .badge {
+            padding: 7px;
         }
+
     }
 }
 
@@ -147,4 +149,27 @@ legend {
             margin-top: 3rem;
         }
     }
+}
+.subGrid {
+display: grid;
+.testi {
+    display: inline-flex;
+    p {
+        &:first-child {
+            padding-right: 5px;
+        }
+    }
+    .value {
+        span {
+            &:first-child {
+                padding-right: 5px;
+                padding-left: 5px;
+            }
+        }
+    }
+    .testip {
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+}
 }

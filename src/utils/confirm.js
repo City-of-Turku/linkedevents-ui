@@ -3,6 +3,7 @@ import {postponeEvents, cancelEvents, deleteEvents, mapSubEventDataToSuperEvents
 import constants from '../constants'
 import moment from 'moment'
 import {get, isUndefined, isNull, isNil} from 'lodash'
+import React from 'react'
 
 const {PUBLICATION_STATUS, SUPER_EVENT_TYPE_RECURRING, SUPER_EVENT_TYPE_UMBRELLA} = constants
 
@@ -13,6 +14,16 @@ const {PUBLICATION_STATUS, SUPER_EVENT_TYPE_RECURRING, SUPER_EVENT_TYPE_UMBRELLA
  * @returns {number}
  */
 export const compareDates = (a, b) => moment(a.start_time).unix() - moment(b.start_time).unix()
+
+
+
+export function subEventSorting(props) {
+    const mappedAndSortedSubs = Object.values(props).reduce((acc, curr) => {
+        acc.push(curr);
+        return acc;
+    }, []);
+    return mappedAndSortedSubs.sort();
+}
 
 /**
  * Returns a string containing html markup that lists given sub events in an unsorted list
