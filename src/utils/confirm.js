@@ -16,13 +16,17 @@ const {PUBLICATION_STATUS, SUPER_EVENT_TYPE_RECURRING, SUPER_EVENT_TYPE_UMBRELLA
 export const compareDates = (a, b) => moment(a.start_time).unix() - moment(b.start_time).unix()
 
 
-
+/**
+ * Returns an array of sorted sub event objects based on props values
+ * @param {object} props
+ * @returns {object[]} array of sorted objects
+ */
 export function subEventSorting(props) {
-    const mappedAndSortedSubs = Object.values(props).reduce((acc, curr) => {
+    const subEventObjects = Object.values(props).reduce((acc, curr) => {
         acc.push(curr);
         return acc;
     }, []);
-    return mappedAndSortedSubs.sort();
+    return subEventObjects.sort();
 }
 
 /**

@@ -211,12 +211,11 @@ const OffersValue = (props) => {
     const {offers} = props.values
 
     if (!offers || !offers.length || offers[0] && typeof offers[0] !== 'object') {
-        return (<NoValue  labelKey={props.labelKey}/>)
+        return (<FormattedMessage id="is-free"/>)
     }
 
     return (
         <div>
-            {offers[0].is_free && <FormattedMessage id="is-free"/>}
             {props.values.offers.map((offer, key) => (
                 <div key={`offer-value-${key}`} className="offer-values">
                     <MultiLanguageValue
@@ -338,7 +337,7 @@ const SubEventListing = (props) => {
             )} else if ((values.start_time && values.end_time) === undefined) {
             return (
                 <div className="no-value" key={index}>
-                    <FormattedMessage id={props.noSubTimes} key={index + 1} values={{count: index + 1}} />
+                    <FormattedMessage id={props.noSubTimes} key={index} values={{count: index + 1}} />
                 </div>
             )
         }});
@@ -358,6 +357,7 @@ SubEventListing.propTypes = {
     value: PropTypes.object,
     subLabel: PropTypes.string,
     noSubTimes: PropTypes.string,
+    label: PropTypes.string,
 }
 
 const EventDetails = (props) => {
