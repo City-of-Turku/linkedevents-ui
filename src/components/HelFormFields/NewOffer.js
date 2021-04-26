@@ -92,7 +92,7 @@ class NewOffer extends React.Component {
                 <MultiLanguageField
                     id={'event-price' + this.props.offerKey}
                     type='number'
-                    min={1}
+                    min={0}
                     defaultValue={defaultValue.price} 
                     disabled={isFree} 
                     ref="price" 
