@@ -1,5 +1,4 @@
 import './index.scss'
-import moment from 'moment-timezone'
 import React, {Fragment} from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames';
@@ -7,15 +6,12 @@ import get from 'lodash/get'
 import {
     injectIntl,
     FormattedMessage,
-    FormattedDate,
-    FormattedTime,
     intlShape,
 } from 'react-intl'
 import {getStringWithLocale} from '../../utils/locale'
 import {mapKeywordSetToForm} from '../../utils/apiDataMapping'
 import LinksToEvents from '../LinksToEvents/LinksToEvents'
 import {Badge} from 'reactstrap';
-import {subEventSorting} from '../../utils/confirm'
 
 const NoValue = (props) => {
     let header = props.labelKey ? (<span ><FormattedMessage id={`${props.labelKey}`}/>&nbsp;</span>) : null
@@ -174,11 +170,10 @@ const DateTime = (props) => {
             hour: 'numeric', minute: 'numeric',
             timeZone: 'Europe/Helsinki',
         }
-        let time = new Date(props.value)
-        let value = Intl.DateTimeFormat(props.locale, options).format(time)
+        const value = Intl.DateTimeFormat(props.locale, options).format(new Date(props.value))
         return (
             <div className="single-value-field">
-                <label  htmlFor='single-value-field'><FormattedMessage id={`${props.labelKey}`}/></label>
+                <label htmlFor='single-value-field'><FormattedMessage id={`${props.labelKey}`}/></label>
                 <input type="hidden" id="single-value-field" />
                 <span className="value" id="single-value-field">
                     {value}
@@ -188,7 +183,7 @@ const DateTime = (props) => {
     } else {
         return (
             <div className="single-value-field">
-                <label  htmlFor='value'><FormattedMessage id={`${props.labelKey}`}/></label>
+                <label htmlFor='value'><FormattedMessage id={`${props.labelKey}`}/></label>
                 <input type="hidden" id="value" />
                 <span className="value">
                     <NoValue id='value' labelKey={props.labelKey}/>
@@ -319,34 +314,36 @@ VirtualInfo.propTypes = {
 
 const SubEventListing = (props) => {
     const subEventsExists = typeof props.value === 'object' && Object.keys(props.value).length > 0
-    const subEvents = subEventSorting(props.value)
-    const mappedSubs = subEvents.map((values, index) => {
-        if (values.start_time && values.end_time !== undefined) {
-            const options = {
-                year: 'numeric', month: 'numeric', day: 'numeric',
-                hour: 'numeric', minute: 'numeric',
-                timeZone: 'Europe/Helsinki',
-            }
-            let timeStart = new Date(values.start_time)
-            let timeEnd = new Date(values.end_time)
-            let valueStart = Intl.DateTimeFormat(props.locale, options).format(timeStart)
-            let valueEnd = Intl.DateTimeFormat(props.locale, options).format(timeEnd)
-
-            return(
-                <FormattedMessage id={props.subLabel} key={index} values={{start: valueStart, end: valueEnd, count: index + 1}} />
-            )} else if ((values.start_time && values.end_time) === undefined) {
-            return (
-                <div className="no-value" key={index}>
-                    <FormattedMessage id={props.noSubTimes} key={index} values={{count: index + 1}} />
-                </div>
-            )
-        }});
+    
     if (subEventsExists) {
+        const subEvents = Object.values(props.value).sort();
+        const mappedSubs = subEvents.map((values, index) => {
+            if (values.start_time && values.end_time !== undefined) {
+                const options = {
+                    year: 'numeric', month: 'numeric', day: 'numeric',
+                    hour: 'numeric', minute: 'numeric',
+                    timeZone: 'Europe/Helsinki',
+                }
+                const valueStart = Intl.DateTimeFormat(props.locale, options).format(new Date(values.start_time))
+                const valueEnd = Intl.DateTimeFormat(props.locale, options).format(new Date(values.end_time))
+
+                return(
+                    <FormattedMessage id={props.subLabel} key={index} values={{start: valueStart, end: valueEnd, count: index + 1}} />
+                )
+            } else if ((values.start_time && values.end_time) === undefined) {
+                return (
+                    <div className="no-value" key={index}>
+                        <FormattedMessage id={props.noSubTimes} key={index} values={{count: index + 1}} />
+                    </div>
+                )
+            }
+        });
         return (
             <div className='subGrid'>
                 <FormattedMessage id={props.label}>{txt => <h3>{txt}</h3>}</FormattedMessage>
                 {mappedSubs}
-            </div>)
+            </div>
+        )
     } else {
         return (
             <div/>
@@ -389,26 +386,16 @@ const EventDetails = (props) => {
             <FormHeader>
                 {intl.formatMessage({id: 'event-datetime-fields-header'})}
             </FormHeader>
-            {props.isPreview
-                ?
-                <Fragment>
-                    {!subsExists
-                        ?
-                        <Fragment>
-                            <DateTime locale={intl.locale} value={values['start_time']} labelKey="event-starting"/>
-                            <DateTime locale={intl.locale} value={values['end_time']} labelKey="event-ending"/>
-                        </Fragment>
-                        :
-                        <Fragment>
-                            <SubEventListing locale={intl.locale} label='event-subEvent-fields-header' subLabel="event-series" noSubTimes='event-series-time' value={values['sub_events']} />
-                        </Fragment>
-                    }
-                </Fragment>
-                :
+            {(!props.isPreview || (props.isPreview && !subsExists)) && (
                 <Fragment>
                     <DateTime locale={intl.locale} value={values['start_time']} labelKey="event-starting"/>
                     <DateTime locale={intl.locale} value={values['end_time']} labelKey="event-ending"/>
-                </Fragment>
+                </Fragment>)
+            }
+            {props.isPreview && subsExists && (
+                <Fragment>
+                    <SubEventListing locale={intl.locale} label='event-subEvent-fields-header' subLabel="event-series" noSubTimes='event-series-time' value={values['sub_events']} />
+                </Fragment>)
             }
             <FormHeader>
                 {intl.formatMessage({id: 'event-location-fields-header'})}
