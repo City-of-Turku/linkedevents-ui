@@ -343,7 +343,7 @@ const SubEventListing = (props) => {
         }});
     if (subEventsExists) {
         return (
-            <div className='subGrid' key={Math.random()}>
+            <div className='subGrid'>
                 <FormattedMessage id={props.label}>{txt => <h3>{txt}</h3>}</FormattedMessage>
                 {mappedSubs}
             </div>)
