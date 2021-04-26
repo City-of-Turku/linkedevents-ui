@@ -152,24 +152,4 @@ legend {
 }
 .subGrid {
 display: grid;
-.testi {
-    display: inline-flex;
-    p {
-        &:first-child {
-            padding-right: 5px;
-        }
-    }
-    .value {
-        span {
-            &:first-child {
-                padding-right: 5px;
-                padding-left: 5px;
-            }
-        }
-    }
-    .testip {
-        padding-left: 5px;
-        padding-right: 5px;
-    }
-}
 }
