@@ -175,7 +175,7 @@ const DateTime = (props) => {
             timeZone: 'Europe/Helsinki',
         }
         let time = new Date(props.value)
-        let value = Intl.DateTimeFormat('fi', options).format(time)
+        let value = Intl.DateTimeFormat(props.locale, options).format(time)
         return (
             <div className="single-value-field">
                 <label  htmlFor='single-value-field'><FormattedMessage id={`${props.labelKey}`}/></label>
@@ -329,8 +329,8 @@ const SubEventListing = (props) => {
             }
             let timeStart = new Date(values.start_time)
             let timeEnd = new Date(values.end_time)
-            let valueStart = Intl.DateTimeFormat('fi', options).format(timeStart)
-            let valueEnd = Intl.DateTimeFormat('fi', options).format(timeEnd)
+            let valueStart = Intl.DateTimeFormat(props.locale, options).format(timeStart)
+            let valueEnd = Intl.DateTimeFormat(props.locale, options).format(timeEnd)
 
             return(
                 <FormattedMessage id={props.subLabel} key={index} values={{start: valueStart, end: valueEnd, count: index + 1}} />
@@ -395,19 +395,19 @@ const EventDetails = (props) => {
                     {!subsExists
                         ?
                         <Fragment>
-                            <DateTime value={values['start_time']} labelKey="event-starting"/>
-                            <DateTime value={values['end_time']} labelKey="event-ending"/>
+                            <DateTime locale={intl.locale} value={values['start_time']} labelKey="event-starting"/>
+                            <DateTime locale={intl.locale} value={values['end_time']} labelKey="event-ending"/>
                         </Fragment>
                         :
                         <Fragment>
-                            <SubEventListing label='event-subEvent-fields-header' subLabel="event-series" noSubTimes='event-series-time' value={values['sub_events']} />
+                            <SubEventListing locale={intl.locale} label='event-subEvent-fields-header' subLabel="event-series" noSubTimes='event-series-time' value={values['sub_events']} />
                         </Fragment>
                     }
                 </Fragment>
                 :
                 <Fragment>
-                    <DateTime value={values['start_time']} labelKey="event-starting"/>
-                    <DateTime value={values['end_time']} labelKey="event-ending"/>
+                    <DateTime locale={intl.locale} value={values['start_time']} labelKey="event-starting"/>
+                    <DateTime locale={intl.locale} value={values['end_time']} labelKey="event-ending"/>
                 </Fragment>
             }
             <FormHeader>

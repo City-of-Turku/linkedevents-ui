@@ -145,6 +145,7 @@
     "event-type-single": "Enskilt evenemang",
     "event-type-recurring": "Återkommande evenemang",
     "event-delete-recurring": "Ta bort föregående tidpunkt",
+    "event-series": "Händelse {count}: {start} - {end}",
     "event-sub-count": "Händelse {count}",
     "event-add-price":  "Lägg till en ny prisinformation",
     "event-add-price-limit": "Det kan finnas högst {count} stycken prisuppgifter.",

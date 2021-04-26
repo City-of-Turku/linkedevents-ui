@@ -139,6 +139,7 @@
     "event-type-single": "Single event",
     "event-type-recurring": "Serial event",
     "event-delete-recurring": "Remove previous event time",
+    "event-series": "Event {count}: {start} - {end}",
     "event-sub-count": "Event {count}",
     "event-add-price": "Add new price",
     "event-add-price-limit": "Price information can be up to {count} pieces.",
