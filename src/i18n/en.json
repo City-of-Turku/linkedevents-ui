@@ -141,6 +141,7 @@
     "event-delete-recurring": "Remove previous event time",
     "event-series": "Event {count}: {start} - {end}",
     "event-sub-count": "Event {count}",
+    "event-price-count": "Price information {count}",
     "event-add-price": "Add new price",
     "event-add-price-limit": "Price information can be up to {count} pieces.",
     "date": "Date",
