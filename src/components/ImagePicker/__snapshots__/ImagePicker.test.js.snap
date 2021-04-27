@@ -211,6 +211,7 @@ exports[`Image add form ImagePicker component should render correctly with data 
       "event-presented-in-languages": "Tapahtuman syöttökielet",
       "event-presented-in-languages-help": "Syöttökielen ohje",
       "event-price": "Hinta",
+      "event-price-count": "Hintatieto {count}",
       "event-price-fields-header": "Hintatiedot",
       "event-price-fields-header-help": "Hintatieto ohje",
       "event-price-header": "Syötä hintatiedot",

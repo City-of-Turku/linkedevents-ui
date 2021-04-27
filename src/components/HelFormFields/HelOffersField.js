@@ -72,6 +72,7 @@ class HelOffersField extends React.Component {
                 newOffers.push(
                     <NewOffer
                         key={key}
+                        length={newOffers.length + 1}
                         offerKey={key}
                         defaultValue={this.props.defaultValue[key]}
                         validationErrors={this.props.validationErrors}

@@ -418,6 +418,7 @@ exports[`EventListing Snapshot should render view correctly 1`] = `
       "event-presented-in-languages": "Tapahtuman syöttökielet",
       "event-presented-in-languages-help": "Syöttökielen ohje",
       "event-price": "Hinta",
+      "event-price-count": "Hintatieto {count}",
       "event-price-fields-header": "Hintatiedot",
       "event-price-fields-header-help": "Hintatieto ohje",
       "event-price-header": "Syötä hintatiedot",

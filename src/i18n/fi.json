@@ -160,6 +160,7 @@
     "event-series-time": "Tapahtuma {count}: Täytäthän sekä alku- että päättymisajan",
     "event-delete-recurring": "Poista edeltävä ajankohta",
     "event-sub-count": "Tapahtuma {count}",
+    "event-price-count": "Hintatieto {count}",
     "event-add-price": "Lisää uusi hintatieto",
     "event-add-price-limit": "Hintatietoja voi olla enintään {count} kappaletta.",
     "event-add-recurring-limit": "Toistuvia ajankohtia voi olla {count} kappaletta, olet lisäämässä {subEventcount} kappaletta.",
