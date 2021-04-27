@@ -213,6 +213,7 @@ const OffersValue = (props) => {
         <div>
             {props.values.offers.map((offer, key) => (
                 <div key={`offer-value-${key}`} className="offer-values">
+                    <FormattedMessage id={props.label} values={{count: key + 1}}>{txt => <h3>{txt}</h3>}</FormattedMessage>
                     <MultiLanguageValue
                         labelKey="event-purchase-link"
                         hidden={offer.is_free}
@@ -237,6 +238,7 @@ const OffersValue = (props) => {
 OffersValue.propTypes = {
     values: PropTypes.object,
     labelKey: PropTypes.string,
+    label: PropTypes.string,
 }
 
 const VideoValue = ({values}) => {
@@ -413,7 +415,7 @@ const EventDetails = (props) => {
             <FormHeader>
                 {intl.formatMessage({id: 'event-price-fields-header'})}
             </FormHeader>
-            <OffersValue values={values}/>
+            <OffersValue label={'event-price-count'} values={values}/>
 
             <FormHeader>
                 {intl.formatMessage({id: 'event-social-media-fields-header'})}
