@@ -49,7 +49,7 @@
     "series": "Series",
     "umbrella": "Umbrella event",
     "loading": "Loading...",
-    "select": "Select...",
+    "select": "Search and select...",
     "close": "Close",
 
     "links-to-events": "Links to other events",
@@ -163,7 +163,7 @@
     "repetition-end-time": "End time (hh.mm)",
 
     "event-location-fields-header": "Venue",
-    "event-location": "Location",
+    "event-location": "Location or address",
     "event-location-virtual": "Virtual event",
     "event-location-virtual-url": "Link to a virtual event",
     "event-location-id": "Location ID",

@@ -49,7 +49,7 @@
     "series": "Sarja",
     "umbrella": "Kattotapahtuma",
     "loading": "Ladataan...",
-    "select": "Valitse...",
+    "select": "Hae ja valitse...",
     "close": "Sulje",
 
     "links-to-events": "Kytkökset muihin tapahtumiin",
@@ -185,7 +185,7 @@
 
     "event-location-fields-header": "Tapahtumapaikka",
     "event-location-form-header": "Valitse paikka",
-    "event-location": "Paikka",
+    "event-location": "Paikka tai osoite",
     "event-location-virtual": "Virtuaalitapahtuma",
     "event-location-virtual-url": "Linkki virtuaaliseen tapahtumaan",
     "event-location-id": "Paikan ID",

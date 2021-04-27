@@ -49,7 +49,7 @@
     "series": "Serie",
     "umbrella": "Paraplyevenemang",
     "loading": "Laddar...",
-    "select": "Välj...",
+    "select": "Sök och välj...",
     "close": "Stäng",
 
     "links-to-events": "Förbindelser till andra evenemang",
@@ -169,7 +169,7 @@
     "repetition-end-time": "Evenemangens avslutningstid (tt.mm)",
 
     "event-location-fields-header": "Evenemangsplats",
-    "event-location": "Plats",
+    "event-location": "Plats eller adress",
     "event-location-virtual": "Virtuell händelse",
     "event-location-virtual-url": "Länk till virtuella händelsen",
     "event-location-id": "Platsens ID",
