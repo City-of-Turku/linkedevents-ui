@@ -192,8 +192,8 @@ class ImageEdit extends React.Component {
      */
     async handleImagePost() {
         const langs = this.props.editor.contentLanguages;
-        const DecorationAlts = {};
-        langs.forEach((lang)=> DecorationAlts[lang] = this.context.intl.formatMessage({id: `description-alt.${lang}`}));
+        const decorationAlts = {};
+        langs.forEach((lang)=> decorationAlts[lang] = this.context.intl.formatMessage({id: `description-alt.${lang}`}));
         let imageToPost = {
             name: this.state.image['name'],
             alt_text: this.state.image['altText'],
@@ -202,7 +202,7 @@ class ImageEdit extends React.Component {
         };
         if (this.state.hideAltText) {
             imageToPost = update(imageToPost, {
-                alt_text:{$set: DecorationAlts},
+                alt_text:{$set: decorationAlts},
             });
         }
         if (!this.props.updateExisting) {
