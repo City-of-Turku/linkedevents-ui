@@ -192,8 +192,10 @@ class ImageEdit extends React.Component {
      */
     async handleImagePost() {
         const langs = this.props.editor.contentLanguages;
-        const decorationAlts = {};
-        langs.forEach((lang)=> decorationAlts[lang] = this.context.intl.formatMessage({id: `description-alt.${lang}`}));
+        const decorationAlts = langs.reduce((acc,curr)  => {
+            acc[curr] = this.context.intl.formatMessage({id: `description-alt.${curr}`});
+            return acc;
+        },  {});
         let imageToPost = {
             name: this.state.image['name'],
             alt_text: this.state.image['altText'],
