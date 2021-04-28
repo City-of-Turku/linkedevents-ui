@@ -149,15 +149,7 @@ class ImageEdit extends React.Component {
      * @param e 
      */
     setAltDecoration(e) {
-        const decoration = e.target.checked
-        const langs = this.props.editor.contentLanguages;
-        const DecorationAlts = {};
-        langs.forEach((lang)=> DecorationAlts[lang] = this.context.intl.formatMessage({id: `description-alt.${lang}`}));
-        this.handleChange({target: {id: 'altText'}},
-            DecorationAlts)
-        this.setState({
-            hideAltText: decoration,
-        })
+        this.setState({hideAltText: e.target.checked})
     }
 
     /**
@@ -199,12 +191,20 @@ class ImageEdit extends React.Component {
      * @returns {Promise<void>}
      */
     async handleImagePost() {
+        const langs = this.props.editor.contentLanguages;
+        const DecorationAlts = {};
+        langs.forEach((lang)=> DecorationAlts[lang] = this.context.intl.formatMessage({id: `description-alt.${lang}`}));
         let imageToPost = {
             name: this.state.image['name'],
             alt_text: this.state.image['altText'],
             photographer_name: this.state.image['photographerName'],
             license: this.state.license,
         };
+        if (this.state.hideAltText) {
+            imageToPost = update(imageToPost, {
+                alt_text:{$set: DecorationAlts},
+            });
+        }
         if (!this.props.updateExisting) {
             if (this.props.imageFile || this.state.imageFile) {
                 let image64 = await this.imageToBase64(this.state.imageFile);
@@ -429,8 +429,8 @@ class ImageEdit extends React.Component {
                         <FormattedMessage id={'image-modal-image-info'}/>
                     </ModalHeader>
                     <ModalBody>
-                        <div className='row'>
-                            <div className='col-sm-8 image-edit-dialog--form'>
+                        <div>
+                            <div className='col-sm-12  image-edit-dialog--form'>
                                 {!this.props.updateExisting &&
                                 <div className='file-upload'>
                                     <div className='tip' aria-label={this.context.intl.formatMessage({id: 'image-upload-help'})}>
@@ -489,6 +489,9 @@ class ImageEdit extends React.Component {
                                                 >
                                                     <FormattedMessage id='upload-image-from-url-button' />
                                                 </Button>
+                                                <div className='image'>
+                                                    <img className="col-sm-6 image-edit-dialog--image" src={thumb} alt={getStringWithLocale(this.state.image,'altText')} />
+                                                </div>
                                                 <div className='tools'>
                                                     <Button
                                                         onClick={this.clearPictures}
@@ -533,7 +536,6 @@ class ImageEdit extends React.Component {
                                     <FormattedHTMLMessage id={'image-modal-view-terms-paragraph-text'}/>
                                 </div>
                             </div>
-                            <img className="col-sm-4 image-edit-dialog--image" src={thumb} alt={getStringWithLocale(this.state.image,'altText')} />
                             <div className="col-sm-12">
                                 <Button
                                     size="lg" block

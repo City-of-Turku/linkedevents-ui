@@ -236,6 +236,36 @@ describe('ImageEdit', () => {
                     expect(close).toHaveBeenCalled();
 
                 });
+                test('calls postImage with correct alt_text when hideAltText-state is true', async () => {
+                    const wrapper = getWrapper({postImage, close, imageFile});
+                    wrapper.setState({imageFile: imageFile});
+                    const checked = (bool) => ({target: {checked: bool}});
+                    jest.spyOn(wrapper.instance(),'imageToBase64');
+                    wrapper.instance().handleChange({target:{id:'altText'}}, {fi:'finnishAlt'});
+                    wrapper.instance().handleChange({target:{id:'name'}}, {fi:'finnishName'});
+                    wrapper.instance().handleChange({target:{id:'photographerName'}}, 'Photographer Phil');
+                    wrapper.instance().setAltDecoration(checked(true))
+                    const expectedImage = await wrapper.instance().imageToBase64(defaultImageBlob);
+                    await wrapper.instance().handleImagePost();
+
+                    const imageToPost = {
+                        alt_text: {
+                            fi: 'Kuva on koriste',
+                        },
+                        name: {
+                            fi: 'finnishName',
+                        },
+                        file_name: 'testfile',
+                        image: expectedImage,
+                        license: 'event_only',
+                        photographer_name: 'Photographer Phil',
+                    };
+
+                    expect(wrapper.instance().imageToBase64).toHaveBeenCalled();
+                    expect(postImage).toHaveBeenCalledWith(imageToPost,defaultUser,null)
+                    expect(close).toHaveBeenCalled();
+
+                });
             });
         });
 
@@ -440,11 +470,6 @@ describe('ImageEdit', () => {
                 expect(wrapper.state('hideAltText')).toBe(false);
                 instance.setAltDecoration(checked(true));
                 expect(wrapper.state('hideAltText')).toBe(true);
-            })
-            test('calling setAltDecoration with altText to set input-value', () => {
-                instance.setAltDecoration({target:{id:'altText'}},{fi: 'Kuva on koriste'});
-                const element = wrapper.find(MultiLanguageField).at(0);
-                expect(element.prop('defaultValue')).toEqual({fi: 'Kuva on koriste'});
             })
         })
 

@@ -49,6 +49,14 @@
 					}
 					.file-upload--external {
 						#upload-external {
+							.image {
+								text-align: center;
+							.image-edit-dialog--image {
+								object-fit: contain;
+								max-width: 500px;
+								max-height: 500px;
+							}
+						}
 							input {
 								border-width: 2px;
 								border-style: solid;
@@ -92,9 +100,7 @@
 	.help-notice {
 		margin-top: 10px;
 	}
-	.image-edit-dialog--image {
-		object-fit: contain;
-	}
+
 	.btn-primary.disabled:hover {
 		background-color: #6c757d;
 	}
