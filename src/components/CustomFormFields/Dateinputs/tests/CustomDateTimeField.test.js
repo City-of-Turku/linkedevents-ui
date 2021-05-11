@@ -4,7 +4,7 @@ import moment from 'moment'
 
 import {UnconnectedCustomDateTimeField} from '../CustomDateTimeField';
 import CustomDatePicker from '../CustomDatePicker';
-import ValidationPopover from 'src/components/ValidationPopover'
+import ValidationNotification from 'src/components/ValidationNotification'
 
 
 describe('CustomDateTimeField', () => {
@@ -45,12 +45,12 @@ describe('CustomDateTimeField', () => {
             expect(datePicker.prop('required')).toBe(false)
         })
 
-        test('ValidationPopover with correct props', () => {
-            const validationPopover = getWrapper().find(ValidationPopover)
-            expect(validationPopover).toHaveLength(1)
-            expect(validationPopover.prop('anchor')).toBe(null)
-            expect(validationPopover.prop('placement')).toBe('right')
-            expect(validationPopover.prop('validationErrors')).toBe(defaultProps.validationErrors)
+        test('ValidationNotification with correct props', () => {
+            const ValidationNotifications = getWrapper().find(ValidationNotification)
+            expect(ValidationNotifications).toHaveLength(1)
+            expect(ValidationNotifications.prop('anchor')).toBe(null)
+            expect(ValidationNotifications.prop('className')).toBe('validation-notification')
+            expect(ValidationNotifications.prop('validationErrors')).toBe(defaultProps.validationErrors)
         })
     })
 })

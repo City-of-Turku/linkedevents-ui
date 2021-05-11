@@ -197,10 +197,10 @@ const validateVirtualURL = (values, validations) => {
 //Check if sub_events exist
 const validateStartTime = (values, validations) => {
     const errors = []
-    const isSingleMain = !values.hasOwnProperty('sub_events')
-    const subEvent = values.hasOwnProperty('start_time') && isSingleMain
+    const isSingleMain = !values.hasOwnProperty(Object.keys('sub_events'))
+    const subEvent = (!values.hasOwnProperty('start_time') || values['start_time'] === undefined) && isSingleMain
 
-    if (isSingleMain || subEvent) {
+    if (subEvent || isSingleMain) {
         validations.forEach((val) => {
             if (!validationFn[val](values, values['start_time'])) {
                 errors.push(val)
@@ -213,7 +213,7 @@ const validateStartTime = (values, validations) => {
 //Validate sub_event count
 const validateSubEventCount = (values, validations) => {
     let errors = []
-    const eventHasSubEvents = values.hasOwnProperty('sub_events') && !values.hasOwnProperty('start_time')
+    const eventHasSubEvents = values.hasOwnProperty(Object.keys('sub_events')) && !values.hasOwnProperty('start_time')
     if (eventHasSubEvents) {
         validations.forEach((val) => {
             if (!validationFn[val](values, values['sub_events'])) {

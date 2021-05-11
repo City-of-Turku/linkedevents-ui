@@ -5,7 +5,7 @@ import CustomDateTime from '../CustomFormFields/Dateinputs/CustomDateTime';
 import {connect} from 'react-redux'
 import {deleteSubEvent as deleteSubEventAction} from 'src/actions/editor'
 import {FormattedMessage, injectIntl} from 'react-intl';
-import ValidationPopover from '../ValidationPopover';
+import ValidationNotification from '../ValidationNotification';
 const NewEvent = ({event, eventKey, errors, deleteSubEvent, intl, setInitialFocus, subErrors, length}) => {
     /**
      * If eventKey is 0 -> return all errors, for other keys filter out the max sub count error
@@ -55,9 +55,9 @@ const NewEvent = ({event, eventKey, errors, deleteSubEvent, intl, setInitialFocu
                 <span id="sub-event-del-icon" className="glyphicon glyphicon-trash" aria-hidden="true"></span>
             </button>
             <div className="w-100"></div>
-            <ValidationPopover
+            <ValidationNotification
+                className='validation-notification' 
                 anchor={containerRef.current}
-                placement={'top'}
                 validationErrors={getValidationErrors()}
             />
         </div>

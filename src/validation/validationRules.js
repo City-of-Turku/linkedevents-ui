@@ -195,12 +195,13 @@ var validations = {
     },
     requiredMulti(values, value) {
         if(typeof value !== 'object' || !value) {
-            return false
+            return false;
         }
-        if(_.keys(value).length === 0) {
-            return false
+        if (Object.keys(value).length === 0) {
+            return false;
         }
-        return every(value, item => isNull(item) || item.trim() && item.trim().length > 0)
+        const valueContent = Object.values(value);
+        return valueContent.every(x => !isNull(x)) && valueContent.every(x => typeof x === 'string' && x.trim().length > 0)
     },
     requiredAtId: function requiredAtId(values, value) {
         if(typeof value !== 'object' || !value) {

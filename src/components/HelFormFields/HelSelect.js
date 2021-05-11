@@ -7,7 +7,7 @@ import {createFilter} from 'react-select'
 import {setData as setDataAction} from '../../actions/editor'
 import {connect} from 'react-redux'
 import {get, isNil} from 'lodash'
-import ValidationPopover from '../ValidationPopover'
+import ValidationNotification from '../ValidationNotification'
 import client from '../../api/client'
 import {injectIntl} from 'react-intl'
 import {getStringWithLocale} from '../../utils/locale';
@@ -39,6 +39,23 @@ const HelSelect = ({
             selectInputRef.current.select.select.inputRef.setAttribute('aria-required', 'true');
         }
     }, [selectInputRef.current, required])
+
+    useEffect(() => {
+        if (validationErrors && name === 'location') {
+            selectInputRef.current.select.select.inputRef.setAttribute('class', 'validation-notification')
+        } else {
+            selectInputRef.current.select.select.inputRef.removeAttribute('class');
+        }
+    }, [validationErrors])
+
+    useEffect(() => {
+        const input = document.getElementById('react-select-2-input')
+        if (input && name === 'location') {
+            const newDiv = document.createElement('div');
+            const parentDiv = document.getElementById('react-select-2-input').parentElement
+            parentDiv.insertBefore(newDiv, input)
+        }
+    }, [name])
     
     const onChange = (value) => {
         // let the custom handler handle the change if given
@@ -184,6 +201,15 @@ const HelSelect = ({
         // no need to filter data returned by the api, text filter might have matched to non-displayed fields
         return true
     }
+    const invalidStyles = (styles) => (
+        {...styles,
+            borderColor: validationErrors ? '#ff3d3d' : styles.borderColor,
+            borderWidth: validationErrors ? '2px' : styles.borderWidth,
+            '&:hover': {
+                borderColor: validationErrors ? '#ff3d3d' : styles['&:hover'].borderColor,
+            },
+        }
+    )
 
     return (
         <div {...optionalWrapperAttributes}>
@@ -191,7 +217,6 @@ const HelSelect = ({
                 {legend}{required ? '*' : ''}
             </label>
             <AsyncSelect
-                aria-labelledby={legend}
                 isClearable={isClearable}
                 isMulti={isMultiselect}
                 value={getDefaultValue()}
@@ -204,13 +229,13 @@ const HelSelect = ({
                 formatOptionLabel={formatOption}
                 aria-label={intl.formatMessage({id: placeholderId})}
                 ref={selectInputRef}
+                styles={{control: invalidStyles}}
             />
-            <div className='select-popover'>
-                <ValidationPopover
-                    anchor={labelRef.current}
-                    validationErrors={validationErrors}
-                />
-            </div>
+            <ValidationNotification
+                anchor={labelRef.current}
+                validationErrors={validationErrors}
+                className='validation-select' 
+            />
         </div>
     )
 }
@@ -249,5 +274,5 @@ HelSelect.propTypes = {
 const mapDispatchToProps = (dispatch) => ({
     setData: (value) => dispatch(setDataAction(value)),
 })
-
+export {HelSelect as UnconnectedHelSelect}
 export default connect(null, mapDispatchToProps)(injectIntl(HelSelect))

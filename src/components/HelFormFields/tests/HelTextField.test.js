@@ -2,7 +2,7 @@ import React from 'react';
 import {shallow, mount} from 'enzyme';
 import HelTextField from '../HelTextField';
 import {Input, FormText} from 'reactstrap';
-import ValidationPopover from '../../ValidationPopover';
+import ValidationNotification from '../../ValidationNotification';
 import {IntlProvider} from 'react-intl';
 import fiMessages from 'src/i18n/fi.json';
 import mapValues from 'lodash/mapValues';
@@ -96,14 +96,14 @@ describe('HelTextField', () => {
                 expect(formText.prop('className')).toBe(undefined)
             })
 
-            test('ValidationPopover with correct props', () => {
+            test('ValidationNotification with correct props', () => {
                 const wrapper = getWrapper()
                 const instance = wrapper.instance()
-                const validationPopover = wrapper.find(ValidationPopover)
-                expect(validationPopover).toHaveLength(1)
-                expect(validationPopover.prop('index')).toBe(defaultProps.index)
-                expect(validationPopover.prop('anchor')).toBe(instance.inputRef)
-                expect(validationPopover.prop('validationErrors')).toBe(defaultProps.validationErrors)
+                const ValidationNotifications = wrapper.find(ValidationNotification)
+                expect(ValidationNotifications).toHaveLength(1)
+                expect(ValidationNotifications.prop('index')).toBe(defaultProps.index)
+                expect(ValidationNotifications.prop('anchor')).toBe(instance.inputRef)
+                expect(ValidationNotifications.prop('validationErrors')).toBe(defaultProps.validationErrors)
             })
         })
     })
@@ -380,6 +380,19 @@ describe('HelTextField', () => {
                 const instance = wrapper.instance()
                 instance.inputRef = {value: 'https://google.fi'}
                 expect(instance.noValidationErrors()).toBe(true)
+            })
+        })
+        describe('validationErrors & input invalid-prop', () => {
+            const validations = [VALIDATION_RULES.REQUIRE_MULTI]
+            test('validationErrors exists', () => {
+                const wrapper = getWrapper({validationErrors: validations})
+                const input = wrapper.find(Input)
+                expect(input.prop('invalid')).toBe(true);
+            })
+            test('validationErrors does not exists', () => {
+                const wrapper = getWrapper({validationErrors: defaultProps.validationErrors})
+                const input = wrapper.find(Input)
+                expect(input.prop('invalid')).toBe(false);
             })
         })
     })

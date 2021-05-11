@@ -241,7 +241,7 @@ class HelVideoFields extends React.Component {
                                         defaultValue={video.url}
                                         label={this.context.intl.formatMessage({id: 'event-video-url'})}
                                         validations={[VALIDATION_RULES.IS_URL]}
-                                        validationErrors={get(this.props.validationErrors,['videos', index, 'url'], {})}
+                                        validationErrors={get(this.props.validationErrors,['videos', index, 'url'], null)}
                                         onChange={(e, v) => this.handleChange(e, v, 'url', index)}
                                         onBlur={(e, v) => this.handleBlur(e, v, this.state.videos)}
                                         placeholder='https://...'
@@ -252,7 +252,7 @@ class HelVideoFields extends React.Component {
                                         required={required[index]}
                                         multiLine={false}
                                         validations={[VALIDATION_RULES.SHORT_STRING]}
-                                        validationErrors={get(this.props.validationErrors,['videos', index, 'name'], {})}
+                                        validationErrors={get(this.props.validationErrors,['videos', index, 'name'], null)}
                                         label='event-video-name'
                                         languages={this.props.languages}
                                         onChange={(e, v) => this.handleChange(e, v, 'name', index)}
@@ -264,7 +264,7 @@ class HelVideoFields extends React.Component {
                                         required={required[index]}
                                         multiLine={false}
                                         validations={[VALIDATION_RULES.MEDIUM_STRING]}
-                                        validationErrors={get(this.props.validationErrors,['videos', index, 'alt_text'], {})}
+                                        validationErrors={get(this.props.validationErrors,['videos', index, 'alt_text'], null)}
                                         label='event-video-alt_text'
                                         languages={this.props.languages}
                                         onChange={(e, v) => this.handleChange(e, v, 'alt_text', index)}

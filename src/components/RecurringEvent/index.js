@@ -7,7 +7,7 @@ import DayCheckbox from './DayCheckbox'
 import {Button, Modal, ModalHeader, ModalBody} from 'reactstrap';
 import {setEventData, sortSubEvents} from 'src/actions/editor'
 import validationRules from 'src/validation/validationRules'
-import ValidationPopover from 'src/components/ValidationPopover'
+import ValidationNotification from 'src/components/ValidationNotification'
 import constants from '../../constants'
 import CustomDatePicker from '../CustomFormFields/Dateinputs/CustomDatePicker'
 import {
@@ -374,9 +374,8 @@ class RecurringEvent extends React.Component {
                                     />
                                     <FormattedMessage id='repetition-interval'/>
                                 </label>
-                                <ValidationPopover
-                                    inModal
-                                    placement={'right-end'}
+                                <ValidationNotification
+                                    className='validation-notification modal-notification' 
                                     anchor={this.repetitionRef.current}
                                     validationErrors={errors['weekInterval'] && [errors['weekInterval']]}
                                 />
@@ -395,9 +394,8 @@ class RecurringEvent extends React.Component {
                             >
                                 <FormattedMessage id="play-date-label">{txt => <h3>{txt}</h3>}</FormattedMessage>
                             </div>
-                            <ValidationPopover
-                                inModal
-                                placement={'right-end'}
+                            <ValidationNotification
+                                className='validation-notification modal-notification' 
                                 anchor={this.playDateRef.current}
                                 validationErrors={errors['daysSelected'] && [errors['daysSelected']]}
                             />
@@ -421,9 +419,8 @@ class RecurringEvent extends React.Component {
                                 maxDate={recurringEndDate ? moment(recurringEndDate) : undefined}
                                 onChange={(value) => this.onChange('recurringStartDate', value)}
                             />
-                            <ValidationPopover
-                                inModal
-                                placement={'right'}
+                            <ValidationNotification
+                                className='validation-notification modal-notification' 
                                 anchor={this.startDateRef.current}
                                 validationErrors={errors['recurringStartDate'] && [errors['recurringStartDate']]}
                             />
@@ -442,9 +439,8 @@ class RecurringEvent extends React.Component {
                                 minDate={recurringStartDate ? moment(recurringStartDate) : undefined}
                                 onChange={(value) => this.onChange('recurringEndDate', value)}
                             />
-                            <ValidationPopover
-                                inModal
-                                placement={'right'}
+                            <ValidationNotification
+                                className='validation-notification modal-notification' 
                                 anchor={this.endDateRef.current}
                                 validationErrors={errors['recurringEndDate'] && [errors['recurringEndDate']]}
                             />
@@ -465,8 +461,8 @@ class RecurringEvent extends React.Component {
                                 defaultValue={this.state.recurringStartTime}
                                 onChange={(value) => this.onTimeChange('recurringStartTime', value)}
                             />
-                            <ValidationPopover
-                                inModal
+                            <ValidationNotification
+                                className='validation-notification modal-notification' 
                                 anchor={this.startTimeRef.current}
                                 validationErrors={errors['recurringStartTime'] && [errors['recurringStartTime']]}
                             />

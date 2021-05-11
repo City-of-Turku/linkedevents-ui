@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React,{Fragment, Component} from 'react'
 import {setData} from 'src/actions/editor.js'
 import validationRules from 'src/validation/validationRules';
-import ValidationPopover from 'src/components/ValidationPopover'
+import ValidationNotification from 'src/components/ValidationNotification'
 import constants from '../../constants'
 import {Input, FormText} from 'reactstrap';
 // Removed material-ui/core since it's no longer in use
@@ -212,11 +212,14 @@ class HelTextField extends Component {
                         innerRef={ref => this.inputRef = ref}
                         disabled={disabled}
                         min={min}
-                        max={max}/>
+                        max={max}
+                        invalid={Array.isArray(validationErrors)}
+                    />
                     <FormText {...alert}>
                         {this.helpText()}
                     </FormText>
-                    <ValidationPopover
+                    <ValidationNotification
+                        className='validation-notification' 
                         index={index}
                         anchor={this.inputRef}
                         validationErrors={validationErrors}

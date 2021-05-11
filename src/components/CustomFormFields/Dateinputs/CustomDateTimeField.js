@@ -4,7 +4,7 @@ import React, {useRef} from 'react'
 import moment from 'moment-timezone'
 import {connect} from 'react-redux'
 import {setData as setDataAction, updateSubEvent as updateSubEventAction} from 'src/actions/editor'
-import ValidationPopover from 'src/components/ValidationPopover'
+import ValidationNotification from 'src/components/ValidationNotification'
 import {isNil} from 'lodash'
 import CustomDatePicker from './CustomDatePicker';
 
@@ -64,9 +64,9 @@ const CustomDateTimeField = ({
                 maxDate={maxDate}
                 required={required}
             />
-            <ValidationPopover
+            <ValidationNotification
+                className='validation-notification' 
                 anchor={containerRef.current}
-                placement={'right'}
                 validationErrors={validationErrors}
             />
         </div>

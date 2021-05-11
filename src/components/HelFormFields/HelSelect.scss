@@ -11,6 +11,15 @@ $select-input-border-radius: 0px;
         }
     }
 }
+.css-yk16xz-control {
+    border-width: 2px !important;
+    &:hover,
+    &:focus,
+    &:active {
+        box-shadow: none;
+        border-color: var(--main-color) !important;
+    }
+}
 
 .css-1wa3eu0-placeholder{
     color: #000000 !important;

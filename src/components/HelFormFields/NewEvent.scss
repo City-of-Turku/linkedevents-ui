@@ -1,7 +1,10 @@
 .new-sub-event {
     border-left: 5px solid #f6f6f6;
     margin-top: 36px;
-    padding: 0 0 16px 16px;
+    &.row {
+        margin-left: 0px;
+        margin-right: 0px;
+    }
 
     &--inputs {
         flex: 1;

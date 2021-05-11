@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import React, {useRef, Fragment} from 'react'
 import {connect} from 'react-redux'
 import {setData as setDataAction} from '../../actions/editor'
-import ValidationPopover from '../ValidationPopover'
+import ValidationNotification from '../ValidationNotification'
 
 const handleChange = (refs, {options, name, customOnChangeHandler, setDirtyState, setData}) => {
     const checkedOptions = options
@@ -50,6 +50,7 @@ const HelLabeledCheckboxGroup = (props) => {
 
                         return (
                             <div key={`hel-checkbox-${index}`} className={(itemClassName) + (' custom-control custom-checkbox')} >
+                                <div className='validation-notification' />
                                 <input
                                     aria-label={item.label}
                                     className='custom-control-input checkboxes'
@@ -66,12 +67,11 @@ const HelLabeledCheckboxGroup = (props) => {
                         )
                     })}
                 </div>
-                <div className='main-category-popover'>
-                    <ValidationPopover
-                        anchor={labelRef.current}
-                        validationErrors={validationErrors}
-                    />
-                </div>
+                <ValidationNotification
+                    className='validation-notification' 
+                    anchor={labelRef.current}
+                    validationErrors={validationErrors}
+                />
             </fieldset>
         </Fragment>
     )

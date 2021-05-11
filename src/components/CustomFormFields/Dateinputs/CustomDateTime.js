@@ -12,7 +12,7 @@ import sv from 'date-fns/locale/sv'
 import {connect} from 'react-redux'
 import {setData as setDataAction, updateSubEvent as updateSubEventAction} from 'src/actions/editor'
 import {roundDateToCorrectUnit, getCorrectInputLabel, getCorrectMinDate, getDatePickerOpenDate, convertDateToLocaleString, getDateFormat} from './utils/datetime'
-import ValidationPopover from 'src/components/ValidationPopover'
+import ValidationNotification from 'src/components/ValidationNotification'
 
 
 class CustomDateTime extends React.Component {
@@ -152,86 +152,98 @@ class CustomDateTime extends React.Component {
                     <FormGroup>
                         <Label for={dateFieldId}>{getCorrectInputLabel(labelDate)}{required ? '*' : ''}</Label>
                         <div className="input-and-button"  ref={ref => this.containerRef = ref}>
-                            <DatePicker
-                                id={dateFieldId + '-button'}
-                                disabled={disabled}
-                                onChange={(value) => this.handleDateTimePickerChange(value, 'date')}
-                                customInput={<DatePickerButton type={'date'} intl={intl} disabled={disabled} />}
-                                locale={this.context.intl.locale}
-                                openToDate={getDatePickerOpenDate(defaultValue, minDate)}
-                                minDate={getCorrectMinDate(minDate)}
-                                maxDate={maxDate && new Date(maxDate)}
-                                showPopperArrow={true}
-                                popperPlacement={'bottom-end'}
-                                popperModifiers={{
-                                    preventOverflow: {
-                                        enabled: true,
-                                        escapeWithReference: false,
-                                        boundariesElement: 'viewport',
-                                    },
-                                }}
-                            />
-                            <Input
-                                aria-describedby={showValidationError ? inputErrorId : undefined}
-                                aria-invalid={showValidationError}
-                                type="text"
-                                name={name}
-                                id={dateFieldId}
-                                value={dateInputValue ? dateInputValue : ''}
-                                onChange={this.handleInputChangeDate}
-                                onBlur={this.handleInputBlur}
-                                disabled={disabled}
-                                aria-required={required}
-                                innerRef={this.firstInput}
-                            />
-                            <ValidationPopover
+                            <div style={{display: 'flex', flexFlow: 'row-reverse', width: '100%'}}>
+                                <DatePicker
+                                    id={dateFieldId + '-button'}
+                                    disabled={disabled}
+                                    onChange={(value) => this.handleDateTimePickerChange(value, 'date')}
+                                    customInput={<DatePickerButton type={'date'} intl={intl} disabled={disabled} />}
+                                    locale={this.context.intl.locale}
+                                    openToDate={getDatePickerOpenDate(defaultValue, minDate)}
+                                    minDate={getCorrectMinDate(minDate)}
+                                    maxDate={maxDate && new Date(maxDate)}
+                                    showPopperArrow={true}
+                                    popperPlacement={'bottom-end'}
+                                    popperModifiers={{
+                                        preventOverflow: {
+                                            enabled: true,
+                                            escapeWithReference: false,
+                                            boundariesElement: 'viewport',
+                                        },
+                                    }}
+                                />
+                                <Input
+                                    aria-describedby={showValidationError ? inputErrorId : undefined}
+                                    aria-invalid={showValidationError}
+                                    invalid={Array.isArray(validationErrors)}
+                                    type="text"
+                                    name={name}
+                                    id={dateFieldId}
+                                    value={dateInputValue ? dateInputValue : ''}
+                                    onChange={this.handleInputChangeDate}
+                                    onBlur={this.handleInputBlur}
+                                    disabled={disabled}
+                                    aria-required={required}
+                                    innerRef={this.firstInput}
+                                />
+                                {validationErrors &&
+                                <div className='validation-notification'/>
+                                }
+                            </div>
+                            <ValidationNotification
                                 anchor={this.containerRef}
-                                placement={'right'}
                                 validationErrors={validationErrors}
+                                className='validation-dateTime' 
                             />
                         </div>
                     </FormGroup>
                     <FormGroup>
                         <Label for={timeFieldId}>{getCorrectInputLabel(labelTime)}{required ? '*' : ''}</Label>
                         <div className="input-and-button"  ref={ref => this.containerRef = ref}>
-                            <DatePicker
-                                id={timeFieldId + '-button'}
-                                disabled={disabled}
-                                onChange={(value) => this.handleDateTimePickerChange(value, 'time')}
-                                customInput={<DatePickerButton type={'time'} intl={intl} disabled={disabled} />}
-                                locale={this.context.intl.locale}
-                                showTimeSelect
-                                showTimeSelectOnly
-                                timeIntervals={15}
-                                timeCaption={<FormattedMessage id='time' />}
-                                timeFormat="HH.mm"
-                                showPopperArrow={true}
-                                popperPlacement={'bottom-end'}
-                                popperModifiers={{
-                                    preventOverflow: {
-                                        enabled: true,
-                                        escapeWithReference: false,
-                                        boundariesElement: 'viewport',
-                                    },
-                                }}
-                            />
-                            <Input
-                                aria-describedby={showValidationError ? inputErrorId : undefined}
-                                aria-invalid={showValidationError}
-                                type="text"
-                                name={name}
-                                id={timeFieldId}
-                                value={timeInputValue ? timeInputValue : ''}
-                                onChange={this.handleInputChangeTime}
-                                onBlur={this.handleInputBlur}
-                                disabled={disabled}
-                                aria-required={required}
-                            />
-                            <ValidationPopover
+                            <div style={{display: 'flex', flexFlow: 'row-reverse', width: '100%'}}>
+                                <DatePicker
+                                    id={timeFieldId + '-button'}
+                                    disabled={disabled}
+                                    onChange={(value) => this.handleDateTimePickerChange(value, 'time')}
+                                    customInput={<DatePickerButton type={'time'} intl={intl} disabled={disabled} />}
+                                    locale={this.context.intl.locale}
+                                    showTimeSelect
+                                    showTimeSelectOnly
+                                    timeIntervals={15}
+                                    timeCaption={<FormattedMessage id='time' />}
+                                    timeFormat="HH.mm"
+                                    showPopperArrow={true}
+                                    popperPlacement={'bottom-end'}
+                                    popperModifiers={{
+                                        preventOverflow: {
+                                            enabled: true,
+                                            escapeWithReference: false,
+                                            boundariesElement: 'viewport',
+                                        },
+                                    }}
+                                />
+                                <Input
+                                    aria-describedby={showValidationError ? inputErrorId : undefined}
+                                    aria-invalid={showValidationError}
+                                    invalid={Array.isArray(validationErrors)}
+                                    type="text"
+                                    name={name}
+                                    id={timeFieldId}
+                                    value={timeInputValue ? timeInputValue : ''}
+                                    onChange={this.handleInputChangeTime}
+                                    onBlur={this.handleInputBlur}
+                                    disabled={disabled}
+                                    aria-required={required}
+                                />
+                                {validationErrors &&
+                                <div className='validation-notification'/>
+                                }
+                            </div>
+                            <ValidationNotification
                                 anchor={this.containerRef}
-                                placement={'right'}
                                 validationErrors={validationErrors}
-                            />           
+                                className='validation-dateTime' 
+                            />
                         </div>
                     </FormGroup>
                 </div>

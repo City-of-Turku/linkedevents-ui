@@ -7,11 +7,14 @@ import fiMessages from 'src/i18n/fi.json';
 import {Label, Input} from 'reactstrap';
 import DatePicker from 'react-datepicker'
 import moment from 'moment'
+import constants from '../../../../constants'
+const {VALIDATION_RULES, CHARACTER_LIMIT} = constants
 const testMessages = mapValues(fiMessages, (value, key) => value);
 const intlProvider = new IntlProvider({locale: 'fi', messages: testMessages}, {});
 const {intl} = intlProvider.getChildContext();
 import {UnconnectedCustomDateTime} from '../CustomDateTime';
 import {roundDateToCorrectUnit, getCorrectInputLabel, getCorrectMinDate, convertDateToLocaleString, getDateFormat, getDatePickerOpenDate} from '../utils/datetime'
+import ValidationNotification from '../../../ValidationNotification';
 
 
 
@@ -49,7 +52,6 @@ describe('renders', () => {
             label.forEach((element, index) => {
                 expect(element.prop('for')).toBe(defaultProps.id + typeFieldId[index])
             })
-
         })
         test('with correct text when field is required', () => {
             const required = true
@@ -201,6 +203,39 @@ describe('renders', () => {
         test('is not shown when state.showValidationError is false', () => {
             const inputError = getWrapper().find('#' + id)
             expect(inputError).toHaveLength(0)
+        })
+        test('invalid-prop is true when validationErrors exists', () => {
+            const validation = [VALIDATION_RULES.REQUIRED]
+            const wrapper = getWrapper({validationErrors: validation});
+            const Inputs = wrapper.find(Input)
+            Inputs.forEach((element, index) => {
+                expect(element.prop('invalid')).toBe(true)
+            })
+        })
+        test('invalid-prop is false when validationErrors do not exist', () => {
+            const wrapper = getWrapper();
+            const Inputs = wrapper.find(Input)
+            Inputs.forEach((element, index) => {
+                expect(element.prop('invalid')).toBe(false)
+            })
+        })
+    })
+    describe('ValidationNotification', () => {
+        test('component', () => {
+            const wrapper = getWrapper({validationErrors: undefined});
+            const notification = wrapper.find(ValidationNotification)
+            notification.forEach((element, index) => {
+                expect(element.prop('anchor')).toBe(undefined)
+                expect(element.prop('validationErrors')).toBe(undefined)
+                expect(element.prop('className')).toBe('validation-dateTime')
+            })
+        })
+        test('find extra div with className validation-notification', () => {
+            const wrapper = getWrapper()
+            const instance = wrapper.instance();
+            instance.setState({showValidationError: true, validationErrorText: 'test-error-msg'})
+            const extraDiv = wrapper.find('.validation-notification')
+            expect(extraDiv).toHaveLength(2)
         })
     })
 })
