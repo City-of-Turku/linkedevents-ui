@@ -23,6 +23,11 @@
         .validation-notification {
             flex: auto;
         }
+        .input-wrapper {
+            display: flex;
+            flex-flow: row-reverse;
+            width: 100%;
+        }
     }
 
     label {

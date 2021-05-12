@@ -152,7 +152,7 @@ class CustomDateTime extends React.Component {
                     <FormGroup>
                         <Label for={dateFieldId}>{getCorrectInputLabel(labelDate)}{required ? '*' : ''}</Label>
                         <div className="input-and-button"  ref={ref => this.containerRef = ref}>
-                            <div style={{display: 'flex', flexFlow: 'row-reverse', width: '100%'}}>
+                            <div className='input-wrapper'>
                                 <DatePicker
                                     id={dateFieldId + '-button'}
                                     disabled={disabled}
@@ -200,7 +200,7 @@ class CustomDateTime extends React.Component {
                     <FormGroup>
                         <Label for={timeFieldId}>{getCorrectInputLabel(labelTime)}{required ? '*' : ''}</Label>
                         <div className="input-and-button"  ref={ref => this.containerRef = ref}>
-                            <div style={{display: 'flex', flexFlow: 'row-reverse', width: '100%'}}>
+                            <div className='input-wrapper'>
                                 <DatePicker
                                     id={timeFieldId + '-button'}
                                     disabled={disabled}
