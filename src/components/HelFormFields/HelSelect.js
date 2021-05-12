@@ -1,9 +1,8 @@
 import './HelSelect.scss'
 
-import React, {Fragment, useRef, useEffect} from 'react'
+import React, {useRef, useEffect} from 'react'
 import PropTypes from 'prop-types';
 import AsyncSelect from 'react-select/async'
-import {createFilter} from 'react-select'
 import {setData as setDataAction} from '../../actions/editor'
 import {connect} from 'react-redux'
 import {get, isNil} from 'lodash'

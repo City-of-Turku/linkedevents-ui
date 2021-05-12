@@ -1,6 +1,6 @@
 import {setData, updateSubEvent} from './editor';
 import constants from '../constants.js'
-import {mockKeywordSets, mockLanguages, mockUser, mockUserEvents} from '__mocks__/mockData';
+import {mockUserEvents} from '__mocks__/mockData';
 const mockEvent = mockUserEvents[0];
 
 const {EDITOR_SETDATA, EDITOR_UPDATE_SUB_EVENT} = constants

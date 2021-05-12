@@ -1,11 +1,9 @@
-import {shallow, mount} from 'enzyme';
-import {IntlProvider, FormattedMessage} from 'react-intl';
+import {mount} from 'enzyme';
+import {IntlProvider} from 'react-intl';
 import fiMessages from 'src/i18n/fi.json';
 import mapValues from 'lodash/mapValues';
-import React, {Fragment, useRef, useEffect} from 'react'
+import React from 'react'
 import AsyncSelect from 'react-select/async'
-import {createFilter} from 'react-select'
-import {setData as setDataAction} from '../../../actions/editor'
 import ValidationNotification from '../../ValidationNotification'
 import {UnconnectedHelSelect} from '../HelSelect'
 

@@ -3,11 +3,8 @@ import './MultiLanguageField.scss'
 import PropTypes from 'prop-types';
 
 import React from 'react'
-import {FormattedMessage, injectIntl} from 'react-intl'
+import {FormattedMessage} from 'react-intl'
 import HelTextField from './HelTextField'
-
-import ValidationNotification from '../ValidationNotification'
-
 import {setData} from 'src/actions/editor'
 
 class MultiLanguageField extends React.Component {

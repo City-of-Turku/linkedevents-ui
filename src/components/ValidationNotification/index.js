@@ -1,11 +1,8 @@
 import './index.scss';
 import React, {Fragment} from 'react'
 import PropTypes from 'prop-types'
-import Popover from 'react-bootstrap/Popover'
 import {FormattedMessage} from 'react-intl'
 import {getCharacterLimitByRule} from '../../utils/helpers'
-
-// Removed Material-Ui Popper since it's not very customizable through CSS.
 
 const ValidationNotification =  ({
     validationErrors,
