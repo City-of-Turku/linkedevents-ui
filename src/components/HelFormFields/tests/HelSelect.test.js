@@ -16,6 +16,10 @@ const dispatch = jest.fn()
 
 const defaultProps = {
     intl,
+    name: 'location',
+    required: true,
+    resource: 'place',
+    validationErrors: undefined,
 }
 
 describe('HelSelect', () => {
@@ -30,6 +34,13 @@ describe('HelSelect', () => {
                     const wrapper = getWrapper()
                     const Select = wrapper.find(AsyncSelect)
                     expect(Select).toHaveLength(1)
+                })
+            })
+            describe('validationNotification', () => {
+                test('find validationNotification', () => {
+                    const wrapper = getWrapper()
+                    const notification = wrapper.find(ValidationNotification)
+                    expect(notification).toHaveLength(1)
                 })
             })
             describe('AsynchSelect input', () => {
@@ -47,9 +58,5 @@ describe('HelSelect', () => {
                 })
             })
         })
-    })
-
-    describe('methods', () => {
-
     })
 })

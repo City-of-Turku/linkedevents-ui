@@ -50,7 +50,9 @@ const HelLabeledCheckboxGroup = (props) => {
 
                         return (
                             <div key={`hel-checkbox-${index}`} className={(itemClassName) + (' custom-control custom-checkbox')} >
+                                {validationErrors &&
                                 <div className='validation-notification' />
+                                }
                                 <input
                                     aria-label={item.label}
                                     className='custom-control-input checkboxes'
@@ -68,7 +70,7 @@ const HelLabeledCheckboxGroup = (props) => {
                     })}
                 </div>
                 <ValidationNotification
-                    className='validation-notification' 
+                    className='validation-checkboxes' 
                     anchor={labelRef.current}
                     validationErrors={validationErrors}
                 />
