@@ -205,10 +205,9 @@ FormHeader.propTypes = {
 const OffersValue = (props) => {
     const {offers} = props.values
 
-    if (!offers || !offers.length || offers[0] && typeof offers[0] !== 'object') {
+    if (!offers || !offers.length || offers[0].is_free === true || offers[0] && typeof offers[0] !== 'object') {
         return (<FormattedMessage id="is-free"/>)
     }
-
     return (
         <div>
             {props.values.offers.map((offer, key) => (
