@@ -613,7 +613,7 @@ exports[`EventListing Snapshot should render view correctly 1`] = `
       "search-event-button": "Hae tapahtumia",
       "search-events": "Etsi tapahtumia",
       "search-events-description": "Katsele kaikkia Linked Eventsin tapahtumia.",
-      "search-minium-length": "Syötä vähintään 3 merkkiä",
+      "search-minimum-length": "Syötä vähintään 3 merkkiä",
       "search-no-results": "Ei tuloksia",
       "search-results-count": "Hakutulosten määrä on {count}",
       "select": "Hae ja valitse...",
