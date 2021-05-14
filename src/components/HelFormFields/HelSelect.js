@@ -226,7 +226,6 @@ const HelSelect = ({
                 onChange={onChange}
                 placeholder={intl.formatMessage({id: placeholderId})}
                 loadingMessage={() => intl.formatMessage({id: 'loading'})}
-                inputValue={inputValue}
                 noOptionsMessage={({inputValue}) => inputValue.length > 2 ? intl.formatMessage({id: 'search-no-results'}) : intl.formatMessage({id: 'search-minium-length'})}
                 filterOption={filterOptions}
                 formatOptionLabel={formatOption}
