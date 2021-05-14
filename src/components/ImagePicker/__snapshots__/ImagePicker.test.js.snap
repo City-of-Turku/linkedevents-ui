@@ -406,6 +406,7 @@ exports[`Image add form ImagePicker component should render correctly with data 
       "search-event-button": "Hae tapahtumia",
       "search-events": "Etsi tapahtumia",
       "search-events-description": "Katsele kaikkia Linked Eventsin tapahtumia.",
+      "search-minium-length": "Syötä vähintään 3 merkkiä",
       "search-no-results": "Ei tuloksia",
       "search-results-count": "Hakutulosten määrä on {count}",
       "select": "Hae ja valitse...",

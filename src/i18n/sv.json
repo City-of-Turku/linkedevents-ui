@@ -314,6 +314,7 @@
     "image-update-error": "Fel då bilden uppdaterades.",
     "confirm-image-delete": "Bekräfta avlägsnandet av bilden",
 
+    "search-minium-length": "Ange minst tre tecken",
     "search-results-count": "Antalet sökresultat är {count}",
     "search-no-results": "Inga resultat",
     "search-date-label-start": "Från och med (dd.mm.åååå)",

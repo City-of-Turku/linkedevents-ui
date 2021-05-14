@@ -27,6 +27,7 @@ const HelSelect = ({
     optionalWrapperAttributes,
     currentLocale,
     required,
+    inputValue,
 })  => {
     const labelRef = useRef(null)
     const selectInputRef = useRef(null)
@@ -153,11 +154,13 @@ const HelSelect = ({
     }
 
     const getOptions = async (input) => {
-        if (name === 'keywords') {
-            return getKeywordOptions(input)
-        }
-        if (name === 'location') {
-            return getLocationOptions(input)
+        if (input.length > 2) {
+            if (name === 'keywords') {
+                return getKeywordOptions(input)
+            }
+            if (name === 'location') {
+                return getLocationOptions(input)
+            }
         }
     }
 
@@ -223,7 +226,8 @@ const HelSelect = ({
                 onChange={onChange}
                 placeholder={intl.formatMessage({id: placeholderId})}
                 loadingMessage={() => intl.formatMessage({id: 'loading'})}
-                noOptionsMessage={() => intl.formatMessage({id: 'search-no-results'})}
+                inputValue={inputValue}
+                noOptionsMessage={({inputValue}) => inputValue.length > 2 ? intl.formatMessage({id: 'search-no-results'}) : intl.formatMessage({id: 'search-minium-length'})}
                 filterOption={filterOptions}
                 formatOptionLabel={formatOption}
                 aria-label={intl.formatMessage({id: placeholderId})}
@@ -247,6 +251,7 @@ HelSelect.defaultProps = {
 }
 
 HelSelect.propTypes = {
+    inputValue: PropTypes.string,
     intl: PropTypes.object,
     setData: PropTypes.func,
     name: PropTypes.string,
