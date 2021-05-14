@@ -303,7 +303,7 @@
     "image-update-error": "Virhe kuvaa päivittäessä.",
     "confirm-image-delete": "Varmista kuvan poistaminen",
 
-    "search-minium-length": "Syötä vähintään 3 merkkiä",
+    "search-minimum-length": "Syötä vähintään 3 merkkiä",
     "search-no-results": "Ei tuloksia",
     "search-results-count": "Hakutulosten määrä on {count}",
 	"search-date-label-start": "Alkaen (pp.kk.vvvv)",

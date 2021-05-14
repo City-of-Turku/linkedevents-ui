@@ -33,15 +33,6 @@ describe('HelSelect', () => {
                     const Select = wrapper.find(AsyncSelect)
                     expect(Select).toHaveLength(1)
                 })
-                test('AsynchSelects props', () => {
-                    const wrapper = getWrapper()
-                    const Select = wrapper.find(AsyncSelect)
-
-                    expect(Select.prop('isClearable')).toBe(true)
-                    expect(Select.prop('isMulti')).toBe(false)
-                    expect(Select.prop('value')).toBe(null)
-                    expect(Select.prop('placeholder')).toBe(intl.formatMessage({id: 'select'}))
-                })
             })
             describe('validationNotification', () => {
                 test('find validationNotification', () => {
@@ -50,7 +41,7 @@ describe('HelSelect', () => {
                     expect(notification).toHaveLength(1)
                 })
             })
-            describe('AsynchSelect input', () => {
+            describe('AsyncSelect input', () => {
                 const wrapper = getWrapper()
                 const selectInput = wrapper.find('input')
                 test('find input inside HelSelects AsyncSelect', () => {

@@ -301,7 +301,7 @@
     "image-update-error": "Error while updating image.",
     "confirm-image-delete": "Confirm image deletion",
 
-    "search-minium-length": "Enter at least 3 characters",
+    "search-minimum-length": "Enter at least 3 characters",
     "search-no-results": "No results",
     "search-results-count": "Found {count} results",
 	"search-date-label-start": "From (dd.mm.yyyy)",
