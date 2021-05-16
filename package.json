@@ -72,7 +72,7 @@
     "react-select": "^4.3.0",
     "react-transform-hmr": "^1.0.4",
     "reactstrap": "^8.8.1",
-    "redux": "4.0.5",
+    "redux": "4.1.0",
     "redux-actions": "^2.6.5",
     "redux-oidc": "^4.0.0-beta1",
     "redux-thunk": "^2.3.0",
