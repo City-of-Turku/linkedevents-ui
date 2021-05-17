@@ -213,6 +213,11 @@ const HelSelect = ({
         }
     )
 
+    const optionsMessage = (value) => {
+        const messageId = value.length > 2 ? 'search-no-results' : 'search-minimum-length';
+        return intl.formatMessage({id: messageId});
+    }
+
     return (
         <div {...optionalWrapperAttributes}>
             <label id={legend} ref={labelRef}>
@@ -226,7 +231,7 @@ const HelSelect = ({
                 onChange={onChange}
                 placeholder={intl.formatMessage({id: placeholderId})}
                 loadingMessage={() => intl.formatMessage({id: 'loading'})}
-                noOptionsMessage={({inputValue}) => inputValue.length > 2 ? intl.formatMessage({id: 'search-no-results'}) : intl.formatMessage({id: 'search-minimum-length'})}
+                noOptionsMessage={({inputValue}) => optionsMessage(inputValue)}
                 filterOption={filterOptions}
                 formatOptionLabel={formatOption}
                 aria-label={intl.formatMessage({id: placeholderId})}
