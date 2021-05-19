@@ -29,16 +29,14 @@ describe('actions/editor', () => {
     describe('setData', () => {
         test('return object with correct type & values', () => {
             const expectedResult = {type: EDITOR_SETDATA, values: mockEvent};
-            const result = setData(mockEvent);
-            expect(result).toEqual(expectedResult);
+            expect(setData(mockEvent)).toEqual(expectedResult);
         });
     });
 
     describe('updateSubEvent', () => {
         test('return object with correct type, value, property and eventKey', () => {
             const expectedResult  = {type: EDITOR_UPDATE_SUB_EVENT, value: 'foo', property: 'bar', eventKey: 1}
-            const result = updateSubEvent('foo', 'bar', 1);
-            expect(result).toEqual(expectedResult);
+            expect(updateSubEvent('foo', 'bar', 1)).toEqual(expectedResult);
         });
     });
 
@@ -59,32 +57,28 @@ describe('actions/editor', () => {
     describe('setEventData', () => {
         test('return object with correct type, key, values & event', () => {
             const expectedResult  = {type: EDITOR_SETDATA, key: 1, values: mockEvent, event: true}
-            const result = setEventData(mockEvent, 1);
-            expect(result).toEqual(expectedResult);
+            expect(setEventData(mockEvent, 1)).toEqual(expectedResult);
         });
     });
 
     describe('setOfferData', () => {
         test('return object with correct type, key, values & offer', () => {
             const expectedResult  = {type: constants.EDITOR_SETDATA, key: 1, values: mockEvent, offer: true}
-            const result = setOfferData(mockEvent, 1);
-            expect(result).toEqual(expectedResult);
+            expect(setOfferData(mockEvent, 1)).toEqual(expectedResult);
         });
     });
 
     describe('addOffer', () => {
         test('return object with correct type & values', () => {
             const expectedResult  = {type: EDITOR_ADD_OFFER, values: mockEvent}
-            const result = addOffer(mockEvent);
-            expect(result).toEqual(expectedResult);
+            expect(addOffer(mockEvent)).toEqual(expectedResult);
         });
     });
 
     describe('deleteOffer', () => {
         test('return object with correct type & offerKey', () => {
             const expectedResult  = {type: EDITOR_DELETE_OFFER, offerKey: 1}
-            const result = deleteOffer(1);
-            expect(result).toEqual(expectedResult);
+            expect(deleteOffer(1)).toEqual(expectedResult);
         });
     });
 
@@ -92,24 +86,21 @@ describe('actions/editor', () => {
         test('return object with correct type & values for clearing', () => {
             const stringValues = 'testvalue'
             const expectedResult  = {type: EDITOR_CLEAR_VALUE, values: stringValues}
-            const result = clearValue(stringValues);
-            expect(result).toEqual(expectedResult);
+            expect(clearValue(stringValues)).toEqual(expectedResult);
         });
     });
 
     describe('setFreeOffers', () => {
         test('return object with correct type & isFree', () => {
             const expectedResult  = {type: EDITOR_SET_FREE_OFFERS, isFree: true}
-            const result = setFreeOffers(true);
-            expect(result).toEqual(expectedResult);
+            expect(setFreeOffers(true)).toEqual(expectedResult);
         });
     });
 
     describe('setLanguages', () => {
         test('return object with correct type & languages', () => {
             const expectedResult  = {type: EDITOR_SETLANGUAGES, languages: mockLanguages}
-            const result = setLanguages(mockLanguages);
-            expect(result).toEqual(expectedResult);
+            expect(setLanguages(mockLanguages)).toEqual(expectedResult);
         });
     });
 });
