@@ -487,6 +487,7 @@ exports[`Image add form ImagePicker component should render correctly with data 
       "validation-required": "Tämä kenttä vaaditaan",
       "validation-requiredAtId": "Tämä kenttä vaaditaan",
       "validation-requiredForCourses": "Tämä kenttä vaaditaan",
+      "validation-requiredImage": "Kuva vaaditaan sisällön julkaisuun",
       "validation-requiredInContentLanguages": "Tämä kenttä vaaditaan kaikilla valituilla kielillä",
       "validation-requiredMulti": "Tämä kenttä vaaditaan",
       "validation-requiredString": "Tämä kenttä vaaditaan",

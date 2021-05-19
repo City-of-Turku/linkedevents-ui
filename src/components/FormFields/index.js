@@ -687,6 +687,7 @@ class FormFields extends React.Component {
                             isOpen={this.state.headerImage}
                             targetCollapseNameId='event-picture-header'
                             toggleHeader={this.toggleHeader}
+                            validationErrorList={validationErrors['image']}
                         />
                     </h2>
                     <Collapse isOpen={this.state.headerImage}>
@@ -694,7 +695,7 @@ class FormFields extends React.Component {
                             <FormattedMessage id="event-image-title"/>
                         </FormHeader>
                         <div className='row'>
-                            <ImageGallery locale={currentLocale}/>
+                            <ImageGallery validationErrors={validationErrors['image']} locale={currentLocale}/>
                         </div>
                     </Collapse>
                 </div>

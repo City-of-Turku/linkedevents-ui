@@ -25,6 +25,10 @@ $modal-backdrop-opacity: 0.7;
             max-width: 400px;
             padding-top: 20px;
         }
+        &.validationError {
+            font-weight: bold;
+            background-color: var(--danger-color) !important;
+        }
     }
 }
 

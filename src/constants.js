@@ -136,6 +136,7 @@ const constants = {
         DAY_WITHIN_INTERVAL: 'daysWithinInterval',
         REQUIRED_IN_CONTENT_LANGUAGE: 'requiredInContentLanguages',
         REQUIRED: 'required',
+        REQUIRED_IMAGE: 'requiredImage',
         REQUIRED_FOR_COURSES: 'requiredForCourses',
         REQUIRED_STRING: 'requiredString',
         REQUIRED_STRING_FOR_COURSES: 'requiredStringForCourses',

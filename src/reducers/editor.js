@@ -294,10 +294,18 @@ function update(state = initialState, action) {
     if (action.type === constants.SELECT_IMAGE_BY_ID) {
         let newVal = getIfExists(action, 'img', null)
         // Merge new values to existing values
-        let newValues = Object.assign({}, state.values, {image: newVal})
-        return Object.assign({}, state, {
-            values: newValues,
+        let newImage = (Object.assign({}, state.values, {image: newVal}))
+        let validationErrors = Object.assign({}, state.validationErrors)
+        // If there are validation errors, check if they are fixed
+        if (_.keys(state.validationErrors).length > 0) {
+            validationErrors = doValidations(newImage, state.contentLanguages, state.validateFor || constants.PUBLICATION_STATUS.PUBLIC, state.keywordSets)
+        }
+
+        const x = Object.assign({}, state, {
+            values: newImage,
+            validationErrors: validationErrors,
         })
+        return x
     }
 
     if (action.type === constants.SET_VALIDATION_ERRORS) {

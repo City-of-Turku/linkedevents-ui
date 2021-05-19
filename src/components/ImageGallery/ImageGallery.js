@@ -9,6 +9,7 @@ import {FormattedMessage} from 'react-intl';
 import ImagePickerForm from '../ImagePicker';
 import {get as getIfExists} from 'lodash';
 import {fetchUserImages as fetchUserImagesAction} from 'src/actions/userImages'
+import ValidationNotification from 'src/components/ValidationNotification'
 import classNames from 'classnames';
 
 class ImageGallery extends React.Component {
@@ -22,6 +23,7 @@ class ImageGallery extends React.Component {
 
         this.toggleEditModal = this.toggleEditModal.bind(this);
         this.toggleOrgModal = this.toggleOrgModal.bind(this);
+        this.validationRef = React.createRef()
     }
 
     componentDidMount() {
@@ -43,51 +45,52 @@ class ImageGallery extends React.Component {
     getPreview(props) {
         const backgroundImage = props.backgroundImage ? props.backgroundImage : null;
         const backgroundStyle = {backgroundImage: 'url(' + backgroundImage + ')'};
+        const {validationErrors} = this.props
 
-        if (backgroundImage) {
-            return (
-                <React.Fragment>
-                    <div
-                        className='image-picker--preview'
-                        style={backgroundStyle}
-                    />
-                </React.Fragment>
-            )
-        } else {
-            return (
-                <React.Fragment>
-                    <div
-                        className='image-picker--preview'>
-                        <FormattedMessage id='no-image'/>
-                    </div>
-                </React.Fragment>
-            )
-        }
+        const stylingProps = {
+            className: classNames('image-picker--preview', {'validationError': validationErrors && !backgroundImage}),
+            style: backgroundImage ? backgroundStyle : undefined,
+        };
+        const formatted = !backgroundImage && <FormattedMessage id='no-image' />
+        return (
+            <React.Fragment>
+                <div {...stylingProps}>
+                    {formatted}
+                </div>
+            </React.Fragment>
+        )
     }
 
     render() {
+        const {validationErrors} = this.props;
         const backgroundImage = getIfExists(this.props.editor.values,'image.url', '');
         const defaultImages = {items: this.props.images.defaultImages};
 
         return (
             <React.Fragment>
-                <div className='col-sm-6 imageGallery'>
+                <div className='col-sm-6 imageGallery' ref={this.validationRef}>
+                    <div/>
                     <Button
                         className='toggleEdit'
                         size='lg'
                         block
                         onClick={this.toggleEditModal}
                     >
-                        <span aria-hidden className="glyphicon glyphicon-plus"></span>
+                        <span aria-hidden className="glyphicon glyphicon-plus"/>
                         <FormattedMessage id='upload-new-image' />
                     </Button>
+                    <ValidationNotification
+                        anchor={this.validationRef.current}
+                        validationErrors={validationErrors}
+                        className='validation-notification' 
+                    />
                     <Button
                         className='toggleOrg'
                         size='lg'
                         block
                         onClick={this.toggleOrgModal}
                     >
-                        <span aria-hidden className="glyphicon glyphicon-plus"></span>
+                        <span aria-hidden className="glyphicon glyphicon-plus"/>
                         <FormattedMessage id='upload-image-select-bank' />
                     </Button>
                     <ImageEdit open={this.state.openEditModal} close={this.toggleEditModal}/>
@@ -119,12 +122,17 @@ class ImageGallery extends React.Component {
 }
 
 
+
 ImageGallery.propTypes = {
     user: PropTypes.object,
     editor: PropTypes.object,
     images: PropTypes.object,
     fetchUserImages: PropTypes.func,
     locale: PropTypes.string,
+    validationErrors: PropTypes.oneOfType([
+        PropTypes.array,
+        PropTypes.object,
+    ]),
 };
 
 const mapDispatchToProps = (dispatch) => ({

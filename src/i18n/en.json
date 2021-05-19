@@ -265,6 +265,7 @@
     "validation-daysWithinInterval": "One or more of the weekdays does not occur in the selected date range",
     "validation-hasPrice": "Price missing",
     "validation-requiredVideoField": "This field is required",
+    "validation-requiredImage": "Image is required for content publishing",
 
     "server-error": "Server error.",
     "validation-error": "There are errors on the form. Please check the form.",

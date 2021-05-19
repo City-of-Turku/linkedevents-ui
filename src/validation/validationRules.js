@@ -175,6 +175,15 @@ var validations = {
     required: function required(values, value) {
         return _isExisty(value)
     },
+    requiredImage: function requiredImage(values, value) {
+        if(typeof value !== 'object' || !value) {
+            return false
+        }
+        if (Object.keys(value).length === 0) {
+            return false;
+        }
+        return true
+    },
     requiredForCourses: function requiredForCourses(values, value){
         if(!(appSettings.ui_mode === 'courses')) {
             return true;

@@ -275,6 +275,7 @@
     "validation-daysWithinInterval": "En eller flera av dagarna förekommer inte i mellanrummet mellan repetitionerna",
     "validation-hasPrice": "Prisinformationen saknas",
     "validation-requiredVideoField": "Denna fält krävs",
+    "validation-requiredImage": "Bild krävs för publicering",
 
     "server-error": "Serverfel",
     "validation-error": "Fel i blanketten. Kontrollera blanketten.",

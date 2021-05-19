@@ -95,6 +95,7 @@ describe('FormField', () => {
                 start_time: {},
                 end_time: {},
                 virtualevent_url: {},
+                image: {},
             },
             contentLanguages: [
             ],
@@ -567,6 +568,7 @@ describe('FormField', () => {
                 const imagegallery = wrapper.find(ImageGallery)
                 test('correct props for ImageGallery', () => {
                     expect(imagegallery.prop('locale')).toBe(intl.locale)
+                    expect(imagegallery.prop('validationErrors')).toBe(defaultProps.editor.validationErrors.image)
                 })
             })
             describe('Collapse', () => {
