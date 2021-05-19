@@ -207,7 +207,7 @@ exports[`Search Snapshot should render view correctly 1`] = `
       "event-name-shortdescription-help": "Nimi ja kuvaus ohje",
       "event-page-error": "Tapahtumaa ei löytynyt tai sinulla ei ole oikeuksia katsella sitä.",
       "event-page-loading": "Ladataan tapahtumaa...",
-      "event-picture-header": "Määritä kuva",
+      "event-picture-header": "Määritä kuva*",
       "event-posted": "Tapahtuma lähetettiin onnistuneesti!",
       "event-presented-in-languages": "Tapahtuman syöttökielet",
       "event-presented-in-languages-help": "Syöttökielen ohje",

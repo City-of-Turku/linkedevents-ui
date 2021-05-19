@@ -89,7 +89,7 @@
 
     "no-value": "field is empty.",
 
-    "event-picture-header": "Set image",
+    "event-picture-header": "Set image*",
     "event-description-form-header": "Enter descriptions",
     "event-description-fields-header": "Event description",
     "event-headline": "Title",

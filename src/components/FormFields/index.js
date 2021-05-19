@@ -685,6 +685,7 @@ class FormFields extends React.Component {
                         <CollapseButton
                             id='headerImage'
                             isOpen={this.state.headerImage}
+                            isRequired={true}
                             targetCollapseNameId='event-picture-header'
                             toggleHeader={this.toggleHeader}
                             validationErrorList={validationErrors['image']}
