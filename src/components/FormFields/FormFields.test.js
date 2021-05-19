@@ -1,10 +1,9 @@
 import React from 'react'
-import {shallow, mount} from 'enzyme';
+import {shallow} from 'enzyme';
 import FormFields, {SideField} from './index'
 import {IntlProvider, FormattedMessage} from 'react-intl';
 import mapValues from 'lodash/mapValues';
 import fiMessages from 'src/i18n/fi.json';
-import CopyToClipboard from 'react-copy-to-clipboard'
 import {
     MultiLanguageField,
     HelTextField,
@@ -13,24 +12,20 @@ import {
     HelSelect,
     HelCheckbox,
     HelOffersField,
-    NewEvent,
     HelKeywordSelector,
 } from 'src/components/HelFormFields'
 import RecurringEvent from 'src/components/RecurringEvent'
-import {Button,Form, FormGroup, Collapse} from 'reactstrap';
+import {Button,Collapse} from 'reactstrap';
 import {mapKeywordSetToForm, mapLanguagesSetToForm} from '../../utils/apiDataMapping'
 import {setEventData, setData, clearValue} from '../../actions/editor'
-import {get, isNull, pickBy, merge} from 'lodash'
+import {merge} from 'lodash'
 import API from '../../api'
 import CONSTANTS from '../../constants'
 import OrganizationSelector from '../HelFormFields/OrganizationSelector';
 import UmbrellaSelector from '../HelFormFields/UmbrellaSelector/UmbrellaSelector'
-import moment from 'moment'
 import HelVideoFields from '../HelFormFields/HelVideoFields/HelVideoFields'
 import CustomDateTime from '../CustomFormFields/Dateinputs/CustomDateTime'
-import CustomDateTimeField from '../CustomFormFields/Dateinputs/CustomDateTimeField'
 import EventMap from '../Map/EventMap';
-import classNames from 'classnames';
 import ImageGallery from '../ImageGallery/ImageGallery';
 import {mockKeywordSets, mockLanguages, mockUser, mockUserEvents} from '__mocks__/mockData';
 import CollapseButton from './CollapseButton/CollapseButton';

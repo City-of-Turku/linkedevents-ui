@@ -82,7 +82,7 @@ export function deleteOffer(offerKey) {
 }
 /**
  * Clears key(s) from editor.values
- * @param {string[]} values
+ * @param {string} values
  * @returns {{values, type: string}}
  */
 export function clearValue(values) {
