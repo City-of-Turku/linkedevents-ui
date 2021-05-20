@@ -130,12 +130,6 @@ class CustomDateTime extends React.Component {
                 this.validateDate(moment(datetimeString, getDateFormat('date-time'), true), minDate)
             }
         }
-        if (prevProps.defaultValue !== this.props.defaultValue) {
-            this.setState({
-                dateInputValue: this.props.defaultValue ? convertDateToLocaleString(this.props.defaultValue, 'date') : '',
-                timeInputValue: this.props.defaultValue ? convertDateToLocaleString(this.props.defaultValue, 'time') : '',
-            })
-        }
     }
 
 
@@ -175,7 +169,7 @@ class CustomDateTime extends React.Component {
                                 <Input
                                     aria-describedby={showValidationError ? inputErrorId : undefined}
                                     aria-invalid={showValidationError}
-                                    invalid={Array.isArray(validationErrors)}
+                                    invalid={dateInputValue ? false : Array.isArray(validationErrors)}
                                     type="text"
                                     name={name}
                                     id={dateFieldId}
@@ -192,7 +186,7 @@ class CustomDateTime extends React.Component {
                             </div>
                             <ValidationNotification
                                 anchor={this.containerRef}
-                                validationErrors={validationErrors}
+                                validationErrors={dateInputValue ? undefined : validationErrors}
                                 className='validation-dateTime' 
                             />
                         </div>
@@ -225,7 +219,7 @@ class CustomDateTime extends React.Component {
                                 <Input
                                     aria-describedby={showValidationError ? inputErrorId : undefined}
                                     aria-invalid={showValidationError}
-                                    invalid={Array.isArray(validationErrors)}
+                                    invalid={timeInputValue ? false : Array.isArray(validationErrors)}
                                     type="text"
                                     name={name}
                                     id={timeFieldId}
@@ -241,7 +235,7 @@ class CustomDateTime extends React.Component {
                             </div>
                             <ValidationNotification
                                 anchor={this.containerRef}
-                                validationErrors={validationErrors}
+                                validationErrors={timeInputValue ? undefined : validationErrors}
                                 className='validation-dateTime' 
                             />
                         </div>

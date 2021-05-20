@@ -15,7 +15,7 @@ const draftValidations = {
     name: [VALIDATION_RULES.REQUIRE_MULTI, VALIDATION_RULES.REQUIRED_IN_CONTENT_LANGUAGE],
     location: [VALIDATION_RULES.REQUIRE_AT_ID],
     start_time: [VALIDATION_RULES.REQUIRED_STRING, VALIDATION_RULES.IS_DATE],
-    end_time: [VALIDATION_RULES.AFTER_START_TIME, VALIDATION_RULES.IN_THE_FUTURE],
+    end_time: [VALIDATION_RULES.REQUIRED_STRING, VALIDATION_RULES.AFTER_START_TIME, VALIDATION_RULES.IN_THE_FUTURE],
     price: [VALIDATION_RULES.HAS_PRICE],
     short_description: [VALIDATION_RULES.REQUIRE_MULTI, VALIDATION_RULES.REQUIRED_IN_CONTENT_LANGUAGE, VALIDATION_RULES.SHORT_STRING],
     description: [VALIDATION_RULES.LONG_STRING],
@@ -41,7 +41,7 @@ const publicValidations = {
     name: [VALIDATION_RULES.REQUIRE_MULTI, VALIDATION_RULES.REQUIRED_IN_CONTENT_LANGUAGE],
     location: [VALIDATION_RULES.REQUIRE_AT_ID],
     start_time: [VALIDATION_RULES.REQUIRED_STRING, VALIDATION_RULES.IS_DATE, VALIDATION_RULES.DEFAULT_END_IN_FUTURE], // Datetime is saved as ISO string
-    end_time: [VALIDATION_RULES.AFTER_START_TIME, VALIDATION_RULES.IS_DATE, VALIDATION_RULES.IN_THE_FUTURE],
+    end_time: [VALIDATION_RULES.REQUIRED_STRING, VALIDATION_RULES.AFTER_START_TIME, VALIDATION_RULES.IS_DATE, VALIDATION_RULES.IN_THE_FUTURE],
     price: [VALIDATION_RULES.HAS_PRICE],
     short_description: [VALIDATION_RULES.REQUIRE_MULTI, VALIDATION_RULES.REQUIRED_IN_CONTENT_LANGUAGE, VALIDATION_RULES.SHORT_STRING],
     description: [VALIDATION_RULES.LONG_STRING],
@@ -52,7 +52,7 @@ const publicValidations = {
     extlink_instagram: [VALIDATION_RULES.IS_URL],
     sub_events: { 
         start_time: [VALIDATION_RULES.REQUIRED_STRING, VALIDATION_RULES.IS_DATE, VALIDATION_RULES.DEFAULT_END_IN_FUTURE],
-        end_time: [VALIDATION_RULES.AFTER_START_TIME, VALIDATION_RULES.IS_DATE, VALIDATION_RULES.IN_THE_FUTURE],
+        end_time: [VALIDATION_RULES.REQUIRED_STRING, VALIDATION_RULES.AFTER_START_TIME, VALIDATION_RULES.IS_DATE, VALIDATION_RULES.IN_THE_FUTURE],
     },
     sub_length: [VALIDATION_RULES.IS_MORE_THAN_TWO, VALIDATION_RULES.IS_MORE_THAN_SIXTYFIVE],
     keywords: [VALIDATION_RULES.AT_LEAST_ONE_MAIN_CATEGORY],
@@ -120,8 +120,10 @@ function runValidationWithSettings(values, languages, settings, keywordSets) {
             errors = validateSubEventCount(values, validations)
             //Validate start_time
         } else if (key === 'start_time') {
-            errors = validateStartTime(values, validations)
-
+            errors = validateTimes(values, validations, 'start_time')
+            //Validate end_time
+        } else if (key === 'end_time') {
+            errors = validateTimes(values, validations, 'end_time')
         // check is_virtual boolean, is true check that virtualevent_url exists
         // validate virtual_url
         // Check for URL
@@ -194,16 +196,16 @@ const validateVirtualURL = (values, validations) => {
     }
     return errors
 }
-//Validate start_time
+//Validate start_time &/ end_time
 //Check if sub_events exist
-const validateStartTime = (values, validations) => {
+const validateTimes = (values, validations, type = '') => {
     const errors = []
     const isSingleMain = !values.hasOwnProperty('sub_events') ? true : Object.keys(values.sub_events).length === 0;
-    const subEvent = values.hasOwnProperty('start_time')
+    const subEvent = values.hasOwnProperty(type)
 
     if (subEvent || isSingleMain) {
         validations.forEach((val) => {
-            if (!validationFn[val](values, values['start_time'])) {
+            if (!validationFn[val](values, values[type])) {
                 errors.push(val)
             }
         })

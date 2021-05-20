@@ -206,7 +206,7 @@ describe('renders', () => {
         })
         test('invalid-prop is true when validationErrors exists', () => {
             const validation = [VALIDATION_RULES.REQUIRED]
-            const wrapper = getWrapper({validationErrors: validation});
+            const wrapper = getWrapper({validationErrors: validation, defaultValue: ''});
             const Inputs = wrapper.find(Input)
             Inputs.forEach((element, index) => {
                 expect(element.prop('invalid')).toBe(true)
@@ -218,6 +218,24 @@ describe('renders', () => {
             Inputs.forEach((element, index) => {
                 expect(element.prop('invalid')).toBe(false)
             })
+        })
+        test('invalid-prop is true in date when time has value & visa versa', () => {
+            const wrapper = getWrapper({validationErrors: [VALIDATION_RULES.REQUIRED], defaultValue: ''});
+            const instance = wrapper.instance();
+            const timeInputValue = '01.02'
+            instance.setState({timeInputValue})
+            const inputElement = wrapper.find(Input)
+            expect(inputElement.at(0).prop('invalid')).toBe(true)
+            expect(inputElement.at(1).prop('invalid')).toBe(false)
+        })
+        test('invalid-prop is true in time when date has value & visa versa', () => {
+            const wrapper = getWrapper({validationErrors: [VALIDATION_RULES.REQUIRED], defaultValue: ''});
+            const instance = wrapper.instance();
+            const dateInputValue = '02.01'
+            instance.setState({dateInputValue})
+            const inputElement = wrapper.find(Input)
+            expect(inputElement.at(0).prop('invalid')).toBe(false)
+            expect(inputElement.at(1).prop('invalid')).toBe(true)
         })
     })
     describe('ValidationNotification', () => {
