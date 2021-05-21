@@ -219,7 +219,7 @@ describe('renders', () => {
                 expect(element.prop('invalid')).toBe(false)
             })
         })
-        test('invalid-prop is true in date when time has value & visa versa', () => {
+        test('invalid-prop is true in date when time has value & vice versa', () => {
             const wrapper = getWrapper({validationErrors: [VALIDATION_RULES.REQUIRED], defaultValue: ''});
             const instance = wrapper.instance();
             const timeInputValue = '01.02'
@@ -228,7 +228,7 @@ describe('renders', () => {
             expect(inputElement.at(0).prop('invalid')).toBe(true)
             expect(inputElement.at(1).prop('invalid')).toBe(false)
         })
-        test('invalid-prop is true in time when date has value & visa versa', () => {
+        test('invalid-prop is true in time when date has value & vice versa', () => {
             const wrapper = getWrapper({validationErrors: [VALIDATION_RULES.REQUIRED], defaultValue: ''});
             const instance = wrapper.instance();
             const dateInputValue = '02.01'
