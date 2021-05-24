@@ -21,7 +21,7 @@ const OrganizationSelector = ({formType, selectedOption, options, onChange}) => 
             <label className='event-publisher' htmlFor='event-publisher'>{<FormattedMessage id='event-publisher' />}</label>
             {formType === 'update' ? (
                 <Input
-                    className='event-publisher-input'
+                    className='event-publisher-input-disabled'
                     id='event-publisher'
                     aria-disabled={true}
                     value={label}
@@ -42,7 +42,7 @@ const OrganizationSelector = ({formType, selectedOption, options, onChange}) => 
             ) : (
                 <Input
                     readOnly
-                    className='event-publisher-input'
+                    className='event-publisher-input-disabled'
                     id='event-publisher'
                     aria-disabled={true}
                     value={get(options, '[0].label', '')}

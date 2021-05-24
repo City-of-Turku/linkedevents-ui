@@ -43,7 +43,7 @@ describe('OrganizationSelector', () => {
                 const selectedOption = testOrgB
                 const input = getWrapper({formType, selectedOption}).find(Input)
                 expect(input).toHaveLength(1)
-                expect(input.prop('className')).toBe('event-publisher-input')
+                expect(input.prop('className')).toBe('event-publisher-input-disabled')
                 expect(input.prop('id')).toBe('event-publisher')
                 expect(input.prop('aria-disabled')).toBe(true)
                 expect(input.prop('value')).toBe(testOrgB.label)
@@ -73,7 +73,7 @@ describe('OrganizationSelector', () => {
             test('readonly input when there is only one option', () => {
                 const input = getWrapper().find(Input)
                 expect(input).toHaveLength(1)
-                expect(input.prop('className')).toBe('event-publisher-input')
+                expect(input.prop('className')).toBe('event-publisher-input-disabled')
                 expect(input.prop('id')).toBe('event-publisher')
                 expect(input.prop('aria-disabled')).toBe(true)
                 expect(input.prop('value')).toBe(defaultProps.options[0].label)

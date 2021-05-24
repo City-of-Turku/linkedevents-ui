@@ -18,4 +18,8 @@
       border: solid 3px;
       border-color: var(--main-color);
     }
+    &-disabled {
+        border: none;
+        cursor: default;
+    }
 }
