@@ -130,6 +130,12 @@ class CustomDateTime extends React.Component {
                 this.validateDate(moment(datetimeString, getDateFormat('date-time'), true), minDate)
             }
         }
+        if (prevProps.defaultValue !== this.props.defaultValue) {
+            this.setState({
+                dateInputValue: this.props.defaultValue ? convertDateToLocaleString(this.props.defaultValue, 'date') : dateInputValue,
+                timeInputValue: this.props.defaultValue ? convertDateToLocaleString(this.props.defaultValue, 'time') : timeInputValue,
+            })
+        }
     }
 
 
