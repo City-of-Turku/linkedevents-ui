@@ -74,6 +74,18 @@ class HomePage extends React.Component {
             routerPush(url);
         }
 
+        getIDref(locale) {
+            if (locale === 'fi') {
+                return '#b-organisaatiotunnukset'
+            }
+            if (locale === 'en') {
+                return '#b-organization-ids'
+            }
+            if (locale === 'sv') {
+                return '#b-organisationsidentifikation'
+            }
+        }
+
         render() {
             const {user, locale} = this.props;
             const {intl} = this.context;
@@ -147,10 +159,11 @@ class HomePage extends React.Component {
                                 </Button>
                                 <Button
                                     className='btn'
-                                    onClick={() => this.handleRouterClick('/search')}
+                                    href={this.getIDref(locale)}
+                                    onClick={() => this.handleRouterClick('/help/')}
                                 >
-                                    <span aria-hidden className='glyphicon glyphicon-search' />
-                                    <FormattedMessage id={`search-${appSettings.ui_mode}`} />
+                                    <span aria-hidden className='glyphicon glyphicon-user' />
+                                    <FormattedMessage id='homepage-organization-button'/>
                                 </Button>
                                 <Button
                                     className='btn'

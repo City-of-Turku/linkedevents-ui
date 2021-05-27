@@ -292,6 +292,7 @@ exports[`Image add form ImagePicker component should render correctly with data 
       "homepage-introduction-one": "Tervetuloa lisäämään tapahtumasi, harrastuksesi tai koulutuksesi avoimeen Linked Events -tietokantaan. Linked Events on avoin tapahtumatietokanta ja -rajapinta joka tarjoaa tiedot avoimena datana yhdenmukaisessa koneluettavassa muodossa erilaisille sovelluksille.",
       "homepage-introduction-three": "Turun kaupungin Linked Events on tarkoitettu kaikille Varsinais-Suomen alueen tapahtuma-, harrastus- ja koulutussisällöille, ei pelkästään kaupungin omille.",
       "homepage-introduction-two": "<strong>Linked Events ei itse ole visuaalinen tapahtumakalenteri.</strong> Katso Turun kaupungin kalenteria. linkki: <a href='https://kalenteri.turku.fi' target='_blank' rel='noopener noreferrer'>https://kalenteri.turku.fi (Aukeaa uudessa välilehdessä)</a>",
+      "homepage-organization-button": "Lisää organisaatiosi",
       "homepage-welcome": "Tervetuloa Linked-palveluihin",
       "image-caption-limit-for-min-and-max": "Kuvateksti",
       "image-creation-error": "Virhe kuvaa luodessa.",
