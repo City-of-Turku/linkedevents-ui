@@ -527,7 +527,7 @@
 
     "event-list-show": "Näytä tapahtumat",
     "event-list-hide": "Piilota tapahtumat",
-    "event-is-virtualandhaslocation": "Tämä tapahtuma on sekä virtuaalinen että fyysinen",
+    "event-is-virtualandhaslocation": "Tämä tapahtuma on sekä virtuaalinen että lähitapahtuma",
     "homepage-welcome": "Tervetuloa Linked-palveluihin",
     "homepage-introduction-one": "Tervetuloa lisäämään tapahtumasi, harrastuksesi tai koulutuksesi avoimeen Linked Events -tietokantaan. Linked Events on avoin tapahtumatietokanta ja -rajapinta joka tarjoaa tiedot avoimena datana yhdenmukaisessa koneluettavassa muodossa erilaisille sovelluksille.",
     "homepage-introduction-two": "<strong>Linked Events ei itse ole visuaalinen tapahtumakalenteri.</strong> <a href='https://kalenteri.turku.fi' target='_blank' rel='noopener noreferrer'>Katso Turun kaupungin kalenteria (Aukeaa uudessa välilehdessä)</a>",
