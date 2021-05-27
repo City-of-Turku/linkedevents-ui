@@ -34,18 +34,20 @@ import CollapseButton from './CollapseButton/CollapseButton';
 import HelCheckbox from '../HelFormFields/HelCheckbox';
 import LoginNotification from './LoginNotification/LoginNotification'
 
-// Removed material-ui/icons because it was no longer used.
-//Added isOpen for RecurringEvents modal
 
-let FormHeader = (props) => (
-    <div className="row">
-        <h3 className="col-sm-12">{ props.children }</h3>
-    </div>
-)
-
-FormHeader.propTypes = {
-    children: PropTypes.element,
+let FormHeader = ({type = 'h3', messageID}) => {
+    const headerElement = (content) => React.createElement(type, {className: 'col-sm-12'}, content)
+    return(
+        <div className="row">
+            <FormattedMessage id={messageID}>{txt => headerElement(txt)}</FormattedMessage>
+        </div>
+    )
 }
+FormHeader.propTypes = {
+    type: PropTypes.string,
+    messageID: PropTypes.string,
+}
+
 
 export const SideField = (props) => (
     <div className='side-field col-sm-5'>
@@ -260,6 +262,7 @@ class FormFields extends React.Component {
         return found;
     }
 
+
     render() {
         // Changed keywordSets to be compatible with Turku's backend.
         const currentLocale = this.state.availableLocales.includes(this.context.intl.locale) ? this.context.intl.locale : 'fi';
@@ -299,14 +302,13 @@ class FormFields extends React.Component {
                 </div>
                 <div className="row row-header">
                     <FormattedMessage id='event-add-newInfo'>{txt => <h2>{txt}</h2>}</FormattedMessage>
-                </div>
-                <FormHeader>
-                    <FormattedMessage id="event-presented-in-languages"/>
-                </FormHeader>
-                <div className="row event-row">
-                    <SideField label={this.context.intl.formatMessage({id: 'event-presented-in-languages-help'})}>
-                        <FormattedMessage id="editor-tip-formlanguages"/>
+                    <SideField label={this.context.intl.formatMessage({id: 'event-required-help'})}>
+                        <FormattedMessage id='editor-tip-required'/>
                     </SideField>
+                </div>
+                <FormHeader messageID='event-presented-in-languages'/>
+                <FormHeader messageID='event-presented-in-languages2' type='h4'/>
+                <div className="row contentlanguage-row">
                     <div className="col-sm-6 highlighted-block">
                         <HelLanguageSelect
                             options={API.eventInfoLanguages()}
@@ -314,15 +316,8 @@ class FormFields extends React.Component {
                         />
                     </div>
                 </div>
-                <FormHeader>
-                    <FormattedMessage id='event-name-shortdescription'/>
-                </FormHeader>
+                <FormHeader messageID='event-name-shortdescription'/>
                 <div className="row event-row">
-                    <SideField label={this.context.intl.formatMessage({id: 'event-name-shortdescription-help'})}>
-                        <FormattedMessage id='editor-tip-required'>{txt => <small>{txt}</small>}</FormattedMessage>
-                        <FormattedMessage id="editor-tip-namedescription">{txt => <p>{txt}</p>}</FormattedMessage>
-                        <FormattedMessage id="editor-tip-namedescription2"/>
-                    </SideField>
                     <div className="col-sm-6">
                         <MultiLanguageField
                             id='event-headline'
@@ -354,14 +349,11 @@ class FormFields extends React.Component {
                         />
                     </div>
                 </div>
-                <FormHeader>
-                    <FormattedMessage id="event-location-form-header" />
-                </FormHeader>
+                <FormHeader messageID='event-location-form-header'/>
                 <div className="row location-row">
                     <SideField label={this.context.intl.formatMessage({id: 'event-location-fields-header-help'})}>
                         <p><FormattedMessage id="editor-tip-location"/></p>
                         <p><strong><FormattedMessage id="editor-tip-location-internet"/></strong></p>
-                        <p><FormattedMessage id="editor-tip-location-extra"/></p>
                         <p><FormattedMessage id="editor-tip-location-not-found"/></p>
                     </SideField>
                     <div className="col-sm-6 hel-select">
@@ -459,15 +451,13 @@ class FormFields extends React.Component {
                     </div>
 
                 </div>
-                <FormHeader>
-                    <FormattedMessage id="event-datetime-form-header" />
-                </FormHeader>
+                <FormHeader messageID='event-datetime-form-header'/>
                 <div className='row date-row'>
                     <SideField label={this.context.intl.formatMessage({id: 'event-datetime-fields-header-help'})}>
+                        <p><FormattedMessage id="editor-tip-time-start"/></p>
                         <p><FormattedMessage id="editor-tip-time-start-end"/></p>
                         <p><FormattedMessage id="editor-tip-time-type"/></p>
-                        <p><FormattedMessage id="editor-tip-time-extended"/></p>
-                        <p><FormattedMessage id="editor-tip-time-delete"/></p>
+                        <p><FormattedMessage id="editor-tip-time-end"/></p>
                     </SideField>
                     <div className='col-sm-6'>
                         <div className='row radio-row'>
@@ -517,6 +507,7 @@ class FormFields extends React.Component {
                                 : null
                             }
                         </div>
+                        <FormHeader messageID='event-datetime-form-header2' type='h4'/>
                         {!this.state.selectEventType
                             ?
                             <div className='col-xs-12 col-sm-12'>
@@ -617,13 +608,8 @@ class FormFields extends React.Component {
                         />
                     </h2>
                     <Collapse isOpen={this.state.headerDescription}>
-                        <FormHeader>
-                            <FormattedMessage id='event-description-form-header'/>
-                        </FormHeader>
-                        <div className="row event-row">
-                            <SideField label={this.context.intl.formatMessage({id: 'event-description-fields-header-help'})}>
-                                <FormattedMessage id="editor-tip-longdescription"/>
-                            </SideField>
+                        <FormHeader messageID='event-description-form-header'/>
+                        <div className="row longdescription-row">
                             <div className="col-sm-6">
                                 <MultiLanguageField
                                     id='event-description'
@@ -663,14 +649,10 @@ class FormFields extends React.Component {
                         </div>
                         {formType === 'add' || !isRegularUser &&
                         <React.Fragment>
-                            <FormHeader>
-                                <FormattedMessage id="event-umbrella" className=''/>
-                            </FormHeader>
                             <div className="row umbrella-row">
                                 <SideField label={this.context.intl.formatMessage({id: 'event-umbrella-help'})}>
                                     <p><FormattedMessage id="editor-tip-umbrella-selection"/></p>
                                     <p><FormattedMessage id="editor-tip-umbrella-selection1"/></p>
-                                    <FormattedMessage id="editor-tip-umbrella-selection2"/>
                                 </SideField>
                                 <div className="col-sm-6">
                                     <UmbrellaSelector editor={this.props.editor} event={event} superEvent={superEvent}/>
@@ -686,15 +668,12 @@ class FormFields extends React.Component {
                             id='headerImage'
                             isOpen={this.state.headerImage}
                             isRequired={true}
-                            targetCollapseNameId='event-picture-header'
+                            targetCollapseNameId='event-image-title'
                             toggleHeader={this.toggleHeader}
                             validationErrorList={validationErrors['image']}
                         />
                     </h2>
                     <Collapse isOpen={this.state.headerImage}>
-                        <FormHeader>
-                            <FormattedMessage id="event-image-title"/>
-                        </FormHeader>
                         <div className='row'>
                             <ImageGallery validationErrors={validationErrors['image']} locale={currentLocale}/>
                         </div>
@@ -712,9 +691,6 @@ class FormFields extends React.Component {
                         />
                     </h2>
                     <Collapse isOpen={this.state.headerCategories}>
-                        <FormHeader>
-                            <FormattedMessage id="event-categorization-form" />
-                        </FormHeader>
                         <div className="row keyword-row">
                             <HelKeywordSelector
                                 editor={editor}
@@ -724,11 +700,8 @@ class FormFields extends React.Component {
                             />
                         </div>
                         <div className="row audience-row">
-                            <SideField label={this.context.intl.formatMessage({id: 'editor-tip-target-group-help'})}>
-                                <FormattedMessage id="editor-tip-target-group"/>
-                            </SideField>
                             <HelLabeledCheckboxGroup
-                                groupLabel={<FormattedMessage id="hel-target-groups"/>}
+                                groupLabel={<FormattedMessage id="target-groups-header"/>}
                                 selectedValues={values['audience']}
                                 ref="audience"
                                 name="audience"
@@ -751,14 +724,8 @@ class FormFields extends React.Component {
                         />
                     </h2>
                     <Collapse isOpen={this.state.headerPrices}>
-                        <FormHeader>
-                            <FormattedMessage id="event-price-fields-header" />
-                        </FormHeader>
+                        <FormHeader messageID='event-price-fields-header'/>
                         <div className="row offers-row">
-                            <SideField label={this.context.intl.formatMessage({id: 'event-price-fields-header-help'})}>
-                                <p><FormattedMessage id="editor-tip-price"/></p>
-                                <p><FormattedMessage id="editor-tip-price-multi"/></p>
-                            </SideField>
                             <div className="col-sm-6">
                                 <HelOffersField
                                     ref="offers"
@@ -785,13 +752,7 @@ class FormFields extends React.Component {
                         />
                     </h2>
                     <Collapse isOpen={this.state.headerSocials}>
-                        <FormHeader>
-                            <FormattedMessage id="event-social-media-fields-header" />
-                        </FormHeader>
                         <div className="row social-media-row">
-                            <SideField label={this.context.intl.formatMessage({id: 'event-social-media-fields-header-help'})}>
-                                <FormattedMessage id="editor-tip-social-media"/>
-                            </SideField>
                             <div className="col-sm-6">
                                 <MultiLanguageField
                                     id='event-info-url'
@@ -850,9 +811,6 @@ class FormFields extends React.Component {
                                 />
                             </div>
                         </div>
-                        <FormHeader>
-                            <FormattedMessage id="event-video"/>
-                        </FormHeader>
                         <HelVideoFields
                             defaultValues={values['videos']}
                             validationErrors={validationErrors}
@@ -867,18 +825,15 @@ class FormFields extends React.Component {
                         <CollapseButton
                             id='headerInlanguage'
                             isOpen={this.state.headerInlanguage}
-                            targetCollapseNameId='hel-event-languages'
+                            targetCollapseNameId='hel-event-languages-header'
                             toggleHeader={this.toggleHeader}
                             validationErrorList={[validationErrors['in_language']]}
                         />
                     </h2>
                     <Collapse isOpen={this.state.headerInlanguage}>
                         <div className="row inlanguage-row">
-                            <SideField label={this.context.intl.formatMessage({id: 'editor-tip-event-languages-help'})}>
-                                <FormattedMessage id="editor-tip-event-languages"/>
-                            </SideField>
                             <HelLabeledCheckboxGroup
-                                groupLabel={<FormattedMessage id="hel-event-languages"/>}
+                                groupLabel={<FormattedMessage id="hel-event-languages-header2"/>}
                                 selectedValues={values['in_language']}
                                 ref="in_language"
                                 name="in_language"
@@ -902,9 +857,7 @@ class FormFields extends React.Component {
                     </h2>
                     <Collapse isOpen={this.state.headerCourses}>
                         <div>
-                            <FormHeader>
-                                <FormattedMessage id="audience-age-restrictions"/>
-                            </FormHeader>
+                            <FormHeader messageID='audience-age-restrictions'/>
                             <div className="row">
                                 <div className="col-xs-12 col-sm-6">
                                     <HelTextField
@@ -929,9 +882,7 @@ class FormFields extends React.Component {
                                 </div>
                             </div>
 
-                            <FormHeader>
-                                <FormattedMessage id="enrolment-time"/>
-                            </FormHeader>
+                            <FormHeader messageID='enrolment-time'/>
                             <div className="row">
                                 <div className="col-xs-12 col-sm-6">
                                     <CustomDateTimeField
@@ -953,9 +904,7 @@ class FormFields extends React.Component {
                                 </div>
                             </div>
 
-                            <FormHeader>
-                                <FormattedMessage id="attendee-capacity"/>
-                            </FormHeader>
+                            <FormHeader messageID='attendee-capacity'/>
                             <div className="row">
                                 <div className="col-xs-12 col-sm-6">
                                     <HelTextField

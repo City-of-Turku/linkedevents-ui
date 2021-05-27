@@ -53,12 +53,12 @@ class HomePage extends React.Component {
     getDefaultEventQueryParams = () => {
         const queryParams = new EventQueryParams()
         const {locale} = this.props
-        queryParams.super_event = 'none'
+
         queryParams.publication_status = PUBLICATION_STATUS.PUBLIC
         queryParams.include = 'location'
         queryParams.start = 'today'
         queryParams.end = 'today'
-        queryParams.language = locale
+        queryParams.in_language = locale
         return queryParams
     }
 
