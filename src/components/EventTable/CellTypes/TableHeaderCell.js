@@ -1,7 +1,7 @@
-import React from 'react'
-import {Checkbox, TableCell, TableSortLabel} from '@material-ui/core'
-import PropTypes from 'prop-types'
-import constants from '../../../constants'
+import React from 'react';
+import PropTypes from 'prop-types';
+import constants from 'src/constants';
+import HeaderCell from './HeaderCell';
 
 const {TABLE_COLUMNS} = constants
 
@@ -17,36 +17,48 @@ const TableHeaderCell = ({
     handleRowSelect,
     handleSortChange,
     fetchComplete,
+    sortBy,
 }) => {
-    const checked = fetchComplete
-        && selectedRows.length > 0
-        && invalidRows.length + selectedRows.length === events.length
 
     return (
         <React.Fragment>
             {name === 'checkbox' &&
-            <TableCell className="checkbox">
-                <Checkbox
-                    color="primary"
-                    checked={checked}
-                    onChange={(e, checked) => handleRowSelect(checked, undefined, tableName, true)}
-                />
-            </TableCell>
+            <HeaderCell
+                isActive={isActive}
+                sortDirection={sortDirection}
+                name={name}
+                events={events}
+                tableName={tableName}
+                invalidRows={invalidRows}
+                selectedRows={selectedRows}
+                handleRowSelect={handleRowSelect}
+                handleSortChange={handleSortChange}
+                fetchComplete={fetchComplete}
+                active={name === sortBy}
+            >
+                {children}
+            </HeaderCell>
             }
             {name === 'validation' &&
-                <TableCell className="validation-cell" />
+                <td className="validation-cell" />
             }
             {name !== 'checkbox' && name !== 'validation' &&
-            <TableCell>
-                <TableSortLabel
-                    active={isActive(name)}
-                    className={!fetchComplete ? 'disabled' : ''}
-                    direction={sortDirection}
-                    onClick={() => handleSortChange(name, tableName)}
-                >
-                    {children}
-                </TableSortLabel>
-            </TableCell>
+            <HeaderCell
+                isActive={isActive}
+                sortDirection={sortDirection}
+                name={name}
+                events={events}
+                tableName={tableName}
+                invalidRows={invalidRows}
+                selectedRows={selectedRows}
+                handleRowSelect={handleRowSelect}
+                handleSortChange={handleSortChange}
+                fetchComplete={fetchComplete}
+                active={name === sortBy}
+                direction={sortDirection}
+            >
+                {children}
+            </HeaderCell>
             }
 
         </React.Fragment>
@@ -71,6 +83,7 @@ TableHeaderCell.propTypes = {
     handleRowSelect: PropTypes.func,
     handleSortChange: PropTypes.func,
     fetchComplete: PropTypes.bool,
+    sortBy: PropTypes.string,
 }
 
 export default TableHeaderCell

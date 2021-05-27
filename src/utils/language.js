@@ -2,7 +2,8 @@ import {map, filter, keys} from 'lodash'
 import API from 'src/api'
 
 // TODO: configure somewhere properly.
-const SKIP_FIELDS = new Set(['location', 'keywords', 'audience', 'languages', 'in_language', 'sub_events']);
+// name & alt_text fields are for the event image object.
+const SKIP_FIELDS = new Set(['location', 'keywords', 'audience', 'languages', 'in_language', 'sub_events','name','alt_text']);
 
 // Enumerate all the property names
 // of an object recursively.

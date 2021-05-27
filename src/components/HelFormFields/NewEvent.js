@@ -1,63 +1,88 @@
 import './NewEvent.scss'
 import PropTypes from 'prop-types';
-import React from 'react'
-import HelDateTimeField from '../HelFormFields/HelDateTimeField'
+import React, {useRef} from 'react'
+import CustomDateTime from '../CustomFormFields/Dateinputs/CustomDateTime';
 import {connect} from 'react-redux'
 import {deleteSubEvent as deleteSubEventAction} from 'src/actions/editor'
-import {IconButton, withStyles} from '@material-ui/core'
-import {Delete} from '@material-ui/icons'
-
-const DeleteButton = withStyles(theme => ({
-    root: {
-        alignSelf: 'center',
-        position: 'absolute',
-        left: 0,
-        transform: `translateX(calc(-1.2em - ${theme.spacing(1)}px))`,
-        '& svg': {
-            height: '1.2em',
-            width: '1.2em',
-        },
-    },
-}))(IconButton)
-
-const NewEvent = ({event, eventKey, errors, deleteSubEvent}) => (
-    <div className="new-sub-event">
-        <div className="new-sub-event--inputs">
-            <HelDateTimeField
-                name="start_time"
-                label="event-starting-datetime"
-                defaultValue={event.start_time}
-                eventKey={eventKey}
-                validationErrors={errors['start_time']}
-            />
-            <HelDateTimeField
-                disablePast
-                name="end_time"
-                label="event-ending-datetime"
-                defaultValue={event.end_time}
-                eventKey={eventKey}
-                validationErrors={errors['end_time']}
+import {FormattedMessage, injectIntl} from 'react-intl';
+import ValidationNotification from '../ValidationNotification';
+const NewEvent = ({event, eventKey, errors, deleteSubEvent, intl, setInitialFocus, subErrors, length}) => {
+    /**
+     * If eventKey is 0 -> return all errors, for other keys filter out the max sub count error
+     * @returns {string[]|undefined}
+     */
+    const getValidationErrors = () => {
+        if (eventKey === '0') {
+            return subErrors['sub_length']
+        } else {
+            return subErrors['sub_length'] ?  subErrors['sub_length'].filter(error => error !== 'isMoreThanSixtyFive') : undefined
+        }
+    };
+    const containerRef = useRef(null);
+    return (
+        <div className="new-sub-event row" ref={containerRef}>
+            <div className="col-auto">
+                <FormattedMessage id="event-sub-count" values={{count: length}}>{txt => <h4>{txt}</h4>}</FormattedMessage>
+            </div>
+            <div className="new-sub-event--inputs col-12 order-last">
+                <CustomDateTime
+                    id={'start_time' + eventKey}
+                    name="start_time"
+                    labelDate={<FormattedMessage  id="event-starting-datelabel" />}
+                    labelTime={<FormattedMessage  id="event-starting-timelabel" />}
+                    defaultValue={event.start_time}
+                    eventKey={eventKey}
+                    validationErrors={errors['start_time']}
+                    required={true}
+                    setInitialFocus={setInitialFocus}
+                />
+                <CustomDateTime
+                    disablePast
+                    id={'end_time' + eventKey}
+                    name="end_time"
+                    labelDate={<FormattedMessage  id="event-ending-datelabel" />}
+                    labelTime={<FormattedMessage  id="event-ending-timelabel" />}
+                    defaultValue={event.end_time}
+                    eventKey={eventKey}
+                    validationErrors={errors['end_time']}
+                />
+            </div>
+            <button
+                className="new-sub-event--delete col-auto"
+                onClick={() => deleteSubEvent(eventKey)}
+                aria-label={intl.formatMessage({id: `event-delete-recurring`})}
+            >
+                <span id="sub-event-del-icon" className="glyphicon glyphicon-trash" aria-hidden="true"></span>
+            </button>
+            <div className="w-100"></div>
+            <ValidationNotification
+                className='validation-notification' 
+                anchor={containerRef.current}
+                validationErrors={getValidationErrors()}
             />
         </div>
-        <DeleteButton
-            className="new-sub-event--delete"
-            color="secondary"
-            onClick={() => deleteSubEvent(eventKey)}
-        >
-            <Delete/>
-        </DeleteButton>
-    </div>
-)
+    )
+
+}
+
+CustomDateTime.defaultProps = {
+    setDirtyState: () => {},
+}
 
 NewEvent.propTypes = {
     event: PropTypes.object.isRequired,
     eventKey: PropTypes.string.isRequired,
     errors: PropTypes.object,
     deleteSubEvent: PropTypes.func,
+    intl: PropTypes.object,
+    setInitialFocus: PropTypes.bool,
+    subErrors: PropTypes.object,
+    length: PropTypes.number,
 }
+
 
 const mapDispatchToProps = (dispatch) => ({
     deleteSubEvent: (eventKey) => dispatch(deleteSubEventAction(eventKey)),
 })
 
-export default connect(null, mapDispatchToProps)(NewEvent);
+export default connect(null, mapDispatchToProps)(injectIntl(NewEvent));

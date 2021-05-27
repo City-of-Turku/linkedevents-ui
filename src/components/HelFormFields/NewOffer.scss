@@ -1,13 +1,21 @@
 .new-offer {
-    display: flex;
-    flex-wrap: wrap;
-    position: relative;
+    border-left: 5px solid #f6f6f6;
+    margin-top: 36px;
 
-    &:not(:first-of-type) {
-        margin-top: 36px;
+    &--inputs {
+        flex: 1;
+        padding: 0px 15px 0px 12px;
     }
+}
 
-    > div {
-        width: 100%;
+.new-offer--delete{
+    background-color: rgba(0, 0, 0, 0);
+    border: none;
+    color:#000000;
+    width:42px;
+    height: 36px;
+
+    #offer-del-icon {
+        padding-top: 14px;
     }
 }

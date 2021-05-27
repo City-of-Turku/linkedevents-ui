@@ -1,0 +1,65 @@
+.date-input-error {
+    color: #B30000;
+}
+
+.custom-date-time-input {
+    .react-datepicker-popper {
+        z-index: 11;
+    }
+    justify-content: space-between;
+    display: flex;
+    @media only screen and (max-width: 1200px) {
+        display: block;
+}
+
+    .input-and-button{
+        display: flex;
+        flex-flow: initial;
+        flex-direction: column;
+        flex-wrap: wrap;
+        @media only screen and (max-width: 1200px) {
+            flex-wrap: nowrap;
+    }
+        .validation-notification {
+            flex: auto;
+        }
+        .input-wrapper {
+            display: flex;
+            flex-flow: row-reverse;
+            width: 100%;
+        }
+    }
+
+    label {
+        font-size: 1rem;
+        padding-top: 2vh;
+        height: 50px;
+        margin-bottom: 1rem;
+    }
+    input {
+        width: 195px;
+        @media only screen and (max-width: 1200px) {
+            width: 100%;
+    }
+        background: none;
+        border: solid 2px;
+        border-radius: 0.25rem;
+        &:hover,
+        &:focus,
+        &:active {
+            background: none;
+
+        }
+    }
+
+    &__button {
+        color: #fff;
+        background-color: var(--main-color);
+        border-radius: 2px;
+
+        &.glyphicon, .glyphicon-calendar {
+            font-size: inherit;
+            margin: 4px 0px;
+        }
+    }
+}

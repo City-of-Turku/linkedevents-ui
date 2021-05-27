@@ -13,18 +13,19 @@ class API {
                 value: 'en',
                 label: 'in-en',
             },
-            {
-                value: 'ru',
-                label: 'in-ru',
-            },
-            {
-                value: 'zh_hans',
-                label: 'in-zh_hans',
-            },
-            {
-                value: 'ar',
-                label: 'in-ar',
-            },
+            //Commented out because our version of Linkedevents doesn't use this - Turku
+            // {
+            //     value: 'ru',
+            //     label: 'in-ru',
+            // },
+            // {
+            //     value: 'zh_hans',
+            //     label: 'in-zh_hans',
+            // },
+            // {
+            //     value: 'ar',
+            //     label: 'in-ar',
+            // },
         ]
     }
 }

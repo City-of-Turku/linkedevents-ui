@@ -1,5 +1,5 @@
 import fetch from 'isomorphic-fetch'
-import {includes, keys, pickBy, isUndefined, isNil, get} from 'lodash';
+import {includes, keys, pickBy, isUndefined, isNil, get, omit} from 'lodash';
 
 import constants from '../constants'
 import {
@@ -12,7 +12,7 @@ import {
 } from '../utils/formDataMapping'
 import {emptyField, nullifyMultiLanguageValues, scrollToTop} from '../utils/helpers'
 
-import {push} from 'react-router-redux'
+import {push} from 'connected-react-router'
 import {setFlashMsg, clearFlashMsg} from './app'
 
 import {doValidations} from 'src/validation/validator.js'
@@ -20,7 +20,7 @@ import getContentLanguages from '../utils/language'
 import client from '../api/client'
 import {getSuperEventId} from '../utils/events'
 
-const {PUBLICATION_STATUS, SUPER_EVENT_TYPE_RECURRING, EVENT_CREATION} = constants
+const {PUBLICATION_STATUS, SUPER_EVENT_TYPE_RECURRING, EVENT_CREATION, SUB_EVENT_TYPE_RECURRING} = constants
 
 /**
  * Set editor form data
@@ -80,6 +80,17 @@ export function deleteOffer(offerKey) {
         offerKey,
     }
 }
+/**
+ * Clears key(s) from editor.values
+ * @param {string} values
+ * @returns {{values, type: string}}
+ */
+export function clearValue(values) {
+    return {
+        type: constants.EDITOR_CLEAR_VALUE,
+        values,
+    }
+}
 export function setFreeOffers(isFree) {
     return {
         type: constants.EDITOR_SET_FREE_OFFERS,
@@ -92,29 +103,42 @@ export function setLanguages(languages) {
         languages: languages,
     }
 }
-
+/**
+ * Returns object with key '@id' and value that is the full url to the event
+ * @param {object} event
+ * @returns {{'@id': string}}
+ */
+function setRecurringRoot(data) {
+    return {
+        '@id': data['@id'],
+    }
+}
 /**
  * Replace all editor values
- * @param  {obj} formData     new form values to replace all existing values
+ * @param  {obj} formData     New form values to replace all existing values
+ * @param {boolean} [recurring=true] Determines are we adding new event to existing recurring
  */
-export function replaceData(formData) {
+export function replaceData(formData, recurring = false) {
     return (dispatch, getState) => {
         const {keywordSets} = getState().editor
         let formObject = mapAPIDataToUIFormat(formData)
         const publicationStatus = formObject.publication_status || PUBLICATION_STATUS.PUBLIC
-
         // run only draft level validation before copying
         const validationErrors = doValidations(formObject, getContentLanguages(formObject), PUBLICATION_STATUS.DRAFT, keywordSets)
-
         // empty id, event_status, and any field that has validation errors
         keys(validationErrors).map(field => {
             formObject = emptyField(formObject, field)
         })
-        delete formObject.id
+        if (recurring === true) {
+            //Return events '@id' for adding new sub_event under existing recurring super_event
+            formObject.super_event = setRecurringRoot(formData)
+            //Add sub_event_type recurring as we're adding new event under existing recurring super event
+            formObject.sub_event_type = SUB_EVENT_TYPE_RECURRING
+        }
         delete formObject.event_status
         delete formObject.super_event_type
+        delete formObject.id
         formObject.sub_events = {}
-
         // here, we do more thorough validation
         dispatch(validateFor(publicationStatus))
         dispatch(setValidationErrors({}))
@@ -232,6 +256,10 @@ const prepareFormValues = (
     // exclude all existing sub events from editing form
     if (updateExisting) {
         formValues.sub_events = pickBy(formValues.sub_events, event => !event['@id'])
+    }
+
+    if (formValues.sub_events && Object.keys(formValues.sub_events).length === 0) {
+        formValues = _.omit(formValues,'sub_events')
     }
 
     let recurring = false;
@@ -359,7 +387,8 @@ export const executeSendRequest = (
                 updateExisting,
                 publicationStatus,
                 data['@id'],
-                subEvents
+                subEvents,
+                SUB_EVENT_TYPE_RECURRING,
             ))
             return
         }
@@ -407,13 +436,14 @@ export const sendRecurringData = (
     updateExisting,
     publicationStatus,
     superEventUrl,
-    subEvents
+    subEvents,
+    subEventType
 ) => (dispatch) => {
     // this tells the executeSendRequest method whether we're updating sub events
     const updatingSubEvents = updateExisting
     const subEventsToSend = updateExisting
         ? updateSubEventsFromFormValues(formValues, subEvents)
-        : createSubEventsFromFormValues(formValues, updateExisting, superEventUrl)
+        : createSubEventsFromFormValues(formValues, updateExisting, superEventUrl, subEventType)
 
     if (subEventsToSend.length > 0) {
         dispatch(executeSendRequest(

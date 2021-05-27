@@ -1,0 +1,35 @@
+.date-input-error {
+    color: #B30000;
+}
+
+.custom-date-input {
+    .input-and-button{
+        display: flex;
+    }
+
+    label {
+        font-size: 1rem;
+        padding-top: 2vh;
+    }
+    input {
+        background: none;
+        border: solid 2px;
+        border-radius: 0.25rem;
+        &:hover,
+        &:focus,
+        &:active {
+            background: none;
+        }
+    }
+
+    &__button {
+        color: #fff;
+        background-color:#0072c6;
+        border-radius: 2px;
+
+        &.glyphicon, .glyphicon-calendar {
+            font-size: inherit;
+            margin: 0 4px;
+        }
+    }
+}

@@ -1,5 +1,5 @@
 import {getFirstMultiLanguageFieldValue} from './helpers'
-import {cancelEvents, deleteEvents, mapSubEventDataToSuperEvents, publishEvents} from './events'
+import {postponeEvents, cancelEvents, deleteEvents, mapSubEventDataToSuperEvents, publishEvents} from './events'
 import constants from '../constants'
 import moment from 'moment'
 import {get, isUndefined, isNull, isNil} from 'lodash'
@@ -12,7 +12,7 @@ const {PUBLICATION_STATUS, SUPER_EVENT_TYPE_RECURRING, SUPER_EVENT_TYPE_UMBRELLA
  * @param b Event B data
  * @returns {number}
  */
-const compareDates = (a, b) => moment(a.start_time).unix() - moment(b.start_time).unix()
+export const compareDates = (a, b) => moment(a.start_time).unix() - moment(b.start_time).unix()
 
 /**
  * Returns a string containing html markup that lists given sub events in an unsorted list
@@ -95,12 +95,14 @@ const getEventListing = (subEventsMappedToEvents, events, intl) =>
 
 /**
  * Returns the additional markup for the confirmation dialog based on given action type
+ * @param extraMessage  Any extra message that needs to be displayed before other warnings
  * @param action        Either 'update', 'publish', 'delete' or 'cancel'
  * @param intl          React Intl
  * @param events        Possible sub events for the event
  * @returns {string}    Markup for the confirmation dialog
  */
-const getConfirmationMarkup = (action, intl, events = [])  => {
+const getConfirmationMarkup = (extraMessage = null, action, intl, events = [])  => {
+    const extraMessageText = extraMessage ? `<p><strong>${intl.formatMessage({id: extraMessage})}</strong></p>` : ''
     const warningText = `<p>${intl.formatMessage({id: `editor-${action}-warning`})}</p>`
     let extraWarningText = intl.formatMessage({id: `editor-${action}-extra-warning`})
     extraWarningText = extraWarningText === `editor-${action}-extra-warning` ? '' : `<p>${extraWarningText}</p>`
@@ -109,8 +111,8 @@ const getConfirmationMarkup = (action, intl, events = [])  => {
     const eventListing = getEventListing(subEventsMappedToEvents, events, intl)
 
     return eventListing.length > 0
-        ? `${warningText}${extraWarningText}${eventListing}`
-        : warningText
+        ? `${extraMessageText}${warningText}${extraWarningText}${eventListing}`
+        : `${extraMessageText}${warningText}`
 }
 
 /**
@@ -132,7 +134,6 @@ const showConfirmationModal = (
     publicationStatus = PUBLICATION_STATUS.PUBLIC,
     customAction,
 ) => new Promise((resolve) => {
-    const eventIds = eventData.map(item => item.id)
     const isDraft = publicationStatus === PUBLICATION_STATUS.DRAFT
 
     // set the modal texts based on the action to run
@@ -140,6 +141,9 @@ const showConfirmationModal = (
     const message = isDraft
         ? `confirm-${action}-draft`
         : `confirm-${action}`
+    const extraMessage = (action === 'cancel')
+        ? `confirm-cancel-extra`
+        : null
     const warningMessage = isDraft
         ? `${action}-draft`
         : action
@@ -157,11 +161,14 @@ const showConfirmationModal = (
         update() {
             console.warn(`action '${action}' is not implemented!`)
         },
+        postpone() {
+            resolve(postponeEvents(eventData))
+        },
         cancel() {
             resolve(cancelEvents(eventData))
         },
         delete() {
-            resolve(deleteEvents(eventIds))
+            resolve(deleteEvents(eventData))
         },
     }
 
@@ -171,7 +178,7 @@ const showConfirmationModal = (
         actionButtonLabel,
         {
             action: customAction || confirmActionMapping[action],
-            additionalMarkup: getConfirmationMarkup(warningMessage, intl, eventData),
+            additionalMarkup: getConfirmationMarkup(extraMessage, warningMessage, intl, eventData),
         }
     )
 })

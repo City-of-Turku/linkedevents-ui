@@ -106,6 +106,14 @@ function update(state = initialState, action) {
         })
     }
 
+    if (action.type === constants.EDITOR_CLEAR_VALUE) {
+        return updater(state, {
+            values: {
+                $unset: action.values,
+            },
+        })
+    }
+
     if (action.type === constants.EDITOR_UPDATE_SUB_EVENT) {
 
         const newValues = updater(state.values, {
@@ -131,7 +139,7 @@ function update(state = initialState, action) {
 
     if (action.type === constants.EDITOR_DELETE_SUB_EVENT) {
         const oldSubEvents = Object.assign({}, state.values.sub_events);
-        const newSubEvents = _.omit(oldSubEvents, action.event);
+        const newSubEvents = omit(oldSubEvents, action.event);
         return updater(state, {
             values: {
                 sub_events: {
@@ -143,7 +151,14 @@ function update(state = initialState, action) {
 
     if (action.type === constants.EDITOR_SORT_SUB_EVENTS) {
         const mappedSubEvents = map(state.values.sub_events)
-        const sortedSubEvents = sortBy(mappedSubEvents, (event) => event.start_time)
+        const eventsWithValues = mappedSubEvents.reduce((events, event) => {
+            if (event.start_time !== undefined) {
+                events.push(event)
+            }
+            return events
+        }, [])
+        const sortedSubEvents = sortBy(eventsWithValues, (event) => event.start_time)
+
         const subEventsObject = {};
         for (const event in sortedSubEvents) {
             subEventsObject[event] = sortedSubEvents[event]
@@ -225,7 +240,7 @@ function update(state = initialState, action) {
 
     if (action.type === constants.EDITOR_REPLACEDATA) {
 
-    // Replace new values to existing values
+        // Replace new values to existing values
         let newValues = Object.assign({}, action.values)
 
         // Local storage saving disabled for now
@@ -279,10 +294,18 @@ function update(state = initialState, action) {
     if (action.type === constants.SELECT_IMAGE_BY_ID) {
         let newVal = getIfExists(action, 'img', null)
         // Merge new values to existing values
-        let newValues = Object.assign({}, state.values, {image: newVal})
-        return Object.assign({}, state, {
-            values: newValues,
+        let newImage = (Object.assign({}, state.values, {image: newVal}))
+        let validationErrors = Object.assign({}, state.validationErrors)
+        // If there are validation errors, check if they are fixed
+        if (_.keys(state.validationErrors).length > 0) {
+            validationErrors = doValidations(newImage, state.contentLanguages, state.validateFor || constants.PUBLICATION_STATUS.PUBLIC, state.keywordSets)
+        }
+
+        const x = Object.assign({}, state, {
+            values: newImage,
+            validationErrors: validationErrors,
         })
+        return x
     }
 
     if (action.type === constants.SET_VALIDATION_ERRORS) {

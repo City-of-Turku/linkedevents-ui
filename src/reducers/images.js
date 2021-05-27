@@ -6,6 +6,7 @@ const initialState = {
     fetchComplete: false,
     items: [],
     selected: {},
+    defaultImages: [],
 }
 
 function update(state = initialState, action) {
@@ -16,13 +17,21 @@ function update(state = initialState, action) {
             items: action.items,
         });
     }
-    
+
     if (action.type === constants.RECEIVE_IMAGES_AND_META) {
         return Object.assign({}, state, {
             isFetching: false,
             fetchComplete: true,
             items: action.items,
             meta: action.meta,
+        });
+    }
+
+    if (action.type === 'defaultImages') {
+        return Object.assign({}, state, {
+            isFetching: false,
+            fetchComplete: true,
+            defaultImages: action.items,
         });
     }
 
@@ -41,7 +50,7 @@ function update(state = initialState, action) {
             items: [],
         });
     }
-    
+
     if (action.type === constants.REQUEST_IMAGES_AND_META) {
         return Object.assign({}, state, {
             isFetching: true,

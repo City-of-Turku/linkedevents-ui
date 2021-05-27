@@ -1,35 +1,26 @@
+import './index.scss'
 import React from 'react'
 import {connect} from 'react-redux'
 import {FormattedMessage} from 'react-intl'
 import PropTypes from 'prop-types'
-import {login as loginAction} from 'src/actions/user.js'
 import {EventQueryParams, fetchEvents} from '../../utils/events'
 import {isNull, get} from 'lodash'
 import constants from '../../constants'
 import {getSortDirection} from '../../utils/table'
 import EventTable from '../../components/EventTable/EventTable'
 import {getOrganizationMembershipIds} from '../../utils/user'
-import {Checkbox, FormControlLabel, withStyles} from '@material-ui/core'
+import userManager from '../../utils/userManager';
+import {Helmet} from 'react-helmet';
+import {Label, Input} from 'reactstrap';
 
 const {USER_TYPE, TABLE_DATA_SHAPE, PUBLICATION_STATUS} = constants
 
-const CustomFormControlLabel = withStyles(theme => ({
-    root: {
-        marginTop: theme.spacing(2),
-        marginBottom: theme.spacing(2),
-        '& svg': {
-            fontSize: '110%',
-        },
-    },
-    label: {
-        fontSize: '110%',
-    },
-}))(FormControlLabel)
 
 export class EventListing extends React.Component {
 
     state = {
         showCreatedByUser: false,
+        showContentLanguage: '',
         tableData: {
             events: [],
             count: null,
@@ -49,12 +40,15 @@ export class EventListing extends React.Component {
         }
     }
 
-    componentDidUpdate(prevProps) {
+    componentDidUpdate(prevProps, prevState) {
         const {user} = this.props
         const oldUser = prevProps.user
 
         // fetch data if user logged in
         if (isNull(oldUser) && user && !isNull(getOrganizationMembershipIds(user))) {
+            this.fetchTableData()
+        }
+        if (prevState.showContentLanguage !== this.state.showContentLanguage) {
             this.fetchTableData()
         }
     }
@@ -167,13 +161,37 @@ export class EventListing extends React.Component {
         }
     }
 
+
     /**
      * Toggles whether only events created by the user should be show
      * @param   event   onChange event
      */
     toggleUserEvents = (event) => {
         const showCreatedByUser = event.target.checked
-        this.setState({showCreatedByUser}, this.fetchTableData)
+        this.setState(state => ({
+            showCreatedByUser: showCreatedByUser,
+            tableData: {
+                ...state.tableData,
+                paginationPage: 0,
+            }}),
+        this.fetchTableData
+        )};
+        
+
+
+    /**
+     * Toggles whether events based on language should be shown
+     * @param event 
+     */
+    toggleEventLanguages = (event) => {
+        const contentLanguage = event.target.value === 'all' ? '' : event.target.value;
+        this.setState(state => ({
+            showContentLanguage: contentLanguage,
+            tableData: {
+                ...state.tableData,
+                paginationPage: 0,
+            },
+        }));
     }
 
     /**
@@ -214,7 +232,7 @@ export class EventListing extends React.Component {
         const publisher = userType === USER_TYPE.ADMIN && !showCreatedByUser
             ? getOrganizationMembershipIds(user)
             : null
-        const useCreatedBy = userType === USER_TYPE.REGULAR || showCreatedByUser
+        const useCreatedBy = userType === USER_TYPE.REGULAR && USER_TYPE.PUBLIC || showCreatedByUser
 
         const queryParams = new EventQueryParams()
         queryParams.super_event = 'none'
@@ -225,12 +243,28 @@ export class EventListing extends React.Component {
         queryParams.show_all = userType === USER_TYPE.REGULAR ? true : null
         queryParams.admin_user = userType === USER_TYPE.ADMIN ? true : null
         queryParams.created_by = useCreatedBy ? 'me' : null
-
+        if (user.userType === 'public') {
+            queryParams.created_by = 'me'
+        } else {
+            queryParams.created_by = useCreatedBy ? 'me' : null
+        }
+        if (this.state.showContentLanguage) {
+            queryParams.language = this.state.showContentLanguage
+        }
         return queryParams
     }
+    
+    handleLoginClick = () => {
+        userManager.signinRedirect({
+            data: {
+                redirectUrl: window.location.pathname,
+            },
+        });
+    };
 
     render() {
         const {user} = this.props;
+        const {intl} = this.context;
         const {
             showCreatedByUser,
             tableData: {
@@ -244,47 +278,132 @@ export class EventListing extends React.Component {
             },
         } = this.state;
         const header = <h1><FormattedMessage id={`${appSettings.ui_mode}-management`}/></h1>
+        // Defined React Helmet title with intl
+        const pageTitle = `Linkedevents - ${intl.formatMessage({id: `${appSettings.ui_mode}-management`})}`
         const isRegularUser = get(user, 'userType') === USER_TYPE.REGULAR
+        const isPublicUser = get(user, 'userType') === USER_TYPE.PUBLIC
 
         if (!user) {
             return (
                 <div className="container">
+                    <Helmet title={pageTitle}/>
                     {header}
                     <p>
-                        <a style={{cursor: 'pointer'}} onClick={() => this.props.login()}>
+                        <button className='btn-link underline' rel='external' role='link' onClick={this.handleLoginClick}>
                             <FormattedMessage id="login" />
-                        </a>
-                        {' '}<FormattedMessage id="events-management-prompt" /></p>
+                        </button>
+                        <FormattedMessage id="events-management-prompt" /></p>
                 </div>);
         }
-
         return (
             <div className="container">
+                <Helmet title={pageTitle} />
                 {header}
-                <p>
-                    {isRegularUser
-                        ? <FormattedMessage id="events-management-description-regular-user"/>
-                        : <FormattedMessage id="events-management-description"/>
-                    }
-                </p>
+                {isPublicUser 
+                    ?
+                    <p>
+                        <FormattedMessage id="events-management-description-public-user"/>
+                    </p>
+                    :
+                    <p>
+                        {isRegularUser
+                            ? <FormattedMessage id="events-management-description-regular-user"/>
+                            : <FormattedMessage id="events-management-description"/>
+                        }
+                    </p>
+                }
                 {!isRegularUser &&
-                    <CustomFormControlLabel
-                        control={
-                            <Checkbox
+                <div className='row event-settings'>
+                    {!isPublicUser &&
+                    <div className='col-sm-6'>
+                        <div className='custom-control custom-checkbox user-events-toggle'>
+                            <input
+                                className='custom-control-input'
+                                id='user-events-toggle'
+                                type='checkbox'
                                 color="primary"
                                 onChange={this.toggleUserEvents}
                                 checked={showCreatedByUser}
                             />
-                        }
-                        label={<FormattedMessage id={'user-events-toggle'} />}
-                    />
+                            <label className='custom-control-label' htmlFor='user-events-toggle'>
+                                {<FormattedMessage id={'user-events-toggle'} />}
+                            </label>
+                        </div>
+                    </div>
+                    }
+                    <div className='col-sm-6 radios'>
+                        <div className='row'>
+                            <FormattedMessage id='filter-event-languages'/>
+                        </div>
+                        <div className='row'>
+                            <div className='col-sm-12'>
+                                <div className='custom-control custom-radio'>
+                                    <input
+                                        className='custom-control-input'
+                                        id='all'
+                                        name='radiogroup'
+                                        type='radio'
+                                        value='all'
+                                        onChange={this.toggleEventLanguages}
+                                        defaultChecked
+                                    />
+                                    <label className='custom-control-label' htmlFor='all'>
+                                        <FormattedMessage id='filter-event-all'/>
+                                    </label>
+                                </div>
+                                <div className='custom-control custom-radio'>
+                                    <input
+                                        className='custom-control-input'
+                                        id='fi'
+                                        name='radiogroup'
+                                        type='radio'
+                                        value='fi'
+                                        onChange={this.toggleEventLanguages}
+                                    />
+                                    <label className='custom-control-label' htmlFor='fi'>
+                                        <div className='filter-desktop'><FormattedMessage id='filter-event-fi'/></div>
+                                        <div className='filter-mobile'><FormattedMessage id='filter-event-fi-mobile'/></div>
+                                    </label>
+                                </div>
+                                <div className='custom-control custom-radio'>
+                                    <input
+                                        className='custom-control-input'
+                                        id='sv'
+                                        name='radiogroup'
+                                        type='radio'
+                                        value='sv'
+                                        onChange={this.toggleEventLanguages}
+                                    />
+                                    <label className='custom-control-label' htmlFor='sv'>
+                                        <div className='filter-desktop'><FormattedMessage id='filter-event-sv'/></div>
+                                        <div className='filter-mobile'><FormattedMessage id='filter-event-sv-mobile'/></div>
+                                    </label>
+                                </div>
+                                <div className='custom-control custom-radio'>
+                                    <input
+                                        className='custom-control-input'
+                                        id='en'
+                                        name='radiogroup'
+                                        type='radio'
+                                        value='en'
+                                        onChange={this.toggleEventLanguages}
+                                    />
+                                    <label className='custom-control-label' htmlFor='en'>
+                                        <div className='filter-desktop'><FormattedMessage id='filter-event-en'/></div>
+                                        <div className='filter-mobile'><FormattedMessage id='filter-event-en-mobile'/></div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 }
                 <EventTable
                     events={events}
                     user={user}
                     fetchComplete={fetchComplete}
                     count={count}
-                    pageSize={pageSize}
+                    pageSize={parseInt(pageSize)}
                     paginationPage={paginationPage}
                     sortBy={sortBy}
                     sortDirection={sortDirection}
@@ -299,17 +418,16 @@ export class EventListing extends React.Component {
 
 EventListing.propTypes = {
     user: PropTypes.object,
-    login: PropTypes.func,
     showCreatedByUser: PropTypes.bool,
     tableData: TABLE_DATA_SHAPE,
+}
+
+EventListing.contextTypes = {
+    intl: PropTypes.object,
 }
 
 const mapStateToProps = (state) => ({
     user: state.user,
 })
 
-const mapDispatchToProps = (dispatch) => ({
-    login: () => dispatch(loginAction()),
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(EventListing);
+export default connect(mapStateToProps)(EventListing);

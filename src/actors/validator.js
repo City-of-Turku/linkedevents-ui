@@ -20,8 +20,10 @@ export default (store) => {
             labelId: 'validation-error-goto-error',
             fn: () => {
                 let top = (window.scrollY || window.pageYOffset)
-                let popovers = document.getElementsByClassName('validation-popper')
-                if(popovers[0]) { window.scrollTo(0, top + popovers[0].getBoundingClientRect().top - 16) }
+                let popovers = document.getElementsByClassName('validation-notification')[0].parentElement.children[1].focus();
+                if(popovers) {
+                    window.scrollTo(0, top + popovers.getBoundingClientRect().top - 16);
+                }
             },
         }
 

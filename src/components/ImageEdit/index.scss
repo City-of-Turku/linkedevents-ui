@@ -1,5 +1,113 @@
 .image-edit-dialog {
-    &--image {
-        object-fit: contain;
-    }
+	.btn {
+		font-weight: bold;
+	}
+	.modal-header {
+		border: none;
+		padding: 16px 24px;
+		.modal-title {
+			padding: 0px;
+			margin-top: 0px !important;
+			font-weight: 500;
+			font-size: 1.25rem;
+		}
+		button {
+			color: black;
+			background-color: transparent;
+			border: none;
+			&:focus {
+				outline: -webkit-focus-ring-color auto 5px;
+			}
+			&:hover &:active {
+				background-color: rgba(0, 0, 0, 0.08);
+			}
+			.glyphicon {
+				margin: 0px;
+				color: rgba(0, 0, 0, 0.54);
+			}
+		}
+	}
+
+	.modal-body {
+		.image-edit-dialog--form {
+			.file-upload {
+				.image-error {
+					margin: 1vh 0 1vh 0;
+					color: #dc3545;
+				}
+				.tip {
+					margin-top: 20px;
+					margin-bottom: 20px;
+					padding: 10px;
+					p {
+						margin: 0px;
+					}
+				}
+				.file-upload-buttons {
+					.file-upload--new {
+						margin-bottom: 15px;
+					}
+					.file-upload--external {
+						#upload-external {
+							.image {
+								text-align: center;
+							.image-edit-dialog--image {
+								object-fit: contain;
+								max-width: 500px;
+								max-height: 500px;
+							}
+						}
+							input {
+								border-width: 2px;
+								border-style: solid;
+							}
+							.image-url {
+								span {
+									text-align: center;
+								}
+								display: grid;
+							}
+						}
+						.tools {
+							label {
+								display: inline-flex;
+								margin-bottom: 0px;
+                                width: 100%;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	.image-license-container {
+		.license-help-text {
+			display: flex;
+			flex-direction: column;
+			background: var(--main-color);
+			border: 1px solid;
+			color: var(--black-color);
+
+			&.tip {
+				margin: 0;
+				padding: 10px;
+			}
+            & a {
+                color: #006CE0 !important;
+            }
+		}
+	}
+	.help-notice {
+		margin-top: 10px;
+	}
+
+	.btn-primary.disabled:hover {
+		background-color: #6c757d;
+	}
+
+	.disabled:disabled {
+		background-color: #6c757d;
+		border: none;
+	}
 }

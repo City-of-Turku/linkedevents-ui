@@ -1,14 +1,28 @@
 import CONSTANTS from '../constants'
+import {loadLocaleFromLocalStorage} from '../utils/locale'
 
-const {LOCALE_ACTIONS, DEFAULT_LOCALE} = CONSTANTS
+const {LOCALE_ACTIONS, DEFAULT_LOCALE, APPLICATION_SUPPORT_TRANSLATION} = CONSTANTS
+
+let browserLanguage = (navigator.language || navigator.userLanguage).toLowerCase();
+let defaultLocale = loadLocaleFromLocalStorage();
+
+if (typeof defaultLocale === 'undefined') {
+    defaultLocale = DEFAULT_LOCALE;
+    for (const locale of APPLICATION_SUPPORT_TRANSLATION) {
+        if (browserLanguage.includes(locale)) {
+            defaultLocale = locale;
+            break;
+        }
+    }
+}
 
 const initialState = {
-    locale: DEFAULT_LOCALE,
+    locale: defaultLocale,
 }
 
 const userLocale = (state = initialState, action) => {
     switch(action.type) {
-        case LOCALE_ACTIONS.LOCALE_SET: 
+        case LOCALE_ACTIONS.LOCALE_SET:
             return Object.assign({}, state, {
                 locale: action.locale,
             })

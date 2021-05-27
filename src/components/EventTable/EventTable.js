@@ -1,20 +1,14 @@
-import './EventTable.scss'
-import React from 'react'
-import PropTypes from 'prop-types'
-import {
-    CircularProgress,
-    TableCell,
-    TableRow,
-    Table,
-    TableHead,
-    TableBody,
-    TablePagination,
-    TableFooter,
-} from '@material-ui/core'
-import {FormattedMessage, injectIntl} from 'react-intl'
-import EventRow from './EventRow'
-import TableHeaderCell from './CellTypes/TableHeaderCell'
-import constants from '../../constants'
+import './EventTable.scss';
+import React from 'react';
+import PropTypes from 'prop-types';
+import CustomTablePagination from './CustomTablePagination'
+import {FormattedMessage, injectIntl} from 'react-intl';
+import EventRow from './EventRow';
+import TableHeaderCell from './CellTypes/TableHeaderCell';
+import constants from 'src/constants';
+
+import Spinner from 'react-bootstrap/Spinner';
+import {Table} from 'react-bootstrap';
 
 const {TABLE_COLUMNS} = constants
 
@@ -60,11 +54,11 @@ const EventTable = ({
     const isActive = name => sortBy === name
     // only show page size options dropdown if there are more events than the smallest option available
     const showPageSizeOptions = pageSizeOptions.length && pageSizeOptions[0] <= events.length
-
+    const tableId = tableName ? tableName + '-id' : 'events-table-id'
     return (
-        <Table className="event-table">
-            <TableHead>
-                <TableRow>
+        <Table className="event-table" responsive='md' id={tableId}>
+            <thead>
+                <tr>
                     {tableColumns.map(item => (
                         <TableHeaderCell
                             key={item}
@@ -78,6 +72,7 @@ const EventTable = ({
                             handleRowSelect={handleRowSelect}
                             handleSortChange={handleSortChange}
                             fetchComplete={fetchComplete}
+                            sortBy={sortBy}
                         >
                             {item !== 'checkbox' || item !== 'validation'
                                 ? <FormattedMessage id={`event-sort-${item}`}/>
@@ -85,38 +80,47 @@ const EventTable = ({
                             }
                         </TableHeaderCell>
                     ))}
-                </TableRow>
-            </TableHead>
+                </tr>
+            </thead>
             {/*
                 since event will contain sub events, using multiple body helps break down
                 the whole table into smaller sub sections with consistent styles
             */}
-            {fetchComplete === true && rows.map((row, index) => (
-                <TableBody key={events[index].id}>{row}</TableBody>
-            ))}
-            {fetchComplete === false &&
-                <TableBody>
-                    <TableRow>
-                        <TableCell>
-                            <CircularProgress style={{margin: '10px 0'}}/>
-                        </TableCell>
-                    </TableRow>
-                </TableBody>
+            {fetchComplete === true &&
+                <tbody>
+                    {rows.map((row, index) => (
+                        <React.Fragment key={events[index].id}>
+                            {row}
+                        </React.Fragment>
+                    ))}
+                </tbody>
             }
-            <TableFooter>
-                <TableRow>
-                    <TablePagination
+            {fetchComplete === false &&
+                <tbody>
+                    <tr>
+                        <td>
+                            <Spinner animation="border" role="status">
+                                <span className="sr-only">Loading...</span>
+                            </Spinner>
+                        </td>
+                    </tr>
+                </tbody>
+            }
+            <tfoot>
+                <tr>
+                    <CustomTablePagination
                         count={count !== null ? count : 0}
-                        rowsPerPage={pageSize}
+                        rowsPerPage={parseInt(pageSize)}
                         rowsPerPageOptions = {showPageSizeOptions ? pageSizeOptions : []}
                         page={paginationPage}
                         onChangePage={(event, newPage) => handlePageChange(event, newPage, tableName)}
                         onChangeRowsPerPage={(event) => handlePageSizeChange(event, tableName)}
                         labelDisplayedRows={({from, to, count}) => `${from}-${to} / ${count}`}
                         labelRowsPerPage={intl.formatMessage({id: 'table-events-per-page'})}
+                        shortcutElementId={tableId}
                     />
-                </TableRow>
-            </TableFooter>
+                </tr>
+            </tfoot>
         </Table>
     )
 }

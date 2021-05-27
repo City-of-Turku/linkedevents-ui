@@ -1,0 +1,25 @@
+@import '../../assets/colors';
+
+.validation-notification, .validation-select, .validation-dateTime, .validation-checkboxes {
+    z-index: 10;
+    color: var(--danger-color);
+    font-size: 1rem;
+    font-weight: bold;
+    user-select: none;
+
+    &.modal-notification {
+        z-index: 1300;
+    }
+}
+@media (max-width: 575px) {
+    .validation-notification, .validation-select, .validation-dateTime {
+        left: 35%;
+        bottom: auto;
+        top: -15%;
+        &:before {
+            left: 46%;
+            top: 95%;
+            transform: rotate(-90deg);
+        }
+    }
+}

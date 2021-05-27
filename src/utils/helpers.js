@@ -1,10 +1,11 @@
+import './helpers.scss'
 import {isArray, isNil, isNull, set, some, get, keys} from 'lodash';
 import constants from '../constants'
 import {FormattedMessage} from 'react-intl'
 import React from 'react'
 import moment from 'moment'
-import helBrandColors from '../themes/hel/hel-brand-colors'
-import {Chip, withStyles} from '@material-ui/core'
+
+import Badge from 'react-bootstrap/Badge'
 
 const {VALIDATION_RULES, CHARACTER_LIMIT} = constants
 
@@ -130,55 +131,6 @@ export const getFirstMultiLanguageFieldValue = (field, contentLanguages = null) 
 export const getBadge = (type, size = 'small') => {
     let badgeType = 'primary'
 
-    const BadgeChip = withStyles({
-        root: {
-            '&.badge-chip': {
-                fontSize: '0.6em',
-                fontWeight: 'bold',
-                textTransform: 'uppercase',
-            },
-            '&.umbrella': {
-                backgroundColor: helBrandColors.bus.main,
-                color: helBrandColors.gray.white,
-            },
-            '&.series': {
-                backgroundColor: helBrandColors.tram.main,
-                color: helBrandColors.gray.white,
-            },
-            '&.cancelled': {
-                backgroundColor: helBrandColors.metro.main,
-                color: helBrandColors.gray.white,
-            },
-            '&.draft': {
-                backgroundColor: helBrandColors.summer.main,
-                color: helBrandColors.gray.black90,
-            },
-        },
-        sizeSmall: {
-            '&.badge-chip': {
-                fontSize: '90%',
-                textTransform: 'none',
-            },
-        },
-        // fixes for FF
-        label: {
-            paddingLeft: 0,
-            paddingRight: 0,
-            '& > span': {
-                display: 'block',
-                padding: '0 12px',
-            },
-        },
-        // fixes for FF
-        labelSmall: {
-            paddingLeft: 0,
-            paddingRight: 0,
-            '& > span': {
-                padding: '0 8px',
-            },
-        },
-    })(Chip)
-
     switch (type) {
         case 'series':
             badgeType = 'success'
@@ -195,11 +147,12 @@ export const getBadge = (type, size = 'small') => {
     }
 
     return (
-        <BadgeChip
-            className={`${type} badge-chip`}
-            size={size}
-            label={<FormattedMessage id={type}/>}
-        />
+        <Badge
+            className={`${type} `}
+            pill 
+            variant={type}>
+            {<FormattedMessage id={type}/>}
+        </Badge>
     )
 }
 

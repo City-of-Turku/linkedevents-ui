@@ -1,0 +1,90 @@
+.homepage {
+    background-image: url(../../assets/images/Linked-event-background.jpg);
+    background-size: 100%;
+    .container {
+        max-width: 80%;
+        @media screen and (max-width: 991px) {
+           max-width: 95%; 
+        }
+        .row {
+            margin-left: 15px;
+            margin-right: 15px;
+            @media screen and (max-width: 991px) {
+                margin-left: 0px;
+                margin-right: 0px;
+            }
+        }
+    }
+    .row-homeheader {
+        width: 100%;
+        text-align: start;
+        border-top: none;
+        border-right: none;
+        border-left: none;
+        border-bottom: solid var(--light-color);
+        padding: 0.375rem 0.75rem;
+        background-color: var(--main-color);
+        margin-top: 4rem !important;
+        @media (min-width: 320px) and (max-width: 768px) {
+            margin-top: 2rem !important;
+        }
+        h1 {
+            color: var(--light-color);
+            font-weight: bold;
+            margin-top: 25px;
+            margin-bottom: 25px;
+        }
+    }
+    .header {
+        align-items: baseline;
+        display: flex;
+        position: relative;
+    }
+    .content {
+        background-color: white;
+        .homebuttons {
+            text-align: center;
+            @media screen and (max-width: 791px) {
+                display: grid;
+                justify-items: center;
+            }
+            .btn {
+            white-space: break-spaces;
+            display: inline-grid;
+            width: 200px;
+            height: 100px;
+            margin-left: 20px;
+            margin-right: 20px;
+            font-weight: bold;
+            background-color: var(--main-color);
+            color: var(--light-color);
+            border-color: var(--darkgray-color);
+                .glyphicon {
+                    align-self: end;
+                    font-size: 2rem;
+                    @media screen and (max-width: 991px) {
+                        font-size: 1rem;
+                    }
+                }
+                span {
+                    font-size: 1rem;
+                }
+                @media screen and (max-width: 991px) {
+                    height: 80px;
+                    display: inline-grid;
+                    margin-bottom: 15px;
+                }
+            }
+        }
+        .container-md {
+            margin-top: 30px;
+            margin-bottom: 30px;
+    }
+        .events {
+            h2 {
+            border-bottom: 2px solid;
+            text-align: center;
+            }
+        }
+    }
+}

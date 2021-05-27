@@ -1,13 +1,38 @@
 $select-input-border-radius: 0px;
 
 .hel-select {
-    legend,
-    .legend {
-        position: relative;
-        margin-top: 1.5rem;
-
-        .validation-error-popover.popover.small {
-            top: 50%;
+    .validation-error-popover.popover.small {
+        top: 50%;
+    }
+    .location-select {
+        label {
+            font-size: 1.2rem;
+            padding-top: 2vh;
         }
+    }
+}
+.css-yk16xz-control {
+    border-width: 2px !important;
+    &:hover,
+    &:focus,
+    &:active {
+        box-shadow: none;
+        border-color: var(--main-color) !important;
+    }
+}
+
+.css-1wa3eu0-placeholder{
+    color: #000000 !important;
+}
+
+.select-popover {
+    position: absolute;
+    left: 100%;
+    top: 6%;
+}
+@media (max-width: 575px) {
+    .select-popover {
+        left: 30%;
+        top: -5%;
     }
 }

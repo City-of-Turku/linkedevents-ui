@@ -1,0 +1,22 @@
+doctype
+html.no-js
+    head
+        meta(charset='UTF-8')
+        meta(name='viewport' content='width=device-width, initial-scale=1.0')
+        meta(name='title' content='Linkedevents-UI - Turun kaupungin tapahtumatietokanta')
+        meta(name='description' content='Linkedevents-UI on käyttöliittymä tapahtumien luomiseen ja muuttamiseen Linked Events rajapinnassa.')
+        meta(name='keywords' content='linkedevents-ui, linkedevents, linked, events, tapahtumarajapinta, tapahtumakalenteri, event, calendar')
+        - var instanceName = ui_mode === 'courses' ? 'Linked Courses' : 'Linked Events'
+        title #{instanceName} UI
+        script(type='text/javascript').
+            window.appSettings = !{configJson};
+
+    body
+        if APP_MODE == 'testing'
+            #testingmessage
+                | Huom! Tämä on testiversio.
+        div(style={height: '100%'})
+            #content
+        if APP_MODE == 'development'
+            script(src="/scripts/main.js" type="text/javascript")
+

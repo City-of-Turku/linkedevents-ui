@@ -43,6 +43,7 @@ const constants = {
     EDITOR_SORT_SUB_EVENTS: 'EDITOR_SORT_SUB_EVENTS',
     EDITOR_ADD_OFFER: 'EDITOR_ADD_OFFER',
     EDITOR_DELETE_OFFER: 'EDITOR_DELETE_OFFER',
+    EDITOR_CLEAR_VALUE: 'EDITOR_CLEAR_VALUE',
     EDITOR_SET_FREE_OFFERS: 'EDITOR_SET_FREE_OFFERS',
     EDITOR_SETLANGUAGES: 'EDITOR_SETLANGUAGES',
     EDITOR_REPLACEDATA: 'EDITOR_REPLACEDATA',
@@ -61,7 +62,7 @@ const constants = {
 
     DEFAULT_LOCALE: 'fi',
 
-    APPLICATION_SUPPORT_TRANSLATION: ['fi', 'en'],
+    APPLICATION_SUPPORT_TRANSLATION: ['fi', 'sv', 'en'],
     // currently there is only finnish translation in i18n
 
     // Locale actions
@@ -76,6 +77,10 @@ const constants = {
     // Super event types
     SUPER_EVENT_TYPE_RECURRING: 'recurring',
     SUPER_EVENT_TYPE_UMBRELLA: 'umbrella',
+
+    // Sub event types
+    SUB_EVENT_TYPE_RECURRING: 'sub_recurring',
+    SUB_EVENT_TYPE_UMBRELLA: 'sub_umbrella',
 
     // Event schedule values
     EVENT_STATUS: {
@@ -131,6 +136,7 @@ const constants = {
         DAY_WITHIN_INTERVAL: 'daysWithinInterval',
         REQUIRED_IN_CONTENT_LANGUAGE: 'requiredInContentLanguages',
         REQUIRED: 'required',
+        REQUIRED_IMAGE: 'requiredImage',
         REQUIRED_FOR_COURSES: 'requiredForCourses',
         REQUIRED_STRING: 'requiredString',
         REQUIRED_STRING_FOR_COURSES: 'requiredStringForCourses',
@@ -141,6 +147,8 @@ const constants = {
         AT_LEAST_ONE_IS_TRUE: 'atLeastOneIsTrue',
         DEFAULT_END_IN_FUTURE: 'defaultEndInTheFuture',
         REQUIRED_VIDEO_FIELD: 'requiredVideoField',
+        IS_MORE_THAN_TWO: 'isMoreThanTwo',
+        IS_MORE_THAN_SIXTYFIVE: 'isMoreThanSixtyFive',
     },
 
     CHARACTER_LIMIT: {
@@ -149,9 +157,15 @@ const constants = {
         LONG_STRING: 5000,
     },
 
+    GENERATE_LIMIT: {
+        OFFER_LENGTH: 20,
+        EVENT_LENGTH: 65,
+    },
+
     USER_TYPE: {
         ADMIN: 'admin',
         REGULAR: 'regular',
+        PUBLIC: 'public',
     },
 
     TABLE_COLUMNS: TABLE_COLUMNS,

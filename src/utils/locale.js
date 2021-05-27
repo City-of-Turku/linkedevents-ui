@@ -21,3 +21,36 @@ export function getStringWithLocale(obj, fieldPath = '', locale = 'fi', defaultV
 
     return defaultValue
 }
+
+/**
+ * Save locale to localStorage
+ * @example
+ * localStorage.setItem('userLocale',locale)
+ * @param {string} locale
+ * @returns {void|undefined}
+ */
+export function saveLocaleToLocalStorage(locale) {
+    try {
+        return locale && typeof locale === 'string' ? localStorage.setItem('userLocale', locale) : undefined;
+    } catch(err) {
+        return undefined;
+    }
+}
+
+/**
+ * Load locale from localStorage
+ * @example
+ * localStorage.getItem('userLocale')
+ * @returns {string|undefined}
+ */
+export function loadLocaleFromLocalStorage() {
+    try {
+        const locale = localStorage.getItem('userLocale');
+        if (locale === null) {
+            return undefined;
+        }
+        return locale;
+    } catch(err) {
+        return undefined;
+    }
+}

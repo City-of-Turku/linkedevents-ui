@@ -79,7 +79,6 @@ $default-margin-top: 1.5rem;
 legend {
     font-weight: 300;
     font-size: 31px;
-    margin-top: 4rem;
 }
 
 .single-value-field {
@@ -105,24 +104,9 @@ legend {
 }
 
 .no-value {
-    color: #777;
+    color: #757575;
     font-style: italic;
     font-weight: 300;
-}
-
-.checked-value {
-    align-items: center;
-    display: flex;
-    font-size: 22px;
-    font-weight: 300;
-
-    label {
-        margin: 0 0 0 1rem;
-
-        &:first-letter {
-            text-transform: capitalize;
-        }
-    }
 }
 
 .green {
@@ -131,18 +115,18 @@ legend {
 
 .option-group {
     padding: $default-margin-top 0;
-
     label {
-        font-size: 22px;
+        font-size: 	1.375rem;
         font-weight: 300;
+        text-transform: capitalize;
     }
-
-    .checked-value {
-        margin-top: 8px;
-
-        label {
-            font-size: 20px;
+    .custom-control {
+        padding-left: 0px;
+        display: inline;
+        .badge {
+            padding: 7px;
         }
+
     }
 }
 
@@ -155,7 +139,7 @@ legend {
 }
 
 .event-image {
-    max-height: 16em;
+    max-height: 20em;
     max-width: 70%;
 }
 
@@ -165,4 +149,7 @@ legend {
             margin-top: 3rem;
         }
     }
+}
+.subGrid {
+display: grid;
 }

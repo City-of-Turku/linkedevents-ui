@@ -1,11 +1,11 @@
 import './HelLabeledCheckboxGroup.scss'
 
 import PropTypes from 'prop-types';
-import React, {useRef} from 'react'
-import {FormControlLabel, Checkbox} from '@material-ui/core'
+import React, {useRef, Fragment} from 'react'
 import {connect} from 'react-redux'
 import {setData as setDataAction} from '../../actions/editor'
-import ValidationPopover from '../ValidationPopover'
+import ValidationNotification from '../ValidationNotification'
+import classNames from 'classnames';
 
 const handleChange = (refs, {options, name, customOnChangeHandler, setDirtyState, setData}) => {
     const checkedOptions = options
@@ -38,40 +38,45 @@ const HelLabeledCheckboxGroup = (props) => {
     })
 
     return (
-        <React.Fragment>
-            <fieldset className="col-sm-6 hel-checkbox-group">
-                <legend ref={labelRef}>
-                    {groupLabel}
-                </legend>
-                <div className='row'>
+        <Fragment>
+            <fieldset className="col-sm-6 checkbox-group">
+                <h3>
+                    <legend ref={labelRef}>
+                        {groupLabel}
+                    </legend>
+                </h3>
+                <div className={classNames(('row'), {'validation': validationErrors})}>
                     {options.map((item, index) => {
                         const checked = checkedOptions.includes(item.value)
 
                         return (
-                            <span key={`hel-checkbox-${index}`} className={(itemClassName || '')}>
-                                <FormControlLabel
-                                    control={
-                                        <Checkbox
-                                            color="primary"
-                                            value={item.value}
-                                            name={`${name}.${item.value}`}
-                                            inputRef={ref => refs[`checkRef${index}`] = ref}
-                                            checked={checked}
-                                            onChange={() => handleChange(refs, props)}
-                                        />
-                                    }
-                                    label={item.label}
+                            <div key={`hel-checkbox-${index}`} className={(itemClassName) + (' custom-control custom-checkbox')} >
+                                {validationErrors &&
+                                <div className='validation-notification' />
+                                }
+                                <input
+                                    aria-label={item.label}
+                                    className='custom-control-input checkboxes'
+                                    type='checkbox'
+                                    value={item.value}
+                                    name={`${name}.${item.value}`}
+                                    ref={ref => refs[`checkRef${index}`] = ref}
+                                    checked={checked}
+                                    onChange={() => handleChange(refs, props)}
+                                    id={item.label}
                                 />
-                            </span>
+                                <label htmlFor={item.label} className='custom-control-label'>{item.label}</label>
+                            </div>
                         )
                     })}
                 </div>
+                <ValidationNotification
+                    className='validation-checkboxes' 
+                    anchor={labelRef.current}
+                    validationErrors={validationErrors}
+                />
             </fieldset>
-            <ValidationPopover
-                anchor={labelRef.current}
-                validationErrors={validationErrors}
-            />
-        </React.Fragment>
+        </Fragment>
     )
 }
 

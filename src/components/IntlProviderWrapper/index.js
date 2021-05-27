@@ -7,8 +7,7 @@ import {IntlProvider, addLocaleData} from 'react-intl';
 
 import fiLocaleData from 'react-intl/locale-data/fi';
 import enLocaleData from 'react-intl/locale-data/en';
-
-// import svLocaleData from 'react-intl/locale-data/sv';
+import svLocaleData from 'react-intl/locale-data/sv';
 // TODO: enable this when translation sheet and sv is finished
 
 import translations from 'src/i18n';
@@ -22,7 +21,7 @@ if(window && !window.Intl) {
     window.Intl = Intl
 }
 
-addLocaleData([...fiLocaleData, ...enLocaleData])
+addLocaleData([...fiLocaleData, ...enLocaleData, ...svLocaleData])
 
 class IntlProviderWrapper extends Component {
     render() {
@@ -31,7 +30,7 @@ class IntlProviderWrapper extends Component {
         const mergedMessages = Object.assign({}, translations[CONSTANTS.DEFAULT_LOCALE], translations[locale])
 
         return (
-            <div>
+            <div style={{height: '100%'}}>
                 <IntlProvider locale={locale} messages={mergedMessages}>
                     {this.props.children}
                 </IntlProvider>

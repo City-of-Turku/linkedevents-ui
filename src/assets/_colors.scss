@@ -53,10 +53,10 @@ $theme-colors: (
 );
 
 // Set the primary theme color based on UI mode (events or courses):
-$hel-theme: $hel-coat !global;
+$hel-theme: $hel-coat;
 @if $ui-mode == 'events' {
-    $hel-theme: $hel-coat !global;
+    $hel-theme: $hel-coat;
 }
 @if $ui-mode == 'courses' {
-    $hel-theme: $hel-tram !global;
+    $hel-theme: $hel-tram;
 }

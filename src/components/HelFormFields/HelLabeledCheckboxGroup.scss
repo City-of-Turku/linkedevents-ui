@@ -1,8 +1,31 @@
-.hel-checkbox-group {
+.checkbox-group {
+    text-transform: capitalize;
     legend {
         font-size: 24px;
         font-weight: 300;
-        padding-top: 2rem;
         width: unset;
+        text-transform: none;
     }
+}
+.checkboxes {
+    position: initial;
+    display: inline-block;
+    margin-left: 0.25rem;
+}
+.main-category-popover {
+    position: absolute;
+    left: 103%;
+    bottom: 100%;
+}
+.main-category-text {
+    text-align: center;
+}
+@media (max-width: 575px) {
+    .main-category-popover {
+        left: 51%;
+        top: -6%;
+    }
+}
+.validation {
+    border: 2px solid var(--danger-color);
 }

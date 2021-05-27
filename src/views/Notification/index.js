@@ -1,9 +1,12 @@
+import './index.scss';
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 
 import {FormattedMessage} from 'react-intl'
-import {Button, Snackbar} from '@material-ui/core';
+
+
+import {Button} from 'reactstrap';
 
 import {clearFlashMsg as clearFlashMsgAction} from 'src/actions/app.js'
 
@@ -15,7 +18,7 @@ class Notifications extends React.Component {
 
     render() {
         const {flashMsg, clearFlashMsg} = this.props
-        let flashMsgSpan = (<span/>)
+        let flashMsgSpan = ('')
         let isSticky =  flashMsg && flashMsg.sticky
 
         if(flashMsg && flashMsg.data.response && flashMsg.data.response.status == 400) {
@@ -46,13 +49,17 @@ class Notifications extends React.Component {
         }
 
         return (
-            <Snackbar
+            <React.Fragment>
+                { flashMsgSpan &&
+            <div className='notification'
                 open={(!!flashMsg)}
-                message={flashMsgSpan}
-                autoHideDuration={duration}
+                autohideduration={duration}
                 onClose={closeFn}
-                action={[actionButton]}
-            />
+            >
+                <p className="text-center" role='alert'>{flashMsgSpan}{[actionButton]}</p>
+            </div>
+                }
+            </React.Fragment>
         )
     }
 }
@@ -60,11 +67,15 @@ class Notifications extends React.Component {
 Notifications.propTypes = {
     flashMsg: PropTypes.object,
     clearFlashMsg: PropTypes.func,
+    locale: PropTypes.string,
 }
 
 const mapDisPatchToProps = (dispatch) => ({
     clearFlashMsg: () => dispatch(clearFlashMsgAction()),
 }) 
-const mapStateToProps = () => ({})
-// TODO: if leave null, react-intl not refresh. Replace this with better React context
+const mapStateToProps = (state) => ({
+    locale: state.userLocale.locale,
+})
+
+export {Notifications as UnconnectedNotifications}
 export default connect(mapStateToProps, mapDisPatchToProps)(Notifications)

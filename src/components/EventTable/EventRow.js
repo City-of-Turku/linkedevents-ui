@@ -1,15 +1,18 @@
-import React from 'react'
-import {connect} from 'react-redux'
-import PropTypes from 'prop-types'
-import {Checkbox, CircularProgress, TableCell, TableRow} from '@material-ui/core'
-import {get, isEmpty, isUndefined} from 'lodash'
-import constants from '../../constants'
-import NameCell from './CellTypes/NameCell'
-import DateTimeCell from './CellTypes/DateTimeCell'
-import PublisherCell from './CellTypes/PublisherCell'
-import {getFirstMultiLanguageFieldValue} from '../../utils/helpers'
-import {EventQueryParams, fetchEvents} from '../../utils/events'
-import ValidationCell from './CellTypes/ValidationCell'
+import React from 'react';
+import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
+import {get, isEmpty, isUndefined} from 'lodash';
+import constants from 'src/constants';
+import NameCell from './CellTypes/NameCell';
+import DateTimeCell from './CellTypes/DateTimeCell';
+import PublisherCell from './CellTypes/PublisherCell';
+import ValidationCell from './CellTypes/ValidationCell';
+import CheckBoxCell from './CellTypes/CheckBoxCell';
+import {getFirstMultiLanguageFieldValue} from 'src/utils/helpers';
+import {EventQueryParams, fetchEvents} from 'src/utils/events';
+import classNames from 'classnames';
+import Spinner from 'react-bootstrap/Spinner';
+import {injectIntl} from 'react-intl';
 
 const {USER_TYPE, SUPER_EVENT_TYPE_RECURRING, SUPER_EVENT_TYPE_UMBRELLA} = constants
 
@@ -52,8 +55,11 @@ class EventRow extends React.Component {
             const queryParams = new EventQueryParams()
             queryParams.super_event = event.id
             queryParams.include = 'keywords'
-            queryParams.show_all = userType === USER_TYPE.REGULAR ? true : null
-            queryParams.admin_user = userType === USER_TYPE.ADMIN ? true : null
+            queryParams.page_size = 100
+            // with sub events, also show drafts if the user has the right to see them
+            queryParams.show_all = true
+            // with sub events, fetch *all*, including sub events contributed by other organizations!
+            // this way, the admin notices there are sub events even if they have no rights to edit them.
 
             try {
                 const response = await fetchEvents(queryParams)
@@ -121,23 +127,20 @@ class EventRow extends React.Component {
 
         return (
             <React.Fragment>
-                <TableRow
-                    className={isSubEvent ? 'sub-event-row' : ''}
-                    selected={checked}
+                <tr
+                    className={classNames({'sub-event-row': isSubEvent} )}
                 >
                     {tableColumns.map((type, index) => {
                         if (type === 'checkbox') {
-                            return <TableCell
+                            return <CheckBoxCell
                                 key={`${event.id}-cell-${index}`}
-                                className="checkbox"
-                            >
-                                <Checkbox
-                                    color="primary"
-                                    checked={checked}
-                                    disabled={disabled}
-                                    onChange={(e, checked) => handleRowSelect(checked, event.id, tableName)}
-                                />
-                            </TableCell>
+                                checked={checked}
+                                disabled={disabled}
+                                tableName={tableName}
+                                event={event}
+                                onChange={handleRowSelect}
+                            />
+
                         }
                         if (type === 'name') {
                             return <NameCell
@@ -203,30 +206,32 @@ class EventRow extends React.Component {
                             />
                         }
                     })}
-                </TableRow>
+                </tr>
                 {shouldShow && (
                     isFetching
                         ? (
-                            <TableRow className={tableColumns.includes('validation') ? 'loading-row validation' : 'loading-row'}>
+                            <tr className={tableColumns.includes('validation') ? 'loading-row validation' : 'loading-row'}>
                                 {tableColumns.reduce((acc, column, index) => {
                                     const tableHasCheckboxColumn = tableColumns.includes('checkbox')
                                     const columnCount = tableColumns.length
 
                                     // add a placeholder cell with "checkbox" class for tables with a checkbox column
                                     if (column === 'checkbox') {
-                                        return [...acc, <TableCell key={`cell-placeholder-${index}`} className="checkbox" />]
+                                        return [...acc, <td key={`cell-placeholder-${index}`} className="checkbox" />]
                                     }
                                     // add loading spinner
                                     if (tableHasCheckboxColumn && acc.length === 1 || !tableHasCheckboxColumn && acc.length === 0) {
-                                        return [...acc, <TableCell key={`cell-placeholder-${index}`}><CircularProgress /></TableCell>]
+                                        return [...acc, <td key={`cell-placeholder-${index}`}> <Spinner animation="border" role="status">
+                                            <span className="sr-only">Loading...</span>
+                                        </Spinner></td>]
                                     }
                                     // add empty cells to fill the row
                                     if (tableHasCheckboxColumn &&  index + 1 <= columnCount || !tableHasCheckboxColumn &&  index <= columnCount) {
-                                        return [...acc, <TableCell key={`cell-placeholder-${index}`} className="placeholder-cell" />]
+                                        return [...acc, <td key={`cell-placeholder-${index}`} className="placeholder-cell" />]
                                     }
                                     return acc
                                 }, [])}
-                            </TableRow>
+                            </tr>
                         ) : (
                             <SubEventsTable
                                 {...this.props}
@@ -299,4 +304,4 @@ const mapStateToProps = (state) => ({
     user: state.user,
 })
 
-export default connect(mapStateToProps)(EventRow)
+export default injectIntl(connect(mapStateToProps)(EventRow))

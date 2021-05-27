@@ -1,11 +1,14 @@
-import React from 'react'
+import React, {Fragment} from 'react'
 import {connect} from 'react-redux'
 import EventDetails from 'src/components/EventDetails'
 import moment from 'moment'
 import PropTypes from 'prop-types'
 import {FormattedMessage, injectIntl, intlShape} from 'react-intl'
-import {Button, CircularProgress} from '@material-ui/core'
-import {push} from 'react-router-redux'
+import {Button} from 'reactstrap';
+import {Helmet} from 'react-helmet';
+//Replaced Material-ui Spinner for a Bootstrap implementation. - Turku
+import Spinner from 'react-bootstrap/Spinner'
+import {push} from 'connected-react-router'
 import {replaceData as replaceDataAction} from 'src/actions/editor.js'
 import {confirmAction} from 'src/actions/app.js'
 import {getStringWithLocale} from 'src/utils/locale'
@@ -18,7 +21,7 @@ import {getBadge, scrollToTop} from '../../utils/helpers'
 
 import './index.scss'
 import EventActionButton from '../../components/EventActionButton/EventActionButton'
-import {hasOrganizationWithRegularUsers} from '../../utils/user'
+import {getOrganizationAncestors, hasOrganizationWithRegularUsers} from '../../utils/user'
 
 const {
     USER_TYPE,
@@ -55,9 +58,19 @@ class EventPage extends React.Component {
             this.fetchEventData()
         }
 
+        // refresh event data when user changes to handle data behind permissions
+        if (prevProps.user !== this.props.user){
+            this.fetchEventData()
+        }
+
         if (publisherId && publisherId !== oldPublisherId) {
             client.get(`organization/${publisherId}`)
                 .then(response => this.setState({publisher: response.data}))
+            getOrganizationAncestors(publisherId)
+                .then(response => this.setState(state => ({
+                    ...state,
+                    event: {...state.event, publisherAncestors: response.data.data},
+                })))
         }
     }
 
@@ -88,21 +101,27 @@ class EventPage extends React.Component {
 
     /**
      * Opens the editor with the event data in given mode
-     * @param mode  Whether event is copied as a template or being updated. Can be either 'copy' or 'update'
+     * @param mode  Whether event is copied as a template or being updated. Can be 'copy', 'update' or 'add'
      */
     openEventInEditor = (mode = 'update') => {
         const {replaceData, routerPush} = this.props
         const {event} = this.state
-
-        const route = mode === 'copy'
-            ? 'create/new'
-            : `update/${event.id}`
-
-        if (event) {
-            replaceData(event)
-            routerPush(`/event/${route}`)
-            scrollToTop()
+        let route;
+        if (mode === 'addRecurring') {
+            route = `${event.id}/recurring/add/`
+            
+        } else if (mode === 'copy') {
+            route =  'create/new'
+        } else {
+            route = `update/${event.id}` 
         }
+        if (mode === 'addRecurring') {
+            replaceData(event, true)
+        } else {
+            replaceData(event)  
+        }
+        routerPush(`/event/${route}`)
+        scrollToTop()
     }
 
     /**
@@ -149,25 +168,30 @@ class EventPage extends React.Component {
         const userType = get(user, 'userType')
         const isDraft = event.publication_status === PUBLICATION_STATUS.DRAFT
         const isAdmin = userType === USER_TYPE.ADMIN
+        const isRecurring = event.super_event_type === SUPER_EVENT_TYPE_RECURRING
         const editEventButton = this.getActionButton('edit', this.openEventInEditor, false)
+        const addRecurringButton = this.getActionButton('add', () => this.openEventInEditor('addRecurring'), false)
         const publishEventButton = this.getActionButton('publish')
+        const postponeEventButton = this.getActionButton('postpone')
         const cancelEventButton = this.getActionButton('cancel')
         const deleteEventButton = this.getActionButton('delete')
 
-        return  <div className="event-actions">
+        return <div className="event-actions">
             <div className="cancel-delete-btn">
+                {postponeEventButton}
                 {cancelEventButton}
                 {deleteEventButton}
             </div>
             <div className="edit-copy-btn">
                 {isAdmin && isDraft && publishEventButton}
                 {editEventButton}
+                {isRecurring && addRecurringButton}
                 <Button
                     variant="contained"
                     disabled={loading}
                     onClick={() => this.openEventInEditor('copy')}
                 >
-                    <FormattedMessage id="copy-event-to-draft"/>
+                    <FormattedMessage id="copy-event-to-draft">{txt =>txt}</FormattedMessage>
                 </Button>
             </div>
         </div>
@@ -182,6 +206,7 @@ class EventPage extends React.Component {
      */
     getActionButton = (action, customAction, confirm = true) => {
         const {event, subEvents, loading} = this.state
+        const {intl} = this.props;
 
         return <EventActionButton
             action={action}
@@ -191,6 +216,7 @@ class EventPage extends React.Component {
             loading={loading}
             runAfterAction={this.handleConfirmedAction}
             subEvents={subEvents}
+            intl={intl}
         />
     }
 
@@ -206,8 +232,8 @@ class EventPage extends React.Component {
                 routerPush('/')
             }
         }
-        // re-fetch event data after cancel or publish action
-        if (action === 'cancel' || action === 'publish') {
+        // re-fetch event data after cancel, postpone or publish action
+        if (action === 'cancel' || action === 'publish' ||  action === 'postpone' ) {
             this.fetchEventData()
         }
     }
@@ -221,41 +247,50 @@ class EventPage extends React.Component {
         const isRecurringEvent = event.super_event_type === SUPER_EVENT_TYPE_RECURRING
         const isDraft = event.publication_status === PUBLICATION_STATUS.DRAFT
         const isCancelled = event.event_status === EVENT_STATUS.CANCELLED
+        const isPostponed = event.event_status === EVENT_STATUS.POSTPONED
         const publishedText = this.getPublishedText();
+        // Defined React Helmet title with event name
+        const pageTitle = `Linkedevents - ${getStringWithLocale(event, 'name')}`
 
         return (
-            <div className="event-page container">
-                <header>
-                    <h1>
-                        {loading
-                            ? <CircularProgress size={60}/>
-                            : getStringWithLocale(event, 'name')
-                        }
-                    </h1>
-                    {!loading &&
-                        <h4>
+            <Fragment>
+                <div className="event-page container">
+                    <Helmet title={pageTitle}/>
+                    <header>
+                        <h1>
+                            {loading
+                                ? <Spinner animation="border" role="status">
+                                    <span className="sr-only">Loading...</span>
+                                </Spinner>
+                                : getStringWithLocale(event, 'name')
+                            }
+                        </h1>
+                        {!loading &&
+                        <h2>
+                            {isPostponed && getBadge('postponed', 'medium')}
                             {isCancelled && getBadge('cancelled', 'medium')}
                             {isDraft && getBadge('draft', 'medium')}
                             {isUmbrellaEvent && getBadge('umbrella', 'medium')}
                             {isRecurringEvent && getBadge('series', 'medium')}
-                        </h4>
-                    }
-                </header>
-                {this.getEventActions()}
-                <div className="published-information">
-                    {publishedText}
-                </div>
-                <EventDetails
-                    values={formattedEvent}
-                    superEvent={superEvent}
-                    rawData={event}
-                    publisher={publisher}
-                    editor={editor}
-                />
-                <footer>
+                        </h2>
+                        }
+                    </header>
                     {this.getEventActions()}
-                </footer>
-            </div>
+                    <div className="published-information">
+                        {publishedText}
+                    </div>
+                    <EventDetails
+                        values={formattedEvent}
+                        superEvent={superEvent}
+                        rawData={event}
+                        publisher={publisher}
+                        editor={editor}
+                    />
+                </div>
+                <div className='event-action-buttons'>
+                    {this.getEventActions()}
+                </div>
+            </Fragment>
         )
     }
 }
@@ -280,9 +315,10 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    replaceData: (event) => dispatch(replaceDataAction(event)),
+    replaceData: (event, recurring) => dispatch(replaceDataAction(event, recurring)),
     routerPush: (url) => dispatch(push(url)),
     confirm: (msg, style, actionButtonLabel, data) => dispatch(confirmAction(msg, style, actionButtonLabel, data)),
 })
 
+export {EventPage as UnconnectedEventPage}
 export default connect(mapStateToProps, mapDispatchToProps)(injectIntl(EventPage))

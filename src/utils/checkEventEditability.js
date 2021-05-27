@@ -9,9 +9,12 @@ import {getOrganizationMembershipIds} from './user'
 const {PUBLICATION_STATUS, EVENT_STATUS, USER_TYPE, SUPER_EVENT_TYPE_UMBRELLA} = constants
 
 export const userMayEdit = (user, event) => {
+    const eventOwner = get(event, 'is_owner')
     const adminOrganizations = get(user, 'adminOrganizations')
     const userOrganization = get(user, 'organization')
-    const eventOrganization = get(event, 'organization')
+    const publicMembership = get(user, 'publicMemberships')
+    const eventOrganization = get(event, 'publisher')
+    const eventOrganizationAncestors = get(event, 'publisherAncestors')
     const organizationMemberships = get(user, 'organizationMemberships')
     const publicationStatus = get(event, 'publication_status')
     const userHasOrganizations = !isNull(getOrganizationMembershipIds(user))
@@ -22,20 +25,20 @@ export const userMayEdit = (user, event) => {
     if (!userHasOrganizations) {
         return false
     }
-    // For simplicity, support both old and new user api.
+    // If present, also check event organization ancestors for admin orgs.
     // Check admin_organizations and organization_membership, but fall back to user.organization if needed
-    if (adminOrganizations) {
-    // TODO: in the future, we will need information (currently not present) on whether event.organization is
-    // a sub-organization of the user admin_organization. This should be done in the API by e.g.
-    // including all super-organizations of a sub-organization in the sub-organization API JSON,
-    // and fetching that json for the event organization.
+    if (eventOrganization && eventOrganizationAncestors && adminOrganizations) {
+        userMayEdit =
+            adminOrganizations.includes(eventOrganization) ||
+            adminOrganizations.some(id => (eventOrganizationAncestors.map(org => org.id).includes(id)))
+    } else if (eventOrganization && adminOrganizations) {
         userMayEdit = adminOrganizations.includes(eventOrganization)
     } else {
         userMayEdit = eventOrganization === userOrganization
     }
 
     // exceptions to the above:
-    if (organizationMemberships && !userMayEdit) {
+    if (eventOrganization && organizationMemberships && !userMayEdit) {
     // non-admins may still edit drafts if they are organization members
         userMayEdit = organizationMemberships.includes(eventOrganization)
             && publicationStatus === PUBLICATION_STATUS.DRAFT
@@ -45,7 +48,11 @@ export const userMayEdit = (user, event) => {
     // disallowed for everybody else. event organization is set by the API when POSTing.
         userMayEdit = true
     }
-
+    if (publicMembership && !userMayEdit && eventOwner) {
+        //User has public membership and is owner of the event
+        //may publish and edit their own events
+        userMayEdit = eventOwner
+    }
     return userMayEdit
 }
 
@@ -55,6 +62,8 @@ export const userCanDoAction = (user, event, action, editor) => {
     const isPublic = get(event, 'publication_status') === PUBLICATION_STATUS.PUBLIC
     const isRegularUser = get(user, 'userType') === USER_TYPE.REGULAR
     const isSubEvent = !isUndefined(get(event, ['super_event', '@id']))
+    const eventOwner = get(event, 'is_owner')
+    const isPublicUser = get(user, 'userType') === USER_TYPE.PUBLIC
     const {keywordSets} = editor
 
     if (action === 'publish') {
@@ -79,17 +88,42 @@ export const userCanDoAction = (user, event, action, editor) => {
     if (action === 'edit' || action === 'update' || action === 'delete') {
         return !(isRegularUser && (isUmbrellaEvent || isPublic))
     }
+    if (action === 'add') {
+        return !(isRegularUser && eventOwner && (isPublic)) 
+    }
 
     return true
 }
 
+export const eventIsEditable = (event) => {
+    const eventIsCancelled = get(event, 'event_status') === EVENT_STATUS.CANCELLED
+    const eventIsDeleted = get(event, 'deleted')
+    const startTime = get(event, 'start_time', '')
+    const endTime = get(event, 'end_time', null)
+    const eventIsInThePast =
+        (endTime && moment(endTime, moment.defaultFormatUtc).isBefore(moment()))
+        || (!endTime && moment(startTime, moment.defaultFormatUtc).isBefore(moment().startOf('day')))
+    if (eventIsCancelled) {
+        return {editable: false, explanationId: 'event-canceled'};
+    }
+    if (eventIsDeleted) {
+        return {editable: false, explanationId: 'event-deleted'};
+    }
+    if (eventIsInThePast) {
+        return {editable: false, explanationId: 'event-in-the-past'};
+    }
+    return {editable: true, explanationId: ''}
+}
+
 export const checkEventEditability = (user, event, action, editor) => {
+    const eventIsEditable = module.exports.eventIsEditable(event)
+    if (!eventIsEditable['editable']) {
+        return eventIsEditable
+    }
+
     const userMayEdit = module.exports.userMayEdit(user, event)
     const userCanDoAction = module.exports.userCanDoAction(user, event, action, editor)
     const isDraft = get(event, 'publication_status') === PUBLICATION_STATUS.DRAFT
-    const endTime = get(event, 'end_time', '')
-    const eventIsInThePast = moment(endTime, moment.defaultFormatUtc).isBefore(moment());
-    const eventIsCancelled = get(event, 'event_status') === EVENT_STATUS.CANCELLED
     const isSubEvent = !isUndefined(get(event, ['super_event', '@id']))
 
     const getExplanationId = () => {
@@ -102,23 +136,13 @@ export const checkEventEditability = (user, event, action, editor) => {
         if (!userCanDoAction && action === 'publish') {
             return 'event-validation-errors'
         }
-        if (eventIsInThePast && !isDraft) {
-            return 'event-in-the-past'
-        }
-        if (eventIsCancelled) {
-            return 'event-canceled'
-        }
         if (!userMayEdit || !userCanDoAction) {
             return 'user-no-rights-edit'
         }
     }
 
     const explanationId = getExplanationId()
-    const editable =
-        (!eventIsInThePast || (eventIsInThePast && isDraft))
-        && !eventIsCancelled
-        && userMayEdit
-        && userCanDoAction
+    const editable = userMayEdit && userCanDoAction
 
     return {editable, explanationId}
 }

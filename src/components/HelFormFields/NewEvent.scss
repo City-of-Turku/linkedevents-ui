@@ -1,10 +1,24 @@
 .new-sub-event {
     border-left: 5px solid #f6f6f6;
-    display: flex;
     margin-top: 36px;
-    padding: 0 0 16px 16px;
+    &.row {
+        margin-left: 0px;
+        margin-right: 0px;
+    }
 
     &--inputs {
         flex: 1;
+    }
+}
+
+.new-sub-event--delete{
+    background-color: rgba(0, 0, 0, 0);
+    border: none;
+    color:#000000;
+    width:42px;
+    height: 36px;
+
+    #sub-event-del-icon {
+        padding-top: 14px;
     }
 }

@@ -1,0 +1,35 @@
+.event-settings {
+    margin: 20px 0px 10px 0px;
+    .user-events-toggle{
+        label{
+            margin-bottom: 2rem;
+        }
+    }
+    .radios {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        .row {
+            margin: 0px;
+        }
+        .col-sm-12 {
+            display: flex;
+            justify-content: space-between;
+            padding-left: 0;
+        }
+    }
+}
+.filter-mobile {
+    display: none;
+}
+.filter-desktop {
+    display: inline-block;
+}
+@media only screen and (max-width: 472px) {
+    .filter-mobile {
+        display: inline-block;
+    }
+    .filter-desktop {
+        display: none;
+    }
+}

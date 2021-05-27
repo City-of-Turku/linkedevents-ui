@@ -3,8 +3,7 @@ import './index.scss'
 import React from 'react'
 import {connect} from 'react-redux'
 import {FormattedMessage} from 'react-intl'
-import {Button} from '@material-ui/core'
-import {push} from 'react-router-redux'
+import {push} from 'connected-react-router'
 import PropTypes from 'prop-types'
 
 import {setFlashMsg as setFlashMsgAction} from '../../actions/app'
@@ -66,24 +65,9 @@ class EventCreated extends React.Component {
             let headerTranslationId = this.getEventHeaderTranslationId()
             return (
                 <div className="event-page">
-                    <div className="container header">
-                        <h1>
-                            <FormattedMessage id={`${headerTranslationId}`} />
-                        </h1>
-                        <div className="actions">
-                            <Button
-                                variant="contained"
-                                onClick={() => this.goToBrowsing()}
-                                style={{
-                                    height: '72px',
-                                    margin: '0 10px',
-                                }}
-                                color="secondary"
-                            >
-                                <FormattedMessage id="return-to-events" />
-                            </Button>
-                        </div>
-                    </div>
+                    <h1>
+                        <FormattedMessage id={`${headerTranslationId}`} />
+                    </h1>
                 </div>
             )
         }

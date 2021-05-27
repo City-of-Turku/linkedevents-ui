@@ -1,4 +1,4 @@
-@import "fonts";
+//@import "fonts";  Commented out since we don't use these fonts and therefore don't need them.
 
 // Box shadow shim for bootstrap
 @mixin box-shadow($left:0, $top:2px, $blur:2px, $color:#000, $inset:"") {
@@ -16,20 +16,33 @@
 // @import "my-custom-overrides.scss";
 
 html, body {
+    height: 100%;
     width: 100%;
     padding: 0;
     margin: 0;
     background-color: #f7f7f7;
     color: #333333;
     font: normal normal normal 18px/1.2 "HelsinkiGrotesk", "Helvetica Neue", "Segoe UI", Calibri, sans-serif;
+    font-display: swap;
+}
+
+#content {
+    height: 100%;
 }
 
 .content {
-    padding-bottom: 2em;
+    flex: 70%;
+}
+
+.main-wrapper {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 h1,h2,h3 {
     font-family: "HelsinkiGrotesk", "Roboto", "Helvetica Neue", "Segoe UI", Calibri, sans-serif;
+    font-weight: bold;
 }
 
 h1 {
@@ -45,25 +58,14 @@ h2,h3,legend,.legend {
     font-size: 31px;
 }
 
-.legend {
-    position: relative;
-    display: inline-block;
-    margin-bottom: 0.5rem;
+a, .btn-link {
+    color: #006CE0;
 }
 
-h1,
-h2 {
+h1 {
     font-weight: 300;
     margin-top: 60px;
     margin-bottom: 30px;
-}
-
-.pull-left {
-    float: left;
-}
-
-.pull-right {
-    float: right;
 }
 
 .padded {
@@ -75,9 +77,9 @@ h2 {
 }
 
 .tip {
-    margin-top: 28px;
-    background-color: #f6f6f6;
-    padding: 20px;
+    margin-top: 0px;
+    background-color: var(--tip-color);
+    padding: 10px;
 }
 
 .badge {
@@ -99,44 +101,49 @@ h2 {
     }
 }
 
-#debughelper {
-    position: fixed;
-    bottom: 5em;
-    left: 0;
+//Global Checkbox styles
+.custom-control {
+    z-index: 0;
 }
-
-#debughelper_container {
-    position: relative;
-    z-index: 100;
-    height: 3em;
-    width: 1em;
-    font-size: 200%;
-    margin-left: -0.3em;
+.custom-control-label {
+    margin-bottom: 1rem;
+    width: max-content;
+    padding-top: 0.3rem;
+    &::before, &::after {
+        width: 1.25rem;
+        height: 1.25rem;
+    }
 }
-
-#slide {
-    position: absolute;
-    z-index: 99;
-    left: -33em;
-    width: 33em;
-    height: 4em;
-    transition: 1s;
-    background-color: white;
-    border: 1px solid black;
-    border-left: none;
-    top: 0;
-    margin-top: -0.5em;
-    padding: 0.2em 0.3em 0.2em 3.3em;
+.custom-control-input:checked ~ .custom-control-label::before {
+    background-color: #0062ae;
+    border-color: var(--main-color);
 }
-
-#debughelper:hover #slide {
-    transition: 0.5s;
-    left: 0;
+.custom-control-input:focus ~ .custom-control-label::before {
+    box-shadow: 0 0 0 0.15rem rgba(0, 98, 174, 0.25);
 }
-
+.custom-checkbox .custom-control-input:disabled:checked ~ .custom-control-label::before {
+    background-color: rgba(0, 98, 174, 0.6);
+}
+.custom-checkbox .custom-control-input ~ .custom-control-label::after {
+    cursor: pointer;
+}
+.custom-checkbox .custom-control-input:disabled:checked ~ .custom-control-label::after {
+    cursor: not-allowed;
+}
+    
+//All text-inputs globally used in project
+input, .custom-date-time-input > input, .event-input > input textarea, .form-control {
+    border-color: var(--black-color);
+    &:hover,
+    &:focus,
+    &:active {
+        box-shadow: none;
+        border-color: var(--main-color);
+    }
+}
 
 #testingmessage {
-    background: red;
+    background: #EB0000;
     text-align: center;
     height: 3em;
     line-height: 3em;
@@ -156,19 +163,80 @@ h2 {
     margin: 0.3em;
     color: #48a3e7;
 }
+//app.js Confirmation modal for actions like delete, draft, publish
+.ConfirmationModal {
+    .modal-header {
+        border: none;
+        padding: 16px 24px;
+        .modal-title {
+            padding: 0px;
+            margin-top: 0px !important;
+        }
+        h1 {
+            font-weight: 500;
+            font-size: 1.25rem;
+        }
+        button {
+            color: black;
+            background-color: transparent;
+            border: none;
+            &:focus {
+                outline: -webkit-focus-ring-color auto 5px;
+            }
+            &:hover &:active {
+                background-color: rgba(0, 0, 0, 0.08);
+            }
+            .glyphicon {
+                margin: 0px;
+                color:rgba(0, 0, 0, 0.54);
+            }
+        }
+    }
+}
+
+.organization-missing-msg {
+    margin: 3rem 1rem 0rem 1rem;
+    padding: 1rem;
+    box-shadow: 0px 6px 20px -10px rgba(0,0,0,0.75);
+    h1 {
+        margin-top: 0rem;
+    }
+}
+
+@media (max-width: 1200px) {
+    h1 {
+        margin-top: 0.5em;
+        margin-bottom: 0.5em;
+    }
+}
+
+@media (max-width: 991px) {
+    .organization-missing-msg {
+        margin: 1rem 1rem 0rem 1rem;
+    }
+    .col-sm-6, .col-sm-5 {
+        max-width: 100% !important;
+        flex: none;
+    }
+}
 
 @media (max-width: 480px) {
-    h1 {
-        font-size: 37px;
-        padding-top: 40px;
-        padding-bottom: 40px;
+    .organization-missing-msg {
+        h1 {
+            margin-top: 0rem;
+        }
     }
-    h2 {
-        padding-top: 40px;
-        padding-bottom: 40px;
-    }
-    #debughelper {
-        bottom: 1em;
-    }
+}
+
+// Reactstrap Tooltip component styles
+.tooltip-disabled {
+    color: #fff;
+    padding: 4px 8px;
+    max-width: 400px;
+    word-wrap: break-word;
+    font-weight: 500;
+    line-height: 1.4em;
+    border-radius: 4px;
+    background-color: black;
 }
 

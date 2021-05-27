@@ -1,38 +1,38 @@
+import './UmbrellaCheckbox.scss'
 import PropTypes from 'prop-types'
-import React from 'react'
-import {FormControlLabel, Checkbox, Tooltip} from '@material-ui/core'
+import React,{Fragment}  from 'react'
+//Replaced Material-ui CheckBox for a reactstrap implementation. - Turku
+import {UncontrolledTooltip} from 'reactstrap';
+
 
 const UmbrellaCheckbox = props => {
     const {intl, name, checked, disabled, handleCheck} = props
     const tooltipTitle = intl.formatMessage({id: `event-${name.replace('_', '-')}-tooltip`})
 
-    const getCheckbox = () => (
-        <FormControlLabel
-            control={
-                <Checkbox
-                    color="primary"
+    return (
+        <Fragment>
+            <div className='custom-control custom-checkbox'>
+                <input
+                    id={`${name}_label`}
+                    className='custom-control-input'
+                    type='checkbox'
                     name={name}
                     onChange={handleCheck}
                     checked={checked}
                     disabled={disabled}
                 />
+                <label htmlFor={`${name}_label`} className='custom-control-label'>{props.children}
+                </label>
+            </div>
+            {disabled &&
+                <UncontrolledTooltip placement="bottom" target={`${name}_label`} innerClassName='tooltip-disabled' hideArrow>
+                    {tooltipTitle}
+                </UncontrolledTooltip>
             }
-            label={props.children}
-        />
-    )
-
-    return (
-        <React.Fragment>
-            {
-                disabled
-                    ? <Tooltip title={tooltipTitle}>
-                        <span>{getCheckbox()}</span>
-                    </Tooltip>
-                    : getCheckbox()
-            }
-        </React.Fragment>
+        </Fragment>
     )
 }
+
 
 UmbrellaCheckbox.propTypes = {
     children: PropTypes.element,

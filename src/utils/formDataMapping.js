@@ -2,18 +2,19 @@ import {find, map, forOwn, isEmpty, values, set} from 'lodash'
 import constants from 'src/constants.js'
 import moment from 'moment-timezone'
 import {getStringWithLocale} from './locale'
+import {eventIsEditable} from './checkEventEditability'
 
 export {
     mapUIDataToAPIFormat,
     mapAPIDataToUIFormat,
 }
 
-const {EVENT_STATUS, PUBLICATION_STATUS} = constants
+const {EVENT_STATUS, PUBLICATION_STATUS, SUB_EVENT_TYPE_RECURRING, SUB_EVENT_TYPE_UMBRELLA} = constants
 
 function _nullifyEmptyStrings(multiLangObject) {
     forOwn(multiLangObject, function(value, language) {
 
-    // do not send empty strings to the backend, as this will set the null language field to non-null
+        // do not send empty strings to the backend, as this will set the null language field to non-null
         if (value === '') {
             multiLangObject[language] = null
         }
@@ -46,15 +47,24 @@ function mapUIDataToAPIFormat(values) {
     obj.super_event = values.super_event
     obj.publisher = values.organization
     obj.videos = values.videos
+    obj.is_virtualevent = values.is_virtualevent
+    obj.virtualevent_url = values.virtualevent_url
+    //Sub event type
+    obj.sub_event_type = values.sub_event_type
 
     // Location data
     if (values.location) {
         obj.location = {'@id': values.location['@id']}
+    } else if (!values.location) {
+        obj.location = null
     }
     if (values.location_extra_info) {
         obj.location_extra_info = _nullifyEmptyStrings(values.location_extra_info)
     }
-
+    // Virtual data
+    if (!values.is_virtualevent) {
+        obj.is_virtualevent = false
+    }
     // Image data
     obj.images = []
     if(values.image && !isEmpty(values.image)) {
@@ -167,18 +177,22 @@ function mapAPIDataToUIFormat(values) {
 
     // Location data
     obj.location = values.location
-
     obj.location_extra_info = values.location_extra_info
+    // Virtual data
+    obj.is_virtualevent = values.is_virtualevent
+    obj.virtualevent_url = values.virtualevent_url
 
     if(values.offers) {
         obj.offers = values.offers
     }
 
+    //Sub event type
+    obj.sub_event_type = values.sub_event_type
     // Subevents: from array to object
     obj.sub_events = {...values.sub_events}
 
     // Keywords, audience, languages
-    obj.keywords = map(values.keywords, (item) => ({value: item['@id'], label: (getStringWithLocale(item, 'name') || item['id'])}))
+    obj.keywords = map(values.keywords, (item) => ({value: item['@id'], label: (getStringWithLocale(item, 'name') || item['id']), name: item.name}))
 
     if(values.audience) {
         obj.audience = map(values.audience, item => item['@id'])
@@ -206,7 +220,7 @@ function mapAPIDataToUIFormat(values) {
     if(values.end_time) {
         obj.end_time = values.end_time
     }
-
+    
     if(values.images) {
         obj.image = values.images[0]
     }
@@ -256,7 +270,7 @@ export const calculateSuperEventTime = (subEvents) => {
     const superEventStartTime = startTimes.length <= 0 ? undefined : moment.min(startTimes);
     let superEventEndTime = endTimes.length <= 0
         ? startTimes.length <= 0
-            ? undefined    
+            ? undefined
             : moment.max(startTimes).endOf('day')
         : moment.max(endTimes)
     return {
@@ -276,30 +290,40 @@ export const combineSubEventsFromEditor = (formValues, updateExisting = false) =
         subEvents = formValues.sub_events
     } else {
         subEvents = {
-            '0': {start_time: formValues.start_time, end_time: formValues.end_time},
             ...formValues.sub_events,
         }
     }
-
     return Object.assign({}, formValues, {
         sub_events: subEvents,
         id: undefined,
     })
 }
 
-export const createSubEventsFromFormValues = (formValues, updateExisting, superEventUrl) => {
+/**
+ * @param {object} formValues Form data
+ * @param {boolean} updateExisting Whether we're updating an existing event
+ * @param {string} superEventUrl parent/super event url that is passed to subevent
+ * @param {string} subEventType Can be 'sub_umbrella' or 'sub_recurring' depending on parent/super event
+ */
+export const createSubEventsFromFormValues = (formValues, updateExisting, superEventUrl, subEventType) => {
     const formWithAllSubEvents = combineSubEventsFromEditor(formValues, updateExisting)
-    const baseEvent = {...formWithAllSubEvents, sub_events: {}, super_event: {'@id': superEventUrl}}
+    const baseEvent = {...formWithAllSubEvents, sub_events: {}, super_event: {'@id': superEventUrl}, sub_event_type: subEventType}
     const subEvents = {...formWithAllSubEvents.sub_events}
     return Object.keys(subEvents)
         .map(key => ({...baseEvent, start_time: subEvents[key].start_time, end_time: subEvents[key].end_time}))
 }
 
+/**
+ * Returns updated SubEvents
+ * @param {object} formValues Form data
+ * @param {Object[]} subEventsToUpdate
+ * @return {Object[]}
+ */
 export const updateSubEventsFromFormValues = (formValues, subEventsToUpdate) => {
     const keysToUpdate = ['start_time', 'end_time', 'id', 'super_event', 'super_event_type']
     // update form data with sub event data where applicable
     return subEventsToUpdate
-        // don't update canceled events
-        .filter(subEvent => subEvent.event_status !== EVENT_STATUS.CANCELLED)
+        // don't update canceled, deleted or past subevents (when editing an ongoing series =)
+        .filter(subEvent => eventIsEditable(subEvent)['editable'])
         .map(subEvent => keysToUpdate.reduce((acc, key) => set(acc, key, subEvent[key]), {...formValues}))
 }

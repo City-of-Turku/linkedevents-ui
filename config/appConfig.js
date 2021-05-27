@@ -5,11 +5,12 @@ const paths = require('./webpack/common').paths;
 
 
 // Config-keys used by server
-const serverConfigKeys = ['port', 'publicUrl', 'helsinkiAuthId', 'helsinkiAuthSecret', 'helsinkiTargetApp', 'sessionSecret'];
+const serverConfigKeys = ['port', 'publicUrl', 'sessionSecret'];
 // Config-keys used for pug template
 const templateConfigKeys = ['LE_PRODUCTION_INSTANCE', 'APP_MODE'];
 // React-app config-keys
-const clientConfigKeys = ['api_base', 'local_storage_user_expiry_time', 'nocache', 'raven_id', 'commit_hash', 'ui_mode'];
+const clientConfigKeys = ['api_base', 'local_storage_user_expiry_time', 'nocache', 'raven_id', 'commit_hash', 'ui_mode', 'city_theme',
+    'client_id', 'openid_audience', 'openid_authority', 'show_cookie_bar'];
 
 const gitRevisionPlugin = new GitRevisionPlugin();
 nconf.overrides({
@@ -31,11 +32,12 @@ nconf.defaults({
     'APP_MODE': process.env.NODE_ENV,
     'port': 8080,
     'ui_mode': 'events',
+    'show_cookie_bar': false,
 });
 
 /**
  * Function to retrieve value from config
- * @param {undefined|string|string[]} keys 
+ * @param {undefined|string|string[]} keys
  */
 function getConfig(keys) {
     // Return all config if no keys provided

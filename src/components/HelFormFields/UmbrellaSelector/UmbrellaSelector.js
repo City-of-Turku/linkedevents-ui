@@ -3,9 +3,8 @@ import React from 'react'
 import AsyncSelect from 'react-select/async'
 import {createFilter} from 'react-select'
 import client from '../../../api/client'
-import {setData} from '../../../actions/editor'
-import {FormattedMessage} from 'react-intl'
-import {SideField} from '../../FormFields'
+import {setData, clearValue} from '../../../actions/editor'
+import {FormattedMessage, injectIntl} from 'react-intl'
 import {get, isNull, isUndefined} from 'lodash'
 import UmbrellaCheckbox from './UmbrellaCheckbox'
 import {Link} from 'react-router-dom'
@@ -136,7 +135,6 @@ class UmbrellaSelector extends React.Component {
             this.setState(stateToSet)
         }
     }
-
     /**
      * Handles checkbox changes
      * @param event Event
@@ -146,7 +144,12 @@ class UmbrellaSelector extends React.Component {
 
         if (name === 'is_umbrella') {
             this.setState({isUmbrellaEvent: checked})
-            this.context.dispatch(setData({super_event_type: checked ? 'umbrella' : null}))
+            if (checked) {
+                this.context.dispatch(setData({super_event_type: 'umbrella'}))
+            } else {
+                this.context.dispatch(clearValue(['super_event_type']))
+            }
+
         }
         if (name === 'has_umbrella') {
             if (checked) {
@@ -158,26 +161,26 @@ class UmbrellaSelector extends React.Component {
                     hasUmbrellaEvent: false,
                     selectedUmbrellaEvent: {},
                 })
-                this.context.dispatch(setData({super_event: null}))
+                this.context.dispatch(clearValue(['super_event','sub_event_type']))
             }
         }
-    }
-
+    }    
     /**
      * Handles select changes
      * @param selectedEvent Data for the selected event
+     * sub_event_type to umbrella as selected super event is umbrella
      */
-    handleChange = selectedEvent => {
-        if (isNull(selectedEvent)) {
-            this.setState({
-                selectedUmbrellaEvent: {},
-            })
-            this.context.dispatch(setData({super_event: null}))
-        } else {
-            this.context.dispatch(setData({super_event: {'@id': selectedEvent.value}}))
-            this.setState({selectedUmbrellaEvent: selectedEvent})
+        handleChange = selectedEvent => {
+            if (isNull(selectedEvent)) {
+                this.setState({
+                    selectedUmbrellaEvent: {},
+                })
+                this.context.dispatch(clearValue(['super_event', 'sub_event_type']))
+            } else {
+                this.context.dispatch(setData({super_event: {'@id': selectedEvent.value}, sub_event_type: constants.SUB_EVENT_TYPE_UMBRELLA}))
+                this.setState({selectedUmbrellaEvent: selectedEvent})
+            }
         }
-    }
 
     /**
      * Returns the disabled state for the umbrella checkboxes
@@ -240,6 +243,7 @@ class UmbrellaSelector extends React.Component {
             <div className="row">
                 <div className="col-sm-6">
                     <UmbrellaCheckbox
+                        aria-label={this.context.intl.formatMessage({id: `event-is-umbrella`})}
                         intl={this.context.intl}
                         name="is_umbrella"
                         checked={isUmbrellaEvent}
@@ -250,6 +254,7 @@ class UmbrellaSelector extends React.Component {
                     </UmbrellaCheckbox>
 
                     <UmbrellaCheckbox
+                        aria-label={this.context.intl.formatMessage({id: `event-has-umbrella`})}
                         intl={this.context.intl}
                         name="has_umbrella"
                         checked={hasUmbrellaEvent}
@@ -282,18 +287,16 @@ class UmbrellaSelector extends React.Component {
                     }
                 </div>
                 {editedEventIsSubEvent && superEventId && superEventSuperEventType === constants.SUPER_EVENT_TYPE_RECURRING &&
-                <SideField className="side-field-umbrella">
-                    <div className="tip">
-                        <React.Fragment>
-                            <FormattedMessage id="editor-tip-umbrella-sub-event"/>
-                            <Link
-                                to={`/event/update/${superEventId}`}
-                                onClick={scrollToTop}
-                            >
-                                <FormattedMessage id="editor-tip-umbrella-sub-event-link"/>.</Link>
-                        </React.Fragment>
-                    </div>
-                </SideField>
+                <div className="side-field-umbrella highlighted-block">
+                    <React.Fragment>
+                        <FormattedMessage id="editor-tip-umbrella-sub-event"/>
+                        <Link
+                            to={`/event/update/${superEventId}`}
+                            onClick={scrollToTop}
+                        >
+                            <FormattedMessage id="editor-tip-umbrella-sub-event-link"/>.</Link>
+                    </React.Fragment>
+                </div>
                 }
             </div>
         )
@@ -328,4 +331,4 @@ UmbrellaSelector.contextTypes = {
     store: PropTypes.object,
 };
 
-export default UmbrellaSelector
+export default injectIntl(UmbrellaSelector)

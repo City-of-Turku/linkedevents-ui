@@ -54,3 +54,100 @@
         text-transform: uppercase;
     }
 }
+
+//HomePage-view
+.event-grid {
+    justify-content: center;
+    .event-home-row {
+        width: 80%;
+        margin-bottom: 10px;
+        margin-top: 10px;
+        .event-border {
+            border-bottom: 2px solid;
+        }
+        .event-item-home {
+            position: relative;
+            display: flex;
+            overflow: hidden;
+            width: 25%;
+            float: left;
+            height: 100%;
+			.thumbnail-home {
+                margin-bottom: 10px;
+                width: 100%;
+                min-height: 200px;
+                background-color: #0072c6;
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-position: 50% 50%;
+			}
+			.converted-day {
+				padding-right: 10px;
+				margin-top: 5px;
+			}
+		}
+		.name-home {
+            align-items: center;
+            justify-content: flex-start;
+			font-weight: bold;
+			background: var(--light-color);
+			color: var(--main-color);
+			.info {
+				display: inline-flex;
+                width: 100%;
+                align-items: center;
+                .glyphicon {
+                    margin-right: 5px ;
+                    padding-left: 0px;
+                    font-size: 2rem;
+                    top: 0px;
+                }
+			}
+			.shortDescription {
+				font-style: italic;
+			}
+			h3 {
+				margin-bottom: 10px;
+				margin-block-start: 0em !important;
+				color: var(--main-color);
+			}
+			p {
+				margin-bottom: 5px;
+				color: var(--black-color);
+			}
+		}
+	}
+}
+
+@media only screen and (max-width: 991px) {
+	.event-grid {
+		.event-home-row {
+			.event-item-home {
+				display: contents;
+				.thumbnail-home {
+					height: 200px;
+				}
+			}
+			.name-home {
+				margin-left: 0px;
+                padding-left: 0px;
+                max-width: 100%;
+				h3 {
+					@media screen and (max-width: 768px) {
+						font-size: 1rem !important;
+					}
+				}
+			}
+		}
+	}
+.event-item-link {
+    &:active, &:focus {
+        .event-item {
+            outline-width: 4px;
+            outline-style: solid;
+            outline-color: black;
+            outline-offset: 2px;
+        }
+    }
+}
+}

@@ -1,5 +1,6 @@
 import 'src/assets/additional_css/bootstrap.custom.min.css';
 import 'src/assets/main.scss';
+import '@city-assets/main.scss';
 
 import PropTypes from 'prop-types';
 
@@ -7,21 +8,24 @@ import React from 'react'
 import {connect} from 'react-redux'
 
 import Headerbar from 'src/components/Header'
-import {ThemeProvider, Button, IconButton, Paper, Dialog, DialogTitle, DialogContent, DialogActions} from '@material-ui/core';
-import {Close} from '@material-ui/icons';
+import Footer from 'src/components/Footer/Footer';
+import SkipLink from 'src/components/SkipLink'
+import {Helmet} from 'react-helmet';
 
 import {injectIntl, FormattedMessage} from 'react-intl'
 
 import {fetchLanguages as fetchLanguagesAction, fetchKeywordSets as fetchKeywordSetsAction} from '../../actions/editor'
-import {retrieveUserFromSession as retrieveUserFromSessionAction} from '../../actions/user'
+import {fetchUser as fetchUserAction} from '../../actions/user'
 
 import {cancelAction, doAction} from 'src/actions/app'
 
-import {HelMaterialTheme} from 'src/themes/material-ui'
-import Notifications from '../Notification'
-import {MuiPickersUtilsProvider} from '@material-ui/pickers'
+import Favicon from '../../assets/images/favicon'
+
 import MomentUtils from '@date-io/moment';
 import moment from 'moment'
+import {Button, Modal, ModalHeader, ModalBody, ModalFooter} from 'reactstrap';
+import CookieBar from '../../components/CookieBar/CookieBar';
+import {checkCookieConsent} from '../../utils/cookieUtils';
 
 // localized moment utils
 class LocalizedUtils extends MomentUtils {
@@ -43,14 +47,12 @@ class App extends React.Component {
     };
 
     static childContextTypes = {
-        muiTheme: PropTypes.object,
         intl: PropTypes.object,
         dispatch: PropTypes.func,
     };
 
     getChildContext() {
         return {
-            muiTheme: HelMaterialTheme,
             dispatch: this.props.dispatch,
             intl: this.props.intl,
         }
@@ -63,11 +65,24 @@ class App extends React.Component {
         // Prefetch editor related hel.fi categories
         this.props.fetchKeywordSets()
 
-        // Fetch userdata
-        this.props.retrieveUserFromSession()
+        // Check if CookieConsent is given
+        checkCookieConsent()
+    }
+
+    componentDidUpdate(prevProps) {
+        // fetch user if user doesnt exist yet or new user is not same as previous one
+        if(this.props.auth.user && this.props.auth.user !== prevProps.auth.user) {
+            this.props.fetchUser(this.props.auth.user.profile.sub);
+        }
+    }
+    getModalCloseButton() {
+        return (
+            <Button onClick={() => this.props.dispatch(cancelAction())}><span className="glyphicon glyphicon-remove" /></Button>
+        );
     }
 
     render() {
+        const closebtn = this.getModalCloseButton();
 
         let confirmMsg = (<span/>)
         if(this.props.app.confirmAction && this.props.app.confirmAction.msg && this.props.app.confirmAction.msg.length) {
@@ -91,84 +106,50 @@ class App extends React.Component {
         if(this.props.app.confirmAction && this.props.app.confirmAction.actionButtonLabel && this.props.app.confirmAction.actionButtonLabel.length > 0) {
             actionButtonLabel = this.props.app.confirmAction.actionButtonLabel;
         }
-        let organization_missing_msg = null;
-        if (this.props.user && !this.props.user.organization) {
-            if (appSettings.ui_mode === 'courses') {
-                organization_missing_msg =
-                    <Paper
-                        elevation={3}
-                        style={{
-                            margin: HelMaterialTheme.spacing(3),
-                            padding: 16,
-                        }}
-                    >
-                        <h4>Tervetuloa käyttämään Linked Coursesia, {this.props.user.displayName}!</h4>
-                        <p>Sinulla ei ole vielä oikeutta hallinnoida yhdenkään yksikön kursseja.</p>
-                        <p>Jos olet jo saanut käyttöoikeudet, kirjautumisesi saattaa olla vanhentunut. Kokeile sivun
-                            päivittämistä (F5) ja kirjautumista uudestaan.</p>
-                    </Paper>
-            } else {
-                organization_missing_msg =
-                    <Paper
-                        elevation={3}
-                        style={{
-                            margin: HelMaterialTheme.spacing(3),
-                            padding: 16,
-                        }}
-                    >
-                        <h4>Tervetuloa käyttämään Linked Eventsiä, {this.props.user.displayName}!</h4>
-                        <p>Sinulla ei ole vielä oikeutta hallinnoida yhdenkään yksikön tapahtumia.
-                            Ota yhteyttä <a href="mailto:aleksi.salonen@hel.fi">Aleksi Saloseen</a> saadaksesi oikeudet
-                            muokata yksikkösi tapahtumia.</p>
-                        <p>Jos olet jo saanut käyttöoikeudet, kirjautumisesi saattaa olla vanhentunut. Kokeile sivun
-                            päivittämistä (F5) ja kirjautumista uudestaan.</p>
-                    </Paper>
-            }
-        }
         return (
-            <ThemeProvider theme={HelMaterialTheme}>
-                <MuiPickersUtilsProvider utils={LocalizedUtils}>
-                    <div>
-                        <Headerbar />
-                        {organization_missing_msg}
-                        <div className="content">
-                            {this.props.children}
-                        </div>
-                        <Notifications flashMsg={this.props.app.flashMsg} />
-                        <Dialog
-                            open={!!this.props.app.confirmAction}
-                            onClose={() => this.props.dispatch(cancelAction())}
-                            transitionDuration={0}
+            <div className='main-wrapper'>
+                <Helmet>
+                    <html lang={this.props.intl.locale} />
+                </Helmet>
+                <SkipLink />
+                <Favicon />
+                <Headerbar />
+
+                <main id="main-content" className="content">
+                    {this.props.children}
+                </main>
+                <Modal
+                    size='lg'
+                    isOpen={!!this.props.app.confirmAction}
+                    onClose={() => this.props.dispatch(cancelAction())}
+                    className='ConfirmationModal'
+                >
+                    <ModalHeader tag='h1' close={closebtn}>
+                        {confirmMsg}
+                    </ModalHeader>
+                    <ModalBody>
+                        <p><strong>{additionalMsg}</strong></p>
+                        <div dangerouslySetInnerHTML={getMarkup()}/>
+                    </ModalBody>
+                    <ModalFooter>
+                        <Button
+                            variant="contained"
+                            onClick={() => this.props.cancel()}
                         >
-                            <DialogTitle>
-                                {confirmMsg}
-                                <IconButton onClick={() => this.props.dispatch(cancelAction())}>
-                                    <Close />
-                                </IconButton>
-                            </DialogTitle>
-                            <DialogContent>
-                                <p><strong>{additionalMsg}</strong></p>
-                                <div dangerouslySetInnerHTML={getMarkup()}/>
-                            </DialogContent>
-                            <DialogActions>
-                                <Button
-                                    variant="contained"
-                                    onClick={() => this.props.cancel()}
-                                >
-                                    <FormattedMessage id="cancel" />
-                                </Button>
-                                <Button
-                                    variant="contained"
-                                    color={useWarningButtonStyle ? 'secondary' : 'primary'}
-                                    onClick={() => this.props.do(this.props.app.confirmAction.data)}
-                                >
-                                    <FormattedMessage id={actionButtonLabel} />
-                                </Button>
-                            </DialogActions>
-                        </Dialog>
-                    </div>
-                </MuiPickersUtilsProvider>
-            </ThemeProvider>
+                            <FormattedMessage id="cancel" />
+                        </Button>
+                        <Button
+                            variant="contained"
+                            color={useWarningButtonStyle ? 'secondary' : 'primary'}
+                            onClick={() => this.props.do(this.props.app.confirmAction.data)}
+                        >
+                            <FormattedMessage id={actionButtonLabel} />
+                        </Button>
+                    </ModalFooter>
+                </Modal>
+                {appSettings.show_cookie_bar && <CookieBar />}
+                <Footer />
+            </div>
         )
     }
 }
@@ -179,21 +160,25 @@ App.propTypes = {
     user: PropTypes.object,
     dispatch: PropTypes.func,
     fetchLanguages: PropTypes.func,
-    retrieveUserFromSession: PropTypes.func,
+    auth : PropTypes.object,
+    fetchUser: PropTypes.func,
+    location: PropTypes.object,
 }
 
 const mapStateToProps = (state) => ({
     editor: state.editor,
     user: state.user,
     app: state.app,
+    auth: state.auth,
 })
 
 const mapDispatchToProps = (dispatch) => ({
     fetchKeywordSets: () => dispatch(fetchKeywordSetsAction()),
     fetchLanguages:() => dispatch(fetchLanguagesAction()),
-    retrieveUserFromSession: () => dispatch(retrieveUserFromSessionAction()),
     do: (data) => dispatch(doAction(data)),
     cancel: () => dispatch(cancelAction()),
+    fetchUser: (id) => dispatch(fetchUserAction(id)),
 })
 
+export {App as UnconnectedApp};
 export default connect(mapStateToProps, mapDispatchToProps)(injectIntl(App))

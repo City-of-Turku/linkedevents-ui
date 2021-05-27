@@ -1,20 +1,21 @@
 import PropTypes from 'prop-types';
-import React from 'react'
-
+import React,{Fragment, Component} from 'react'
 import {setData} from 'src/actions/editor.js'
-import {TextField} from '@material-ui/core'
 import validationRules from 'src/validation/validationRules';
-import ValidationPopover from 'src/components/ValidationPopover'
+import ValidationNotification from 'src/components/ValidationNotification'
 import constants from '../../constants'
+import {Input, FormText} from 'reactstrap';
+// Removed material-ui/core since it's no longer in use
 
 const {VALIDATION_RULES, CHARACTER_LIMIT} = constants
 
-class HelTextField extends React.Component {
+class HelTextField extends Component {
     constructor(props) {
         super(props)
 
         this.state = {
-            error: null,
+            error: false,
+            errorMessage: '',
             value: this.props.defaultValue || '',
         }
     }
@@ -26,6 +27,10 @@ class HelTextField extends React.Component {
 
     componentDidMount() {
         this.setValidationErrorsToState();
+
+        if(this.props.setInitialFocus){
+            this.inputRef.focus()
+        }
     }
 
     UNSAFE_componentWillReceiveProps(nextProps) {
@@ -41,7 +46,7 @@ class HelTextField extends React.Component {
         let isShortString = _.find(this.props.validations, i => i === VALIDATION_RULES.SHORT_STRING)
         let isMediumString = _.find(this.props.validations, i => i === VALIDATION_RULES.MEDIUM_STRING)
         let isLongString = _.find(this.props.validations, i => i === VALIDATION_RULES.LONG_STRING)
-        
+
         let limit
         if (!this.state.error && (isShortString || isMediumString || isLongString)) {
             if(isShortString) {
@@ -53,15 +58,16 @@ class HelTextField extends React.Component {
             else if(isLongString) {
                 limit = CHARACTER_LIMIT.LONG_STRING
             }
-            
+
             const diff =  limit - this.state.value.length.toString()
-            
+
             if(diff >= 0) {
-                return this.context.intl.formatMessage({id: 'validation-stringLengthCounter'}, {counter: diff})
+                return this.context.intl.formatMessage({id: 'validation-stringLengthCounter'}, {counter: diff + '/' + limit})
             }
         }
-        
-        return this.state.error
+
+        return this.state.errorMessage;
+        //return this.state.error
     }
 
     getValue() {
@@ -138,13 +144,12 @@ class HelTextField extends React.Component {
                 return validations;
             }
         }
-
         return []
     }
-    
+
     setValidationErrorsToState() {
         let errors = this.getValidationErrors()
-        
+
         if(errors.length > 0) {
             let limit
 
@@ -159,12 +164,12 @@ class HelTextField extends React.Component {
                     limit = CHARACTER_LIMIT.LONG_STRING
                     break;
             }
-            
-            return limit ? this.setState({error: this.context.intl.formatMessage({id: `validation-stringLimitReached`}, {limit})}) :
-                this.setState({error: this.context.intl.formatMessage({id: `validation-${errors[0].rule}`})})
+            this.setState({error:true});
+            return limit ? this.setState({errorMessage: this.context.intl.formatMessage({id: `validation-stringLimitReached`}, {limit})}) :
+                this.setState({errorMessage: this.context.intl.formatMessage({id: `validation-${errors[0].rule}`})})
         }
         else {
-            this.setState({error: null})
+            this.setState({error: false})
         }
     }
 
@@ -175,6 +180,7 @@ class HelTextField extends React.Component {
 
     render () {
         const {value} = this.state
+        // Removed multiLine since it was no longer used
         const {
             required,
             disabled,
@@ -183,32 +189,43 @@ class HelTextField extends React.Component {
             validationErrors,
             index,
             name,
-            multiLine,
+            min,
+            max,
         } = this.props
-
+        const type = this.props.type;
+        const alert = this.state.error ? {role: 'alert', className: 'red-alert'} : '';
+        // Replaced TextField component with Form/FormGroup + Input, to make inputs actually accessible and customizable.
         return (
-            <React.Fragment>
-                <TextField
-                    fullWidth
-                    name={name}
-                    label={label}
-                    value={value}
-                    required={required}
-                    placeholder={placeholder}
-                    disabled={disabled}
-                    onChange={this.handleChange}
-                    onBlur={this.handleBlur}
-                    multiline={multiLine}
-                    inputRef={ref => this.inputRef = ref}
-                    helperText={this.helpText()}
-                    InputLabelProps={{focused: false, shrink: false, disableAnimation: true}}
-                />
-                <ValidationPopover
-                    index={index}
-                    anchor={this.inputRef}
-                    validationErrors={validationErrors}
-                />
-            </React.Fragment>
+            <Fragment>
+                <div className='event-input'>
+                    <label htmlFor={label + this.props.id}>{label}{required ? '*' : ''}</label>
+                    <Input
+                        aria-label={label}
+                        id={label + this.props.id}
+                        placeholder={placeholder}
+                        type={type}
+                        name={name}
+                        value={value}
+                        aria-required={required}
+                        onChange={this.handleChange}
+                        onBlur={this.handleBlur}
+                        innerRef={ref => this.inputRef = ref}
+                        disabled={disabled}
+                        min={min}
+                        max={max}
+                        invalid={Array.isArray(validationErrors)}
+                    />
+                    <FormText {...alert}>
+                        {this.helpText()}
+                    </FormText>
+                    <ValidationNotification
+                        className='validation-notification' 
+                        index={index}
+                        anchor={this.inputRef}
+                        validationErrors={validationErrors}
+                    />
+                </div>
+            </Fragment>
         )
     }
 }
@@ -239,6 +256,18 @@ HelTextField.propTypes = {
     disabled: PropTypes.bool,
     type: PropTypes.string,
     maxLength: PropTypes.number,
+    id: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number,
+    ]),
+    setInitialFocus: PropTypes.bool,
+    min: PropTypes.number,
+    max: PropTypes.number,
 }
+
+HelTextField.defaultProps = {
+    type: 'text',
+};
+
 
 export default HelTextField

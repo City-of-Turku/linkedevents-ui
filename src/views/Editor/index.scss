@@ -1,95 +1,69 @@
 $languageCheckboxInitialWidth: 30%;
 $actionBtnHeight: 60px;
-
+@import '~leaflet/dist/leaflet.css';
 .editor-page {
     font-weight: 300;
-    background-color: #ffffff;
-
+    background-image: url(../../assets/images/Linked-event-background.jpg);
+    background-size: 100%;
     .header {
         align-items: baseline;
         display: flex;
         position: relative;
-
         .controls {
             margin-left: auto;
-
             button:not(:first-of-type) {
                 margin-left: 15px;
             }
         }
     }
-
-    h2,h3,legend,.legend {
-        font-family: "HelsinkiGrotesk", "Roboto", "Helvetica Neue", "Segoe UI", Calibri, sans-serif;
+    h2,h3,legend {
+        font-family: 'HelsinkiGrotesk', 'Roboto', 'Helvetica Neue', 'Segoe UI', Calibri, sans-serif;
     }
-
     h2,h3 {
         margin-top: 55px;
     }
-
     .highlighted-block {
-        display: block;
-        background-color: #f6f6f6;
-        padding: 20px;
-
-        //line-height: 72px;
-        line-height: 1.5;
-
-        color: #5a5959;
-
-        label {
-            font-size: 24px;
-            margin-bottom: 0;
-            line-height: 1.5;
-        }
-
+        align-content: center;
+        display: grid;
         .language-selection {
-            height: 100%;
-            width: 100%;
             display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-
-            & > * {
-                flex: 0 1 33%;
-                margin: 0;
+            text-transform: capitalize;
+            .custom-checkbox {
+                margin: auto auto auto 0.25rem;
             }
         }
     }
-
     .side-field {
-        padding-top: 36px;
-
+        padding-top: 24px;
+        @media (max-width: 768px) {
+            padding-top: 15px;
+            padding-bottom: 15px;
+            &.ImagePickerField {
+                margin-top: 25px;
+            }
+        }
         p {
             font-size: 18px;
             font-weight: 300;
-            color: #373a3c;
         }
-
+        strong {
+            font-weight: bold;
+        }
         &.padded {
             padding-top: 66px;
         }
-
         &-umbrella {
             padding-top: 0;
-
             .tip {
                 margin-top: 0;
             }
         }
     }
 
-    legend,
-    .legend  {
-        margin-top: 6rem;
-    }
-
     .hel-select {
         display: block;
         clear: both;
-
-        legend,
-        .legend {
+        legend {
             font-size: 24px;
             width: max-content;
         }
@@ -99,31 +73,32 @@ $actionBtnHeight: 60px;
         align-items: center;
         background-color: #f7f7f7;
         display: flex;
-        height: 120px;
+        min-height: 100px;
+        max-height: min-content;
         justify-content: center;
         margin-top: 3rem;
-        padding-top: 2rem;
-        position: relative;
-
         .loading-spinner {
             position: absolute;
         }
-
         .buttons-group {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: flex-end;
-
+            display: contents;
             button {
                 height: $actionBtnHeight;
             }
-
             > * {
                 &:not(:first-child) {
                     margin-left: 15px;
                 }
-
+                &.editor-postpone-button {
+                    margin-left: auto;
+                }
                 &.editor-delete-button {
+                    margin-right: auto;
+                }
+                &.check-form-info {
+                    margin-left: auto;
+                }
+                &.editor-update-button {
                     margin-right: auto;
                 }
             }
@@ -131,9 +106,54 @@ $actionBtnHeight: 60px;
     }
 }
 
-@media (max-width: 480px) {
-    legend,
-        .legend  {
-            margin-top: 2rem !important;
+// Mobile Styles
+@media (max-width: 1400px) {
+    .editor-page {
+        .editor-action-buttons {
+            .buttons-group {
+                display: grid;
+                justify-content: normal;
+                button {
+                    width: 100%;
+                    margin: 0.5vh 0 0.5vh 0;
+                    height: auto;
+                }
+                > * {
+                    &:not(:first-child) {
+                        margin-left: 0px;
+                    }
+                }
+            }
         }
+    }
+}
+@media (max-width: 480px) {
+    .editor-page {
+        .highlighted-block {
+            .language-selection {
+                display: block;
+            }
+        }
+    }
+    legend {
+        margin-top: 1rem !important;
+    }
+    .editor-page {
+        .editor-action-buttons {
+            height: auto;
+            .buttons-group {
+                display: block;
+                button {
+                    height: auto;
+                    margin-top: 5px;
+                    width: 100%;
+                }
+                > * {
+                    &:not(:first-child) {
+                        margin-left: 0px;
+                    }
+                }
+            }
+        }
+    }
 }

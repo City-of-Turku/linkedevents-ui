@@ -1,15 +1,15 @@
-import {HelLabeledCheckboxGroup, HelSelect} from '../index'
-import {FormattedMessage} from 'react-intl'
-import SelectedKeywords from '../../SelectedKeywords/SelectedKeywords'
-import React from 'react'
-import {SideField} from '../../FormFields'
+import React, {useEffect, useState} from 'react'
+import PropTypes from 'prop-types'
 import {get, isNil, uniqBy} from 'lodash'
+import {connect} from 'react-redux'
+import {FormattedMessage} from 'react-intl'
+import {HelLabeledCheckboxGroup, HelSelect} from '../index'
+import SelectedKeywords from '../../SelectedKeywords/SelectedKeywords'
+import {SideField} from '../../FormFields'
 import {mapKeywordSetToForm} from '../../../utils/apiDataMapping'
 import {setData as setDataAction} from '../../../actions/editor'
-import PropTypes from 'prop-types'
-import {connect} from 'react-redux'
 import {CopyToClipboard} from 'react-copy-to-clipboard'
-import {FileCopyOutlined} from '@material-ui/icons'
+import {UncontrolledTooltip} from 'reactstrap'
 
 const handleKeywordChange = (checkedOptions, keywords, mainCategoryOptions, setData) => {
     if (isNil(checkedOptions)) {
@@ -17,7 +17,6 @@ const handleKeywordChange = (checkedOptions, keywords, mainCategoryOptions, setD
     }
 
     let updatedKeywords
-
     if (Array.isArray(checkedOptions)) {
         const mainCategoryValues = mainCategoryOptions.map(item => item.value)
         const mappedMainCategoryKeywords = mainCategoryOptions.filter(item => checkedOptions.includes(item.value))
@@ -50,51 +49,91 @@ const getKeywordIds = (keywords) => keywords
     })
     .join()
 
-const HelKeywordSelector = ({intl, editor, setDirtyState, setData}) => {
+const HelKeywordSelector = ({intl, editor, setDirtyState, setData, currentLocale}) => {
+    const [isRemoteEvent, toggleIsRemoteEvent] = useState(false);
     const {values, keywordSets, validationErrors} = editor
-    const keywords = get(values, 'keywords', [])
-    const mainCategoryOptions = mapKeywordSetToForm(keywordSets, 'helsinki:topics')
+    let keywords = get(values, 'keywords', [])
+    const mainCategoryOptions = mapKeywordSetToForm(keywordSets, 'turku:topics', currentLocale)
+    const parsedMainCategoryOptions = mainCategoryOptions.map(item => ({label: item.label, value: item.value}))
+    const remoteParticipationKeyword = mainCategoryOptions.find(keyword => keyword['value'].includes('yso:p26626'))
+
+    /**
+     * if location is now virtual:public, push remoteParticipationKeyword onto keywords array and set isRemoteEvent to true.
+     */
+    if (remoteParticipationKeyword
+        && !isRemoteEvent
+        && values['location']
+        && values['location']['id'] === 'virtual:public'
+        && !keywords.find(keyword => keyword['value'].includes('yso:p26626'))) {
+        keywords.push(remoteParticipationKeyword) && toggleIsRemoteEvent(true)
+    }
+
+    /**
+     * if location was previously virtual and now either event.location doesnt exist or the location.id is not virtual:public
+     * -> some other location was selected or location was removed
+     */
+    if (remoteParticipationKeyword && isRemoteEvent && (!values['location'] || values['location']['id'] !== 'virtual:public')) {
+        toggleIsRemoteEvent(false)
+    }
+
+    /**
+     * If keywords exist -> they are used, otherwise remote participation is added specifically
+     */
+    const handleRemoteKeywordChange = () => {
+        if (remoteParticipationKeyword && values['location'] && values['location']['id'] === 'virtual:public') {
+            const checkedOptions = keywords.length !== 0 ? keywords.map(key => key.value) : [remoteParticipationKeyword.value];
+            handleKeywordChange(checkedOptions, keywords, mainCategoryOptions, setData)
+        }
+    }
+    /**
+     * handleRemoteKeywordChange is called if 'isRemoteEvent' changes.
+     */
+    useEffect(() => {
+        handleRemoteKeywordChange(isRemoteEvent)
+    },[isRemoteEvent])
+
 
     return (
         <React.Fragment>
             <HelLabeledCheckboxGroup
-                groupLabel={<FormattedMessage id="main-categories"/>}
-                selectedValues={values['keywords']}
+                groupLabel={<FormattedMessage id="main-categories-header"/>}
+                selectedValues={keywords}
                 name="keywords"
                 validationErrors={validationErrors['keywords']}
                 itemClassName="col-md-12 col-lg-6"
-                options={mainCategoryOptions}
+                options={parsedMainCategoryOptions}
                 setDirtyState={setDirtyState}
-                customOnChangeHandler={(checkedOptions) => handleKeywordChange(checkedOptions, keywords, mainCategoryOptions, setData)}
+                customOnChangeHandler={(checkedOptions) => {
+                    handleKeywordChange(checkedOptions, keywords, mainCategoryOptions, setData)
+                }}
+                currentLocale={currentLocale}
             />
-            <SideField>
-                <p className="tip">
-                    <FormattedMessage id="editor-tip-hel-main-category"/>
-                </p>
-            </SideField>
-            <div className="col-sm-6 hel-select">
+            <div className="col-sm-6 hel-select keywords-select">
                 <HelSelect
                     legend={intl.formatMessage({id: 'event-keywords'})}
                     name="keywords"
                     resource="keyword"
                     setDirtyState={setDirtyState}
-                    customOnChangeHandler={(selectedOption) => handleKeywordChange(selectedOption, keywords, mainCategoryOptions, setData)}
+                    customOnChangeHandler={(selectedOption) =>
+                        handleKeywordChange(selectedOption, keywords, mainCategoryOptions, setData)
+                    }
+                    currentLocale={currentLocale}
+                    placeholderId={'event-keywords-search'}
                 />
-                <CopyToClipboard text={values['keywords'] ? getKeywordIds(keywords) : ''}>
-                    <button className="clipboard-copy-button" title={intl.formatMessage({id: 'copy-to-clipboard'})}>
-                        <FileCopyOutlined />
+                <CopyToClipboard tabIndex='-1' aria-hidden='true' text={values['keywords'] ? getKeywordIds(keywords) : ''}>
+                    <button id='keyword-clipboard' type='button' className="clipboard-copy-button btn btn-default" aria-label={intl.formatMessage({id: 'copy-keyword-to-clipboard'})}>
+                        <span className="glyphicon glyphicon-duplicate" aria-hidden="true"></span>
                     </button>
                 </CopyToClipboard>
+                <UncontrolledTooltip placement='top' target='keyword-clipboard' hideArrow>{intl.formatMessage({id: 'copy-keyword-to-clipboard'})}</UncontrolledTooltip>
                 <SelectedKeywords
                     selectedKeywords={keywords}
                     onDelete={(deletedItem) => handleKeywordDelete(deletedItem, keywords, setData)}
+                    locale={currentLocale}
+                    intl={intl}
                 />
             </div>
-            <SideField>
-                <p className="tip">
-                    <FormattedMessage id="editor-tip-keywords"/>
-                </p>
-            </SideField>
+
         </React.Fragment>
     )
 }
@@ -104,6 +143,7 @@ HelKeywordSelector.propTypes = {
     setData: PropTypes.func,
     setDirtyState: PropTypes.func,
     editor: PropTypes.object,
+    currentLocale: PropTypes.string,
 }
 
 const mapDispatchToProps = (dispatch) => ({

@@ -5,8 +5,11 @@ import {connect} from 'react-redux'
 import {FormattedMessage, injectIntl, intlShape} from 'react-intl'
 import {get, isNull} from 'lodash'
 import PropTypes from 'prop-types'
-import {Button, CircularProgress} from '@material-ui/core'
-import {Close} from '@material-ui/icons'
+import {Button} from 'reactstrap';
+//Replaced Material-ui Spinner for a Bootstrap implementation. - Turku
+import Spinner from 'react-bootstrap/Spinner'
+import {Helmet} from 'react-helmet';
+
 import {
     executeSendRequest as executeSendRequestAction,
     clearData as clearDataAction,
@@ -17,19 +20,22 @@ import {
 } from '../../actions/editor'
 import {confirmAction, clearFlashMsg as clearFlashMsgAction, setFlashMsg as setFlashMsgAction} from '../../actions/app'
 import constants from '../../constants'
-import FormFields from '../../components/FormFields'
+import FormFields from '../../components/FormFields/'
 import {EventQueryParams, fetchEvent} from '../../utils/events'
-import {push} from 'react-router-redux'
+import {push} from 'connected-react-router'
 import moment from 'moment'
 import {
+    getOrganizationAncestors,
     getOrganizationMembershipIds,
     hasOrganizationWithRegularUsers,
 } from '../../utils/user'
-import EventActionButton from '../../components/EventActionButton/EventActionButton'
+import EventActionButton from '../../components/EventActionButton/EventActionButton';
 import {scrollToTop} from '../../utils/helpers'
 import {doValidations} from '../../validation/validator'
 import {mapAPIDataToUIFormat} from '../../utils/formDataMapping'
 import getContentLanguages from '../../utils/language'
+import Notifications from '../Notification'
+import PreviewModal from '../../components/PreviewModal/PreviewModal'
 
 const {PUBLICATION_STATUS, SUPER_EVENT_TYPE_UMBRELLA, USER_TYPE} = constants
 
@@ -45,6 +51,7 @@ export class EditorPage extends React.Component {
         loading: false,
         isDirty: false,
         isRegularUser: false,
+        showPreviewEventModal: false,
     }
 
     componentDidMount() {
@@ -58,6 +65,7 @@ export class EditorPage extends React.Component {
 
         this.setState({isRegularUser})
 
+
         if (user && !userHasOrganizations) {
             setFlashMsg('user-no-rights-create', 'error', {sticky: true})
         }
@@ -66,7 +74,11 @@ export class EditorPage extends React.Component {
         }
     }
 
-    componentDidUpdate(prevProps) {
+    componentDidUpdate(prevProps, prevState) {
+        const {event} = this.state
+
+        const publisherId = get(event, 'publisher')
+        const oldPublisherId = get(prevState, ['event', 'publisher'])
         const prevParams = get(prevProps, ['match', 'params'], {})
         const currParams = get(this.props, ['match', 'params'], {})
 
@@ -82,6 +94,14 @@ export class EditorPage extends React.Component {
                     subEvents: [],
                 })
             }
+        }
+
+        if (publisherId && publisherId !== oldPublisherId) {
+            getOrganizationAncestors(publisherId)
+                .then(response => this.setState(state => ({
+                    ...state,
+                    event: {...state.event, publisherAncestors: response.data.data},
+                })))
         }
     }
 
@@ -152,13 +172,13 @@ export class EditorPage extends React.Component {
     /**
      * Saves the editor changes
      */
-    saveChanges = () => {
+    saveChanges = (isAdminDraft) => {
         const {subEvents, isRegularUser} = this.state
         const {match, editor: {values: formValues}, executeSendRequest} = this.props
         const updateExisting = get(match, ['params', 'action']) === 'update'
-        const publicationStatus = isRegularUser
-            ? PUBLICATION_STATUS.DRAFT
-            : PUBLICATION_STATUS.PUBLIC
+        const publicationStatus = (!isRegularUser && !isAdminDraft)
+            ? PUBLICATION_STATUS.PUBLIC
+            : PUBLICATION_STATUS.DRAFT
 
         this.setState({isDirty: false})
         executeSendRequest(formValues, updateExisting, publicationStatus, subEvents)
@@ -195,6 +215,7 @@ export class EditorPage extends React.Component {
         const {event, subEvents} = this.state
         const eventIsPublished = this.eventIsPublished()
         const loading = this.state.loading || this.props.editor.loading
+        const {intl} = this.props;
 
         return <EventActionButton
             action={action}
@@ -206,6 +227,7 @@ export class EditorPage extends React.Component {
             loading={loading}
             runAfterAction={this.handleConfirmedAction}
             subEvents={subEvents}
+            intl={intl}
         />
     }
 
@@ -218,7 +240,7 @@ export class EditorPage extends React.Component {
             if (isDraft && hasOrganizationWithRegularUsers(user)) {
                 this.navigateToModeration();
             } else {
-                routerPush('/')
+                routerPush('/listing')
             }
         }
         // navigate to event view after cancel action
@@ -226,6 +248,23 @@ export class EditorPage extends React.Component {
             routerPush(`/event/${event.id}`)
             scrollToTop()
         }
+    }
+
+    showPreviewEventModal() {
+        this.setState({showPreviewEventModal: !this.state.showPreviewEventModal})
+    }
+    // Preview Modals button
+    getPreviewButton () {
+        const {intl} = this.props;
+        return (
+            <Button
+                className='check-form-info'
+                variant="contained"
+                onClick={() => this.showPreviewEventModal()}
+            >
+                <FormattedMessage id='preview-event-button'>{txt =>txt}</FormattedMessage>
+            </Button>
+        )
     }
 
     validateEvent = () => {
@@ -251,6 +290,8 @@ export class EditorPage extends React.Component {
         const headerTextId = editMode === 'update'
             ? 'edit-events'
             : 'create-events'
+            // Defined React Helmet title with intl
+        const pageTitle = `Linkedevents - ${intl.formatMessage({id: headerTextId})}`
 
         // TODO: fix flow for non-authorized users
         if (user && !user.organization && sentinel) {
@@ -259,77 +300,104 @@ export class EditorPage extends React.Component {
         }
 
         return (
-            <div className="editor-page">
-                <div className="container header">
-                    <h1>
-                        <FormattedMessage id={headerTextId}/>
-                    </h1>
-                    <span className="controls">
-                        {isAdminUser && isDraft &&
-                            <Button
+            <React.Fragment>
+                <div className="editor-page">
+                    <Helmet title={pageTitle}/>
+                    <div className="container header">
+                        <div className="controls">
+                            {isAdminUser && isDraft &&
+                                <Button
+                                    variant="contained"
+                                    onClick={this.validateEvent}
+                                    color="primary"
+                                >
+                                    {intl.formatMessage({id: 'validate-form'})}
+                                </Button>
+                            }
+                            {/* Commented out since we decided that we wouldn't need this button - Turku
+
+                             <Button
                                 variant="contained"
-                                onClick={this.validateEvent}
+                                onClick={this.clearEventData}
                                 color="primary"
+                                endIcon={<Close/>}
                             >
-                                <FormattedMessage id="validate-form"/>
-                            </Button>
-                        }
-                        <Button
-                            variant="contained"
-                            onClick={this.clearEventData}
-                            color="primary"
-                            endIcon={<Close/>}
-                        >
-                            <FormattedMessage id="clear-form"/>
-                        </Button>
-                    </span>
-                </div>
-
-                <div className="container">
-                    <FormFields
-                        action={editMode}
-                        editor={editor}
-                        event={event}
-                        superEvent={superEvent}
-                        user={user}
-                        setDirtyState={this.setDirtyState}
-                        loading={loading}
-                    />
-                </div>
-
-                <div className="editor-action-buttons">
-                    {loading
-                        ? <CircularProgress className="loading-spinner" size={50}/>
-                        : <div className='buttons-group container'>
-                            {editMode === 'update' && this.getActionButton('cancel')}
-                            {editMode === 'update' && this.getActionButton('delete')}
-                            {isDraft && hasOrganizationWithRegularUsers(user) &&
-                                this.getActionButton('return', this.navigateToModeration, false)
-                            }
-                            {
-                                // button that saves changes to a draft without publishing
-                                // only shown to moderators
-                                isDraft && hasOrganizationWithRegularUsers(user) &&
-                                this.getActionButton(
-                                    'update-draft',
-                                    this.saveChangesToDraft,
-                                    hasSubEvents && !isUmbrellaEvent,
-                                    'event-action-save-draft-existing'
-                                )
-                            }
-                            {
-                                // show confirmation modal when the updated event has sub events and isn't an umbrella event,
-                                // otherwise save directly
-                                this.getActionButton(
-                                    'update',
-                                    this.saveChanges,
-                                    hasSubEvents && !isUmbrellaEvent
-                                )
-                            }
+                                <FormattedMessage id="clear-form"/>
+                            </Button> */}
                         </div>
-                    }
+                        <PreviewModal
+                            toggle={() => this.showPreviewEventModal()}
+                            isOpen={this.state.showPreviewEventModal}
+                            editor={editor}
+                            event={event}
+                            superEvent={superEvent}
+                            values={editor.values}
+                        />
+                    </div>
+
+                    <div className="container mt-5 pt-3">
+                        <FormFields
+                            action={editMode}
+                            editor={editor}
+                            event={event}
+                            superEvent={superEvent}
+                            user={user}
+                            setDirtyState={this.setDirtyState}
+                            loading={loading}
+                        />
+                    </div>
+
+                    <div className="editor-action-buttons">
+                        {loading
+                            ? <Spinner animation="border" role="status">
+                                <span className="sr-only">Loading...</span>
+                            </Spinner>
+                            : <div className='buttons-group container'>
+                                {editMode === 'update' && this.getActionButton('postpone')}
+                                {editMode === 'update' && this.getActionButton('cancel')}
+                                {editMode === 'update' && this.getActionButton('delete')}
+                                {isDraft && hasOrganizationWithRegularUsers(user) &&
+                                    this.getActionButton('return', this.navigateToModeration, false)
+                                }
+                                {
+                                    // Button that opens a preview modal of the event
+                                    this.getPreviewButton(
+                                    )
+                                }
+                                {
+                                    // button that saves changes to a draft without publishing
+                                    // only shown to moderators
+                                    isDraft && hasOrganizationWithRegularUsers(user) &&
+                                    this.getActionButton(
+                                        'update-draft',
+                                        this.saveChangesToDraft,
+                                        hasSubEvents && !isUmbrellaEvent,
+                                        'event-action-save-draft-existing'
+                                    )
+                                }
+                                {
+                                    (isAdminUser && editMode === 'create') &&
+                                    this.getActionButton(
+                                        'create-admin-draft',
+                                        () => this.saveChanges(true),
+                                        hasSubEvents && !isUmbrellaEvent
+                                    )
+                                }
+                                {
+                                    // show confirmation modal when the updated event has sub events and isn't an umbrella event,
+                                    // otherwise save directly
+                                    this.getActionButton(
+                                        'update',
+                                        () => this.saveChanges(false),
+                                        hasSubEvents && !isUmbrellaEvent
+                                    )
+                                }
+                            </div>
+                        }
+                    </div>
+                    <Notifications flashMsg={this.props.app.flashMsg} />
                 </div>
-            </div>
+            </React.Fragment>
         )
     }
 }
@@ -337,6 +405,7 @@ export class EditorPage extends React.Component {
 const mapStateToProps = (state) => ({
     editor: state.editor,
     user: state.user,
+    app: state.app,
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -355,8 +424,12 @@ const mapDispatchToProps = (dispatch) => ({
 
 EditorPage.propTypes = {
     match: PropTypes.object,
-    intl: intlShape.isRequired,
+    intl: PropTypes.oneOfType([
+        PropTypes.object,
+        intlShape.isRequired,
+    ]),
     editor: PropTypes.object,
+    app: PropTypes.object,
     user: PropTypes.object,
     setEventForEditing: PropTypes.func,
     clearData: PropTypes.func,

@@ -1,0 +1,14 @@
+.skiplink-shortcut {
+    text-align: center;
+    background-color: white;
+    .visually-hidden {
+        &.skip-link {
+            &:focus,
+            &:active {
+                position: relative;
+                left: 0;
+                color: blue;
+            }
+        }
+    }
+}

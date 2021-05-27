@@ -1,0 +1,51 @@
+.main-footer {
+    background-color: #0072c6;
+    color: #ffffff;
+    text-align: center;
+    width: 100%;
+    padding: 2vh;
+    a {
+        display: inline-block;
+        font-weight: bold;
+        color: #ffffff;
+        padding: 1vh;
+    }
+    .footer-list {
+        margin: auto;
+    }
+    .footer-logo {
+        background-image: url('../../../src/assets/images/helsinki-logo.svg');
+        background-size: contain;
+        margin-top: 1vh;
+        margin-bottom: 1vh;
+        height: 90px;
+        width: 150px;
+        background-repeat: no-repeat;
+        display: inline-block;
+    }
+    button {
+        background-color: transparent;
+        border: 0px;
+        font-weight: bold;
+        padding: 1vh;
+        &:active, &:hover, &:visited, &:focus {
+            text-decoration: underline;
+        }
+        &:focus {
+            outline: none;
+        }
+    }
+}
+.footerTooltip {
+    background-color: white !important;
+    span {
+        font-size: 1.25rem;
+        color: black;
+    }
+}
+.tooltip-inner {
+    max-width: 400px;
+}
+.tooltip.show {
+    opacity: 1;
+}

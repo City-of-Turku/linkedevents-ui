@@ -1,8 +1,8 @@
 Linkedevents-UI - form-style UI for Linked Events API
 =====================================================
 
-[![Build status](https://travis-ci.org/City-of-Helsinki/linkedevents-ui.svg?branch=master)](https://travis-ci.org/City-of-Helsinki/linkedevents-ui)
-[![codecov](https://codecov.io/gh/City-of-Helsinki/linkedevents-ui/branch/master/graph/badge.svg)](https://codecov.io/gh/City-of-Helsinki/linkedevents-ui)
+[![Node.js CI](https://github.com/City-of-Turku/linkedevents-ui/actions/workflows/node.js.yml/badge.svg?branch=develop)](https://github.com/City-of-Turku/linkedevents-ui/actions/workflows/node.js.yml)
+[![codecov](https://codecov.io/gh/City-of-Turku/linkedevents-ui/branch/develop/graph/badge.svg)](https://codecov.io/gh/City-of-Turku/linkedevents-ui)
 
 Linkedevents-UI is a user interface for creating and changing events through
 Linked Events API. It exposes many capabilities of the API including:
@@ -13,13 +13,16 @@ Linked Events API. It exposes many capabilities of the API including:
 
 # Prerequisites
 * Yarn
-* Node v8 LTS 
-* Python 2 (due to node-sass using node-gyp)
+* Node v14 LTS 
+
+# Theming
+Linkedevents project supports theming. 
+If there's a need to style components differently to match a certain city's branding,
+a theme npm package will be used to override any default styles.
+
+Here's a link to a city theme example with a README on how to start using it: https://github.com/codepointtku/linkedevents-ui-theme
 
 # Development Installation
-
-## Configuration
-
 Copy the contents of `config_dev.json.example` to `config_dev.json`.
 
 `config_dev.json` contains partially working settings giving you read only
@@ -30,11 +33,7 @@ The UI is now compatible with the `courses` extension for the Linked Events API.
 If you wish to include the extra fields specified in the `courses` extension,
 please change the `ui_mode` setting from `events` to `courses`.
 
-Note that authentication server is not nicely configurable. If you wish to
-use your own authentication server, you will need code changes in server/auth.js.
-
 ## Running development server
-
 ```
 $ yarn
 $ yarn start
@@ -43,28 +42,16 @@ $ yarn start
 Then point your browser to the webpack dev server at http://localhost:8080/.
 
 # Production installation
-
-## Configuration
-
 For production builds, all configuration is done using environment
 variables. This way, no errant configuration files should cause mysterious
 build failures or, worse, dormant configuration errors. The environment variables
 are named exactly the same as the ones in `config_dev.json`. For example,
 if you'd like to change the base address for Linkedevents API, you would:
 ```
-export api_base="https://api.hel.fi/linkedevents/v1"
+export api_base="https://testilinkedevents.turku.fi:8001/v1/"
 ```
 
-Note that the configuration is used in the different phases. Some settings
-need to be defined during build and other settings for running the
-authentication server (see below)
-
-Most if not all build automation tools provide for setting environment
-variables. Check the documentation for the one you are using. If you are
-testing locally you can `source config_build_example.sh` to get started.
-
-### Building
-
+## Building
 After setting the config you can build install dependencies and build the
 static files:
 ```
@@ -76,35 +63,17 @@ You should now have the bundled javascript + some non-bundled assets in
 `dist`. You can serve these using your favorite web server at whatever
 address suits your fancy.
 
-You will still need the source tree for the authentication server (below)
+# Building with Docker
+In order to build linkedevents successfully, make sure you have Docker setup correctly for your operating system:(https://docs.docker.com/get-docker/)
+As well as your config file: `config_dev.json`
 
-### Setting up the runtime
+Once you have everything setup, you can run the build command in the directory:
+```
+docker build -t linkedevents-ui .
+```
 
-In addition to serving the files built in previous step, you will need to
-run the built-in authentication server (or proxy really).  Although
-linkedevents-ui runs completely in client, it currently uses authentication
-code based OAuth2 Authorization Code flow. This is a historical accident,
-that will be remedied one day.
-
-We recommend running the authentication server with some sort of process
-manager, possibly one specialized in running Node applications. Your system
-process manager, like systemd, is another good candidate
-
-The authentication server will need configuration passed in through
-environment variables (see Congiration).  If you use a process manager to
-run the server, it should provide for setting them.
-
-The server is run by executing `npm run production`. If your process
-manager wants to run node by itself, you can also run specify `server` as
-the script (that will actually run server/index.js). In this case you will
-also need to set environment variable `NODE_ENV=production` by yourself.
-
-After you have the authentication server running, you will need to set up a
-web server to serve the files in `dist` and forward authentication requests
-to the authentication server. The table below shows what needs to served:
-| URL | what is served |
-| /auth | forward to authentication server |
-| filename | serve from dist-directory |
-| unknown files | serve index.html from dist-directory |
-
-The last part is needed for deep linking into the application. 
+## Running with Docker
+You can use Desktop Docker to run the container or run it manually by using the command:
+```
+docker run -dp 8080:8080 linkedevents-ui
+```

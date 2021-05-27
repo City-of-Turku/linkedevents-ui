@@ -3,11 +3,8 @@ import './MultiLanguageField.scss'
 import PropTypes from 'prop-types';
 
 import React from 'react'
-import {FormattedMessage, injectIntl} from 'react-intl'
+import {FormattedMessage} from 'react-intl'
 import HelTextField from './HelTextField'
-
-import ValidationPopover from '../ValidationPopover'
-
 import {setData} from 'src/actions/editor'
 
 class MultiLanguageField extends React.Component {
@@ -46,8 +43,15 @@ class MultiLanguageField extends React.Component {
         ]),
         index: PropTypes.string,
         multiLine: PropTypes.bool,
+        label: PropTypes.string,
+        id: PropTypes.string,
+        type: PropTypes.string,
+        setInitialFocus: PropTypes.bool,
+        placeholder: PropTypes.string,
+        min: PropTypes.number,
+        max: PropTypes.number,
     }
-    
+
     onChange(e,value,lang) {
         this.setState({value: this.getValue()})
 
@@ -56,9 +60,8 @@ class MultiLanguageField extends React.Component {
         }
     }
 
-    onBlur(e,value) {
+    onBlur(e, value) {
         this.setState({value: this.getValue()})
-
         if(this.props.name) {
             let obj = {}
             obj[this.props.name] = this.getValue()
@@ -79,9 +82,7 @@ class MultiLanguageField extends React.Component {
     getValue() {
         let langs = _.map(this.refs, (ref, key) => key)
         let values = _.map(this.refs, ref => ref.getValue())
-
         let valueObj = _.zipObject(langs, values);
-
         return valueObj
     }
 
@@ -113,7 +114,6 @@ class MultiLanguageField extends React.Component {
         let props = this.props
         // Set default language to fi if no languages are selected
         let langs = props.languages
-
         if(langs.length === 0) {
             langs = ['fi']
         }
@@ -121,10 +121,11 @@ class MultiLanguageField extends React.Component {
         let textInputs = []
 
         if(langs.length === 1) {
-            let label = this.context.intl.formatMessage({id: props.label}) + ' (' + this.context.intl.formatMessage({id: `in-${langs[0]}`}) + ')'
+            let label = this.context.intl.formatMessage({id: props.label})
             return (
                 <div style={{position:'relative'}} key={`${props.name}_${langs[0]}`}>
                     <HelTextField required={this.props.required}
+                        id={this.props.id}
                         defaultValue={this.state.value[langs[0]]}
                         label={label}
                         ref={langs[0]}
@@ -134,7 +135,14 @@ class MultiLanguageField extends React.Component {
                         validations={this.props.validations}
                         validationErrors={this.props.validationErrors}
                         index={this.props.index}
-                        multiLine={this.props.multiLine} />
+                        multiLine={this.props.multiLine}
+                        type={this.props.type}
+                        setInitialFocus={this.props.setInitialFocus}
+                        placeholder={this.props.placeholder}
+                        min={this.props.min}
+                        max={this.props.max}
+                    />
+
                 </div>
             )
         } else {
@@ -142,15 +150,22 @@ class MultiLanguageField extends React.Component {
                 let value = this.state.value[lang]
                 return (
                     <div key={`${props.name}_${lang}`}>
-                        <HelTextField 
-                            multiLine={this.props.multiLine} 
-                            required={this.props.required} 
-                            defaultValue={value} ref={lang} 
-                            label={this.context.intl.formatMessage({id: `in-${lang}`})} 
-                            onChange={(e,v) => this.onChange(e,v,lang)} 
-                            onBlur={(e,v) => this.onBlur(e,v)} 
-                            disabled={this.props.disabled} 
+                        <HelTextField
+                            id={this.props.id + index}
+                            multiLine={this.props.multiLine}
+                            required={this.props.required}
+                            defaultValue={value} ref={lang}
+                            label={this.context.intl.formatMessage({id: `${this.props.label}`}) + ' ' + this.context.intl.formatMessage({id: `in-${lang}`})}
+                            onChange={(e,v) => this.onChange(e,v,lang)}
+                            onBlur={(e,v) => this.onBlur(e,v)}
+                            disabled={this.props.disabled}
                             validations={this.props.validations}
+                            validationErrors={this.props.validationErrors}
+                            type={this.props.type}
+                            setInitialFocus={this.props.setInitialFocus && (index === 0)}
+                            placeholder={this.props.placeholder}
+                            min={this.props.min}
+                            max={this.props.max}
                         />
                     </div>
                 )
@@ -162,11 +177,6 @@ class MultiLanguageField extends React.Component {
                 <div className="indented">
                     <label ref={this.setLabelRef}>
                         <FormattedMessage id={`${props.label}`} />
-                        <ValidationPopover
-                            index={this.props.index}
-                            anchor={this.state.labelRef}
-                            validationErrors={this.props.validationErrors}
-                        />
                     </label>
                     {textInputs}
                 </div>
@@ -175,5 +185,9 @@ class MultiLanguageField extends React.Component {
     }
 
 }
+
+MultiLanguageField.defaultProps = {
+    type: 'text',
+};
 
 export default MultiLanguageField

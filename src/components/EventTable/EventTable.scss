@@ -14,11 +14,95 @@ $checkbox-column-width: 50px;
     text-transform: uppercase;
 }
 
-.tag-space {
-    margin-right: 4px;
+.visually-hidden {
+    position: absolute;
+    left: -10000px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+.languageBadge {
+    margin-right: 2px;
+    margin-left: 2px;
+    font-size: 0.75rem;
+    margin-top: 5px;
+    color: black;
+    background-color: orange;
 }
 
 .event-table {
+    font-size: 1em ;
+}
+
+.tag-space {
+    margin-right: 4px;
+    border: none;
+    background-color: transparent;
+    width: 25px;
+    &:active, &:focus {
+        outline: 2px solid black;
+    }
+}
+
+.Mui-selected {
+    background-color: #cce2f3;
+}
+
+@media (max-width: 768px) {
+    .event-table thead th:not(.checkbox) .glyphicon { 
+    display: inline;
+    }
+}
+.event-table {
+    tbody {
+        td {
+            vertical-align: middle;
+        }
+    }
+    thead {
+        th:not(.checkbox) {
+
+            .glyphicon {
+                margin: 0;
+                font-size: 10px;
+            }
+        }
+        @media (max-width: 500px) {
+            tr {
+                display: flex;
+            }
+        }
+    }
+
+    tbody {
+        tr {
+            td {
+                .nameCell {
+                    .draft-icon {
+                        display: inline-flex;
+                    }
+                }
+            }
+            @media (max-width: 500px) {
+                display: flex;
+                td {
+                    padding: 1rem;
+                    .nameCell {
+                        margin-left: -24px;
+                        .draft-icon,>div {
+                            display: none;
+                        }
+                    }
+                    &.date-time {
+                        margin-left: 24px;
+                    }
+                }
+            }
+        }
+    }
+
+    font-size: 0.875rem;
     th.checkbox,
     td.checkbox {
         padding: 10px;
@@ -30,6 +114,9 @@ $checkbox-column-width: 50px;
     td.checkbox + td:not(.checkbox),
     td:first-of-type:not(.checkbox) {
         width: auto;
+        @media (max-width: 500px) {
+            width: 18%;
+        }
     }
 
     td.name-cell {
@@ -49,6 +136,7 @@ $checkbox-column-width: 50px;
         padding: 0;
         text-align: center;
         width: $checkbox-column-width;
+
 
         span {
             cursor: pointer;
@@ -75,11 +163,26 @@ $checkbox-column-width: 50px;
             }
         }
     }
+    .checkbox {
+        input {
+            position: inherit;
+            margin-top: initial;
+            margin-left: initial;
+        }
+    }
 }
 
 .draft-actions {
     margin-top: 20px;
-
+    @media (max-width:500px) {
+        display: grid;
+        button {
+            margin: 10px 0px 10px;
+    }
+    &--button:not(:first-of-type) {
+        margin-left: 0px !important;
+    }
+}
     &--button:not(:first-of-type) {
         margin-left: 20px;
     }
@@ -119,9 +222,7 @@ tbody {
     .event-table {
         td, th {
             display: block;
-        }
-        td:first-child, th:first-child {
-            margin-top: 20px;
+            margin-left: 20px;
         }
     }
 }

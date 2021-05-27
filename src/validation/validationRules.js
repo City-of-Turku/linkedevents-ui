@@ -14,7 +14,13 @@ let _isExisty = function _isExisty(value) {
 }
 
 let isEmpty = function isEmpty(value) {
-    return value === '';
+    if (value === '') {return true}
+    if (value === null) {return true}
+    if (typeof value == 'object') {
+        const vals = Object.values(value);
+        if (vals.length > 0 && vals[0] === '') {return true}
+        if (vals.length === 0) {return true}
+    }
 }
 
 const _containsAllLanguages = (value, languages) => {
@@ -130,7 +136,9 @@ var validations = {
         return validations.matchRegexp(values, value, /(24((:|\.)00)?)|^((2[0-3]|1[0-9]|0[0-9]|[0-9])((:|\.)[0-5][0-9])?)$/i);
     },
     isDate(values, value) {
-        return moment(value, moment.ISO_8601, true).isValid()
+        // Emtpy string needs to match, to allow empty *or* valid date.
+        // Required (non-empty) fields are validated separately.
+        return !value | moment(value, moment.ISO_8601, true).isValid()
     },
     afterStartTime: function afterStartTime(values, value) {
         if (!values.start_time || !value) return true
@@ -167,6 +175,15 @@ var validations = {
     required: function required(values, value) {
         return _isExisty(value)
     },
+    requiredImage: function requiredImage(values, value) {
+        if(typeof value !== 'object' || !value) {
+            return false
+        }
+        if (Object.keys(value).length === 0) {
+            return false;
+        }
+        return true
+    },
     requiredForCourses: function requiredForCourses(values, value){
         if(!(appSettings.ui_mode === 'courses')) {
             return true;
@@ -187,12 +204,13 @@ var validations = {
     },
     requiredMulti(values, value) {
         if(typeof value !== 'object' || !value) {
-            return false
+            return false;
         }
-        if(_.keys(value).length === 0) {
-            return false
+        if (Object.keys(value).length === 0) {
+            return false;
         }
-        return every(value, item => isNull(item) || item.trim() && item.trim().length > 0)
+        const valueContent = Object.values(value);
+        return valueContent.every(x => !isNull(x)) && valueContent.every(x => typeof x === 'string' && x.trim().length > 0)
     },
     requiredAtId: function requiredAtId(values, value) {
         if(typeof value !== 'object' || !value) {
@@ -217,7 +235,8 @@ var validations = {
         if (!value) {
             return false
         }
-        return mapKeywordSetToForm(keywordSets, 'helsinki:topics')
+        // Changed keywordSets to be compatible with Turku's backend.
+        return mapKeywordSetToForm(keywordSets, 'turku:topics')
             .map(item => item.value)
             .some(item => value.find(_item => _item.value.includes(item)))
     },
@@ -254,6 +273,12 @@ var validations = {
     },
     isMoreThanOne: function isMoreThanOne(values, value) {
         return value > 0 ? true : false
+    },
+    isMoreThanTwo: function isMoreThanTwo(values, value) {
+        return Object.keys(value).length >= 2
+    },
+    isMoreThanSixtyFive: function isMoreThanSixtyFive(values, value) {
+        return Object.keys(value).length <= 65
     },
     daysWithinInterval: function daysWithinInterval(values, value) {
         if (!(value < 6)) { return true }

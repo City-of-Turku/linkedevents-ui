@@ -1,7 +1,9 @@
 require('./moderation.scss')
 import React from 'react'
 import PropTypes from 'prop-types'
-import {Button} from '@material-ui/core'
+import {Button} from 'reactstrap';
+import {Helmet} from 'react-helmet';
+
 import {FormattedMessage, injectIntl} from 'react-intl'
 import EventTable from '../../components/EventTable/EventTable'
 import {connect} from 'react-redux'
@@ -19,7 +21,7 @@ import {getSelectedRows, getSortColumnName, getSortDirection} from '../../utils/
 import showConfirmationModal from '../../utils/confirm'
 import {confirmAction, setFlashMsg as setFlashMsgAction} from '../../actions/app'
 import {hasOrganizationWithRegularUsers} from '../../utils/user'
-import {push} from 'react-router-redux'
+import {push} from 'connected-react-router'
 
 const {TABLE_DATA_SHAPE, PUBLICATION_STATUS} = constants
 
@@ -388,7 +390,10 @@ export class Moderation extends React.Component {
     render() {
         const {draftData, publishedData} = this.state
         const {user} = this.props
+        const {intl} = this.context;
         const draftActionButtons = ['delete', 'publish']
+        // Defined React Helmet title with intl
+        const pageTitle = `Linkedevents - ${intl.formatMessage({id: 'moderation-page'})}`
         const moderationTables = [
             {
                 name: 'draft',
@@ -402,6 +407,7 @@ export class Moderation extends React.Component {
 
         return (
             <div className="container">
+                <Helmet title={pageTitle}/>
                 <h1><FormattedMessage id="moderation-page"/></h1>
                 {!user &&
                     <p><FormattedMessage id="login" /> <FormattedMessage id="events-management-prompt" /></p>
@@ -419,7 +425,7 @@ export class Moderation extends React.Component {
                             user={user}
                             fetchComplete={table.data.fetchComplete}
                             count={table.data.count}
-                            pageSize={table.data.pageSize}
+                            pageSize={parseInt(table.data.pageSize)}
                             paginationPage={table.data.paginationPage}
                             sortBy={table.data.sortBy}
                             sortDirection={table.data.sortDirection}
@@ -453,6 +459,10 @@ Moderation.propTypes = {
     publishedData: TABLE_DATA_SHAPE,
 }
 
+Moderation.contextTypes = {
+    intl: PropTypes.object,
+}
+
 const mapStateToProps = (state) => ({
     user: state.user,
 })
@@ -463,4 +473,5 @@ const mapDispatchToProps = (dispatch) => ({
     setFlashMsg: (id, status) => dispatch(setFlashMsgAction(id, status)),
 })
 
+export {Moderation as UnconnectedModeration}
 export default connect(mapStateToProps, mapDispatchToProps)(injectIntl(Moderation));

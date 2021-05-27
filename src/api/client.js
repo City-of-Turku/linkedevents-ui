@@ -8,7 +8,7 @@ let authToken
 
 const getToken = () => {
     const state = store.getState()
-    return get(state, 'user.token')
+    return get(state, 'auth.user.id_token')
 }
 
 store.subscribe(() => {
@@ -32,7 +32,7 @@ export class ApiClient {
     getHeaders = () => ({
         ...CONSTANTS.API_HEADERS,
         ...(authToken
-            ? {Authorization: `JWT ${authToken}`}
+            ? {Authorization: `Bearer ${authToken}`}
             : {}),
     })
 
