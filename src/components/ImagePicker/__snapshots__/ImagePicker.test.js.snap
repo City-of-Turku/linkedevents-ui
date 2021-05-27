@@ -163,7 +163,7 @@ exports[`Image add form ImagePicker component should render correctly with data 
       "event-is-free": "Tapahtuma on maksuton",
       "event-is-umbrella": "Kattotapahtuma.",
       "event-is-umbrella-tooltip": "Alatapahtuma ei voi olla kattotapahtuma.",
-      "event-is-virtualandhaslocation": "Tämä tapahtuma on sekä virtuaalinen että fyysinen",
+      "event-is-virtualandhaslocation": "Tämä tapahtuma on sekä virtuaalinen että lähitapahtuma",
       "event-isvirtual": "Tapahtuma on virtuaalinen",
       "event-isvirtualphysical": "Tapahtuma on sekä virtuaalinen että fyysinen",
       "event-keywords": "Hae ja valitse lisää asiasanoja",
