@@ -95,11 +95,8 @@ const HelKeywordSelector = ({intl, editor, setDirtyState, setData, currentLocale
 
     return (
         <React.Fragment>
-            <SideField label={intl.formatMessage({id: 'event-categorization-help'})}>
-                <FormattedMessage id="editor-tip-main-category"/>
-            </SideField>
             <HelLabeledCheckboxGroup
-                groupLabel={<FormattedMessage id="main-categories"/>}
+                groupLabel={<FormattedMessage id="main-categories-header"/>}
                 selectedValues={keywords}
                 name="keywords"
                 validationErrors={validationErrors['keywords']}
@@ -111,10 +108,7 @@ const HelKeywordSelector = ({intl, editor, setDirtyState, setData, currentLocale
                 }}
                 currentLocale={currentLocale}
             />
-            <SideField label={intl.formatMessage({id: 'editor-tip-keywords-help'})}>
-                <FormattedMessage id="editor-tip-keywords"/>
-            </SideField>
-            <div className="col-sm-6 hel-select">
+            <div className="col-sm-6 hel-select keywords-select">
                 <HelSelect
                     legend={intl.formatMessage({id: 'event-keywords'})}
                     name="keywords"
@@ -124,6 +118,7 @@ const HelKeywordSelector = ({intl, editor, setDirtyState, setData, currentLocale
                         handleKeywordChange(selectedOption, keywords, mainCategoryOptions, setData)
                     }
                     currentLocale={currentLocale}
+                    placeholderId={'event-keywords-search'}
                 />
                 <CopyToClipboard tabIndex='-1' aria-hidden='true' text={values['keywords'] ? getKeywordIds(keywords) : ''}>
                     <button id='keyword-clipboard' type='button' className="clipboard-copy-button btn btn-default" aria-label={intl.formatMessage({id: 'copy-keyword-to-clipboard'})}>

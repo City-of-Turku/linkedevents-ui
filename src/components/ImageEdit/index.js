@@ -437,13 +437,11 @@ class ImageEdit extends React.Component {
                                 <div className='file-upload'>
                                     <div className='tip' aria-label={this.context.intl.formatMessage({id: 'image-upload-help'})}>
                                         <p>
-                                            <FormattedMessage id='uploaded-image-event-tip'>{txt => txt}</FormattedMessage>
-                                            <br/>
                                             <FormattedMessage id='uploaded-image-size-tip'>{txt => txt}</FormattedMessage>
                                             <br/>
                                             <FormattedMessage id='uploaded-image-size-tip2'>{txt => txt}</FormattedMessage>
                                             <br/>
-                                            <FormattedMessage id='uploaded-image-size-tip3'>{txt => txt}</FormattedMessage>
+                                            <FormattedMessage id='uploaded-image-event-tip'>{txt => txt}</FormattedMessage>
                                         </p>
                                     </div>
                                     <div className='file-upload-buttons'>
@@ -503,13 +501,6 @@ class ImageEdit extends React.Component {
                                                     >
                                                         <FormattedMessage id='uploaded-image-button-delete' />
                                                     </Button>
-                                                    <div className='tip' aria-label={this.context.intl.formatMessage({id: 'uploaded-image-alt-tip-help'})}>
-                                                        <p>
-                                                            <FormattedMessage id='uploaded-image-alt-tip'>{txt => txt}</FormattedMessage>
-                                                            <br/>
-                                                            <FormattedMessage id='uploaded-image-alt-tip2'>{txt => txt}</FormattedMessage>
-                                                        </p>
-                                                    </div>
                                                     <div className='custom-control custom-checkbox'>
                                                         <input
                                                             className='custom-control-input'

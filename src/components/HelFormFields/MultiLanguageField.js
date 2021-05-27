@@ -121,7 +121,7 @@ class MultiLanguageField extends React.Component {
         let textInputs = []
 
         if(langs.length === 1) {
-            let label = this.context.intl.formatMessage({id: props.label}) + ' (' + this.context.intl.formatMessage({id: `in-${langs[0]}`}) + ')'
+            let label = this.context.intl.formatMessage({id: props.label})
             return (
                 <div style={{position:'relative'}} key={`${props.name}_${langs[0]}`}>
                     <HelTextField required={this.props.required}

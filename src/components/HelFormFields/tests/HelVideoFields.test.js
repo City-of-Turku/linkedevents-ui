@@ -272,13 +272,6 @@ describe('HelVideoFields', () => {
                 expect(textFieldElements.at(randomKey([0, 1, 2])).prop('required')).toBe(false);
             });
         });
-        describe('SideField', () => {
-            test('is rendered', () => {
-                const wrapper = getWrapper();
-                const sideFieldElement = wrapper.find(SideField);
-                expect(sideFieldElement).toHaveLength(1);
-            });
-        });
     });
 });
 
