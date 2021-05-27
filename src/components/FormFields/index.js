@@ -34,14 +34,12 @@ import CollapseButton from './CollapseButton/CollapseButton';
 import HelCheckbox from '../HelFormFields/HelCheckbox';
 import LoginNotification from './LoginNotification/LoginNotification'
 
-// Removed material-ui/icons because it was no longer used.
-//Added isOpen for RecurringEvents modal
 
 let FormHeader = ({type = 'h3', messageID}) => {
-    const foo = (bar) => React.createElement(type, {className: 'col-sm-12'}, bar)
+    const headerElement = (content) => React.createElement(type, {className: 'col-sm-12'}, content)
     return(
         <div className="row">
-            <FormattedMessage id={messageID}>{txt => foo(txt)}</FormattedMessage>
+            <FormattedMessage id={messageID}>{txt => headerElement(txt)}</FormattedMessage>
         </div>
     )
 }
