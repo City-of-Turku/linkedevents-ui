@@ -67,9 +67,8 @@ describe('Homepage', () => {
                     const wrapper = getWrapper()
                     const instance = wrapper.instance()
                     const button = wrapper.find(Button).at(1)
-                    const returnedRef = '#b-organisaatiotunnukset'
-                    instance.getIDref()
-                    expect(button.prop('href')).toEqual(returnedRef)
+                    const funcCall =  instance.getIDref(defaultProps.locale)
+                    expect(funcCall).toEqual(button.prop('href'))
                 })
             })
         })
