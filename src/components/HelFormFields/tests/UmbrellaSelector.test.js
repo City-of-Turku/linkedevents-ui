@@ -35,7 +35,7 @@ const defaultProps = {
         values: {
             sub_events: {},
             super_event: '',
-            super_event_type: ''
+            super_event_type: '',
         },
     },
     intl,
