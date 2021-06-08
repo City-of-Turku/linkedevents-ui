@@ -161,6 +161,8 @@ exports[`Image add form ImagePicker component should render correctly with data 
       "event-in-the-past": "Menneisyydessä olevia tapahtumia ei voi muokata.",
       "event-info-url": "Tapahtuman sivusto (URL)",
       "event-is-free": "Tapahtuma on maksuton",
+      "event-is-independent": "Itsenäinen Tapahtuma",
+      "event-is-independent-tooltip": "Yksittäinen tapahtuma voi olla osa kattotapahtumaa",
       "event-is-umbrella": "Kattotapahtuma.",
       "event-is-umbrella-tooltip": "Alatapahtuma ei voi olla kattotapahtuma.",
       "event-is-virtualandhaslocation": "Tämä tapahtuma on sekä virtuaalinen että lähitapahtuma",

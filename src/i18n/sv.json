@@ -239,9 +239,11 @@
     "event-keywords-search": "Börja skriva ämnesord",
     "event-keywords-delete": "Radera ämnesord",
 
+    "event-is-independent": "Enskilt evenemang",
     "event-umbrella": "Paraplyevenemang",
     "event-is-umbrella": "Paraplyevenemang.",
     "event-has-umbrella": "Del av ett paraplyevenemang.",
+    "event-is-independent-tooltip": "Ett enskilt evenemang kan höra till ett paraplyevenemang",
     "event-is-umbrella-tooltip": "Ett evenemang under paraplyevenemanget kan inte vara ett paraplyevenemang.",
     "event-has-umbrella-tooltip": "Ett paraplyevenemang kan inte ha ett paraplyevenemang",
     "event-has-umbrella-select-tip": "Obs. Ett paraplyevenemang måste skapas före du kan lägga till evenemang under det",

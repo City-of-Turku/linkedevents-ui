@@ -220,9 +220,11 @@
     "event-keywords-search": "Start typing a keyword",
     "event-keywords-delete": "Delete keyword",
 
+    "event-is-independent": "Independent Event",
     "event-umbrella": "Umbrella events",
     "event-is-umbrella": "Umbrella event.",
     "event-has-umbrella": "Part of a umbrella event.",
+    "event-is-independent-tooltip": "A single event can be part of a umbrella event",
     "event-is-umbrella-tooltip": "A subevent cannot be an umbrella event.",
     "event-has-umbrella-tooltip": "An umbrella event cannot have an umbrella event.",
     "event-has-umbrella-select-tip": "An umbrella event has to be created before events can be added under it.",

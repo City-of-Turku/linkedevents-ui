@@ -223,7 +223,9 @@
     "event-umbrella": "Kattotapahtumat",
     "event-is-umbrella": "Kattotapahtuma.",
     "event-has-umbrella": "Liittyy kattotapahtumaan.",
+    "event-is-independent": "Itsenäinen Tapahtuma",
     "event-is-umbrella-tooltip": "Alatapahtuma ei voi olla kattotapahtuma.",
+    "event-is-independent-tooltip": "Yksittäinen tapahtuma voi olla osa kattotapahtumaa",
     "event-has-umbrella-tooltip": "Kattotapahtumalla ei voi olla kattotapahtumaa.",
     "event-has-umbrella-select-tip": "Huom. Kattotapahtuma täytyy luoda ennen kuin voit lisätä sille alatapahtumia.",
 

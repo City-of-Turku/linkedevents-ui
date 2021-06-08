@@ -6,7 +6,7 @@ import client from '../../../api/client'
 import {setData, clearValue} from '../../../actions/editor'
 import {FormattedMessage, injectIntl} from 'react-intl'
 import {get, isNull, isUndefined} from 'lodash'
-import UmbrellaCheckbox from './UmbrellaCheckbox'
+import UmbrellaRadio from './UmbrellaRadio';
 import {Link} from 'react-router-dom'
 import {getFirstMultiLanguageFieldValue, scrollToTop} from '../../../utils/helpers'
 import constants from '../../../constants'
@@ -140,31 +140,28 @@ class UmbrellaSelector extends React.Component {
      * @param event Event
      */
     handleCheck = event => {
-        const {checked, name} = event.target
+        const {value} = event.target
+        if (value === 'is_umbrella') {
+            this.setState({isUmbrellaEvent: true})
+            this.context.dispatch(setData({super_event_type: 'umbrella'}))
 
-        if (name === 'is_umbrella') {
-            this.setState({isUmbrellaEvent: checked})
-            if (checked) {
-                this.context.dispatch(setData({super_event_type: 'umbrella'}))
-            } else {
-                this.context.dispatch(clearValue(['super_event_type']))
-            }
-
+        } else if (value != 'is_umbrella') {
+            this.setState({isUmbrellaEvent: false})
+            this.context.dispatch(clearValue(['super_event_type']))
         }
-        if (name === 'has_umbrella') {
-            if (checked) {
-                this.setState({
-                    hasUmbrellaEvent: true,
-                })
-            } else {
-                this.setState({
-                    hasUmbrellaEvent: false,
-                    selectedUmbrellaEvent: {},
-                })
-                this.context.dispatch(clearValue(['super_event','sub_event_type']))
-            }
+        if (value === 'has_umbrella') {
+            this.setState({
+                hasUmbrellaEvent: true,
+            })
+        } else if (value != 'has_umbrella') {
+            this.setState({
+                hasUmbrellaEvent: false,
+                selectedUmbrellaEvent: {},
+            })
+            this.context.dispatch(clearValue(['super_event','sub_event_type']))
         }
-    }    
+    }
+    
     /**
      * Handles select changes
      * @param selectedEvent Data for the selected event
@@ -182,7 +179,7 @@ class UmbrellaSelector extends React.Component {
             }
         }
 
-    /**
+        /**
      * Returns the disabled state for the umbrella checkboxes
      *
      * The 'is_umbrella' checkbox should be disabled when:
@@ -198,28 +195,35 @@ class UmbrellaSelector extends React.Component {
      *  - The event being edited is an umbrella event
      *  - The event being edited is a sub event of a super (recurring) event
      *
-     * @param name                  Name of the checkbox
+     * @param name                  Value of the checkbox
      * @param editedEventIsSubEvent Whether the event being edited is a sub event
      * @returns {boolean}           Whether the checkbox should be disabled
      */
-    getDisabledState = (name, editedEventIsSubEvent) => {
+    getDisabledState = (value, editedEventIsSubEvent) => {
         const {isUmbrellaEvent, hasUmbrellaEvent, isCreateView, superEventSuperEventType} = this.state
         const {event, editor: {values}} = this.props
         const editedEventIsAnUmbrellaEvent = get(event, 'super_event_type') === constants.SUPER_EVENT_TYPE_UMBRELLA
         const editedEventIsARecurringEvent = get(event, 'super_event_type') === constants.SUPER_EVENT_TYPE_RECURRING
         const editedEventHasSubEvents = get(event, 'sub_events', []).length > 0
-
-        if (name === 'is_umbrella') {
+        if (value === 'is_independent') {
             return isCreateView
-                ? hasUmbrellaEvent || Object.keys(values.sub_events).length > 0
+                ? false
+                : (isUmbrellaEvent
+                    || (editedEventIsAnUmbrellaEvent && editedEventHasSubEvents && !isNull(values.super_event))
+                    || editedEventIsARecurringEvent
+                    || (editedEventIsSubEvent && !isNull(values.super_event)))
+        }
+        if (value === 'is_umbrella') {
+            return isCreateView
+                ? false || Object.keys(values.sub_events).length > 0
                 : (hasUmbrellaEvent
                     || (editedEventIsAnUmbrellaEvent && editedEventHasSubEvents && !isNull(values.super_event))
                     || editedEventIsARecurringEvent
                     || (editedEventIsSubEvent && !isNull(values.super_event)))
         }
-        if (name === 'has_umbrella') {
+        if (value === 'has_umbrella') {
             return isCreateView
-                ? isUmbrellaEvent
+                ? false
                 : (isUmbrellaEvent
                     || (editedEventIsAnUmbrellaEvent && !isNull(values.super_event_type))
                     || superEventSuperEventType === constants.SUPER_EVENT_TYPE_RECURRING)
@@ -232,7 +236,7 @@ class UmbrellaSelector extends React.Component {
     hideSelectTip = () => this.setState({showSelectTip: false})
 
     render() {
-        const {showSelectTip, selectedUmbrellaEvent, isUmbrellaEvent, hasUmbrellaEvent, superEventSuperEventType} = this.state
+        const {showSelectTip, selectedUmbrellaEvent, isUmbrellaEvent, hasUmbrellaEvent, superEventSuperEventType, selectedUmbrellaType} = this.state
         const {event} = this.props
         // the super event id of the event that is being edited
         const superEventId = getSuperEventId(event)
@@ -242,28 +246,40 @@ class UmbrellaSelector extends React.Component {
         return (
             <div className="row">
                 <div className="col-sm-6">
-                    <UmbrellaCheckbox
-                        aria-label={this.context.intl.formatMessage({id: `event-is-umbrella`})}
-                        intl={this.context.intl}
-                        name="is_umbrella"
-                        checked={isUmbrellaEvent}
-                        disabled={this.getDisabledState('is_umbrella', editedEventIsSubEvent)}
-                        handleCheck={this.handleCheck}
-                    >
-                        <FormattedMessage id="event-is-umbrella" />
-                    </UmbrellaCheckbox>
+                    <div className='custom-control-radio'>
+                        <UmbrellaRadio
+                            aria-label={this.context.intl.formatMessage({id: `event-is-independent`})}
+                            intl={this.context.intl}
+                            value="is_independent"
+                            checked={!isUmbrellaEvent && !hasUmbrellaEvent}
+                            handleCheck={this.handleCheck}
+                            messageID='event-is-independent'
+                            disabled={this.getDisabledState('is_independent', editedEventIsSubEvent)}
+                        >
 
-                    <UmbrellaCheckbox
-                        aria-label={this.context.intl.formatMessage({id: `event-has-umbrella`})}
-                        intl={this.context.intl}
-                        name="has_umbrella"
-                        checked={hasUmbrellaEvent}
-                        disabled={this.getDisabledState('has_umbrella', editedEventIsSubEvent)}
-                        handleCheck={this.handleCheck}
-                    >
-                        <FormattedMessage id="event-has-umbrella" />
-                    </UmbrellaCheckbox>
+                        </UmbrellaRadio>
+                        <UmbrellaRadio
+                            aria-label={this.context.intl.formatMessage({id: `event-is-umbrella`})}
+                            intl={this.context.intl}
+                            value="is_umbrella"
+                            checked={isUmbrellaEvent}
+                            disabled={this.getDisabledState('is_umbrella', editedEventIsSubEvent)}
+                            handleCheck={this.handleCheck}
+                            messageID='event-is-umbrella'
+                        >
+                        </UmbrellaRadio>
 
+                        <UmbrellaRadio
+                            aria-label={this.context.intl.formatMessage({id: `event-has-umbrella`})}
+                            intl={this.context.intl}
+                            value="has_umbrella"
+                            checked={hasUmbrellaEvent}
+                            disabled={this.getDisabledState('has_umbrella', editedEventIsSubEvent)}
+                            handleCheck={this.handleCheck}
+                            messageID='event-has-umbrella'
+                        >
+                        </UmbrellaRadio>
+                    </div>
                     {hasUmbrellaEvent &&
                     <React.Fragment>
                         <AsyncSelect
@@ -330,5 +346,5 @@ UmbrellaSelector.contextTypes = {
     dispatch: PropTypes.func,
     store: PropTypes.object,
 };
-
+export {UmbrellaSelector as UnconnectedUmbrellaSelector}
 export default injectIntl(UmbrellaSelector)
