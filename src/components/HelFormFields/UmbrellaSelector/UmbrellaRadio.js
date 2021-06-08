@@ -1,8 +1,6 @@
 import './UmbrellaRadio.scss'
 import PropTypes from 'prop-types'
 import React,{Fragment}  from 'react'
-//Replaced Material-ui CheckBox for a reactstrap implementation. - Turku
-import {UncontrolledTooltip} from 'reactstrap';
 import {FormattedMessage} from 'react-intl';
 
 
@@ -32,7 +30,6 @@ const UmbrellaRadio = props => {
 
 
 UmbrellaRadio.propTypes = {
-    children: PropTypes.element,
     intl: PropTypes.object,
     name: PropTypes.string,
     checked: PropTypes.bool,
@@ -40,7 +37,6 @@ UmbrellaRadio.propTypes = {
     handleCheck: PropTypes.func,
     value: PropTypes.string,
     messageID: PropTypes.string,
-    disabledMessage: PropTypes.bool,
 }
 
 export default UmbrellaRadio
