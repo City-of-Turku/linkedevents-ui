@@ -58,7 +58,7 @@ class UmbrellaSelector extends React.Component {
         // object containing the updated states
         let stateToSet = {}
 
-        // whether we are creating a new event. used to help determine the checkbox disabled state
+        // whether we are creating a new event. used to help determine the radio disabled state
         const updatedIsCreateView = get(router, ['location' ,'pathname'], '').includes('/event/create/new')
         // flag for whether the event being edited is an umbrella type event
         const editedEventIsAnUmbrellaEvent = get(event, 'super_event_type') === constants.SUPER_EVENT_TYPE_UMBRELLA
@@ -75,9 +75,9 @@ class UmbrellaSelector extends React.Component {
         if (updatedIsCreateView !== isCreateView) {
             stateToSet.isCreateView = updatedIsCreateView
         }
-        // set the 'is_umbrella' checkbox as checked if:
+        // set the 'is_umbrella' radio as checked if:
         //  - the event being edited is an umbrella event
-        //  - the form super event type value is not null (it's null if the user un-checks the 'is_umbrella' checkbox)
+        //  - the form super event type value is not null (it's null if the user un-checks the 'is_umbrella' radio)
         if (!updatedIsCreateView
             && (editedEventIsAnUmbrellaEvent && !isNull(values.super_event_type))
             && prevState.isUmbrellaEvent === isUmbrellaEvent
@@ -85,7 +85,7 @@ class UmbrellaSelector extends React.Component {
         ) {
             stateToSet.isUmbrellaEvent = true
         }
-        // uncheck 'is_umbrella' checkbox when the editor has multiple dates
+        // uncheck 'is_umbrella' radio when the editor has multiple dates
         if (updatedIsCreateView
             && isUmbrellaEvent
             && Object.keys(values.sub_events).length > 0
@@ -93,7 +93,7 @@ class UmbrellaSelector extends React.Component {
             stateToSet.isUmbrellaEvent = false
             this.context.dispatch(setData({super_event_type: null}))
         }
-        // uncheck 'is_umbrella' checkbox, when switching from update to create
+        // uncheck 'is_umbrella' radio, when switching from update to create
         if (updatedIsCreateView
             && isCreateView !== updatedIsCreateView
             && isUmbrellaEvent
@@ -101,9 +101,9 @@ class UmbrellaSelector extends React.Component {
         ) {
             stateToSet.isUmbrellaEvent = false
         }
-        // set the 'has_umbrella' checkbox as checked, if:
+        // set the 'has_umbrella' radio as checked, if:
         //  - the event being edited has a super event with the super event type 'umbrella'
-        //  - the form super event value is not null (it's null if the user un-checks the 'has_umbrella' checkbox)
+        //  - the form super event value is not null (it's null if the user un-checks the 'has_umbrella' radio)
         if (!hasUmbrellaEvent
             && prevState.hasUmbrellaEvent === hasUmbrellaEvent
             && (superEventIsAnUmbrellaEvent && !isNull(values.super_event))
@@ -117,7 +117,7 @@ class UmbrellaSelector extends React.Component {
                 },
             }
         }
-        // uncheck 'has_umbrella' checkbox and clear the selected umbrella event, when switching from update to create
+        // uncheck 'has_umbrella' radio and clear the selected umbrella event, when switching from update to create
         if (updatedIsCreateView
             && isCreateView !== updatedIsCreateView
             && hasUmbrellaEvent
@@ -136,30 +136,28 @@ class UmbrellaSelector extends React.Component {
         }
     }
     /**
-     * Handles checkbox changes
+     * Handles radio changes
      * @param event Event
      */
     handleCheck = event => {
         const {value} = event.target
+        let states = {}
+        let values = []
         if (value === 'is_umbrella') {
-            this.setState({isUmbrellaEvent: true})
+            states = {isUmbrellaEvent: true, hasUmbrellaEvent: false, selectedUmbrellaEvent: {}};
             this.context.dispatch(setData({super_event_type: 'umbrella'}))
-
-        } else if (value != 'is_umbrella') {
-            this.setState({isUmbrellaEvent: false})
-            this.context.dispatch(clearValue(['super_event_type']))
+            values.push('super_event','sub_event_type')
         }
-        if (value === 'has_umbrella') {
-            this.setState({
-                hasUmbrellaEvent: true,
-            })
-        } else if (value != 'has_umbrella') {
-            this.setState({
-                hasUmbrellaEvent: false,
-                selectedUmbrellaEvent: {},
-            })
-            this.context.dispatch(clearValue(['super_event','sub_event_type']))
+        else if (value === 'has_umbrella') {
+            states = {hasUmbrellaEvent: true, isUmbrellaEvent: false};
+            values.push('super_event_type')
         }
+        else if (value === 'is_independent') {
+            states = {isUmbrellaEvent: false, hasUmbrellaEvent: false, selectedUmbrellaEvent: {}};
+            values.push('super_event', 'sub_event_type', 'super_event_type')
+        }
+        this.setState(states);
+        this.context.dispatch(clearValue(values))
     }
     
     /**
@@ -180,24 +178,22 @@ class UmbrellaSelector extends React.Component {
         }
 
         /**
-     * Returns the disabled state for the umbrella checkboxes
+     * Returns the disabled state for the umbrella radios
      *
-     * The 'is_umbrella' checkbox should be disabled when:
-     *  - The 'has_umbrella' checkbox is checked
+     * The 'is_umbrella' radio should be disabled when:
      *  - The event being edited is an umbrella event with sub events
      *  - The event being edited is a sub event of an umbrella event
      *  - The event being edited is a super (recurring) event
      *  - The event being edited is a sub event of a super (recurring) event
      *  - When creating a new event and the form has more than one event date defined for it
      *
-     * The 'has_umbrella' checkbox should be disabled when:
-     *  - The 'is_umbrella' checkbox is checked
+     * The 'has_umbrella' radio should be disabled when:
      *  - The event being edited is an umbrella event
      *  - The event being edited is a sub event of a super (recurring) event
      *
-     * @param name                  Value of the checkbox
+     * @param value                  Value of the radio
      * @param editedEventIsSubEvent Whether the event being edited is a sub event
-     * @returns {boolean}           Whether the checkbox should be disabled
+     * @returns {boolean}           Whether the radio should be disabled
      */
     getDisabledState = (value, editedEventIsSubEvent) => {
         const {isUmbrellaEvent, hasUmbrellaEvent, isCreateView, superEventSuperEventType} = this.state
@@ -215,7 +211,7 @@ class UmbrellaSelector extends React.Component {
         }
         if (value === 'is_umbrella') {
             return isCreateView
-                ? false || Object.keys(values.sub_events).length > 0
+                ? Object.keys(values.sub_events).length > 0
                 : (hasUmbrellaEvent
                     || (editedEventIsAnUmbrellaEvent && editedEventHasSubEvents && !isNull(values.super_event))
                     || editedEventIsARecurringEvent

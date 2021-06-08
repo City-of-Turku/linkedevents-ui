@@ -1,20 +1,22 @@
 import React from 'react';
-import {shallow, mount} from 'enzyme';
+import {shallow} from 'enzyme';
 import AsyncSelect from 'react-select/async'
 import {HelSelectStyles, HelSelectTheme} from '../../../themes/react-select'
-import {IntlProvider, FormattedMessage} from 'react-intl';
+import {IntlProvider} from 'react-intl';
 import fiMessages from 'src/i18n/fi.json';
 import mapValues from 'lodash/mapValues';
 import {UnconnectedUmbrellaSelector} from '../UmbrellaSelector/UmbrellaSelector';
 import UmbrellaRadio from '../UmbrellaSelector/UmbrellaRadio';
 import {setData, clearValue} from '../../../actions/editor'
 import constants from '../../../constants'
+import {mockUserEvents} from '__mocks__/mockData';
 
 const testMessages = mapValues(fiMessages, (value, key) => value);
 
 const intlProvider = new IntlProvider({locale: 'fi', messages: testMessages}, {});
 const {intl} = intlProvider.getChildContext();
 const dispatch = jest.fn()
+const mockEvent = mockUserEvents[0];
 
 const store = {
     getState: () => (
@@ -72,48 +74,41 @@ describe('UmbrellaSelector', () => {
                     const wrapper = getWrapper()
                     const instance = wrapper.instance();
                     wrapper.setState({hasUmbrellaEvent: true})
-                    const Aselect = wrapper.find(AsyncSelect)
-                    expect(Aselect).toHaveLength(1)
-                    expect(Aselect.prop('isClearable')).toBe(true)
-                    expect(Aselect.prop('loadOptions')).toBe(instance.getOptions)
-                    expect(Aselect.prop('placeholder')).toBe(intl.formatMessage({id: 'select'}))
-                    expect(Aselect.prop('onFocus')).toBe(instance.hideSelectTip)
-                    expect(Aselect.prop('onChange')).toBe(instance.handleChange)
-                    expect(Aselect.prop('filterOption')).toBeDefined()
-                    expect(Aselect.prop('styles')).toBe(HelSelectStyles)
-                    expect(Aselect.prop('theme')).toBe(HelSelectTheme)
-                    expect(Aselect.prop('loadingMessage')).toBeDefined()
-                    expect(Aselect.prop('noOptionsMessage')).toBeDefined()
+                    const component = wrapper.find(AsyncSelect)
+                    expect(component).toHaveLength(1)
+                    expect(component.prop('isClearable')).toBe(true)
+                    expect(component.prop('loadOptions')).toBe(instance.getOptions)
+                    expect(component.prop('placeholder')).toBe(intl.formatMessage({id: 'select'}))
+                    expect(component.prop('onFocus')).toBe(instance.hideSelectTip)
+                    expect(component.prop('onChange')).toBe(instance.handleChange)
+                    expect(component.prop('filterOption')).toBeDefined()
+                    expect(component.prop('styles')).toBe(HelSelectStyles)
+                    expect(component.prop('theme')).toBe(HelSelectTheme)
+                    expect(component.prop('loadingMessage')).toBeDefined()
+                    expect(component.prop('noOptionsMessage')).toBeDefined()
                 })
             })
-            /*
-            describe('FormattedMessages', () => {
-                test('correct amount', () => {
-                    const wrapper = getWrapper()
-                    wrapper.setState({showSelectTip: true, editedEventIsSubEvent: true, superEventSuperEventType: constants.SUPER_EVENT_TYPE_RECURRING})
-                    wrapper.setProps(defaultProps.editor.values.super_event = 'random id')
-                    const formatted = wrapper.find(FormattedMessage)
-                    expect(formatted).toHaveLength(5)
-                })
-            })
-             */
         })
     })
     describe('methods', () => {
-        describe('handleUpdate', () => {
-            test('', () => {
-
-            })
-        })
-
         describe('handleChange', () => {
-            test('', () => {
+            let wrapper;
 
-            })
-        })
-        describe('getDisabledState', () => {
-            test('', () => {
+            beforeEach(() => {
+                wrapper = getWrapper();
+                dispatch.mockClear()
+            });
 
+            const event = (string) => ({target: {value: string}});
+            test('correct selected event', () => {
+                const data = {super_event: {'@id': mockEvent.value}, sub_event_type: constants.SUB_EVENT_TYPE_UMBRELLA}
+                wrapper.instance().handleCheck(event('has_umbrella'));
+                expect(wrapper.state('hasUmbrellaEvent')).toBe(true);
+                wrapper.instance().handleChange(data)
+                expect(wrapper.state('selectedUmbrellaEvent')).toEqual(data);
+                expect(dispatch.mock.calls.length).toBe(2);
+                expect(dispatch.mock.calls[1][0]).toEqual(setData(data));
+                expect(dispatch.mock.calls[0][0]).toEqual(clearValue(['super_event_type']));
             })
         })
         describe('handleCheck', () => {
@@ -125,30 +120,44 @@ describe('UmbrellaSelector', () => {
             });
 
             const event = (string) => ({target: {value: string}});
-            test('states', () => {
+            test('is_umbrella', () => {
                 const expectedData = {super_event_type: 'umbrella'}
-                const expectedClear = 'super_event_type'
+                const expectedClear = ['super_event','sub_event_type']
+
                 expect(wrapper.state('isUmbrellaEvent')).toBe(false);
                 wrapper.instance().handleCheck(event('is_umbrella'));
                 expect(wrapper.state('isUmbrellaEvent')).toBe(true);
                 expect(dispatch.mock.calls.length).toBe(2);
                 expect(dispatch.mock.calls[0][0]).toEqual(setData(expectedData));
+                expect(dispatch.mock.calls[1][0]).toEqual(clearValue(expectedClear));
+            })
+            test('has_umbrella', () => {
+                const expectedClear = ['super_event_type']
 
+                expect(wrapper.state('hasUmbrellaEvent')).toBe(false);
                 wrapper.instance().handleCheck(event('has_umbrella'));
-                expect(wrapper.state('isUmbrellaEvent')).toBe(false);
                 expect(wrapper.state('hasUmbrellaEvent')).toBe(true);
-                expect(dispatch.mock.calls.length).toBe(3);
+                expect(dispatch.mock.calls.length).toBe(1);
                 expect(dispatch.mock.calls[0][0]).toEqual(clearValue(expectedClear));
             })
-            test('hasUmbrellaEvent', () => {
-                const expectedValue = ['super_event', 'sub_event_type']
-                wrapper.instance().handleCheck(event('has_umbrella'));
+            test('is_independent', () => {
+                const expectedValue = ['super_event', 'sub_event_type', 'super_event_type']
+                wrapper.instance().handleCheck(event('is_independent'));
+                expect(dispatch.mock.calls.length).toBe(1);
+                expect(dispatch.mock.calls[0][0]).toEqual(clearValue(expectedValue));
+            })
+            test('is_independent sets other states false', () => {
+                wrapper.instance().setState({hasUmbrellaEvent: true})
                 expect(wrapper.state('hasUmbrellaEvent')).toBe(true);
                 wrapper.instance().handleCheck(event('is_independent'));
                 expect(wrapper.state('hasUmbrellaEvent')).toBe(false);
-                expect(dispatch.mock.calls.length).toBe(3);
-                expect(dispatch.mock.calls[0][0]).toEqual(clearValue(expectedValue));
+
+                wrapper.instance().setState({isUmbrellaEvent: true})
+                expect(wrapper.state('isUmbrellaEvent')).toBe(true);
+                wrapper.instance().handleCheck(event('is_independent'));
+                expect(wrapper.state('isUmbrellaEvent')).toBe(false);
             })
         })
     })
 })
+

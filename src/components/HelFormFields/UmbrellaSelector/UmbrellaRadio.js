@@ -8,7 +8,6 @@ import {FormattedMessage} from 'react-intl';
 
 const UmbrellaRadio = props => {
     const {intl, name, checked, disabled, handleCheck, value, messageID} = props
-    const tooltipTitle = intl.formatMessage({id: `event-${value.replace('_', '-')}-tooltip`})
 
     return (
         <Fragment>
@@ -25,12 +24,6 @@ const UmbrellaRadio = props => {
                 />
                 <label htmlFor={`${value}_label`} className='custom-control-label'>
                     <FormattedMessage id={messageID}/>
-                    {/*
-                    {disabled &&
-                    <small style={{marginLeft: '5px'}} target={`${value}_label`}>
-                        {tooltipTitle}
-                    </small>
-                    } */}
                 </label>
             </div>
         </Fragment>

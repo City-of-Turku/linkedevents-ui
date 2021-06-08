@@ -241,8 +241,8 @@
 
     "event-is-independent": "Enskilt evenemang",
     "event-umbrella": "Paraplyevenemang",
-    "event-is-umbrella": "Paraplyevenemang.",
-    "event-has-umbrella": "Del av ett paraplyevenemang.",
+    "event-is-umbrella": "Paraplyevenemang",
+    "event-has-umbrella": "Del av ett paraplyevenemang",
     "event-is-independent-tooltip": "Ett enskilt evenemang kan höra till ett paraplyevenemang",
     "event-is-umbrella-tooltip": "Ett evenemang under paraplyevenemanget kan inte vara ett paraplyevenemang.",
     "event-has-umbrella-tooltip": "Ett paraplyevenemang kan inte ha ett paraplyevenemang",
