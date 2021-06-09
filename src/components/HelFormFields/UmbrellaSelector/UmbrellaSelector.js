@@ -150,7 +150,6 @@ class UmbrellaSelector extends React.Component {
         }
         else if (value === 'has_umbrella') {
             states = {hasUmbrellaEvent: true, isUmbrellaEvent: false};
-            values.push('super_event_type')
         }
         else if (value === 'is_independent') {
             states = {isUmbrellaEvent: false, hasUmbrellaEvent: false, selectedUmbrellaEvent: {}};
