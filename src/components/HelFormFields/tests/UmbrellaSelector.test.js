@@ -137,10 +137,14 @@ describe('UmbrellaSelector', () => {
                 expect(wrapper.state('hasUmbrellaEvent')).toBe(true);
             })
             test('is_independent', () => {
-                const expectedValue = ['super_event', 'sub_event_type', 'super_event_type']
+                const data = {super_event_type: 'umbrella'}
+                const expectedValue = ['super_event', 'sub_event_type']
+                wrapper.instance().handleCheck(event('is_umbrella'));
+                expect(dispatch.mock.calls[0][0]).toEqual(setData(data));
+
                 wrapper.instance().handleCheck(event('is_independent'));
-                expect(dispatch.mock.calls.length).toBe(1);
-                expect(dispatch.mock.calls[0][0]).toEqual(clearValue(expectedValue));
+                expect(dispatch.mock.calls[1][0]).toEqual(clearValue(expectedValue));
+                expect(dispatch.mock.calls.length).toBe(3);
             })
             test('is_independent sets other states false', () => {
                 wrapper.instance().setState({hasUmbrellaEvent: true})

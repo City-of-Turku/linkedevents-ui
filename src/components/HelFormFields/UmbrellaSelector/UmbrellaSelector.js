@@ -135,28 +135,49 @@ class UmbrellaSelector extends React.Component {
             this.setState(stateToSet)
         }
     }
+
     /**
      * Handles radio changes
+     * 'is_umbrella'
+     * if value === 'is_umbrella', set state.isUmbrellaEvent: true, state.hasUmbrellaEvent: false and set empty obj to state.selectedUmbrellaEvent.
+     * finally dispatch setData(super_event_type: 'umbrella') and clearValue( 'super_event','sub_event_type')
+     *
+     * 'has_umbrella'
+     * if value === 'has_umbrella', set state.hasUmbrellaEvent: true, state.isUmbrellaEvent: false
+     * if event.super_event_type !== 'recurring', dispatch clearValue('sub_event_type')
+     *
+     * 'is_independent'
+     * if value === 'is_independent', set state.isUmbrellaEvent & state.hasUmbrellaEvent: false and set empty obj to state.selectedUmbrellaEvent
+     * if event.super_event_type !== 'recurring', dispatch clearValue('super_event', 'sub_event_type')
+     * else dispatch clearValue('super_event_type')
      * @param event Event
      */
     handleCheck = event => {
         const {value} = event.target
+        const {editor: {values}} = this.props
         let states = {}
-        let values = []
+        let clearValues = []
         if (value === 'is_umbrella') {
             states = {isUmbrellaEvent: true, hasUmbrellaEvent: false, selectedUmbrellaEvent: {}};
             this.context.dispatch(setData({super_event_type: 'umbrella'}))
-            values.push('super_event','sub_event_type')
+            clearValues.push('super_event','sub_event_type')
         }
         else if (value === 'has_umbrella') {
             states = {hasUmbrellaEvent: true, isUmbrellaEvent: false};
+            if (values.super_event_type !== 'recurring') {
+                clearValues.push('super_event_type')
+            }
         }
         else if (value === 'is_independent') {
             states = {isUmbrellaEvent: false, hasUmbrellaEvent: false, selectedUmbrellaEvent: {}};
-            values.push('super_event', 'sub_event_type', 'super_event_type')
+            if (values.super_event_type !== 'recurring') {
+                clearValues.push('super_event_type')
+            } else {
+                clearValues.push('super_event', 'sub_event_type')
+            }
         }
         this.setState(states);
-        this.context.dispatch(clearValue(values))
+        this.context.dispatch(clearValue(clearValues))
     }
     
     /**
@@ -205,7 +226,6 @@ class UmbrellaSelector extends React.Component {
                 ? false
                 : (isUmbrellaEvent
                     || (editedEventIsAnUmbrellaEvent && editedEventHasSubEvents && !isNull(values.super_event))
-                    || editedEventIsARecurringEvent
                     || (editedEventIsSubEvent && !isNull(values.super_event)))
         }
         if (value === 'is_umbrella') {
