@@ -31,6 +31,7 @@ const store = {
 };
 
 const defaultProps = {
+    event: {},
     editor: {
         values: {
             sub_events: {},

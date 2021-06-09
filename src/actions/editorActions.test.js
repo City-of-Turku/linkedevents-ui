@@ -9,7 +9,8 @@ import {
     clearValue,
     setFreeOffers,
     setLanguages,
-    deleteOffer} from './editor';
+    deleteOffer,
+    clearData} from './editor';
 import constants from '../constants.js'
 import {mockUserEvents, mockLanguages} from '__mocks__/mockData';
 const mockEvent = mockUserEvents[0];
@@ -23,7 +24,8 @@ const {
     EDITOR_CLEAR_VALUE,
     EDITOR_SET_FREE_OFFERS,
     EDITOR_SETLANGUAGES,
-    EDITOR_DELETE_OFFER} = constants
+    EDITOR_DELETE_OFFER,
+    EDITOR_CLEARDATA} = constants
 
 describe('actions/editor', () => {
     describe('setData', () => {
@@ -101,6 +103,12 @@ describe('actions/editor', () => {
         test('return object with correct type & languages', () => {
             const expectedResult  = {type: EDITOR_SETLANGUAGES, languages: mockLanguages}
             expect(setLanguages(mockLanguages)).toEqual(expectedResult);
+        });
+    });
+    describe('clearData', () => {
+        test('clears all data', () => {
+            const expectedResult  = {type: EDITOR_CLEARDATA}
+            expect(clearData(mockEvent)).toEqual(expectedResult);
         });
     });
 });

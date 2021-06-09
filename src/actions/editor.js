@@ -155,7 +155,7 @@ export function replaceData(formData, recurring = false) {
 export const clearData = () =>  ({type: constants.EDITOR_CLEARDATA})
 
 /**
- * Set validation errors for editor (shown with validation popovers)
+ * Set validation errors for editor (shown with validation notifications)
  * @param {obj} errors
  */
 export function setValidationErrors(errors) {

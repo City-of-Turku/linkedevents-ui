@@ -19,7 +19,7 @@ const defaultProps = {
 }
 
 
-describe('UmbrellaSelector', () => {
+describe('UmbrellaRadio', () => {
     function getWrapper(props) {
         return shallow(<UmbrellaRadio {...defaultProps} {...props} />, {context: {intl}});
     }
