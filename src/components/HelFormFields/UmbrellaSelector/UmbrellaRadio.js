@@ -5,7 +5,7 @@ import {FormattedMessage} from 'react-intl';
 
 
 const UmbrellaRadio = props => {
-    const {intl, name, checked, disabled, handleCheck, value, messageID} = props
+    const {checked, disabled, handleCheck, value, messageID} = props
 
     return (
         <Fragment>
