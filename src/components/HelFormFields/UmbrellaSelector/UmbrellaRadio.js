@@ -30,8 +30,6 @@ const UmbrellaRadio = props => {
 
 
 UmbrellaRadio.propTypes = {
-    intl: PropTypes.object,
-    name: PropTypes.string,
     checked: PropTypes.bool,
     disabled: PropTypes.bool,
     handleCheck: PropTypes.func,

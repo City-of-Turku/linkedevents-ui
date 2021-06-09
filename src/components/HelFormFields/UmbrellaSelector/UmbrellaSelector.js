@@ -245,7 +245,6 @@ class UmbrellaSelector extends React.Component {
                     <div className='custom-control-radio'>
                         <UmbrellaRadio
                             aria-label={this.context.intl.formatMessage({id: `event-is-independent`})}
-                            intl={this.context.intl}
                             value="is_independent"
                             checked={!isUmbrellaEvent && !hasUmbrellaEvent}
                             handleCheck={this.handleCheck}
@@ -256,7 +255,6 @@ class UmbrellaSelector extends React.Component {
                         </UmbrellaRadio>
                         <UmbrellaRadio
                             aria-label={this.context.intl.formatMessage({id: `event-is-umbrella`})}
-                            intl={this.context.intl}
                             value="is_umbrella"
                             checked={isUmbrellaEvent}
                             disabled={this.getDisabledState('is_umbrella', editedEventIsSubEvent)}
@@ -267,7 +265,6 @@ class UmbrellaSelector extends React.Component {
 
                         <UmbrellaRadio
                             aria-label={this.context.intl.formatMessage({id: `event-has-umbrella`})}
-                            intl={this.context.intl}
                             value="has_umbrella"
                             checked={hasUmbrellaEvent}
                             disabled={this.getDisabledState('has_umbrella', editedEventIsSubEvent)}

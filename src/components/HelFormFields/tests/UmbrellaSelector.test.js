@@ -60,7 +60,6 @@ describe('UmbrellaSelector', () => {
                     const elementStates = [!isUmbrellaEvent && !hasUmbrellaEvent, isUmbrellaEvent, hasUmbrellaEvent]
                     expect(radioElements).toHaveLength(3)
                     radioElements.forEach((radio, index) => {
-                        expect(radio.prop('intl')).toBe(intl);
                         expect(radio.prop('handleCheck')).toBe(instance.handleCheck);
                         expect(radio.prop('messageID')).toBe(elementIds[index]);
                         expect(radio.prop('value')).toBe(elementValues[index]);
