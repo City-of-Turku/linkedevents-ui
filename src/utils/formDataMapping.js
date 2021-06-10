@@ -320,10 +320,10 @@ export const createSubEventsFromFormValues = (formValues, updateExisting, superE
  * @return {Object[]}
  */
 export const updateSubEventsFromFormValues = (formValues, subEventsToUpdate) => {
-    const keysToUpdate = ['start_time', 'end_time', 'id', 'super_event', 'super_event_type', 'sub_event_type']
+    const keysToExclude = ['start_time', 'end_time', 'id', 'super_event', 'super_event_type', 'sub_event_type']
     // update form data with sub event data where applicable
     return subEventsToUpdate
         // don't update canceled, deleted or past subevents (when editing an ongoing series =)
         .filter(subEvent => eventIsEditable(subEvent)['editable'])
-        .map(subEvent => keysToUpdate.reduce((acc, key) => set(acc, key, subEvent[key]), {...formValues}))
+        .map(subEvent => keysToExclude.reduce((acc, key) => set(acc, key, subEvent[key]), {...formValues}))
 }
