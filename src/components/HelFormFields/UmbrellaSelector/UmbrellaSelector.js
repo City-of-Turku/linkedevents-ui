@@ -197,15 +197,20 @@ class UmbrellaSelector extends React.Component {
             }
         }
 
-        /**
+    /**
      * Returns the disabled state for the umbrella radios
+     *
+     * The 'is_independent' radio should be disabled when:
+     *  - The event being edited is an umbrella event with sub events
+     *  - The event being edited is an umbrella event
+     *  - The event being edited is an sub event of a super (recurring) event
      *
      * The 'is_umbrella' radio should be disabled when:
      *  - The event being edited is an umbrella event with sub events
      *  - The event being edited is a sub event of an umbrella event
      *  - The event being edited is a super (recurring) event
      *  - The event being edited is a sub event of a super (recurring) event
-     *  - When creating a new event and the form has more than one event date defined for it
+     *  - When creating a new event and the form has more than one event date(sub events) defined for it
      *
      * The 'has_umbrella' radio should be disabled when:
      *  - The event being edited is an umbrella event
@@ -216,7 +221,7 @@ class UmbrellaSelector extends React.Component {
      * @returns {boolean}           Whether the radio should be disabled
      */
     getDisabledState = (value, editedEventIsSubEvent) => {
-        const {isUmbrellaEvent, hasUmbrellaEvent, isCreateView, superEventSuperEventType} = this.state
+        const {isCreateView, superEventSuperEventType} = this.state
         const {event, editor: {values}} = this.props
         const editedEventIsAnUmbrellaEvent = get(event, 'super_event_type') === constants.SUPER_EVENT_TYPE_UMBRELLA
         const editedEventIsARecurringEvent = get(event, 'super_event_type') === constants.SUPER_EVENT_TYPE_RECURRING
@@ -224,23 +229,21 @@ class UmbrellaSelector extends React.Component {
         if (value === 'is_independent') {
             return isCreateView
                 ? false
-                : (isUmbrellaEvent
-                    || (editedEventIsAnUmbrellaEvent && editedEventHasSubEvents && !isNull(values.super_event))
+                : ((editedEventIsAnUmbrellaEvent && editedEventHasSubEvents && !isNull(values.super_event))
+                    || editedEventIsAnUmbrellaEvent
                     || (editedEventIsSubEvent && !isNull(values.super_event)))
         }
         if (value === 'is_umbrella') {
             return isCreateView
                 ? Object.keys(values.sub_events).length > 0
-                : (hasUmbrellaEvent
-                    || (editedEventIsAnUmbrellaEvent && editedEventHasSubEvents && !isNull(values.super_event))
+                : ((editedEventIsAnUmbrellaEvent && editedEventHasSubEvents && !isNull(values.super_event))
                     || editedEventIsARecurringEvent
                     || (editedEventIsSubEvent && !isNull(values.super_event)))
         }
         if (value === 'has_umbrella') {
             return isCreateView
                 ? false
-                : (isUmbrellaEvent
-                    || (editedEventIsAnUmbrellaEvent && !isNull(values.super_event_type))
+                : ((editedEventIsAnUmbrellaEvent && !isNull(values.super_event_type))
                     || superEventSuperEventType === constants.SUPER_EVENT_TYPE_RECURRING)
         }
     }
