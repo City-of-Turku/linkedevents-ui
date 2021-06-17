@@ -241,6 +241,7 @@ class HelVideoFields extends React.Component {
                                         onChange={(e, v) => this.handleChange(e, v, 'url', index)}
                                         onBlur={(e, v) => this.handleBlur(e, v, this.state.videos)}
                                         placeholder='https://...'
+                                        type='url'
                                     />
                                     <MultiLanguageField
                                         id='event-video-name'
@@ -253,6 +254,7 @@ class HelVideoFields extends React.Component {
                                         languages={this.props.languages}
                                         onChange={(e, v) => this.handleChange(e, v, 'name', index)}
                                         onBlur={(e, v) => this.handleBlur(e, v, this.state.videos)}
+                                        type='text'
                                     />
                                     <MultiLanguageField
                                         id='event-video-alt_text'
@@ -265,6 +267,7 @@ class HelVideoFields extends React.Component {
                                         languages={this.props.languages}
                                         onChange={(e, v) => this.handleChange(e, v, 'alt_text', index)}
                                         onBlur={(e, v) => this.handleBlur(e, v, this.state.videos)}
+                                        type='text'
                                     />
                                 </div>
                             </div>

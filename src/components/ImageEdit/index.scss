@@ -48,6 +48,22 @@
 						margin-bottom: 15px;
 					}
 					.file-upload--external {
+                        .inputIcons {
+                            border: 2px;
+                            background-color: var(--main-color);
+                            align-items: center;
+                            .glyphicon {
+                                font-size: 1.375rem;
+                                top: 0px;
+                                height: 38px;
+                                width: 38px;
+                                background-color: var(--main-color);
+                                background-repeat: round;
+                                margin: 0px !important;
+                                color: white;
+                                padding: 8px 8px 8px 8px !important;
+                            }
+                        }
 						#upload-external {
 							.image {
 								text-align: center;

@@ -167,11 +167,13 @@ class EventActionButton extends React.Component {
 
         const isRegularUser = get(user, 'userType') === USER_TYPE.REGULAR;
         const formHasSubEvents = get(editor, ['values', 'sub_events'], []).length > 0;
+        const validationErrors = get(editor, ['validationErrors'])
+        const validationDisable = Object.keys(validationErrors).length > 0
         const isDraft = get(event, 'publication_status') === PUBLICATION_STATUS.DRAFT;
         const isPostponed = get(event, 'event_status') === EVENT_STATUS.POSTPONED;
         const {editable, explanationId} = checkEventEditability(user, event, action, editor);
         const showTermsCheckbox = isRegularUser && this.isSaveButton(action) && !isDraft;
-        let disabled = !editable || loading || (showTermsCheckbox && !this.state.agreedToTerms);
+        let disabled = !editable || validationDisable || loading || (showTermsCheckbox && !this.state.agreedToTerms);
 
 
         const buttonLabel = customButtonLabel || getButtonLabel(action, isRegularUser,  isDraft, eventIsPublished, formHasSubEvents);

@@ -2,7 +2,7 @@ import './HelSelect.scss'
 
 import React, {useRef, useEffect} from 'react'
 import PropTypes from 'prop-types';
-import AsyncSelect from 'react-select/async'
+import AsyncSelect, {components} from 'react-select/async'
 import {setData as setDataAction} from '../../actions/editor'
 import {connect} from 'react-redux'
 import {get, isNil} from 'lodash'
@@ -205,10 +205,21 @@ const HelSelect = ({
     }
     const invalidStyles = (styles) => (
         {...styles,
-            borderColor: validationErrors ? '#ff3d3d' : styles.borderColor,
-            borderWidth: validationErrors ? '2px' : styles.borderWidth,
+            borderColor: validationErrors ? '#ff3d3d' : 'black',
+            borderWidth: validationErrors ? '2px' : '2px',
             '&:hover': {
-                borderColor: validationErrors ? '#ff3d3d' : styles['&:hover'].borderColor,
+                borderColor: validationErrors ? '#ff3d3d' : '#0062ae',
+            },
+            '&:active': {
+                borderColor: validationErrors ? '#ff3d3d' : '#0062ae',
+            },
+            '&:focus': {
+                borderColor: validationErrors ? '#ff3d3d' : '#0062ae',
+            },
+            '&::before': {
+                content: '"\\e003"', fontFamily: 'Glyphicons Halflings', height: '38px', width: '38px',
+                backgroundColor: validationErrors ? '#ff3d3d' : '#0062ae', color: 'white',
+                fontSize: '1.375rem', padding: '8px 8px 8px 8px', lineHeight: '1',
             },
         }
     )

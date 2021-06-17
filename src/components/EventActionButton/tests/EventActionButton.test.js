@@ -18,7 +18,9 @@ const {intl} = intlProvider.getChildContext();
 describe('EventActionButton', () => {
     const defaultProps = {
         intl,
-        editor: {},
+        editor: {
+            validationErrors: {},
+        },
         user: {},
         confirm: () => {},
         action: 'update',

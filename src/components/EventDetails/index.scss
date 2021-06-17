@@ -15,7 +15,7 @@ $default-margin-top: 1.5rem;
         margin-bottom: 16px;
         border-left: 2px solid $fi-color;
         padding-left: 1rem;
-
+        word-break: break-word;
         &.in-fi {
             border-color: $fi-color;
 

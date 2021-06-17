@@ -2,7 +2,7 @@ import './index.scss';
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-
+import classNames from 'classnames';
 import {FormattedMessage} from 'react-intl'
 
 
@@ -20,6 +20,7 @@ class Notifications extends React.Component {
         const {flashMsg, clearFlashMsg} = this.props
         let flashMsgSpan = ('')
         let isSticky =  flashMsg && flashMsg.sticky
+        let validations = false
 
         if(flashMsg && flashMsg.data.response && flashMsg.data.response.status == 400) {
             flashMsgSpan = _.values(_.omit(flashMsg.data, ['apiErrorMsg', 'response'])).join(' ')
@@ -27,6 +28,9 @@ class Notifications extends React.Component {
         }
         else if(flashMsg && flashMsg.msg && flashMsg.msg.length) {
             flashMsgSpan = (<FormattedMessage id={flashMsg.msg} />)
+            if (flashMsg.msg === 'validation-error') {
+                validations = true
+            }
         }
 
         let duration = isSticky ? null : 7000
@@ -45,7 +49,7 @@ class Notifications extends React.Component {
 
         let actionButton = null
         if (actionLabel && actionFn) {
-            actionButton = <Button key="snackActionButton" onClick={actionFn}>{actionLabel}</Button>
+            actionButton = <Button className={classNames({'errors' : validations})} key="snackActionButton" onClick={actionFn}>{actionLabel}</Button>
         }
 
         return (

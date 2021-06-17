@@ -92,7 +92,7 @@
 
     "event-picture-header": "Määritä kuva*",
     "event-description-fields-header": "Tapahtuman kuvaus",
-    "event-description-form-header": "Syötä kuvaukset",
+    "event-locationDate-form-header": "Syötä paikka ja aika*",
     "event-category-header": "Tapahtuman luokittelu ja kohderyhmät",
     "event-category-form-header": "Määritä luokat ja kohderyhmät*",
     "event-price-header": "Syötä hintatiedot",
@@ -100,7 +100,8 @@
 
     "event-add-newInfo": "Täytä tapahtuman tiedot",
     "event-headline": "Otsikko",
-    "event-name-shortdescription": "Syötä selkeä otsikko ja lyhyt kuvaus. Vältä lyhenteitä ja HUUTAMISTA.",
+    "event-name-descriptions": "Syötä selkeä otsikko ja kuvaukset.",
+    "event-name-descriptions-tip": "Vältä lyhenteitä ja HUUTAMISTA.",
     "event-short-description": "Lyhyt kuvaus eli ingressi",
     "event-description": "Kuvaus",
     "event-info-url": "Tapahtuman sivusto (URL)",
@@ -220,6 +221,7 @@
     "event-keywords-search": "Aloita kirjoittamaan asiasanaa",
     "event-keywords-delete": "Poista asiasana",
 
+    "event-umbrella-header": "Liittyykö tapahtumasi muihin tapahtumiin?",
     "event-umbrella": "Kattotapahtumat",
     "event-is-umbrella": "Kattotapahtuma",
     "event-has-umbrella": "Liittyy kattotapahtumaan",
@@ -401,6 +403,7 @@
     "event-validation-errors": "Tapahtumatiedoissa on puutteita. Muokkaa tapahtumaa ennen julkaisua.",
     "event-in-the-past": "Menneisyydessä olevia tapahtumia ei voi muokata.",
     "event-canceled": "Peruttuja tapahtumia ei voi muokata.",
+    "user-no-rights-copy": "Kirjaudu sisään kopioidaksesi tämä tapahtuma.",
     "user-no-rights-edit": "Sinulla ei ole oikeuksia muokata tätä tapahtumaa.",
     "user-no-rights-create": "Sinulla ei ole oikeuksia julkaista tapahtumia.",
     "return-without-saving": "Palaa tekemättä muutoksia",

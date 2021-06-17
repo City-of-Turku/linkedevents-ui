@@ -191,6 +191,9 @@ export const getButtonLabel = (
     if (action === 'return') {
         buttonLabel = 'return-without-saving'
     }
+    if (action === 'copy') {
+        buttonLabel = 'copy-event-to-draft'
+    }
     if (action === 'update') {
         buttonLabel = isRegularUser
             ? isDraft ? 'event-action-save-draft-existing' : 'event-action-save-draft-new'

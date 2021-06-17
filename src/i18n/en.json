@@ -91,7 +91,7 @@
     "no-value": "field is empty.",
 
     "event-picture-header": "Set image*",
-    "event-description-form-header": "Enter descriptions",
+    "event-locationDate-form-header": "Write place and time*",
     "event-description-fields-header": "Event description",
     "event-headline": "Title",
     "event-short-description": "Short description, lead",
@@ -221,6 +221,7 @@
     "event-keywords-delete": "Delete keyword",
 
     "event-is-independent": "Independent event",
+    "event-umbrella-header": "Is your event related to other events?",
     "event-umbrella": "Umbrella events",
     "event-is-umbrella": "Umbrella event",
     "event-has-umbrella": "Part of a umbrella event",
@@ -402,6 +403,7 @@
     "event-validation-errors": "Event data incomplete. Edit the event before publishing.",
     "event-in-the-past": "Past events can't be edited.",
     "event-canceled": "Cancelled events can't be edited.",
+    "user-no-rights-copy": "Login to copy this event.",
     "user-no-rights-edit": "You have insufficient rights to edit this event.",
     "user-no-rights-create": "You have insufficient rights to create events.",
     "return-without-saving": "Return without changes",
@@ -496,7 +498,8 @@
     "footer-link": "https://www.hel.fi",
 
     "event-add-newInfo": "Fill in event details",
-    "event-name-shortdescription": "Write a clear title and short description. Avoid abbreviations and SHOUTING.",
+    "event-name-descriptions": "Write a clear title and clear descriptions.",
+    "event-name-descriptions-tip": "Avoid abbreviations and SHOUTING.",
 
     "event-required-help": "Required fields instructions",
     "event-location-fields-header-help": "Instructions for location field",

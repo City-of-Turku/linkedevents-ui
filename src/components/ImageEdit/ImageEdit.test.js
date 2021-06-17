@@ -428,28 +428,31 @@ describe('ImageEdit', () => {
             test('three Input components with correct parameters', () => {
                 const wrapper = getWrapper();
                 const elements = wrapper.find('input');
-                expect(elements).toHaveLength(6);
+                expect(elements).toHaveLength(5);
                 expect(elements.at(0).prop('type')).toBe('file');
-                expect(elements.at(1).prop('type')).toBe('url');
+                expect(elements.at(1).prop('type')).toBe('checkbox');
                 expect(elements.at(2).prop('type')).toBe('checkbox');
-                expect(elements.at(3).prop('type')).toBe('checkbox');
+                expect(elements.at(3).prop('type')).toBe('radio');
                 expect(elements.at(4).prop('type')).toBe('radio');
-                expect(elements.at(5).prop('type')).toBe('radio');
                 expect(elements.at(0).prop('name')).toBe('file_upload');
-                expect(elements.at(1).prop('name')).toBe('externalUrl');
-                expect(elements.at(2).prop('name')).toBe('decoration');
-                expect(elements.at(3).prop('name')).toBe('permission');
+                expect(elements.at(1).prop('name')).toBe('decoration');
+                expect(elements.at(2).prop('name')).toBe('permission');
+                expect(elements.at(3).prop('name')).toBe('license_type');
                 expect(elements.at(4).prop('name')).toBe('license_type');
-                expect(elements.at(5).prop('name')).toBe('license_type');
-                expect(elements.at(4).prop('value')).toBe('event_only');
-                expect(elements.at(5).prop('value')).toBe('cc_by');
+                expect(elements.at(4).prop('value')).toBe('cc_by');
             });
-            test('two input components for uploading file via url or hard disk', () => {
+            test('one input component for uploading file via hard disk', () => {
                 const wrapper = getWrapper();
                 const elements = wrapper.find('input');
-                expect(elements).toHaveLength(6);
+                expect(elements).toHaveLength(5);
                 expect(elements.at(0).prop('type')).toBe('file');
-                expect(elements.at(1).prop('name')).toBe('externalUrl');
+            })
+            test('one Input component for uploading file via url', () => {
+                const wrapper = getWrapper();
+                const element = wrapper.find(Input);
+                expect(element).toHaveLength(1);
+                expect(element.prop('type')).toBe('url')
+                expect(element.prop('name')).toBe('externalUrl')
             })
         })
 

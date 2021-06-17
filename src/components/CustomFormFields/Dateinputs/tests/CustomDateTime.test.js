@@ -248,12 +248,25 @@ describe('renders', () => {
                 expect(element.prop('className')).toBe('validation-dateTime')
             })
         })
-        test('find extra div with className validation-notification', () => {
-            const wrapper = getWrapper()
+        test('find 2 divs with className validation-notification when values are incorrect format', () => {
+            const wrapper = getWrapper({validationErrors: [VALIDATION_RULES.REQUIRED]})
             const instance = wrapper.instance();
-            instance.setState({showValidationError: true, validationErrorText: 'test-error-msg'})
+            const timeInputValue = '01.0'
+            const dateInputValue = '02.01'
+            instance.setState({timeInputValue})
+            instance.setState({dateInputValue})
             const extraDiv = wrapper.find('.validation-notification')
             expect(extraDiv).toHaveLength(2)
+        })
+        test('no divs with className validation-notification when values are in correct format', () => {
+            const wrapper = getWrapper({validationErrors: [VALIDATION_RULES.REQUIRED]})
+            const instance = wrapper.instance();
+            const timeInputValue = '01.00'
+            const dateInputValue = '02.01.2010'
+            instance.setState({timeInputValue})
+            instance.setState({dateInputValue})
+            const extraDiv = wrapper.find('.validation-notification')
+            expect(extraDiv).toHaveLength(0)
         })
     })
 })

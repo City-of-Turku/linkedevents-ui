@@ -6,7 +6,7 @@ import {connect} from 'react-redux';
 import {HelTextField, MultiLanguageField} from '../HelFormFields';
 import {postImage as postImageAction} from 'src/actions/userImages';
 import constants from 'src/constants';
-import {Button, Modal, ModalHeader, ModalBody} from 'reactstrap';
+import {Button, Modal, ModalHeader, ModalBody, Input, InputGroupAddon, InputGroup} from 'reactstrap';
 import update from 'immutability-helper';
 import {getStringWithLocale} from 'src/utils/locale';
 import validationFn from 'src/validation/validationRules'
@@ -312,6 +312,7 @@ class ImageEdit extends React.Component {
                         maxLength={this.state.validation.altTextMaxLength}
                         onChange={this.handleChange}
                         onBlur={this.handleChange}
+                        type='text'
                     />
                 }
                 <MultiLanguageField
@@ -324,6 +325,7 @@ class ImageEdit extends React.Component {
                     languages={this.props.editor.contentLanguages}
                     onChange={this.handleChange}
                     onBlur={this.handleChange}
+                    type='text'
                 />
 
                 <HelTextField
@@ -335,6 +337,7 @@ class ImageEdit extends React.Component {
                     validations={[VALIDATION_RULES.SHORT_STRING]}
                     maxLength={this.state.validation.photographerMaxLength}
                     onChange={this.handleChange}
+                    type='text'
                 />
             </React.Fragment>
         )
@@ -467,13 +470,18 @@ class ImageEdit extends React.Component {
                                             <form onSubmit={this.handleExternalImageSave} id='upload-external'>
                                                 <label className='image-url'>
                                                     <FormattedMessage id='upload-image-from-url' />
-                                                    <input
-                                                        className='file-upload--external-input'
-                                                        onChange={this.handleExternalImage}
-                                                        name='externalUrl'
-                                                        onBlur={this.handleInputBlur}
-                                                        type='url'
-                                                    />
+                                                    <InputGroup>
+                                                        <InputGroupAddon className='inputIcons' addonType="prepend">
+                                                            <span aria-hidden className="glyphicon glyphicon-link"/>
+                                                        </InputGroupAddon>
+                                                        <Input
+                                                            className='file-upload--external-input'
+                                                            onChange={this.handleExternalImage}
+                                                            name='externalUrl'
+                                                            onBlur={this.handleInputBlur}
+                                                            type='url'
+                                                        />
+                                                    </InputGroup>
                                                 </label>
                                                 {(this.state.fileSizeError || this.state.urlError) && (
                                                     <React.Fragment>

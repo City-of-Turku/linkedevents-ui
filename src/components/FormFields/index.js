@@ -82,7 +82,7 @@ class FormFields extends React.Component {
             headerCategories: false,
             headerInlanguage: false,
             headerCourses: false,
-            headerDescription: false,
+            headerLocationDate: false,
             headerImage: false,
             displayEvents: true,
         }
@@ -112,7 +112,7 @@ class FormFields extends React.Component {
             this.setState({openMapContainer: false});
         }
         if ((Object.keys(prevProps.editor.validationErrors).length === 0) && (Object.keys(this.props.editor.validationErrors).length > 0)) {
-            this.setState({headerPrices: true, headerSocials: true, headerCategories: true, headerInlanguage: true, headerDescription: true, headerImage: true});
+            this.setState({headerPrices: true, headerSocials: true, headerCategories: true, headerInlanguage: true, headerLocationDate: true, headerImage: true});
         }
         if (prevState.selectEventType === 'recurring' && Object.keys(this.props.editor.values.sub_events).length === 0) {
             this.toggleEventType({target: {value: 'single'}})
@@ -316,7 +316,8 @@ class FormFields extends React.Component {
                         />
                     </div>
                 </div>
-                <FormHeader messageID='event-name-shortdescription'/>
+                <FormHeader messageID='event-name-descriptions'/>
+                <FormHeader messageID='event-name-descriptions-tip' type='h4'/>
                 <div className="row event-row">
                     <div className="col-sm-6">
                         <MultiLanguageField
@@ -326,6 +327,7 @@ class FormFields extends React.Component {
                             label="event-headline"
                             ref='name'
                             name='name'
+                            type='text'
                             validationErrors={validationErrors['name']}
                             validations={[VALIDATION_RULES.SHORT_STRING]}
                             defaultValue={values['name']}
@@ -347,308 +349,159 @@ class FormFields extends React.Component {
                             forceApplyToStore
                             type='textarea'
                         />
-                    </div>
-                </div>
-                <FormHeader messageID='event-location-form-header'/>
-                <div className="row location-row">
-                    <SideField label={this.context.intl.formatMessage({id: 'event-location-fields-header-help'})}>
-                        <p><FormattedMessage id="editor-tip-location"/></p>
-                        <p><strong><FormattedMessage id="editor-tip-location-internet"/></strong></p>
-                        <p><FormattedMessage id="editor-tip-location-not-found"/></p>
-                    </SideField>
-                    <div className="col-sm-6 hel-select">
-                        <div>
-
-                            <HelCheckbox
-                                name='is_virtualevent'
-                                label={<FormattedMessage id='event-location-virtual'/>}
-                                fieldID='is_virtual'
-                                defaultChecked={values['is_virtualevent']}
-                            />
-
-                            <HelTextField
-                                validations={[VALIDATION_RULES.IS_URL]}
-                                id='event-location-virtual-url'
-                                ref="event-location-virtual-url"
-                                name="virtualevent_url"
-                                label={this.context.intl.formatMessage({id: 'event-location-virtual-url'})}
-                                validationErrors={validationErrors['virtualevent_url']}
-                                defaultValue={values['virtualevent_url']}
-                                setDirtyState={this.props.setDirtyState}
-                                forceApplyToStore
-                                type='text'
-                                required={values.is_virtualevent}
-                                disabled={!values.is_virtualevent}
-                            />
-                        </div>
-                        <HelSelect
-                            legend={this.context.intl.formatMessage({id: 'event-location'})}
-                            selectedValue={values['location']}
-                            ref="location"
-                            name="location"
-                            resource="place"
-                            validationErrors={validationErrors['location']}
-                            setDirtyState={this.props.setDirtyState}
-                            optionalWrapperAttributes={{className: 'location-select'}}
-                            currentLocale={currentLocale}
-                            required={!values.is_virtualevent}
-                        />
-                        <div className='map-button-container'>
-                            <Button
-                                title={position ? null : this.context.intl.formatMessage({id: 'event-location-button-tooltip'})}
-                                aria-pressed={this.state.openMapContainer}
-                                aria-disabled={!position}
-                                id='map-button'
-                                className={classNames('btn btn-link', {disabled: !position})}
-                                onClick={() => this.toggleMapContainer()}
-                            >
-                                <FormattedMessage id={'event-location-button'}>{txt => txt}</FormattedMessage>
-                                <span className={classNames(
-                                    'glyphicon',
-                                    {'glyphicon-triangle-bottom': this.state.openMapContainer},
-                                    {'glyphicon-triangle-top': !this.state.openMapContainer})}
-                                />
-                            </Button>
-                        </div>
-                        <div aria-expanded={this.state.openMapContainer} className={classNames('map-container', {open: this.state.openMapContainer})} ref={this.handleSetMapContainer}>
-                            {this.state.openMapContainer &&
-                                <EventMap position={position} mapContainer={this.state.mapContainer}/>
-                            }
-                        </div>
-
-                        <Form>
-                            <FormGroup className='place-id'>
-                                <label>{this.context.intl.formatMessage({id: 'event-location-id'})}
-                                    <span className="form-control" value={values['location'] && values['location'].id ? values['location'].id : ''}>
-                                        {values['location'] && values['location'].id ? values['location'].id : ''}
-                                    </span>
-                                </label>
-                            </FormGroup>
-
-                        </Form>
-
-
-                        <CopyToClipboard text={values['location'] ? values['location'].id : ''}>
-                            <button type='button' className="clipboard-copy-button btn btn-default" aria-label={this.context.intl.formatMessage({id: 'copy-location-to-clipboard'})}>
-                                <div hidden>.</div>
-                                <span className="glyphicon glyphicon-duplicate" aria-hidden="true">
-                                </span>
-                            </button>
-                        </CopyToClipboard>
                         <MultiLanguageField
-                            id='event-location-additional-info'
+                            id='event-description'
                             multiLine={true}
-                            label="event-location-additional-info"
-                            ref="location_extra_info"
-                            name="location_extra_info"
-                            validationErrors={validationErrors['location_extra_info']}
+                            label="event-description"
+                            ref="description"
+                            name="description"
+                            validationErrors={validationErrors['description']}
+                            defaultValue={this.trimmedDescription()}
+                            languages={this.props.editor.contentLanguages}
+                            validations={[VALIDATION_RULES.LONG_STRING]}
+                            setDirtyState={this.props.setDirtyState}
+                            type='textarea'
+                        />
+                        <OrganizationSelector
+                            formType={formType}
+                            options={publisherOptions}
+                            selectedOption={selectedPublisher}
+                            onChange={this.handleOrganizationChange}
+                        />
+                        <MultiLanguageField
+                            id='event-provider-input'
+                            required={false}
+                            multiLine={false}
+                            label="event-provider-input"
+                            ref="provider"
+                            name="provider"
+                            validationErrors={validationErrors['provider']}
+                            defaultValue={values['provider']}
                             validations={[VALIDATION_RULES.SHORT_STRING]}
-                            defaultValue={values['location_extra_info']}
                             languages={this.props.editor.contentLanguages}
                             setDirtyState={this.props.setDirtyState}
-                            type='text'
+                            type='textarea'
                         />
                     </div>
-
                 </div>
-                <FormHeader messageID='event-datetime-form-header'/>
-                <div className='row date-row'>
-                    <SideField label={this.context.intl.formatMessage({id: 'event-datetime-fields-header-help'})}>
-                        <p><FormattedMessage id="editor-tip-time-start"/></p>
-                        <p><FormattedMessage id="editor-tip-time-start-end"/></p>
-                        <p><FormattedMessage id="editor-tip-time-type"/></p>
-                        <p><FormattedMessage id="editor-tip-time-end"/></p>
-                    </SideField>
-                    <div className='col-sm-6'>
-                        <div className='row radio-row'>
-                            <div className='custom-control custom-radio'>
-                                <input
-                                    className='custom-control-input'
-                                    id='single'
-                                    name='radiogroup'
-                                    type='radio'
-                                    value='single'
-                                    onChange={this.toggleEventType}
-                                    checked={!this.state.selectEventType}
-                                    disabled={
-                                        formType === 'update' ||
-                                        formType === 'add' ||
-                                        isSuperEventDisable ||
-                                        isSuperEvent ||
-                                        subTimeDisable}
-                                />
-                                <label className='custom-control-label' htmlFor='single'>
-                                    <FormattedMessage id='event-type-single'/>
-                                </label>
-                            </div>
-                            <div className='custom-control custom-radio'>
-                                <input
-                                    className='custom-control-input'
-                                    id='recurring'
-                                    name='radiogroup'
-                                    type='radio'
-                                    value='recurring'
-                                    checked={this.state.selectEventType}
-                                    onChange={this.toggleEventType}
-                                    disabled={formType === 'update' ||
-                                    formType === 'add' ||
-                                    isSuperEventDisable ||
-                                    isSuperEvent ||
-                                    values.start_time !== undefined}
-                                />
-                                <label className='custom-control-label' htmlFor='recurring'>
-                                    <FormattedMessage id='event-type-recurring'/>
-                                </label>
-                            </div>
-                            { !['update', 'add'].includes(formType) && (subTimeDisable || values.start_time !== undefined) ?
-                                <div className='typetip'>
-                                    <FormattedMessage id="editor-tip-eventtype-disable"/>
-                                </div>
-                                : null
-                            }
-                        </div>
-                        <FormHeader messageID='event-datetime-form-header2' type='h4'/>
-                        {!this.state.selectEventType
-                            ?
-                            <div className='col-xs-12 col-sm-12'>
-                                <CustomDateTime
-                                    id="start_time"
-                                    name="start_time"
-                                    labelDate={<FormattedMessage  id="event-starting-datelabel" />}
-                                    labelTime={<FormattedMessage  id="event-starting-timelabel" />}
-                                    defaultValue={values['start_time']}
-                                    setDirtyState={this.props.setDirtyState}
-                                    maxDate={values['end_time'] ? moment(values['end_time']) : undefined}
-                                    required={true}
-                                    disabled={formType === 'update' && isSuperEvent}
-                                    validationErrors={validationErrors['start_time']}
-                                />
-                                <CustomDateTime
-                                    id="end_time"
-                                    disablePast
-                                    disabled={formType === 'update' && isSuperEvent}
-                                    validationErrors={validationErrors['end_time']}
-                                    defaultValue={values['end_time']}
-                                    name="end_time"
-                                    labelDate={<FormattedMessage  id="event-ending-datelabel" />}
-                                    labelTime={<FormattedMessage  id="event-ending-timelabel" />}
-                                    setDirtyState={this.props.setDirtyState}
-                                    minDate={values['start_time'] ? moment(values['start_time']) : undefined}
-                                    required={true}
-                                />
-                            </div>
-                            :
-                            <React.Fragment>
-                                <div className={'new-events ' + (this.state.showNewEvents ? 'show' : 'hidden')}>
-                                    <UncontrolledCollapse toggler='#events-list' defaultOpen>
-                                        { newEvents }
-                                    </UncontrolledCollapse>
-                                </div>
-                                <Button
-                                    block
-                                    className='btn'
-                                    id='events-list'
-                                    onClick={() => this.showEventList()}>
-                                    {this.state.displayEvents
-                                        ? <FormattedMessage id='event-list-hide'/>
-                                        : <FormattedMessage id='event-list-show'/>
-                                    }
-                                </Button>
-                                {this.state.showRecurringEvent &&
-                                <RecurringEvent
-                                    toggle={() => this.showRecurringEventDialog()}
-                                    isOpen={this.state.showRecurringEvent}
-                                    validationErrors={validationErrors}
-                                    values={values}
-                                    formType={formType}
-                                />
-                                }
-                                <Button
-                                    size='lg'block
-                                    variant="contained"
-                                    disabled={formType === 'update' ||
-                                    formType === 'add' ||
-                                    isSuperEventDisable ||
-                                    newEvents.length >= maxSubEventCount
-                                    }
-                                    onClick={() => this.addNewEventDialog()}>
-
-                                    <span aria-hidden='true' className="glyphicon glyphicon-plus"/>
-                                    <FormattedMessage id="event-add-new-occasion">{txt =>txt}</FormattedMessage>
-                                </Button>
-
-                                <Button
-                                    size='lg' block
-                                    variant="contained"
-                                    disabled={formType === 'update' ||
-                                    formType === 'add' ||
-                                    isSuperEventDisable ||
-                                    newEvents.length >= maxSubEventCount
-                                    }
-                                    onClick={() => this.showRecurringEventDialog()}>
-
-                                    <span aria-hidden='true' className="glyphicon glyphicon-refresh"/>
-                                    <FormattedMessage id="event-add-recurring">{txt =>txt}</FormattedMessage>
-                                </Button>
-
-                            </React.Fragment>
-                        }
-
-                    </div>
-                </div>
-
                 <div>
                     <h2>
                         <CollapseButton
-                            id='headerDescription'
-                            isOpen={this.state.headerDescription}
-                            targetCollapseNameId='event-description-form-header'
+                            id='headerLocationDate'
+                            isOpen={this.state.headerLocationDate}
+                            targetCollapseNameId='event-locationDate-form-header'
                             toggleHeader={this.toggleHeader}
-                            validationErrorList={[validationErrors['description'], validationErrors['provider']]}
+                            validationErrorList={[
+                                validationErrors['start_time'],
+                                validationErrors['virtualevent_url'], validationErrors['end_time'],
+                                validationErrors['location'], validationErrors['location_extra_info'],
+                                validationErrors['sub_events']]}
                         />
                     </h2>
-                    <Collapse isOpen={this.state.headerDescription}>
-                        <FormHeader messageID='event-description-form-header'/>
-                        <div className="row longdescription-row">
-                            <div className="col-sm-6">
+                    <Collapse isOpen={this.state.headerLocationDate}>
+                        <FormHeader messageID='event-location-form-header'/>
+                        <div className="row location-row">
+                            <SideField label={this.context.intl.formatMessage({id: 'event-location-fields-header-help'})}>
+                                <p><FormattedMessage id="editor-tip-location"/></p>
+                                <p><strong><FormattedMessage id="editor-tip-location-internet"/></strong></p>
+                                <p><FormattedMessage id="editor-tip-location-not-found"/></p>
+                            </SideField>
+                            <div className="col-sm-6 hel-select">
+                                <div>
+
+                                    <HelCheckbox
+                                        name='is_virtualevent'
+                                        label={<FormattedMessage id='event-location-virtual'/>}
+                                        fieldID='is_virtual'
+                                        defaultChecked={values['is_virtualevent']}
+                                    />
+                                    <HelTextField
+                                        validations={[VALIDATION_RULES.IS_URL]}
+                                        id='event-location-virtual-url'
+                                        ref="event-location-virtual-url"
+                                        name="virtualevent_url"
+                                        label={this.context.intl.formatMessage({id: 'event-location-virtual-url'})}
+                                        validationErrors={validationErrors['virtualevent_url']}
+                                        defaultValue={values['virtualevent_url']}
+                                        setDirtyState={this.props.setDirtyState}
+                                        forceApplyToStore
+                                        type='url'
+                                        required={values.is_virtualevent}
+                                        disabled={!values.is_virtualevent}
+                                    />
+                                </div>
+                                <HelSelect
+                                    legend={this.context.intl.formatMessage({id: 'event-location'})}
+                                    selectedValue={values['location']}
+                                    ref="location"
+                                    name="location"
+                                    resource="place"
+                                    validationErrors={validationErrors['location']}
+                                    setDirtyState={this.props.setDirtyState}
+                                    optionalWrapperAttributes={{className: 'location-select'}}
+                                    currentLocale={currentLocale}
+                                    required={!values.is_virtualevent}
+                                />
+                                <div className='map-button-container'>
+                                    <Button
+                                        title={position ? null : this.context.intl.formatMessage({id: 'event-location-button-tooltip'})}
+                                        aria-pressed={this.state.openMapContainer}
+                                        aria-disabled={!position}
+                                        id='map-button'
+                                        className={classNames('btn btn-link', {disabled: !position})}
+                                        onClick={() => this.toggleMapContainer()}
+                                    >
+                                        <FormattedMessage id={'event-location-button'}>{txt => txt}</FormattedMessage>
+                                        <span className={classNames(
+                                            'glyphicon',
+                                            {'glyphicon-triangle-bottom': this.state.openMapContainer},
+                                            {'glyphicon-triangle-top': !this.state.openMapContainer})}
+                                        />
+                                    </Button>
+                                </div>
+                                <div aria-expanded={this.state.openMapContainer} className={classNames('map-container', {open: this.state.openMapContainer})} ref={this.handleSetMapContainer}>
+                                    {this.state.openMapContainer &&
+                                    <EventMap position={position} mapContainer={this.state.mapContainer}/>
+                                    }
+                                </div>
+
+                                <Form>
+                                    <FormGroup className='place-id'>
+                                        <label>{this.context.intl.formatMessage({id: 'event-location-id'})}
+                                            <span className="form-control" value={values['location'] && values['location'].id ? values['location'].id : ''}>
+                                                {values['location'] && values['location'].id ? values['location'].id : ''}
+                                            </span>
+                                        </label>
+                                    </FormGroup>
+
+                                </Form>
+
+
+                                <CopyToClipboard text={values['location'] ? values['location'].id : ''}>
+                                    <button type='button' className="clipboard-copy-button btn btn-default" aria-label={this.context.intl.formatMessage({id: 'copy-location-to-clipboard'})}>
+                                        <div hidden>.</div>
+                                        <span className="glyphicon glyphicon-duplicate" aria-hidden="true">
+                                        </span>
+                                    </button>
+                                </CopyToClipboard>
                                 <MultiLanguageField
-                                    id='event-description'
+                                    id='event-location-additional-info'
                                     multiLine={true}
-                                    label="event-description"
-                                    ref="description"
-                                    name="description"
-                                    validationErrors={validationErrors['description']}
-                                    defaultValue={this.trimmedDescription()}
+                                    label="event-location-additional-info"
+                                    ref="location_extra_info"
+                                    name="location_extra_info"
+                                    validationErrors={validationErrors['location_extra_info']}
+                                    validations={[VALIDATION_RULES.SHORT_STRING]}
+                                    defaultValue={values['location_extra_info']}
                                     languages={this.props.editor.contentLanguages}
-                                    validations={[VALIDATION_RULES.LONG_STRING]}
                                     setDirtyState={this.props.setDirtyState}
                                     type='textarea'
-                                />
-
-                                <MultiLanguageField
-                                    id='event-provider-input'
-                                    required={false}
-                                    multiLine={false}
-                                    label="event-provider-input"
-                                    ref="provider"
-                                    name="provider"
-                                    validationErrors={validationErrors['provider']}
-                                    defaultValue={values['provider']}
-                                    validations={[VALIDATION_RULES.SHORT_STRING]}
-                                    languages={this.props.editor.contentLanguages}
-                                    setDirtyState={this.props.setDirtyState}
-                                    type='text'
-                                />
-                                <OrganizationSelector
-                                    formType={formType}
-                                    options={publisherOptions}
-                                    selectedOption={selectedPublisher}
-                                    onChange={this.handleOrganizationChange}
                                 />
                             </div>
                         </div>
                         {formType === 'add' || !isRegularUser &&
                         <React.Fragment>
+                            <FormHeader messageID='event-umbrella-header'/>
                             <div className="row umbrella-row">
                                 <SideField label={this.context.intl.formatMessage({id: 'event-umbrella-help'})}>
                                     <p><FormattedMessage id="editor-tip-umbrella-selection"/></p>
@@ -660,7 +513,152 @@ class FormFields extends React.Component {
                             </div>
                         </React.Fragment>
                         }
+                        <FormHeader messageID='event-datetime-form-header'/>
+                        <div className='row date-row'>
+                            <SideField label={this.context.intl.formatMessage({id: 'event-datetime-fields-header-help'})}>
+                                <p><FormattedMessage id="editor-tip-time-start"/></p>
+                                <p><FormattedMessage id="editor-tip-time-start-end"/></p>
+                                <p><FormattedMessage id="editor-tip-time-type"/></p>
+                                <p><FormattedMessage id="editor-tip-time-end"/></p>
+                            </SideField>
+                            <div className='col-sm-6'>
+                                <div className='row radio-row'>
+                                    <div className='custom-control custom-radio'>
+                                        <input
+                                            className='custom-control-input'
+                                            id='single'
+                                            name='radiogroup'
+                                            type='radio'
+                                            value='single'
+                                            onChange={this.toggleEventType}
+                                            checked={!this.state.selectEventType}
+                                            disabled={
+                                                formType === 'update' ||
+                                                        formType === 'add' ||
+                                                        isSuperEventDisable ||
+                                                        isSuperEvent ||
+                                                        subTimeDisable}
+                                        />
+                                        <label className='custom-control-label' htmlFor='single'>
+                                            <FormattedMessage id='event-type-single'/>
+                                        </label>
+                                    </div>
+                                    <div className='custom-control custom-radio'>
+                                        <input
+                                            className='custom-control-input'
+                                            id='recurring'
+                                            name='radiogroup'
+                                            type='radio'
+                                            value='recurring'
+                                            checked={this.state.selectEventType}
+                                            onChange={this.toggleEventType}
+                                            disabled={formType === 'update' ||
+                                                    formType === 'add' ||
+                                                    isSuperEventDisable ||
+                                                    isSuperEvent ||
+                                                    values.start_time !== undefined}
+                                        />
+                                        <label className='custom-control-label' htmlFor='recurring'>
+                                            <FormattedMessage id='event-type-recurring'/>
+                                        </label>
+                                    </div>
+                                    { !['update', 'add'].includes(formType) && (subTimeDisable || values.start_time !== undefined) ?
+                                        <div className='typetip'>
+                                            <FormattedMessage id="editor-tip-eventtype-disable"/>
+                                        </div>
+                                        : null
+                                    }
+                                </div>
+                                <FormHeader messageID='event-datetime-form-header2' type='h4'/>
+                                {!this.state.selectEventType
+                                    ?
+                                    <div className='col-xs-12 col-sm-12'>
+                                        <CustomDateTime
+                                            id="start_time"
+                                            name="start_time"
+                                            labelDate={<FormattedMessage  id="event-starting-datelabel" />}
+                                            labelTime={<FormattedMessage  id="event-starting-timelabel" />}
+                                            defaultValue={values['start_time']}
+                                            setDirtyState={this.props.setDirtyState}
+                                            maxDate={values['end_time'] ? moment(values['end_time']) : undefined}
+                                            required={true}
+                                            disabled={formType === 'update' && isSuperEvent}
+                                            validationErrors={validationErrors['start_time']}
+                                        />
+                                        <CustomDateTime
+                                            id="end_time"
+                                            disablePast
+                                            disabled={formType === 'update' && isSuperEvent}
+                                            validationErrors={validationErrors['end_time']}
+                                            defaultValue={values['end_time']}
+                                            name="end_time"
+                                            labelDate={<FormattedMessage  id="event-ending-datelabel" />}
+                                            labelTime={<FormattedMessage  id="event-ending-timelabel" />}
+                                            setDirtyState={this.props.setDirtyState}
+                                            minDate={values['start_time'] ? moment(values['start_time']) : undefined}
+                                            required={true}
+                                        />
+                                    </div>
+                                    :
+                                    <React.Fragment>
+                                        <div className={'new-events ' + (this.state.showNewEvents ? 'show' : 'hidden')}>
+                                            <UncontrolledCollapse toggler='#events-list' defaultOpen>
+                                                { newEvents }
+                                            </UncontrolledCollapse>
+                                        </div>
+                                        <Button
+                                            block
+                                            className='btn'
+                                            id='events-list'
+                                            onClick={() => this.showEventList()}>
+                                            {this.state.displayEvents
+                                                ? <FormattedMessage id='event-list-hide'/>
+                                                : <FormattedMessage id='event-list-show'/>
+                                            }
+                                        </Button>
+                                        {this.state.showRecurringEvent &&
+                                                <RecurringEvent
+                                                    toggle={() => this.showRecurringEventDialog()}
+                                                    isOpen={this.state.showRecurringEvent}
+                                                    validationErrors={validationErrors}
+                                                    values={values}
+                                                    formType={formType}
+                                                />
+                                        }
+                                        <Button
+                                            size='lg'block
+                                            variant="contained"
+                                            disabled={formType === 'update' ||
+                                                    formType === 'add' ||
+                                                    isSuperEventDisable ||
+                                                    newEvents.length >= maxSubEventCount
+                                            }
+                                            onClick={() => this.addNewEventDialog()}>
+
+                                            <span aria-hidden='true' className="glyphicon glyphicon-plus"/>
+                                            <FormattedMessage id="event-add-new-occasion">{txt =>txt}</FormattedMessage>
+                                        </Button>
+
+                                        <Button
+                                            size='lg' block
+                                            variant="contained"
+                                            disabled={formType === 'update' ||
+                                                    formType === 'add' ||
+                                                    isSuperEventDisable ||
+                                                    newEvents.length >= maxSubEventCount
+                                            }
+                                            onClick={() => this.showRecurringEventDialog()}>
+
+                                            <span aria-hidden='true' className="glyphicon glyphicon-refresh"/>
+                                            <FormattedMessage id="event-add-recurring">{txt =>txt}</FormattedMessage>
+                                        </Button>
+
+                                    </React.Fragment>
+                                }
+                            </div>
+                        </div>
                     </Collapse>
+            
                 </div>
                 <div>
                     <h2>
@@ -767,7 +765,7 @@ class FormFields extends React.Component {
                                     validations={[VALIDATION_RULES.IS_URL]}
                                     setDirtyState={this.props.setDirtyState}
                                     forceApplyToStore
-                                    type='text'
+                                    type='url'
                                     placeholder='https://...'
                                 />
                                 <HelTextField
@@ -780,9 +778,10 @@ class FormFields extends React.Component {
                                     defaultValue={values['extlink_facebook']}
                                     setDirtyState={this.props.setDirtyState}
                                     forceApplyToStore
-                                    type='text'
+                                    type='url'
                                     placeholder='https://...'
                                 />
+                                <i className='facebookIcon' />
                                 <HelTextField
                                     validations={[VALIDATION_RULES.IS_URL]}
                                     id='extlink_twitter'
@@ -793,7 +792,7 @@ class FormFields extends React.Component {
                                     defaultValue={values['extlink_twitter']}
                                     setDirtyState={this.props.setDirtyState}
                                     forceApplyToStore
-                                    type='text'
+                                    type='url'
                                     placeholder='https://...'
                                 />
                                 <HelTextField
@@ -806,7 +805,7 @@ class FormFields extends React.Component {
                                     defaultValue={values['extlink_instagram']}
                                     setDirtyState={this.props.setDirtyState}
                                     forceApplyToStore
-                                    type='text'
+                                    type='url'
                                     placeholder='https://...'
                                 />
                             </div>

@@ -93,7 +93,7 @@ class NewOffer extends React.Component {
                         defaultValue={defaultValue.price} 
                         disabled={isFree} 
                         ref="price" 
-                        label="event-price" 
+                        label="event-price"
                         languages={languages} 
                         onBlur={e => this.onBlur(e)} 
                         validationErrors={this.props.validationErrors['price']} 
@@ -115,6 +115,7 @@ class NewOffer extends React.Component {
                         index={this.props.offerKey}
                         setInitialFocus={this.props.setInitialFocus}
                         placeholder={intl.formatMessage({id: 'price-info-placeholder'})}
+                        type='text'
                     />
 
                     <MultiLanguageField 
@@ -128,6 +129,7 @@ class NewOffer extends React.Component {
                         validationErrors={this.props.validationErrors['offer_info_url']}
                         index={this.props.offerKey}
                         placeholder='https://...'
+                        type='url'
                     />
                 </div>
                 <button
