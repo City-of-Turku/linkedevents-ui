@@ -440,7 +440,7 @@ exports[`Image add form ImagePicker component should render correctly with data 
       "use-external-image-url": "tai syötä ulkoisen kuvan osoite:",
       "user": "Käyttäjä, ",
       "user-events-toggle": "Näytä vain itse luomani tapahtumat",
-      "user-no-rights-copy": "Kirjaudu sisään kopioidaksesi tämä tapahtuma.",
+      "user-no-rights-copy": "Kirjaudu sisään kopioidaksesi tämä tapahtuma",
       "user-no-rights-create": "Sinulla ei ole oikeuksia julkaista tapahtumia.",
       "user-no-rights-edit": "Sinulla ei ole oikeuksia muokata tätä tapahtumaa.",
       "validate-form": "Tarkista puuttuvat tiedot",

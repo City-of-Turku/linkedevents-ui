@@ -200,7 +200,7 @@ class HelTextField extends Component {
             content.push(
                 wrapper (<span aria-hidden key={Math.random()} className='instaIcon'/>))
         }
-        if (type === 'text' || type === 'textarea') {
+        if (['text', 'textarea'].includes(type)) {
             content.push(
                 wrapper (<span aria-hidden key={Math.random()} className="glyphicon glyphicon-pencil"/>))
         }

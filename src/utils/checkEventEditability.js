@@ -139,9 +139,6 @@ export const checkEventEditability = (user, event, action, editor) => {
         if (userMayEdit && action === 'update') {
             return 'event-validation-errors'
         }
-        if ((!userMayEdit && action === 'copy')) {
-            return 'user-no-rights-copy'
-        }
         if (!userMayEdit || !userCanDoAction) {
             return 'user-no-rights-edit'
         }

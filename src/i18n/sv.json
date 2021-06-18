@@ -91,7 +91,7 @@
     "no-value": "-fältet har inte fyllts.",
 
     "event-category-form-header": "Definiera kategorier och målgrupper*",
-    "event-locationDate-form-header": "Skriv plats och tid*",
+    "event-locationDate-form-header": "Mata in tid och plats*",
     "event-description-fields-header": "Beskrivning av evenemanget",
     "event-add-newInfo": "Fyll i evenemangsinformationen",
     "event-name-descriptions": "Skriv en klar rubrik och klara beskrivningar.",
@@ -423,7 +423,7 @@
     "event-validation-errors": "Det finns brister i evenemangsuppgifterna. Redigera evenemanget före publiceringen.",
     "event-in-the-past": "Gångna evenemang kan inte redigeras.",
     "event-canceled": "Inställda evenemang kan inte redigeras.",
-    "user-no-rights-copy": "Logga in för att kopiera det här evenemanget.",
+    "user-no-rights-copy": "Logga in för att kopiera det här evenemanget",
     "user-no-rights-edit": "Du har inte rättigheter att redigera detta evenemang.",
     "user-no-rights-create": "Du har inte rättigheter att publicera evenemang.",
     "return-without-saving": "Återvänd utan att göra förändringar",

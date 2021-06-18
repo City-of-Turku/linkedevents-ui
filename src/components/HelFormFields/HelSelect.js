@@ -2,7 +2,7 @@ import './HelSelect.scss'
 
 import React, {useRef, useEffect} from 'react'
 import PropTypes from 'prop-types';
-import AsyncSelect, {components} from 'react-select/async'
+import AsyncSelect from 'react-select/async'
 import {setData as setDataAction} from '../../actions/editor'
 import {connect} from 'react-redux'
 import {get, isNil} from 'lodash'
@@ -206,7 +206,7 @@ const HelSelect = ({
     const invalidStyles = (styles) => (
         {...styles,
             borderColor: validationErrors ? '#ff3d3d' : 'black',
-            borderWidth: validationErrors ? '2px' : '2px',
+            borderWidth: '2px',
             '&:hover': {
                 borderColor: validationErrors ? '#ff3d3d' : '#0062ae',
             },

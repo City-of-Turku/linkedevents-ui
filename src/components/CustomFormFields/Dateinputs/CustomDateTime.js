@@ -145,8 +145,8 @@ class CustomDateTime extends React.Component {
         const inputErrorId = 'date-input-error__' + id
         const dateFieldId = `${id}-date-field`
         const timeFieldId = `${id}-time-field`
-        const invalidDate = moment(dateInputValue, 'D.M.YYYY', true).isValid()
-        const invalidTime = moment(timeInputValue, 'H.mm', true).isValid()
+        const validDate = moment(dateInputValue, 'D.M.YYYY', true).isValid()
+        const validTime = moment(timeInputValue, 'H.mm', true).isValid()
 
         return (
             <div>
@@ -188,7 +188,7 @@ class CustomDateTime extends React.Component {
                                     aria-required={required}
                                     innerRef={this.firstInput}
                                 />
-                                {validationErrors && !invalidDate &&
+                                {validationErrors && !validDate &&
                                 <div className='validation-notification'/>
                                 }
                             </div>
@@ -237,7 +237,7 @@ class CustomDateTime extends React.Component {
                                     disabled={disabled}
                                     aria-required={required}
                                 />
-                                {validationErrors && !invalidTime &&
+                                {validationErrors && !validTime &&
                                 <div className='validation-notification'/>
                                 }
                             </div>

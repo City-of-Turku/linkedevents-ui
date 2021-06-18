@@ -403,7 +403,7 @@
     "event-validation-errors": "Event data incomplete. Edit the event before publishing.",
     "event-in-the-past": "Past events can't be edited.",
     "event-canceled": "Cancelled events can't be edited.",
-    "user-no-rights-copy": "Login to copy this event.",
+    "user-no-rights-copy": "Login to copy this event",
     "user-no-rights-edit": "You have insufficient rights to edit this event.",
     "user-no-rights-create": "You have insufficient rights to create events.",
     "return-without-saving": "Return without changes",

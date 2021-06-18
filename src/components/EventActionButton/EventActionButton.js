@@ -167,7 +167,7 @@ class EventActionButton extends React.Component {
 
         const isRegularUser = get(user, 'userType') === USER_TYPE.REGULAR;
         const formHasSubEvents = get(editor, ['values', 'sub_events'], []).length > 0;
-        const validationErrors = get(editor, ['validationErrors'])
+        const validationErrors = get(editor, ['validationErrors'], {})
         const validationDisable = Object.keys(validationErrors).length > 0
         const isDraft = get(event, 'publication_status') === PUBLICATION_STATUS.DRAFT;
         const isPostponed = get(event, 'event_status') === EVENT_STATUS.POSTPONED;

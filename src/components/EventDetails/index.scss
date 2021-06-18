@@ -94,7 +94,9 @@ legend {
 
     .value {
         display: block;
-
+        @media screen and (max-width: 400px) {
+            word-break: break-all;
+        }
         span {
             &:first-child {
                 padding-right: 5px;

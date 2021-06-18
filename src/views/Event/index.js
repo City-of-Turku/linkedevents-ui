@@ -174,7 +174,6 @@ class EventPage extends React.Component {
         const postponeEventButton = this.getActionButton('postpone')
         const cancelEventButton = this.getActionButton('cancel')
         const deleteEventButton = this.getActionButton('delete')
-        const copyEventButton = this.getActionButton('copy', () => this.openEventInEditor('copy'), false)
 
         return <div className="event-actions">
             <div className="cancel-delete-btn">
@@ -186,7 +185,16 @@ class EventPage extends React.Component {
                 {isAdmin && isDraft && publishEventButton}
                 {editEventButton}
                 {isRecurring && addRecurringButton}
-                {copyEventButton}
+                <Button
+                    variant="contained"
+                    disabled={loading || !user}
+                    onClick={() => this.openEventInEditor('copy')}
+                >
+                    {user
+                        ? <FormattedMessage id="copy-event-to-draft">{txt =>txt}</FormattedMessage>
+                        : <FormattedMessage id='user-no-rights-copy'>{txt => txt}</FormattedMessage>
+                    }
+                </Button>
             </div>
         </div>
     }
