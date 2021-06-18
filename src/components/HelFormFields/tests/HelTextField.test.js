@@ -125,7 +125,7 @@ describe('HelTextField', () => {
                 instance.componentDidMount()
                 expect(inputRef.focus).toHaveBeenCalledTimes(1)
             })
-    
+
             test('doesnt set focus to inputRef if prop.setInitialFocus is not true', () => {
                 const wrapper = mount(<HelTextField {...defaultProps} setInitialFocus={false} />, {context: {intl}});
                 const instance = wrapper.instance()
@@ -135,7 +135,7 @@ describe('HelTextField', () => {
                 expect(inputRef.focus).toHaveBeenCalledTimes(0)
             })
         })
-        
+
 
         describe('UNSAFE_componentWillReceiveProps', () => {
             test('sets state.value when props.defaultValue changes', () => {
@@ -269,7 +269,7 @@ describe('HelTextField', () => {
 
             describe('if there are no validation errors, name exists and forceApplyToStore is true', () => {
                 const name = 'test-name'
-                
+
                 test('calls context.dispatch', () => {
                     const wrapper = getWrapper({forceApplyToStore: true, name})
                     const instance = wrapper.instance()
@@ -278,7 +278,7 @@ describe('HelTextField', () => {
                     expect(dispatch.mock.calls.length).toBe(1);
                     expect(dispatch.mock.calls[0][0]).toEqual(setData({[name]: expectedValue}));
                 })
-                
+
                 test('calls setDirtyState if props.setDirtyState is defined', () => {
                     const setDirtyState = jest.fn()
                     const wrapper = getWrapper({forceApplyToStore: true, name, setDirtyState})
@@ -395,5 +395,44 @@ describe('HelTextField', () => {
                 expect(input.prop('invalid')).toBe(false);
             })
         })
+        describe('getCorrectIcons', () => {
+            const wrapper = getWrapper();
+            test('returns correct icon depending on type', () => {
+                const types = ['text', 'textarea', 'url', 'number'];
+                const typeIcons = ['pencil', 'pencil', 'link', 'euro'];
+
+                types.forEach((type, index) => {
+                    const result = wrapper.instance().getCorrectIcons('placeholder',type);
+                    expect(result).toHaveLength(1);
+                    const element = shallow(result[0]);
+                    expect(element.prop('className')).toEqual(`glyphicon glyphicon-${typeIcons[index]}`);
+                });
+            });
+            test('returns correct icon for social media names', () => {
+                const names = ['extlink_facebook', 'extlink_twitter', 'extlink_instagram'];
+                const icons = ['facebookIcon', 'twitterIcon', 'instaIcon'];
+
+                names.forEach((name, index) => {
+                    const result = wrapper.instance().getCorrectIcons(name,'placeholder');
+                    expect(result).toHaveLength(1);
+                    const element = shallow(result[0]);
+                    expect(element.prop('className')).toEqual(`${icons[index]}`);
+                });
+            });
+
+            test('returns only social media icon if both name and type have icons', () => {
+                const names = ['extlink_facebook', 'extlink_twitter', 'extlink_instagram'];
+                const types = ['text', 'textarea', 'url', 'number'];
+                const icons = ['facebookIcon', 'twitterIcon', 'instaIcon'];
+
+                names.forEach((name, index) => {
+                    const result = wrapper.instance().getCorrectIcons(name,types[index]);
+                    expect(result).toHaveLength(1);
+                    const element = shallow(result[0]);
+                    expect(element.prop('className')).toEqual(`${icons[index]}`);
+                });
+
+            });
+        });
     })
 })
