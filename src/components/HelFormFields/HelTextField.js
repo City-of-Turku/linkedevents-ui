@@ -180,38 +180,32 @@ class HelTextField extends Component {
 
     /**
      * Push glyphicons into array based on name & type
-     * @param name string
-     * @param type string
-     * @returns {*[]} returns array of elements
+     * @param {string} name
+     * @param {string} type
+     * @returns {JSX.Element[]} returns array of elements
      */
     getCorrectIcons(name, type) {
-        const extlinks = ['extlink_facebook', 'extlink_twitter', 'extlink_instagram']
-        const content = []
-        const wrapper = (...content) => {return (content) }
-        if (name === 'extlink_facebook') {
-            content.push(
-                wrapper(<span aria-hidden key={Math.random()} className='facebookIcon'/>))
+        const extlinks = ['extlink_facebook', 'extlink_twitter', 'extlink_instagram'];
+        const icons = ['facebookIcon', 'twitterIcon', 'instaIcon'];
+        const types = ['text', 'textarea', 'url', 'number'];
+        const typeIcons = ['pencil', 'pencil', 'link', 'euro'];
+
+        let content = extlinks.reduce((acc, curr, index) => {
+            if (name === curr) {
+                acc.push(<span aria-hidden key={Math.random()} className={icons[index]} />);
+            }
+            return acc;
+        }, []);
+
+        if (content.length === 0) {
+            content = types.reduce((acc, curr, index) => {
+                if (type === curr) {
+                    acc.push(<span aria-hidden key={Math.random()} className={`glyphicon glyphicon-${typeIcons[index]}`} />);
+                }
+                return acc;
+            }, []);
         }
-        if (name === 'extlink_twitter') {
-            content.push(
-                wrapper (<span aria-hidden key={Math.random()} className='twitterIcon'/>))
-        }
-        if (name === 'extlink_instagram') {
-            content.push(
-                wrapper (<span aria-hidden key={Math.random()} className='instaIcon'/>))
-        }
-        if (['text', 'textarea'].includes(type)) {
-            content.push(
-                wrapper (<span aria-hidden key={Math.random()} className="glyphicon glyphicon-pencil"/>))
-        }
-        if (type === 'url' && !extlinks.includes(name)) {
-            content.push(
-                wrapper (<span aria-hidden key={Math.random()} className="glyphicon glyphicon-link"/>))
-        }
-        if (type === 'number') {
-            content.push(
-                wrapper (<span aria-hidden key={Math.random()} className="glyphicon glyphicon-euro"/>))
-        }
+
         return [...content]
     }
 
