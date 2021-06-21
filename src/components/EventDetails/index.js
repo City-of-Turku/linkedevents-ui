@@ -437,7 +437,7 @@ const EventDetails = (props) => {
             <OptionGroup values={rawData['audience']} labelKey="hel-target-groups" locale={intl.locale}/>
             <OptionGroup values={rawData['in_language']} labelKey="hel-event-languages" locale={intl.locale}/>
 
-            {appSettings.ui_mode === 'courses' &&
+            {values['type_id'] !== 1 &&
                 <React.Fragment>
                     <FormHeader>
                         {intl.formatMessage({id: 'audience-age-restrictions'})}

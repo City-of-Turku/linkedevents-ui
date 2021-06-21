@@ -49,13 +49,13 @@ class SearchPage extends React.Component {
         const {loading} = this.state
         const {intl} = this.context
         // Defined React Helmet title with intl
-        const pageTitle = `Linkedevents - ${intl.formatMessage({id: `search-${appSettings.ui_mode}`})}`
+        const pageTitle = `Linkedevents - ${intl.formatMessage({id: `search-events`})}`
 
         //Added P role=status for screenreaders and to display overall amount of found results
         return (
             <div className="container">
                 <Helmet title={pageTitle}/>
-                <h1><FormattedMessage id={`search-${appSettings.ui_mode}`}/></h1>
+                <h1><FormattedMessage id={`search-events`}/></h1>
                 <p><FormattedMessage id="search-events-description"/></p>
                 <p><FormattedMessage id='pick-time-range' /></p>
                 <SearchBar onFormSubmit={(query, start, end) => this.searchEvents(query, start, end)}/>

@@ -180,6 +180,6 @@ const mapStateToProps = (state) => ({
     locale: state.userLocale.locale,
 });
 
-const Help = appSettings.ui_mode === 'courses' ? CoursesHelp : connect(mapStateToProps)(View)
 
-export default Help
+
+export default connect(mapStateToProps)(View)

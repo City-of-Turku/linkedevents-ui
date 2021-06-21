@@ -399,7 +399,7 @@ describe('HelTextField', () => {
             const wrapper = getWrapper();
             test('returns correct icon depending on type', () => {
                 const types = ['text', 'textarea', 'url', 'number'];
-                const typeIcons = ['pencil', 'pencil', 'link', 'euro'];
+                const typeIcons = ['pencil', 'pencil', 'link', 'numberIcon'];
 
                 types.forEach((type, index) => {
                     const result = wrapper.instance().getCorrectIcons('placeholder',type);

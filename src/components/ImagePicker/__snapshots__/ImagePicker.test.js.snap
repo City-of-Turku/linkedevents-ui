@@ -222,6 +222,7 @@ exports[`Image add form ImagePicker component should render correctly with data 
       "event-sub-count": "Tapahtuma {count}",
       "event-subEvent-fields-header": "Tapahtumasarja",
       "event-type-recurring": "Sarjatapahtuma",
+      "event-type-select": "Valitse tapahtuman tyyppi",
       "event-type-single": "Yksittäinen tapahtuma",
       "event-umbrella": "Kattotapahtumat",
       "event-umbrella-header": "Liittyykö tapahtumasi muihin tapahtumiin?",

@@ -4,8 +4,8 @@ import React,{Fragment}  from 'react'
 import {FormattedMessage} from 'react-intl';
 
 
-const UmbrellaRadio = props => {
-    const {checked, disabled, handleCheck, value, messageID} = props
+const SelectorRadio = props => {
+    const {checked, disabled, handleCheck, value, messageID, name} = props
 
     return (
         <Fragment>
@@ -14,7 +14,7 @@ const UmbrellaRadio = props => {
                     id={`${value}_label`}
                     className='custom-control-input'
                     type='radio'
-                    name='umbrellaGroup'
+                    name={name}
                     onChange={handleCheck}
                     checked={checked}
                     value={value}
@@ -29,12 +29,13 @@ const UmbrellaRadio = props => {
 }
 
 
-UmbrellaRadio.propTypes = {
+SelectorRadio.propTypes = {
     checked: PropTypes.bool,
     disabled: PropTypes.bool,
     handleCheck: PropTypes.func,
     value: PropTypes.string,
     messageID: PropTypes.string,
+    name: PropTypes.string,
 }
 
-export default UmbrellaRadio
+export default SelectorRadio

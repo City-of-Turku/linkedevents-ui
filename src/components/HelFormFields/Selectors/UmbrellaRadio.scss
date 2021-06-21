@@ -1,0 +1,23 @@
+.custom-control-label {
+    margin-bottom: 1rem;
+    width: max-content;
+}
+.custom-control-radio {
+    display: grid;
+}
+.side-field-umbrella {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+//typeSelectors styling
+.type-row {
+    padding-right: 15px;
+    padding-left: 15px;
+    .custom-control-radio {
+        display: flex;
+    .custom-control {
+        margin-right: 25px;
+    }
+    }
+}

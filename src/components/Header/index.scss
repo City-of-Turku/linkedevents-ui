@@ -31,7 +31,7 @@ $iconMarginLeft: 24px;
 	.bar {
 		height: $helsinkiBarHeight;
 		width: 100%;
-		background: $hel-theme;
+		background: var(--primary-color);
 		padding: 12px 24px 12px 24px;
 		display: inline-flex;
 		justify-content: space-between;
@@ -81,7 +81,7 @@ $iconMarginLeft: 24px;
 	.linked-events-bar {
 		height: $helsinkiBarHeight;
 		width: 100%;
-		background: $hel-white;
+		background: white;
 		z-index: 1;
 		border-bottom: rgba($color: #404040, $alpha: 0.75) 2px solid !important;
 		.glyphicon {

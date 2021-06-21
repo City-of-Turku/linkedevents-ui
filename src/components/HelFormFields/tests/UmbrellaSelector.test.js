@@ -5,8 +5,8 @@ import {HelSelectStyles, HelSelectTheme} from '../../../themes/react-select'
 import {IntlProvider} from 'react-intl';
 import fiMessages from 'src/i18n/fi.json';
 import mapValues from 'lodash/mapValues';
-import {UnconnectedUmbrellaSelector} from '../UmbrellaSelector/UmbrellaSelector';
-import UmbrellaRadio from '../UmbrellaSelector/UmbrellaRadio';
+import {UnconnectedUmbrellaSelector} from '../Selectors/UmbrellaSelector';
+import SelectorRadio from '../Selectors/SelectorRadio';
 import {setData, clearValue} from '../../../actions/editor'
 import constants from '../../../constants'
 import {mockUserEvents} from '__mocks__/mockData';
@@ -53,7 +53,7 @@ describe('UmbrellaSelector', () => {
                 test('correct props', () => {
                     const wrapper = getWrapper()
                     const instance = wrapper.instance();
-                    const radioElements = wrapper.find(UmbrellaRadio)
+                    const radioElements = wrapper.find(SelectorRadio)
                     const elementIds = ['event-is-independent', 'event-is-umbrella', 'event-has-umbrella']
                     const elementValues = ['is_independent', 'is_umbrella', 'has_umbrella']
                     const {isUmbrellaEvent, hasUmbrellaEvent} = instance.state;

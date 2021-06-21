@@ -94,20 +94,7 @@ class HomePage extends React.Component {
 
             let organization_missing_msg = null;
             if (user && !user.organization) {
-                if (appSettings.ui_mode === 'courses') {
-                    organization_missing_msg =
-                    <div className='organization-missing-msg'>
-                        <h1>
-                            <FormattedMessage id='organization-missing-heading-courses'/>
-                            {user.displayName}!
-                        </h1>
-                        <p>
-                            <FormattedMessage id='organization-missing-message-courses'/>
-                        </p>
-                        <FormattedMessage id='organization-missing-message1'/>
-                    </div>
-                } else {
-                    organization_missing_msg =
+                organization_missing_msg =
                     <div className='organization-missing-msg'>
                         <h1>
                             <FormattedMessage id='organization-missing-heading'/>
@@ -123,7 +110,6 @@ class HomePage extends React.Component {
                         </p>
                         <FormattedMessage id='organization-missing-message1'/>
                     </div>
-                }
             }
 
             return (

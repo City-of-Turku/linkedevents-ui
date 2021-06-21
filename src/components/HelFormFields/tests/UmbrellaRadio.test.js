@@ -1,6 +1,6 @@
 import React from 'react';
 import {shallow} from 'enzyme';
-import UmbrellaRadio from '../UmbrellaSelector/UmbrellaRadio';
+import SelectorRadio from '../Selectors/SelectorRadio';
 import {IntlProvider, FormattedMessage} from 'react-intl';
 import fiMessages from 'src/i18n/fi.json';
 import mapValues from 'lodash/mapValues';
@@ -19,9 +19,9 @@ const defaultProps = {
 }
 
 
-describe('UmbrellaRadio', () => {
+describe('SelectorRadio', () => {
     function getWrapper(props) {
-        return shallow(<UmbrellaRadio {...defaultProps} {...props} />, {context: {intl}});
+        return shallow(<SelectorRadio {...defaultProps} {...props} />, {context: {intl}});
     }
 
     describe('render', () => {
@@ -36,7 +36,7 @@ describe('UmbrellaRadio', () => {
                 const inputElement = wrapper.find('input')
                 expect(inputElement.prop('className')).toBe('custom-control-input')
                 expect(inputElement.prop('type')).toBe('radio')
-                expect(inputElement.prop('name')).toBe('umbrellaGroup')
+                expect(inputElement.prop('name')).toBe(undefined)
                 expect(inputElement.prop('value')).toBe('')
                 expect(inputElement.prop('disabled')).toBe(undefined)
                 expect(inputElement.prop('onChange')).toBe(defaultProps.handleCheck)

@@ -22,7 +22,7 @@ import {merge} from 'lodash'
 import API from '../../api'
 import CONSTANTS from '../../constants'
 import OrganizationSelector from '../HelFormFields/OrganizationSelector';
-import UmbrellaSelector from '../HelFormFields/UmbrellaSelector/UmbrellaSelector'
+import UmbrellaSelector from '../HelFormFields/Selectors/UmbrellaSelector'
 import HelVideoFields from '../HelFormFields/HelVideoFields/HelVideoFields'
 import CustomDateTime from '../CustomFormFields/Dateinputs/CustomDateTime'
 import EventMap from '../Map/EventMap';
@@ -72,6 +72,7 @@ describe('FormField', () => {
                 start_time: '',
                 end_time: '',
                 super_event_type: [SUPER_EVENT_TYPE_RECURRING, SUPER_EVENT_TYPE_UMBRELLA],
+                type_id: 1,
             },
             validationErrors: {
                 sub_events: {},

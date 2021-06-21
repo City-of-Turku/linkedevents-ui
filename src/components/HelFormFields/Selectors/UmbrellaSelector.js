@@ -6,7 +6,7 @@ import client from '../../../api/client'
 import {setData, clearValue} from '../../../actions/editor'
 import {FormattedMessage, injectIntl} from 'react-intl'
 import {get, isNull, isUndefined} from 'lodash'
-import UmbrellaRadio from './UmbrellaRadio';
+import SelectorRadio from './SelectorRadio';
 import {Link} from 'react-router-dom'
 import {getFirstMultiLanguageFieldValue, scrollToTop} from '../../../utils/helpers'
 import constants from '../../../constants'
@@ -265,35 +265,38 @@ class UmbrellaSelector extends React.Component {
             <div className="row">
                 <div className="col-sm-6">
                     <div className='custom-control-radio'>
-                        <UmbrellaRadio
+                        <SelectorRadio
                             aria-label={this.context.intl.formatMessage({id: `event-is-independent`})}
                             value="is_independent"
                             checked={!isUmbrellaEvent && !hasUmbrellaEvent}
                             handleCheck={this.handleCheck}
                             messageID='event-is-independent'
                             disabled={this.getDisabledState('is_independent', editedEventIsSubEvent)}
+                            name='UmbrellaGroup'
                         >
 
-                        </UmbrellaRadio>
-                        <UmbrellaRadio
+                        </SelectorRadio>
+                        <SelectorRadio
                             aria-label={this.context.intl.formatMessage({id: `event-is-umbrella`})}
                             value="is_umbrella"
                             checked={isUmbrellaEvent}
                             disabled={this.getDisabledState('is_umbrella', editedEventIsSubEvent)}
                             handleCheck={this.handleCheck}
                             messageID='event-is-umbrella'
+                            name='UmbrellaGroup'
                         >
-                        </UmbrellaRadio>
+                        </SelectorRadio>
 
-                        <UmbrellaRadio
+                        <SelectorRadio
                             aria-label={this.context.intl.formatMessage({id: `event-has-umbrella`})}
                             value="has_umbrella"
                             checked={hasUmbrellaEvent}
                             disabled={this.getDisabledState('has_umbrella', editedEventIsSubEvent)}
                             handleCheck={this.handleCheck}
                             messageID='event-has-umbrella'
+                            name='UmbrellaGroup'
                         >
-                        </UmbrellaRadio>
+                        </SelectorRadio>
                     </div>
                     {hasUmbrellaEvent &&
                     <React.Fragment>

@@ -188,7 +188,9 @@ class HelTextField extends Component {
         const extlinks = ['extlink_facebook', 'extlink_twitter', 'extlink_instagram'];
         const icons = ['facebookIcon', 'twitterIcon', 'instaIcon'];
         const types = ['text', 'textarea', 'url', 'number'];
-        const typeIcons = ['pencil', 'pencil', 'link', 'euro'];
+        const typeIcons = ['pencil', 'pencil', 'link', 'numberIcon'];
+        const price = 'price'
+        const priceIcon = 'euro'
 
         let content = extlinks.reduce((acc, curr, index) => {
             if (name === curr) {
@@ -200,7 +202,11 @@ class HelTextField extends Component {
         if (content.length === 0) {
             content = types.reduce((acc, curr, index) => {
                 if (type === curr) {
-                    acc.push(<span aria-hidden key={Math.random()} className={`glyphicon glyphicon-${typeIcons[index]}`} />);
+                    if (name === price) {
+                        acc.push(<span aria-hidden key={Math.random()} className={`glyphicon glyphicon-${priceIcon}`} />);
+                    } else {
+                        acc.push(<span aria-hidden key={Math.random()} className={`glyphicon glyphicon-${typeIcons[index]}`} />);
+                    }
                 }
                 return acc;
             }, []);
