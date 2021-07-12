@@ -6,7 +6,6 @@ import PropTypes from 'prop-types'
 import EventGrid from '../../components/EventGrid'
 import SearchBar from '../../components/SearchBar'
 import {EventQueryParams, fetchEvents} from '../../utils/events'
-//Replaced Material-ui Spinner for a Bootstrap implementation. - Turku
 import Spinner from 'react-bootstrap/Spinner'
 import {Helmet} from 'react-helmet';
 
@@ -51,7 +50,6 @@ class SearchPage extends React.Component {
         // Defined React Helmet title with intl
         const pageTitle = `Linkedevents - ${intl.formatMessage({id: `search-${appSettings.ui_mode}`})}`
 
-        //Added P role=status for screenreaders and to display overall amount of found results
         return (
             <div className="container">
                 <Helmet title={pageTitle}/>

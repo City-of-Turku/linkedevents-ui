@@ -31,7 +31,23 @@ async function makeImageRequest(user = {}, pageSize, pageNumber = null) {
 
     return result;
 }
+async function makeFilteredImageRequest(user = {}, pageSize, pageNumber = null, filteredName = null) {
+    const params = {
+        page_size: pageSize,
+        page: pageNumber,
+        image_text: filteredName,
+        publisher: user.organization && user.userType === constants.USER_TYPE.ADMIN ? user.organization : null,
+        created_by: user.userType === constants.USER_TYPE.REGULAR ? 'me' : null || user.userType === constants.USER_TYPE.PUBLIC ? 'me' : null,
+    }
+    const result = await client.get('image', params);
 
+    // Append the page number to the JSON array so that it can be easily used in the pagination
+    if (pageNumber !== null) {
+        result.data.meta.currentPage = pageNumber;
+    }
+
+    return result;
+}
 async function makeImageRequestDefault(user = {}, pageSize, pageNumber = null, publisher) {
     const params = {
         page_size: pageSize,
@@ -50,19 +66,36 @@ async function makeImageRequestDefault(user = {}, pageSize, pageNumber = null, p
     return result;
 }
 
-export function fetchUserImages(pageSize = 100, pageNumber = null, mainPage = false) {
-    const startFetching = createAction(constants.REQUEST_IMAGES_AND_META);
+export function fetchUserImages(pageSize = 100, pageNumber = null, publicImages = false, filter = false, filterString = null) {
+    //const startFetching = createAction(constants.REQUEST_IMAGES_AND_META);
 
-    if (mainPage) {
+    if (publicImages) {
         return async (dispatch, getState) => {
             // const {user} = getState()
             let response;
             try {
-                dispatch(startFetching);
+                //dispatch(startFetching);
+                dispatch({type: constants.REQUEST_IMAGES_AND_META});
 
                 response = await makeImageRequestDefault({}, pageSize, pageNumber, urls.defaultImagesPublisherId);
 
                 dispatch(receiveDefaultImagesAndMeta(response));
+            } catch (error) {
+                dispatch(setFlashMsg(getIfExists(response, 'detail', 'Error fetching images'), 'error', response));
+                dispatch(receiveUserImagesFail(response));
+                new Error(error);
+            }
+        };
+    } if (filter) {
+        return async (dispatch, getState) => {
+            const {user} = getState()
+            let response;
+
+            try {
+                //dispatch(startFetching);
+                dispatch({type: constants.REQUEST_IMAGES_AND_META});
+                response = await makeFilteredImageRequest(user, pageSize, pageNumber, filterString);
+                dispatch(receiveUserImagesAndMeta(response));
             } catch (error) {
                 dispatch(setFlashMsg(getIfExists(response, 'detail', 'Error fetching images'), 'error', response));
                 dispatch(receiveUserImagesFail(response));
@@ -75,8 +108,8 @@ export function fetchUserImages(pageSize = 100, pageNumber = null, mainPage = fa
             let response;
 
             try {
-                dispatch(startFetching);
-
+                //dispatch(startFetching);
+                dispatch({type: constants.REQUEST_IMAGES_AND_META});
                 response = await makeImageRequest(user, pageSize, pageNumber);
 
                 dispatch(receiveUserImagesAndMeta(response));
