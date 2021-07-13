@@ -56,7 +56,7 @@ function update(state = initialState, action) {
             isFetching: true,
             fetchComplete: false,
             items: [],
-            meta: [],
+            meta: {},
         });
     }
 

@@ -142,6 +142,8 @@
     "organization-missing-message-contact2": "saadaksesi oikeudet muokata yksikkösi tapahtumia. ",
     "use-existing-image": "Kuvapankki on tyhjä. Lataa kuva tai valitse oletuskuvista.",
     "no-image": "Tapahtumalla ei ole kuvaa",
+    "search-images": "Hae kuvan nimellä, ALT-tekstillä tai kuvaajan nimellä.",
+    "search-images-text": "Hae",
 
     "event-datetime-form-header": "Valitse tapahtumien toistuvuus",
     "event-datetime-form-header2": "Määritä ajankohdat",
@@ -422,7 +424,8 @@
     "upload-image-from-url-button": "Lataa osoitteesta",
     "upload-image-select-bank": "Valitse kuvapankista",
     "upload-new-image": "Lataa kuva",
-    "select-from-default": "Tai valitse oletuskuvista",
+    "select-from-default": "Valitse oletuskuvista",
+    "default-modal-images": "Oletuskuvat",
     "image-modal-image-info": "Kuvan tiedot",
 
     "thumbnail-picture-edit": "Muokkaa tätä kuvaa",

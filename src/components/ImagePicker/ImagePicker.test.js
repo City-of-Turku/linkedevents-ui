@@ -20,6 +20,8 @@ const initialStore = {
     user: mockUser,
     editor: mockEditorExistingEvent,
     images: {
+        defaultModal: false,
+        defaultImages: [],
         isFetching: false,
         fetchComplete: false,
         items: mockImages,
@@ -52,6 +54,14 @@ const defaultProps = {
     formType: '',
     open: false,
     intl,
+    defaultModal: false,
+    images: {
+        defaultImages: [],
+        isFetching: false,
+        fetchComplete: false,
+        items: mockImages,
+        selected: {},
+    },
 };
 
 describe('ImagePicker', () => {
@@ -73,7 +83,7 @@ describe('ImagePicker', () => {
         }); */
         test('correct amount of FormattedMessages', () => {
             const element = getWrapper().find(FormattedMessage);
-            expect(element).toHaveLength(2);
+            expect(element).toHaveLength(1);
         })
     })
 })

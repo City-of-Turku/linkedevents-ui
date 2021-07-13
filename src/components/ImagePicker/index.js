@@ -4,7 +4,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 import {FormattedMessage, injectIntl} from 'react-intl';
-import {Button, Modal, ModalHeader, ModalBody} from 'reactstrap';
+import {Button, Modal, ModalHeader, ModalBody, Label, Input} from 'reactstrap';
 import {deleteImage} from 'src/actions/userImages.js';
 import {connect} from 'react-redux';
 import {isEmpty} from 'lodash';
@@ -46,7 +46,8 @@ export class ImagePicker extends Component {
 
     render() {
         const closebtn = this.getModalCloseButton();
-
+        const defaultImages = {items: this.props.images.defaultImages};
+        const {defaultModal, editor, user, intl, images, close} = this.props;
         return (
             <div className='image-pickers'>
 
@@ -60,20 +61,17 @@ export class ImagePicker extends Component {
                     aria-modal='true'>
 
                     <ModalHeader tag='h1' close={closebtn}>
-                        <FormattedMessage id='event-image-title' />
+                        {!defaultModal ? <FormattedMessage id='event-image-title' /> : <FormattedMessage id='default-modal-images'/>}
                     </ModalHeader>
                     <ModalBody>
-                        <ModalHeader tag='h3' className='image-picker--dialog-title'>
-                            <FormattedMessage id='use-existing-image' />
-                        </ModalHeader>
                         <ImageGalleryGrid
-                            editor={this.props.editor}
-                            user={this.props.user}
-                            images={this.props.images}
-                            locale={this.props.intl.locale}
-                            modal={true}
-                            action={this.handleDelete}
-                            close={this.props.close}
+                            editor={editor}
+                            user={defaultModal ? null : user}
+                            images={defaultModal ? defaultImages : images}
+                            locale={intl.locale}
+                            defaultModal={defaultModal}
+                            action={defaultModal ? null : this.handleDelete}
+                            close={close}
                         />
                     </ModalBody>
                 </Modal>
@@ -92,6 +90,7 @@ ImagePicker.propTypes = {
     locale: PropTypes.string,
     isOpen: PropTypes.bool,
     close: PropTypes.func,
+    defaultModal: PropTypes.bool,
 };
 
 ImagePicker.contextTypes = {

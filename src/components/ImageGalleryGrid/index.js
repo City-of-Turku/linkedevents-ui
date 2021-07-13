@@ -1,58 +1,39 @@
+import './index.scss';
+
 import React from 'react';
 import PropTypes from 'prop-types'
-
+import ImagePagination from './ImagePagination';
 import {get as getIfExists} from 'lodash'
 import {connect} from 'react-redux'
 import {fetchUserImages as fetchUserImagesAction} from 'src/actions/userImages'
 import ImageThumbnail from '../ImageThumbnail'
-
-const ImagePagination = (props) => {
-    // During the first modal load there is no data yet. Data is fetched in ComponentDidMount.
-    if (props.responseMetadata === undefined) {
-        return null;
-    }
-
-    const pageAmount = Math.ceil(parseInt(props.responseMetadata.count) / 100);
-    const currentPage = props.responseMetadata.currentPage;
-
-    let classes;
-    const pages = [];
-
-    for (let i = 1; i < pageAmount + 1; i++) {
-        classes = (props.responseMetadata.currentPage !== undefined && currentPage == i) ? 'page-item active' : 'page-item';
-
-        pages.push(<li className={classes} key={i}><a className='page-link' href='#' onClick={() => props.clickedPage(i)}>{i}</a></li>);
-    }
-
-    return <nav aria-label='Image pagination'>
-        <ul className='pagination'>
-            {pages}
-        </ul>
-    </nav>
-};
+import {Button, Input, Label, Form, InputGroup, InputGroupAddon} from 'reactstrap';
+import Spinner from 'react-bootstrap/Spinner';
+import {FormattedMessage, injectIntl, intlShape} from 'react-intl';
 
 class ImageGalleryGrid extends React.Component {
     constructor(props) {
         super(props)
+        this.state = {
+            searchString: '',
+        }
     }
 
     componentDidMount() {
         this.fetchImages();
     }
 
-    componentDidUpdate() {
-        const {fetchComplete, isFetching} = this.props.images;
-
-        if (fetchComplete || isFetching) {
-            return;
+    fetchImages = (user = this.props.user, pageSize = 100, pageNumber = null, publicImages = false, filter = false, filterString = null) => {
+        const {fetchUserImages, defaultModal} = this.props;
+        const {searchString} = this.state;
+        if (defaultModal) {
+            fetchUserImages(pageSize, pageNumber , true);
         }
-
-        // this.fetchImages();
-    }
-
-    fetchImages = (user = this.props.user, pageSize = 100, pageNumber = null) => {
-        if (user) {
-            this.props.fetchUserImages(pageSize, pageNumber);
+        if (user && searchString === '') {
+            fetchUserImages(pageSize, pageNumber);
+        }
+        if(user && searchString !== '') {
+            fetchUserImages(pageSize, pageNumber, false, true, searchString)
         }
     };
 
@@ -61,39 +42,26 @@ class ImageGalleryGrid extends React.Component {
         this.fetchImages(this.props.user, 100, pageNumber);
     };
 
-    handleDelete() {
-        this.props.action();
+    searchOnChange = (e) => {
+        this.setState({searchString: e})
     }
 
+    submitHandler = () => {
+        const {searchString} = this.state;
+        event.preventDefault();
+        if (searchString !== '') {
+            this.fetchImages();
+        } else if (searchString === '') {
+            this.fetchImages()
+        }
+    }
 
     render() {
         // save the id of the selected image of this event (or editor values)
         let selected_id = getIfExists(this.props.editor.values, 'image.id', null);
 
-        // show latest modified at top
-        let sorted = this.props.images.items.sort((a, b) => {
-            const date_a = new Date(a.last_modified_time);
-            const date_b = new Date(b.last_modified_time);
-            return date_b - date_a
-        });
-
-        let images = this.props.images.items.reduce((acc, cur, idx) => {
-            if (idx < 4) {
-                let selected = selected_id === cur.id;
-                acc.push(<ImageThumbnail
-                    locale={this.props.locale}
-                    selected={selected}
-                    key={cur.id}
-                    url={cur.url}
-                    data={cur}
-                    modal={this.props.modal}
-                />);
-            }
-            return acc;
-        }, []);
-
         // build the classes for the thumbnails
-        let imgs = this.props.images.items.map((img) => {
+        let images = this.props.images.items.map((img) => {
             let selected = selected_id == img.id
             return (
                 <ImageThumbnail
@@ -102,7 +70,7 @@ class ImageGalleryGrid extends React.Component {
                     key={img.id}
                     url={img.url}
                     data={img}
-                    modal={this.props.modal}
+                    defaultModal={this.props.defaultModal}
                     close={this.props.close}
                     user={this.props.user}
                 />
@@ -111,20 +79,59 @@ class ImageGalleryGrid extends React.Component {
 
         // ...and finally check if there is no image for this event to be able to set the class
         let selected = selected_id == null;
-
-        // unsift == prepend
-        imgs.unshift(<ImageThumbnail selected={selected} key={0} empty={true} url="" data={{}} modal={this.props.modal} close={this.props.close}/>)
+        const {isFetching, fetchComplete} = this.props.images
+        const {defaultModal, user, intl} = this.props
 
         return (
             <div className='image-grid container-fluid'>
-                <div className='row'>
-                    {this.props.modal ? imgs : images}
-                    <div className='clearfix' />
-                </div>
-                {this.props.modal && (
+                {!defaultModal && user &&
+                    <div>
+                        <div className='search-images'>
+                            <Form onSubmit={this.submitHandler}>
+                                <Label htmlFor='search-imgs'><FormattedMessage id='search-images'/></Label>
+                                <InputGroup>
+                                    <InputGroupAddon className='inputIcon' addonType="prepend">
+                                        <span aria-hidden className="glyphicon glyphicon-search"/>
+                                    </InputGroupAddon>
+                                    <Input
+                                        id='search-imgs'
+                                        placeholder={intl.formatMessage({id: 'search-images-text'})}
+                                        type='text'
+                                        onChange={(e) => this.searchOnChange(e.target.value)}
+                                        value={this.state.searchString}
+                                    />
+                                
+                                    <Button
+                                        color='primary'
+                                        variant='contained'
+                                        type='submit'>
+                                        <FormattedMessage id='search-images-text' />
+                                    </Button>
+                                </InputGroup>
+                            </Form>
+                        </div>
+                        <hr/>
+                        {isFetching && !fetchComplete
+                            ? <div/>
+                            : images.length > 0
+                                ? <p role='status'>Kuvia pankissa {images.length}</p>
+                                : <p role='status'>Kuvia pankissa {images.length}</p>
+                        }
+                        <hr/>
+                    </div>
+                }
+                {isFetching && !fetchComplete
+                    ? <div className="search-loading-spinner"><Spinner animation="border" role="status">
+                        <span className="sr-only">Loading...</span>
+                    </Spinner></div>
+                    : <div className='row'>
+                        {images.length > 0 ? images : <div/>}
+                        <div className='clearfix'/>
+                    </div>
+                }
+                {!defaultModal && (
                     <ImagePagination clickedPage={this.changeImagePage} responseMetadata={this.props.images.meta} />
                 )}
-
             </div>
         )
     }
@@ -136,22 +143,19 @@ ImageGalleryGrid.propTypes = {
     editor: PropTypes.object,
     fetchUserImages: PropTypes.func,
     locale: PropTypes.string,
-    modal: PropTypes.bool,
+    defaultModal: PropTypes.bool,
     action: PropTypes.func,
     close: PropTypes.func,
+    intl: intlShape,
 };
 
 const mapDispatchToProps = (dispatch) => ({
-    fetchUserImages: (user, amount, pageNumber) => dispatch(fetchUserImagesAction(user, amount, pageNumber)),
+    fetchUserImages: (user, amount, pageNumber, publicImages, filter, filterString) => dispatch(fetchUserImagesAction(user, amount, pageNumber, publicImages, filter, filterString)),
 });
 
 const mapStateToProps = (state, ownProps) => ({
 });
 
-ImagePagination.propTypes = {
-    responseMetadata: PropTypes.object,
-    clickedPage: PropTypes.func,
-};
-
+export {ImageGalleryGrid as UnconnectedImageGalleryGrid}
 // TODO: if leave null, react-intl not refresh. Replace this with better React context
-export default connect(mapStateToProps, mapDispatchToProps)(ImageGalleryGrid)
+export default connect(mapStateToProps, mapDispatchToProps)(injectIntl(ImageGalleryGrid))
